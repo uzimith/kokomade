@@ -2,10 +2,17 @@ React = require('react')
 jade = require('react-jade')
 _ = require('lodash')
 
-class Application extends React.Component
+module.exports =
+class Grid extends React.Component
   render: =>
+    cx = React.addons.classSet
+    classes = cx {
+      next: @props.grid.next
+    }
     jade.compile("""
-      ◯
+      .grid(class=classes onClick=onClick)
     """)(_.assign(@, @props, @state))
-
-module.exports = Application
+  onClick: =>
+    if @props.grid.next
+      player = @props.flux.getStore("board").state.player
+      socket.push('action', action: "movePiece", args: [@props.grid, player])

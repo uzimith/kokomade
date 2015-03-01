@@ -1,0 +1,71 @@
+$navbar-default-bg: #000
+$navbar-default-border: lighten($navbar-default-bg, 6.5%)
+$navbar-default-link-color: #fff
+// $gray-base: #fff
+@import ../bower_components/bootstrap-sass/assets/stylesheets/bootstrap
+
+$num: 9
+
+body
+  background: image-url("retina_wood.png")
+
+
+.table.back
+  background: #fff
+  opacity: 0.8
+
+.control
+  margin-right: 5px
+
+.player1
+  background: #f2dede
+.player2
+  background: #d9edf7
+.player
+  font-size: 130%
+  font-weight: bold
+.score
+  font-size: 130%
+  font-weight: bold
+.low .score
+  color: darken(#0FC6FF, 30%)
+.middle .score
+  color: darken(#E8DB0D, 30%)
+.high .score
+  color:  darken(#FF1B40, 30%)
+.result
+  padding: 10px
+  border-radius: 5px
+
+#board
+  $width: 65px
+  $height: 64px
+  border-right: 1px solid #000
+  border-bottom: 1px solid #000
+  width: $width * 9 + 1
+  height: $height * 9 + 1
+  position: relative
+  .piece
+    position: absolute
+    width: 56px
+    height: 56px
+    background: image-url("pieces.png")
+    margin: 5px auto
+    &.piece1
+      background-position: 56px 0
+    &.piece2
+      background-position: 0 0
+    @for $i from 0 through $num
+      &.row#{$i}
+        top: $height * $i
+      &.col#{$i}
+        left: $width * $i + 4px
+  .grids
+    .grid
+      width: 65px
+      height: 64px
+      float: left
+      border-left: 1px solid #000
+      border-top: 1px solid #000
+      &.next
+        background: rgba(0,0,0,0.5)

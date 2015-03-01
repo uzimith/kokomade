@@ -2,12 +2,13 @@ React = require('react')
 jade = require('react-jade')
 _ = require('lodash')
 
+FluxComponent = require('flummox/component')
+
 module.exports =
-class Wood extends React.Component
+class Route extends React.Component
   render: =>
-    cx = React.addons.classSet
-    classes = cx {
-    }
+    @isShow = @props["show"+@props.show]
     jade.compile("""
-      .wood(class=classes onClick=onClick)
+      if isShow
+        div= children
     """)(_.assign(@, @props, @state))

@@ -1,8 +1,8 @@
 {
-  "name": "kokomade",
+  "name": "react-reversi",
   "version": "0.0.1",
-  "description": "a board game with web",
-  "repository": "http://github.com/uzimith/kokomade",
+  "description": "reversi with web",
+  "repository": "http://github.com/uzimith/react-reversi",
   "main": "app.coffee",
   "scripts": {
     "start": "watchify -o bundle.js -v -d .",
@@ -34,11 +34,12 @@
   },
   "dependencies": {
     "babelify": "^5.0.3",
-    "bluebird": "^2.9.10",
+    "bluebird": "^2.9.12",
     "coffee-script": "^1.9.1",
     "flummox": "^2.6.2",
     "lodash": "^3.2.0",
-    "react": "^0.13.0-beta.2"
+    "react": "^0.13.0-beta.2",
+    "socket.io": "^1.3.4"
   },
   "devDependencies": {
     "browserify": "^8.1.0",
