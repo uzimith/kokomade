@@ -33,8 +33,8 @@ class BoardStore extends Store
       2: {player: 2, row: @num-1, col: 4}
     woods = []
     wood_count = {
-      1: 1
-      2: 0
+      1: 10
+      2: 10
       }
     unused_woods = _.flatten _.map wood_count, (count,player) ->
       _.map _.range(1, count), (i) ->

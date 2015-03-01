@@ -4,6 +4,8 @@ _ = require('lodash')
 
 module.exports =
 class WoodPoint extends React.Component
+  constructor: ->
+    @state = hover: false
   render: =>
     cx = React.addons.classSet
     classes = cx {
@@ -12,11 +14,13 @@ class WoodPoint extends React.Component
       "#{@props.point.status}": true
     }
     jade.compile("""
-      .wood_point(class=classes onClick=onClick onMouseMove=onMouseMove)
+      .wood_point(class=classes onClick=onClick onMouseOver=onMouseOver onMouseOut=onMouseOut)
+      .wood.hover(class=classes)
     """)(_.assign(@, @props, @state))
   onClick: =>
     player = @props.flux.getStore("board").state.player
     socket.push('action', action: "moveWood", args: [@props.point, player])
-  onMouseMove: =>
-    player = @props.flux.getStore("board").state.player
-    console.log("")
+  onMouseOver: =>
+    @setState hover: true
+  onMouseOut: =>
+    @setState hover: false

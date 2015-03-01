@@ -74,7 +74,11 @@ body
         left: $grid_width * $i + 6px
   .wood
     position: absolute
-    z-index: 3
+    z-index: 10
+    &.hover
+      display: none
+      background: #fff
+      z-index: 2
     &.vertical
       width: 5px
       height: $grid_height * 2 + 5px
@@ -89,9 +93,11 @@ body
       &.col#{$i}
         left: $grid_width * $i
   .wood_point
+    &:hover + .wood
+      display: block
     position: absolute
     background: rgba(255,255,255, 0.5)
-    z-index: 2
+    z-index: 5
     &.vertical
       width: 5px
       height: $grid_height - 5px

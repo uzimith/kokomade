@@ -1164,10 +1164,13 @@ module.exports = WoodPoint = (function(superClass) {
   extend(WoodPoint, superClass);
 
   function WoodPoint() {
-    this.onMouseMove = bind(this.onMouseMove, this);
+    this.onMouseOut = bind(this.onMouseOut, this);
+    this.onMouseOver = bind(this.onMouseOver, this);
     this.onClick = bind(this.onClick, this);
     this.render = bind(this.render, this);
-    return WoodPoint.__super__.constructor.apply(this, arguments);
+    this.state = {
+      hover: false
+    };
   }
 
   WoodPoint.prototype.render = function() {
@@ -1182,7 +1185,8 @@ module.exports = WoodPoint = (function(superClass) {
     ));
     return (function (React) {
   var jade_globals_onClick = typeof onClick === "undefined" ? undefined : onClick;
-  var jade_globals_onMouseMove = typeof onMouseMove === "undefined" ? undefined : onMouseMove;
+  var jade_globals_onMouseOver = typeof onMouseOver === "undefined" ? undefined : onMouseOver;
+  var jade_globals_onMouseOut = typeof onMouseOut === "undefined" ? undefined : onMouseOut;
   var jade_globals_classes = typeof classes === "undefined" ? undefined : classes;
   var fn = function(locals) {
     function jade_join_classes(val) {
@@ -1192,14 +1196,19 @@ module.exports = WoodPoint = (function(superClass) {
         return null != val && "" !== val;
       }).join(" ");
     }  var onClick = "onClick" in locals ? locals.onClick : jade_globals_onClick;
-    var onMouseMove = "onMouseMove" in locals ? locals.onMouseMove : jade_globals_onMouseMove;
+    var onMouseOver = "onMouseOver" in locals ? locals.onMouseOver : jade_globals_onMouseOver;
+    var onMouseOut = "onMouseOut" in locals ? locals.onMouseOut : jade_globals_onMouseOut;
     var classes = "classes" in locals ? locals.classes : jade_globals_classes;
     return function() {
       var tags = [];
       tags.push(React.createElement("div", {
         onClick: onClick,
-        onMouseMove: onMouseMove,
+        onMouseOver: onMouseOver,
+        onMouseOut: onMouseOut,
         className: jade_join_classes([ "wood_point", classes ])
+      }));
+      tags.push(React.createElement("div", {
+        className: jade_join_classes([ "wood", "hover", classes ])
       }));
       if (1 === tags.length) return tags.pop();
       tags.unshift("div", null);
@@ -1237,10 +1246,16 @@ module.exports = WoodPoint = (function(superClass) {
     });
   };
 
-  WoodPoint.prototype.onMouseMove = function() {
-    var player;
-    player = this.props.flux.getStore("board").state.player;
-    return console.log("");
+  WoodPoint.prototype.onMouseOver = function() {
+    return this.setState({
+      hover: true
+    });
+  };
+
+  WoodPoint.prototype.onMouseOut = function() {
+    return this.setState({
+      hover: false
+    });
   };
 
   return WoodPoint;
@@ -35921,8 +35936,8 @@ module.exports = BoardStore = (function(superClass) {
     };
     woods = [];
     wood_count = {
-      1: 1,
-      2: 0
+      1: 10,
+      2: 10
     };
     unused_woods = _.flatten(_.map(wood_count, function(count, player) {
       return _.map(_.range(1, count), function(i) {
