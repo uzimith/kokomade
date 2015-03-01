@@ -36020,18 +36020,18 @@ module.exports = BoardStore = (function(superClass) {
     _.remove(this.state.wood_points, function(point) {
       var j, k, ref, ref1, ref2, ref3, results, results1;
       if (wood.status === "horizontal") {
-        return wood.row === point.row && _.includes((function() {
+        return (wood.row === point.row && _.includes((function() {
           results = [];
           for (var j = ref = wood.col - 1, ref1 = wood.col + 2; ref <= ref1 ? j <= ref1 : j >= ref1; ref <= ref1 ? j++ : j--){ results.push(j); }
           return results;
-        }).apply(this), point.col) && point.status === "horizontal";
+        }).apply(this), point.col) && point.status === "horizontal") || (wood.col + 1 === point.col && _.includes([wood.row - 1, wood.row], point.row) && point.status === "vertical");
       }
       if (wood.status === "vertical") {
-        return _.includes((function() {
+        return (_.includes((function() {
           results1 = [];
           for (var k = ref2 = wood.row - 1, ref3 = wood.row + 2; ref2 <= ref3 ? k <= ref3 : k >= ref3; ref2 <= ref3 ? k++ : k--){ results1.push(k); }
           return results1;
-        }).apply(this), point.row) && wood.col === point.col && point.status === "vertical";
+        }).apply(this), point.row) && wood.col === point.col && point.status === "vertical") || (wood.row + 1 === point.row && _.includes([wood.col - 1, wood.col], point.col) && point.status === "horizontal");
       }
     });
     wood_count = this.state.wood_count;
