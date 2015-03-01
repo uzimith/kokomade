@@ -33,11 +33,11 @@ class BoardStore extends Store
       2: {player: 2, row: @num-1, col: 4}
     woods = []
     wood_count = {
-      1: 10
-      2: 10
+      1: 1
+      2: 0
       }
     unused_woods = _.flatten _.map wood_count, (count,player) ->
-      _.map [1..count], (i) ->
+      _.map _.range(1, count), (i) ->
         {id: i, status: "waiting", row: 0, col: 0, player: +player}
     wood_points = _.flatten _.flatten(
       _.map [0...@num], (row) =>
@@ -88,14 +88,14 @@ class BoardStore extends Store
       if wood.status is "horizontal"
         return  wood.row is point.row and _.includes([(wood.col-1)..(wood.col+2)], point.col) and point.status is "horizontal"
       if wood.status is "vertical"
-        return _.includes([(wood.row-1)..(wood.row+2)], point.row) and wood.row is point.row and point.status is "vertical"
+        return _.includes([(wood.row-1)..(wood.row+2)], point.row) and wood.col is point.col and point.status is "vertical"
 
 
     wood_count = @state.wood_count
     wood_count[wood.player]--
 
     unused_woods = _.flatten _.map wood_count, (count,player) ->
-      _.map [1..count], (i) ->
+      _.map _.range(1, count), (i) ->
         {id: i, status: "waiting", row: 0, col: 0, player: +player}
 
     # update

@@ -47,10 +47,10 @@ class Board extends React.Component
             .woods
               each wood, index in woods
                 Wood(wood=wood key=index)
-            if true
+            if wood_count[player] > 0
               .wood_points
                 each point, index in wood_points
-                  WoodPoint(point=point key=index  flux=flux)
+                  WoodPoint(point=point key=index flux=flux)
             .grids
               each rows, index in grids
                 .clearfix(key=index)

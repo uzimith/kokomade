@@ -294,6 +294,7 @@ module.exports = Board = (function(superClass) {
   var jade_globals_Piece = typeof Piece === "undefined" ? undefined : Piece;
   var jade_globals_woods = typeof woods === "undefined" ? undefined : woods;
   var jade_globals_Wood = typeof Wood === "undefined" ? undefined : Wood;
+  var jade_globals_wood_count = typeof wood_count === "undefined" ? undefined : wood_count;
   var jade_globals_wood_points = typeof wood_points === "undefined" ? undefined : wood_points;
   var jade_globals_WoodPoint = typeof WoodPoint === "undefined" ? undefined : WoodPoint;
   var jade_globals_flux = typeof flux === "undefined" ? undefined : flux;
@@ -320,6 +321,7 @@ module.exports = Board = (function(superClass) {
     var Piece = "Piece" in locals ? locals.Piece : jade_globals_Piece;
     var woods = "woods" in locals ? locals.woods : jade_globals_woods;
     var Wood = "Wood" in locals ? locals.Wood : jade_globals_Wood;
+    var wood_count = "wood_count" in locals ? locals.wood_count : jade_globals_wood_count;
     var wood_points = "wood_points" in locals ? locals.wood_points : jade_globals_wood_points;
     var WoodPoint = "WoodPoint" in locals ? locals.WoodPoint : jade_globals_WoodPoint;
     var flux = "flux" in locals ? locals.flux : jade_globals_flux;
@@ -349,121 +351,90 @@ module.exports = Board = (function(superClass) {
         className: jade_join_classes([ player_class[player] ])
       }, React.createElement("th", {}, "Current"), React.createElement("td", {}, player))))), React.createElement("div", {
         className: "col-md-8"
-      }, React.createElement("div", {
+      }, React.createElement.apply(React, [ "div", {
         id: "board"
-      }, React.createElement("div", {
-        className: "pieces"
-      }, function() {
+      } ].concat(function() {
         var tags = [];
-        var $$obj = pieces;
-        if ("number" == typeof $$obj.length) for (var index = 0, $$l = $$obj.length; $$l > index; index++) {
-          var piece = $$obj[index];
-          tags.push(React.createElement(Piece, {
-            piece: piece,
-            key: index
-          }));
-        } else {
-          var $$l = 0;
-          for (var index in $$obj) {
-            $$l++;
+        tags.push(React.createElement("div", {
+          className: "pieces"
+        }, function() {
+          var tags = [];
+          var $$obj = pieces;
+          if ("number" == typeof $$obj.length) for (var index = 0, $$l = $$obj.length; $$l > index; index++) {
             var piece = $$obj[index];
             tags.push(React.createElement(Piece, {
               piece: piece,
               key: index
             }));
+          } else {
+            var $$l = 0;
+            for (var index in $$obj) {
+              $$l++;
+              var piece = $$obj[index];
+              tags.push(React.createElement(Piece, {
+                piece: piece,
+                key: index
+              }));
+            }
           }
-        }
-        return tags;
-      }.call(this)), React.createElement("div", {
-        className: "woods"
-      }, function() {
-        var tags = [];
-        var $$obj = woods;
-        if ("number" == typeof $$obj.length) for (var index = 0, $$l = $$obj.length; $$l > index; index++) {
-          var wood = $$obj[index];
-          tags.push(React.createElement(Wood, {
-            wood: wood,
-            key: index
-          }));
-        } else {
-          var $$l = 0;
-          for (var index in $$obj) {
-            $$l++;
+          return tags;
+        }.call(this)));
+        tags.push(React.createElement("div", {
+          className: "woods"
+        }, function() {
+          var tags = [];
+          var $$obj = woods;
+          if ("number" == typeof $$obj.length) for (var index = 0, $$l = $$obj.length; $$l > index; index++) {
             var wood = $$obj[index];
             tags.push(React.createElement(Wood, {
               wood: wood,
               key: index
             }));
+          } else {
+            var $$l = 0;
+            for (var index in $$obj) {
+              $$l++;
+              var wood = $$obj[index];
+              tags.push(React.createElement(Wood, {
+                wood: wood,
+                key: index
+              }));
+            }
           }
-        }
-        return tags;
-      }.call(this)), React.createElement("div", {
-        className: "wood_points"
-      }, function() {
-        var tags = [];
-        var $$obj = wood_points;
-        if ("number" == typeof $$obj.length) for (var index = 0, $$l = $$obj.length; $$l > index; index++) {
-          var point = $$obj[index];
-          tags.push(React.createElement(WoodPoint, {
-            point: point,
-            key: index,
-            flux: flux
-          }));
-        } else {
-          var $$l = 0;
-          for (var index in $$obj) {
-            $$l++;
+          return tags;
+        }.call(this)));
+        wood_count[player] > 0 && tags.push(React.createElement("div", {
+          className: "wood_points"
+        }, function() {
+          var tags = [];
+          var $$obj = wood_points;
+          if ("number" == typeof $$obj.length) for (var index = 0, $$l = $$obj.length; $$l > index; index++) {
             var point = $$obj[index];
             tags.push(React.createElement(WoodPoint, {
               point: point,
               key: index,
               flux: flux
             }));
-          }
-        }
-        return tags;
-      }.call(this)), React.createElement("div", {
-        className: "grids"
-      }, function() {
-        var tags = [];
-        var $$obj = grids;
-        if ("number" == typeof $$obj.length) for (var index = 0, $$l = $$obj.length; $$l > index; index++) {
-          var rows = $$obj[index];
-          tags.push(React.createElement("div", {
-            key: index,
-            className: "clearfix"
-          }, function() {
-            var tags = [];
-            var $$obj = rows;
-            if ("number" == typeof $$obj.length) for (var index = 0, $$l = $$obj.length; $$l > index; index++) {
-              var col = $$obj[index];
-              tags.push(React.createElement("div", {
+          } else {
+            var $$l = 0;
+            for (var index in $$obj) {
+              $$l++;
+              var point = $$obj[index];
+              tags.push(React.createElement(WoodPoint, {
+                point: point,
                 key: index,
-                className: "col"
-              }, React.createElement(Grid, {
-                grid: col,
                 flux: flux
-              })));
-            } else {
-              var $$l = 0;
-              for (var index in $$obj) {
-                $$l++;
-                var col = $$obj[index];
-                tags.push(React.createElement("div", {
-                  key: index,
-                  className: "col"
-                }, React.createElement(Grid, {
-                  grid: col,
-                  flux: flux
-                })));
-              }
+              }));
             }
-            return tags;
-          }.call(this)));
-        } else {
-          var $$l = 0;
-          for (var index in $$obj) {
-            $$l++;
+          }
+          return tags;
+        }.call(this)));
+        tags.push(React.createElement("div", {
+          className: "grids"
+        }, function() {
+          var tags = [];
+          var $$obj = grids;
+          if ("number" == typeof $$obj.length) for (var index = 0, $$l = $$obj.length; $$l > index; index++) {
             var rows = $$obj[index];
             tags.push(React.createElement("div", {
               key: index,
@@ -496,8 +467,46 @@ module.exports = Board = (function(superClass) {
               }
               return tags;
             }.call(this)));
+          } else {
+            var $$l = 0;
+            for (var index in $$obj) {
+              $$l++;
+              var rows = $$obj[index];
+              tags.push(React.createElement("div", {
+                key: index,
+                className: "clearfix"
+              }, function() {
+                var tags = [];
+                var $$obj = rows;
+                if ("number" == typeof $$obj.length) for (var index = 0, $$l = $$obj.length; $$l > index; index++) {
+                  var col = $$obj[index];
+                  tags.push(React.createElement("div", {
+                    key: index,
+                    className: "col"
+                  }, React.createElement(Grid, {
+                    grid: col,
+                    flux: flux
+                  })));
+                } else {
+                  var $$l = 0;
+                  for (var index in $$obj) {
+                    $$l++;
+                    var col = $$obj[index];
+                    tags.push(React.createElement("div", {
+                      key: index,
+                      className: "col"
+                    }, React.createElement(Grid, {
+                      grid: col,
+                      flux: flux
+                    })));
+                  }
+                }
+                return tags;
+              }.call(this)));
+            }
           }
-        }
+          return tags;
+        }.call(this)));
         return tags;
       }.call(this))), React.createElement("div", {
         id: "case"
@@ -35912,16 +35921,11 @@ module.exports = BoardStore = (function(superClass) {
     };
     woods = [];
     wood_count = {
-      1: 10,
-      2: 10
+      1: 1,
+      2: 0
     };
     unused_woods = _.flatten(_.map(wood_count, function(count, player) {
-      var j, results;
-      return _.map((function() {
-        results = [];
-        for (var j = 1; 1 <= count ? j <= count : j >= count; 1 <= count ? j++ : j--){ results.push(j); }
-        return results;
-      }).apply(this), function(i) {
+      return _.map(_.range(1, count), function(i) {
         return {
           id: i,
           status: "waiting",
@@ -36012,18 +36016,13 @@ module.exports = BoardStore = (function(superClass) {
           results1 = [];
           for (var k = ref2 = wood.row - 1, ref3 = wood.row + 2; ref2 <= ref3 ? k <= ref3 : k >= ref3; ref2 <= ref3 ? k++ : k--){ results1.push(k); }
           return results1;
-        }).apply(this), point.row) && wood.row === point.row && point.status === "vertical";
+        }).apply(this), point.row) && wood.col === point.col && point.status === "vertical";
       }
     });
     wood_count = this.state.wood_count;
     wood_count[wood.player]--;
     unused_woods = _.flatten(_.map(wood_count, function(count, player) {
-      var j, results;
-      return _.map((function() {
-        results = [];
-        for (var j = 1; 1 <= count ? j <= count : j >= count; 1 <= count ? j++ : j--){ results.push(j); }
-        return results;
-      }).apply(this), function(i) {
+      return _.map(_.range(1, count), function(i) {
         return {
           id: i,
           status: "waiting",
