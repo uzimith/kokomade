@@ -7,15 +7,20 @@ class BoardStore extends Store
   constructor: (flux) ->
     super
     gameActions = flux.getActionIds('game')
-    @register(gameActions.movePiece, @handleMovePiece)
+    @register(gameActions.movePiece, @handlePiece)
+    @register(gameActions.moveWood, @handleWood)
     @register(gameActions.startGame, @handleNewGame)
     @register(gameActions.endGame, @handleEndGame)
     @register(gameActions.giveupGame, @handleGiveup)
     @num = 9
+    @player = 2
     grids = @createGrids()
     @state =
       pieces: {}
       woods: []
+      wood_points: []
+      wood_count: {}
+      unused_woods: {}
       grids: grids
       player: 0
       winner: 0
@@ -26,12 +31,19 @@ class BoardStore extends Store
     pieces =
       1: {player: 1, row:      0, col: 4}
       2: {player: 2, row: @num-1, col: 4}
-    woods = [
-      {status: "vertical"   , row: 0 , col: 0 , player: 1}
-      {status: "horizontal" , row: 1 , col: 3 , player: 1}
-      {status: "horizontal" , row: 8 , col: 3 , player: 1}
-      {status: "vertical"   , row: 0 , col: 1 , player: 1}
-    ]
+    woods = []
+    wood_count = {
+      1: 10
+      2: 10
+      }
+    unused_woods = _.flatten _.map wood_count, (count,player) ->
+      _.map [1..count], (i) ->
+        {id: i, status: "waiting", row: 0, col: 0, player: +player}
+    wood_points = _.flatten _.flatten(
+      _.map [0...@num], (row) =>
+        _.map [0...@num], (col) =>
+          [ {row: row, col: col, status: "horizontal"}, {row: row, col: col, status: "vertical"} ]
+    )
     grids = @createGrids()
     grids = @searchNextPutableGrid(grids, pieces, woods, player)
 
@@ -39,15 +51,18 @@ class BoardStore extends Store
       grids: grids
       pieces: pieces
       woods: woods
+      wood_count: wood_count
+      wood_points: wood_points
+      unused_woods: unused_woods
       player: player
       winner: 0
       play: true
       end: false
 
-  handleMovePiece: (data) ->
+  handlePiece: (piece) ->
     # move piece
     pieces = @state.pieces
-    pieces[data.player] = data.piece
+    pieces[piece.player] = piece
 
     # update
     end = pieces[1].row is @num - 1 or pieces[2].row is 0
@@ -62,6 +77,39 @@ class BoardStore extends Store
       pieces: pieces
       player: next_player
       end: end
+
+  handleWood: (wood) ->
+    # move wood
+    woods = @state.woods
+    woods.push(wood)
+
+    wood_points = @state.wood_points
+    _.remove @state.wood_points, (point) ->
+      if wood.status is "horizontal"
+        return  wood.row is point.row and _.includes([(wood.col-1)..(wood.col+2)], point.col) and point.status is "horizontal"
+      if wood.status is "vertical"
+        return _.includes([(wood.row-1)..(wood.row+2)], point.row) and wood.row is point.row and point.status is "vertical"
+
+
+    wood_count = @state.wood_count
+    wood_count[wood.player]--
+
+    unused_woods = _.flatten _.map wood_count, (count,player) ->
+      _.map [1..count], (i) ->
+        {id: i, status: "waiting", row: 0, col: 0, player: +player}
+
+    # update
+    grids = @createGrids()
+    next_player = @fetchNextPlayer(@state.player)
+    grids = @searchNextPutableGrid(grids, @state.pieces, woods, next_player)
+    @setState
+      grids: grids
+      player: next_player
+      woods: woods
+      wood_count: wood_count
+      wood_points: wood_points
+      unused_woods: unused_woods
+
 
   handleEndGame: ->
     grids = @createGrids()

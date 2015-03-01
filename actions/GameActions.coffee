@@ -14,4 +14,12 @@ class GameActions extends Actions
       row: grid.row
       player: player
     }
-    piece: piece, player: player
+    piece
+  moveWood: (point, player) ->
+    wood = {
+      col: point.col
+      row: point.row
+      status: point.status
+      player: player
+    }
+    wood

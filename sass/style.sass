@@ -5,6 +5,8 @@ $navbar-default-link-color: #fff
 @import ../bower_components/bootstrap-sass/assets/stylesheets/bootstrap
 
 $grid: 9
+$grid_width: 65px
+$grid_height: 64px
 
 body
   background: image-url("retina_wood.png")
@@ -38,19 +40,17 @@ body
   border-radius: 5px
 
 #board
-  $width: 65px
-  $height: 64px
   $border: #333
   $background: #444
   border-right: 5px solid $border
   border-bottom: 5px solid $border
-  width: $width * 9 + 5
-  height: $height * 9 + 5
+  width: $grid_width * 9 + 5
+  height: $grid_height * 9 + 5
   position: relative
   .grids
     .grid
-      width: 65px
-      height: 64px
+      width: $grid_width
+      height: $grid_height
       float: left
       border-left: 5px solid $border
       border-top: 5px solid $border
@@ -69,21 +69,59 @@ body
       background-position: 0 0
     @for $i from 0 through $grid
       &.row#{$i}
-        top: $height * $i
+        top: $grid_height * $i
       &.col#{$i}
-        left: $width * $i + 6px
+        left: $grid_width * $i + 6px
   .wood
     position: absolute
+    z-index: 3
     &.vertical
       width: 5px
-      height: $height * 2 + 5px
+      height: $grid_height * 2 + 5px
       border-radius: 5px
     &.horizontal
-      width: $width * 2 + 5px
+      width: $grid_width * 2 + 5px
       height: 5px
       border-radius: 5px
     @for $i from 0 through $grid+1
       &.row#{$i}
-        top: $height * $i
+        top: $grid_height * $i
       &.col#{$i}
-        left: $width * $i
+        left: $grid_width * $i
+  .wood_point
+    position: absolute
+    background: rgba(255,255,255, 0.5)
+    z-index: 2
+    &.vertical
+      width: 5px
+      height: $grid_height - 5px
+      border-radius: 5px
+      margin-top: 5px
+    &.horizontal
+      width: $grid_width - 5px
+      height: 5px
+      border-radius: 5px
+      margin-left: 5px
+    @for $i from 0 through $grid+1
+      &.row#{$i}
+        top: $grid_height * $i
+      &.col#{$i}
+        left: $grid_width * $i
+#case
+  margin-top: 10px
+  position: relative
+  background: rgba(0,0,0,0.8)
+  width: $grid_width * 9 + 5
+  height: $grid_height * 2 * 4 + 20px
+  border-radius: 5px
+  .wood
+    position: absolute
+    width: 8px
+    height: $grid_height * 2 + 5px
+    border-radius: 5px
+    @for $player from 1 through 4
+      &.player#{$player}
+        top: 10px + ($grid_height * 2 + 15px) * ($player - 1)
+    @for $i from 0 through 10
+      &.wood#{$i}
+        left: 50px * $i

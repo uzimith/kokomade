@@ -62,10 +62,18 @@ module.exports = GameActions = (function(superClass) {
       row: grid.row,
       player: player
     };
-    return {
-      piece: piece,
+    return piece;
+  };
+
+  GameActions.prototype.moveWood = function(point, player) {
+    var wood;
+    wood = {
+      col: point.col,
+      row: point.row,
+      status: point.status,
       player: player
     };
+    return wood;
   };
 
   return GameActions;
@@ -217,7 +225,7 @@ module.exports = Application = (function(superClass) {
 
 
 },{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","./Board.coffee":"/Users/uzimith/dev/kokomade/components/Board.coffee","./ResultModal.coffee":"/Users/uzimith/dev/kokomade/components/ResultModal.coffee","./Room.coffee":"/Users/uzimith/dev/kokomade/components/Room.coffee","./Route.coffee":"/Users/uzimith/dev/kokomade/components/Route.coffee","flummox/component":"/Users/uzimith/dev/kokomade/node_modules/flummox/component.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/Board.coffee":[function(require,module,exports){
-var Board, FluxComponent, Grid, Piece, React, Wood, _, jade,
+var Board, FluxComponent, Grid, Piece, React, Wood, WoodPoint, _, jade,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -235,6 +243,8 @@ Grid = require('./Grid.coffee');
 Piece = require('./Piece.coffee');
 
 Wood = require('./Wood.coffee');
+
+WoodPoint = require('./WoodPoint.coffee');
 
 module.exports = Board = (function(superClass) {
   extend(Board, superClass);
@@ -284,9 +294,12 @@ module.exports = Board = (function(superClass) {
   var jade_globals_Piece = typeof Piece === "undefined" ? undefined : Piece;
   var jade_globals_woods = typeof woods === "undefined" ? undefined : woods;
   var jade_globals_Wood = typeof Wood === "undefined" ? undefined : Wood;
+  var jade_globals_wood_points = typeof wood_points === "undefined" ? undefined : wood_points;
+  var jade_globals_WoodPoint = typeof WoodPoint === "undefined" ? undefined : WoodPoint;
+  var jade_globals_flux = typeof flux === "undefined" ? undefined : flux;
   var jade_globals_grids = typeof grids === "undefined" ? undefined : grids;
   var jade_globals_Grid = typeof Grid === "undefined" ? undefined : Grid;
-  var jade_globals_flux = typeof flux === "undefined" ? undefined : flux;
+  var jade_globals_unused_woods = typeof unused_woods === "undefined" ? undefined : unused_woods;
   var fn = function(locals) {
     function jade_join_classes(val) {
       return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
@@ -307,9 +320,12 @@ module.exports = Board = (function(superClass) {
     var Piece = "Piece" in locals ? locals.Piece : jade_globals_Piece;
     var woods = "woods" in locals ? locals.woods : jade_globals_woods;
     var Wood = "Wood" in locals ? locals.Wood : jade_globals_Wood;
+    var wood_points = "wood_points" in locals ? locals.wood_points : jade_globals_wood_points;
+    var WoodPoint = "WoodPoint" in locals ? locals.WoodPoint : jade_globals_WoodPoint;
+    var flux = "flux" in locals ? locals.flux : jade_globals_flux;
     var grids = "grids" in locals ? locals.grids : jade_globals_grids;
     var Grid = "Grid" in locals ? locals.Grid : jade_globals_Grid;
-    var flux = "flux" in locals ? locals.flux : jade_globals_flux;
+    var unused_woods = "unused_woods" in locals ? locals.unused_woods : jade_globals_unused_woods;
     return function() {
       var tags = [];
       tags.push(React.createElement("div", {
@@ -377,6 +393,31 @@ module.exports = Board = (function(superClass) {
             tags.push(React.createElement(Wood, {
               wood: wood,
               key: index
+            }));
+          }
+        }
+        return tags;
+      }.call(this)), React.createElement("div", {
+        className: "wood_points"
+      }, function() {
+        var tags = [];
+        var $$obj = wood_points;
+        if ("number" == typeof $$obj.length) for (var index = 0, $$l = $$obj.length; $$l > index; index++) {
+          var point = $$obj[index];
+          tags.push(React.createElement(WoodPoint, {
+            point: point,
+            key: index,
+            flux: flux
+          }));
+        } else {
+          var $$l = 0;
+          for (var index in $$obj) {
+            $$l++;
+            var point = $$obj[index];
+            tags.push(React.createElement(WoodPoint, {
+              point: point,
+              key: index,
+              flux: flux
             }));
           }
         }
@@ -458,6 +499,31 @@ module.exports = Board = (function(superClass) {
           }
         }
         return tags;
+      }.call(this))), React.createElement("div", {
+        id: "case"
+      }, React.createElement("div", {
+        className: "woods"
+      }, function() {
+        var tags = [];
+        var $$obj = unused_woods;
+        if ("number" == typeof $$obj.length) for (var index = 0, $$l = $$obj.length; $$l > index; index++) {
+          var wood = $$obj[index];
+          tags.push(React.createElement(Wood, {
+            wood: wood,
+            key: index
+          }));
+        } else {
+          var $$l = 0;
+          for (var index in $$obj) {
+            $$l++;
+            var wood = $$obj[index];
+            tags.push(React.createElement(Wood, {
+              wood: wood,
+              key: index
+            }));
+          }
+        }
+        return tags;
       }.call(this))))));
       if (1 === tags.length) return tags.pop();
       tags.unshift("div", null);
@@ -515,7 +581,7 @@ module.exports = Board = (function(superClass) {
 
 
 
-},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","./Grid.coffee":"/Users/uzimith/dev/kokomade/components/Grid.coffee","./Piece.coffee":"/Users/uzimith/dev/kokomade/components/Piece.coffee","./Wood.coffee":"/Users/uzimith/dev/kokomade/components/Wood.coffee","flummox/component":"/Users/uzimith/dev/kokomade/node_modules/flummox/component.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/Grid.coffee":[function(require,module,exports){
+},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","./Grid.coffee":"/Users/uzimith/dev/kokomade/components/Grid.coffee","./Piece.coffee":"/Users/uzimith/dev/kokomade/components/Piece.coffee","./Wood.coffee":"/Users/uzimith/dev/kokomade/components/Wood.coffee","./WoodPoint.coffee":"/Users/uzimith/dev/kokomade/components/WoodPoint.coffee","flummox/component":"/Users/uzimith/dev/kokomade/node_modules/flummox/component.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/Grid.coffee":[function(require,module,exports){
 var Grid, React, _, jade,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -1011,14 +1077,15 @@ module.exports = Wood = (function(superClass) {
   }
 
   Wood.prototype.render = function() {
-    var classes, cx, obj, ref;
+    var classes, cx, obj;
     cx = React.addons.classSet;
     classes = cx((
       obj = {},
       obj["player" + this.props.wood.player] = true,
       obj["col" + this.props.wood.col] = true,
       obj["row" + this.props.wood.row] = true,
-      obj[ref = "" + this.props.wood.status] = ref,
+      obj["wood" + this.props.wood.id] = _.isEmpty(this.props.wood.id),
+      obj["" + this.props.wood.status] = true,
       obj
     ));
     return (function (React) {
@@ -1067,6 +1134,107 @@ module.exports = Wood = (function(superClass) {
   };
 
   return Wood;
+
+})(React.Component);
+
+
+
+},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/WoodPoint.coffee":[function(require,module,exports){
+var React, WoodPoint, _, jade,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+React = require('react');
+
+
+
+_ = require('lodash');
+
+module.exports = WoodPoint = (function(superClass) {
+  extend(WoodPoint, superClass);
+
+  function WoodPoint() {
+    this.onMouseMove = bind(this.onMouseMove, this);
+    this.onClick = bind(this.onClick, this);
+    this.render = bind(this.render, this);
+    return WoodPoint.__super__.constructor.apply(this, arguments);
+  }
+
+  WoodPoint.prototype.render = function() {
+    var classes, cx, obj;
+    cx = React.addons.classSet;
+    classes = cx((
+      obj = {},
+      obj["col" + this.props.point.col] = true,
+      obj["row" + this.props.point.row] = true,
+      obj["" + this.props.point.status] = true,
+      obj
+    ));
+    return (function (React) {
+  var jade_globals_onClick = typeof onClick === "undefined" ? undefined : onClick;
+  var jade_globals_onMouseMove = typeof onMouseMove === "undefined" ? undefined : onMouseMove;
+  var jade_globals_classes = typeof classes === "undefined" ? undefined : classes;
+  var fn = function(locals) {
+    function jade_join_classes(val) {
+      return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
+        return val[key];
+      }) : [ val ]).filter(function(val) {
+        return null != val && "" !== val;
+      }).join(" ");
+    }  var onClick = "onClick" in locals ? locals.onClick : jade_globals_onClick;
+    var onMouseMove = "onMouseMove" in locals ? locals.onMouseMove : jade_globals_onMouseMove;
+    var classes = "classes" in locals ? locals.classes : jade_globals_classes;
+    return function() {
+      var tags = [];
+      tags.push(React.createElement("div", {
+        onClick: onClick,
+        onMouseMove: onMouseMove,
+        className: jade_join_classes([ "wood_point", classes ])
+      }));
+      if (1 === tags.length) return tags.pop();
+      tags.unshift("div", null);
+      return React.createElement.apply(React, tags);
+    }.call(this);
+  };;
+  fn.locals = function setLocals(locals) {
+    var render = this;
+    function newRender(additionalLocals) {
+      var newLocals = {};
+      for (var key in locals) {
+        newLocals[key] = locals[key];
+      }
+      if (additionalLocals) {
+        for (var key in additionalLocals) {
+          newLocals[key] = additionalLocals[key];
+        }
+      }
+      return render.call(this, newLocals);
+    }
+    newRender.locals = setLocals;
+    return newRender;
+  }
+  ;
+  return fn;
+}(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state));
+  };
+
+  WoodPoint.prototype.onClick = function() {
+    var player;
+    player = this.props.flux.getStore("board").state.player;
+    return socket.push('action', {
+      action: "moveWood",
+      args: [this.props.point, player]
+    });
+  };
+
+  WoodPoint.prototype.onMouseMove = function() {
+    var player;
+    player = this.props.flux.getStore("board").state.player;
+    return console.log("");
+  };
+
+  return WoodPoint;
 
 })(React.Component);
 
@@ -35706,15 +35874,20 @@ module.exports = BoardStore = (function(superClass) {
     var gameActions, grids;
     BoardStore.__super__.constructor.apply(this, arguments);
     gameActions = flux.getActionIds('game');
-    this.register(gameActions.movePiece, this.handleMovePiece);
+    this.register(gameActions.movePiece, this.handlePiece);
+    this.register(gameActions.moveWood, this.handleWood);
     this.register(gameActions.startGame, this.handleNewGame);
     this.register(gameActions.endGame, this.handleEndGame);
     this.register(gameActions.giveupGame, this.handleGiveup);
     this.num = 9;
+    this.player = 2;
     grids = this.createGrids();
     this.state = {
       pieces: {},
       woods: [],
+      wood_points: [],
+      wood_count: {},
+      unused_woods: {},
       grids: grids,
       player: 0,
       winner: 0,
@@ -35724,7 +35897,7 @@ module.exports = BoardStore = (function(superClass) {
   }
 
   BoardStore.prototype.handleNewGame = function(player) {
-    var grids, pieces, woods;
+    var grids, j, pieces, ref, results, unused_woods, wood_count, wood_points, woods;
     pieces = {
       1: {
         player: 1,
@@ -35737,35 +35910,62 @@ module.exports = BoardStore = (function(superClass) {
         col: 4
       }
     };
-    woods = [
-      {
-        status: "vertical",
-        row: 0,
-        col: 0,
-        player: 1
-      }, {
-        status: "horizontal",
-        row: 1,
-        col: 3,
-        player: 1
-      }, {
-        status: "horizontal",
-        row: 8,
-        col: 3,
-        player: 1
-      }, {
-        status: "vertical",
-        row: 0,
-        col: 1,
-        player: 1
-      }
-    ];
+    woods = [];
+    wood_count = {
+      1: 10,
+      2: 10
+    };
+    unused_woods = _.flatten(_.map(wood_count, function(count, player) {
+      var j, results;
+      return _.map((function() {
+        results = [];
+        for (var j = 1; 1 <= count ? j <= count : j >= count; 1 <= count ? j++ : j--){ results.push(j); }
+        return results;
+      }).apply(this), function(i) {
+        return {
+          id: i,
+          status: "waiting",
+          row: 0,
+          col: 0,
+          player: +player
+        };
+      });
+    }));
+    wood_points = _.flatten(_.flatten(_.map((function() {
+      results = [];
+      for (var j = 0, ref = this.num; 0 <= ref ? j < ref : j > ref; 0 <= ref ? j++ : j--){ results.push(j); }
+      return results;
+    }).apply(this), (function(_this) {
+      return function(row) {
+        var k, ref1, results1;
+        return _.map((function() {
+          results1 = [];
+          for (var k = 0, ref1 = _this.num; 0 <= ref1 ? k < ref1 : k > ref1; 0 <= ref1 ? k++ : k--){ results1.push(k); }
+          return results1;
+        }).apply(this), function(col) {
+          return [
+            {
+              row: row,
+              col: col,
+              status: "horizontal"
+            }, {
+              row: row,
+              col: col,
+              status: "vertical"
+            }
+          ];
+        });
+      };
+    })(this))));
     grids = this.createGrids();
     grids = this.searchNextPutableGrid(grids, pieces, woods, player);
     return this.setState({
       grids: grids,
       pieces: pieces,
       woods: woods,
+      wood_count: wood_count,
+      wood_points: wood_points,
+      unused_woods: unused_woods,
       player: player,
       winner: 0,
       play: true,
@@ -35773,10 +35973,10 @@ module.exports = BoardStore = (function(superClass) {
     });
   };
 
-  BoardStore.prototype.handleMovePiece = function(data) {
+  BoardStore.prototype.handlePiece = function(piece) {
     var end, grids, next_player, pieces;
     pieces = this.state.pieces;
-    pieces[data.player] = data.piece;
+    pieces[piece.player] = piece;
     end = pieces[1].row === this.num - 1 || pieces[2].row === 0;
     grids = this.createGrids();
     if (!end) {
@@ -35790,6 +35990,59 @@ module.exports = BoardStore = (function(superClass) {
       pieces: pieces,
       player: next_player,
       end: end
+    });
+  };
+
+  BoardStore.prototype.handleWood = function(wood) {
+    var grids, next_player, unused_woods, wood_count, wood_points, woods;
+    woods = this.state.woods;
+    woods.push(wood);
+    wood_points = this.state.wood_points;
+    _.remove(this.state.wood_points, function(point) {
+      var j, k, ref, ref1, ref2, ref3, results, results1;
+      if (wood.status === "horizontal") {
+        return wood.row === point.row && _.includes((function() {
+          results = [];
+          for (var j = ref = wood.col - 1, ref1 = wood.col + 2; ref <= ref1 ? j <= ref1 : j >= ref1; ref <= ref1 ? j++ : j--){ results.push(j); }
+          return results;
+        }).apply(this), point.col) && point.status === "horizontal";
+      }
+      if (wood.status === "vertical") {
+        return _.includes((function() {
+          results1 = [];
+          for (var k = ref2 = wood.row - 1, ref3 = wood.row + 2; ref2 <= ref3 ? k <= ref3 : k >= ref3; ref2 <= ref3 ? k++ : k--){ results1.push(k); }
+          return results1;
+        }).apply(this), point.row) && wood.row === point.row && point.status === "vertical";
+      }
+    });
+    wood_count = this.state.wood_count;
+    wood_count[wood.player]--;
+    unused_woods = _.flatten(_.map(wood_count, function(count, player) {
+      var j, results;
+      return _.map((function() {
+        results = [];
+        for (var j = 1; 1 <= count ? j <= count : j >= count; 1 <= count ? j++ : j--){ results.push(j); }
+        return results;
+      }).apply(this), function(i) {
+        return {
+          id: i,
+          status: "waiting",
+          row: 0,
+          col: 0,
+          player: +player
+        };
+      });
+    }));
+    grids = this.createGrids();
+    next_player = this.fetchNextPlayer(this.state.player);
+    grids = this.searchNextPutableGrid(grids, this.state.pieces, woods, next_player);
+    return this.setState({
+      grids: grids,
+      player: next_player,
+      woods: woods,
+      wood_count: wood_count,
+      wood_points: wood_points,
+      unused_woods: unused_woods
     });
   };
 

@@ -7,6 +7,7 @@ FluxComponent = require('flummox/component')
 Grid = require('./Grid.coffee')
 Piece = require('./Piece.coffee')
 Wood = require('./Wood.coffee')
+WoodPoint = require('./WoodPoint.coffee')
 
 module.exports =
 class Board extends React.Component
@@ -46,12 +47,21 @@ class Board extends React.Component
             .woods
               each wood, index in woods
                 Wood(wood=wood key=index)
+            if true
+              .wood_points
+                each point, index in wood_points
+                  WoodPoint(point=point key=index  flux=flux)
             .grids
               each rows, index in grids
                 .clearfix(key=index)
                   each col,index in rows
                     .col(key=index)
                       Grid(grid=col flux=flux)
+          #case
+            .woods
+              each wood, index in unused_woods
+                Wood(wood=wood key=index)
+
     """)(_.assign(@, @props, @state))
   startGame: =>
     socket.push('action', action: "startGame", args: [1])

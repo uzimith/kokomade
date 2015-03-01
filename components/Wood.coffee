@@ -10,7 +10,8 @@ class Wood extends React.Component
       "player#{@props.wood.player}": true
       "col#{@props.wood.col}": true
       "row#{@props.wood.row}": true
-      "#{@props.wood.status}"
+      "wood#{@props.wood.id}": _.isEmpty(@props.wood.id)
+      "#{@props.wood.status}": true
     }
     jade.compile("""
       .wood(class=classes onClick=onClick)
