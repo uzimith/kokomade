@@ -86,10 +86,10 @@ class BoardStore extends Store
     wood_points = @state.wood_points
     _.remove @state.wood_points, (point) ->
       if wood.status is "horizontal"
-        return (wood.row is point.row and _.includes([(wood.col-1)..(wood.col+2)], point.col) and point.status is "horizontal") or
+        return (wood.row is point.row and _.includes([wood.col,wood.col+1], point.col) and point.status is "horizontal") or
           (wood.col+1 is point.col and _.includes([wood.row-1,wood.row], point.row) and point.status is "vertical")
       if wood.status is "vertical"
-        return (_.includes([(wood.row-1)..(wood.row+2)], point.row) and wood.col is point.col and point.status is "vertical") or
+        return (_.includes([wood.row,wood.row+1], point.row) and wood.col is point.col and point.status is "vertical") or
           (wood.row+1 is point.row and _.includes([wood.col-1,wood.col], point.col) and point.status is "horizontal")
 
 
