@@ -8,6 +8,8 @@ class Grid extends React.Component
     cx = React.addons.classSet
     classes = cx {
       next: @props.grid.next
+      "col#{@props.grid.col}": true
+      "row#{@props.grid.row}": true
     }
     jade.compile("""
       .grid(class=classes onClick=onClick)

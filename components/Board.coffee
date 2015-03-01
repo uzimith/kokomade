@@ -6,6 +6,7 @@ FluxComponent = require('flummox/component')
 
 Grid = require('./Grid.coffee')
 Piece = require('./Piece.coffee')
+Wood = require('./Wood.coffee')
 
 module.exports =
 class Board extends React.Component

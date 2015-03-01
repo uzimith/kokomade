@@ -27,7 +27,7 @@ class ResultModal extends React.Component
             .modal-body
             .modal-footer
               h4.winner
-                if player === 0
+                if winner === 0
                   span Draw
                 else
                   span Winner : 

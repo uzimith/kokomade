@@ -4,7 +4,7 @@ $navbar-default-link-color: #fff
 // $gray-base: #fff
 @import ../bower_components/bootstrap-sass/assets/stylesheets/bootstrap
 
-$num: 9
+$grid: 9
 
 body
   background: image-url("retina_wood.png")
@@ -40,11 +40,23 @@ body
 #board
   $width: 65px
   $height: 64px
-  border-right: 1px solid #000
-  border-bottom: 1px solid #000
-  width: $width * 9 + 1
-  height: $height * 9 + 1
+  $border: #333
+  $background: #444
+  border-right: 5px solid $border
+  border-bottom: 5px solid $border
+  width: $width * 9 + 5
+  height: $height * 9 + 5
   position: relative
+  .grids
+    .grid
+      width: 65px
+      height: 64px
+      float: left
+      border-left: 5px solid $border
+      border-top: 5px solid $border
+      background: $background
+      &.next
+        background: #ddd
   .piece
     position: absolute
     width: 56px
@@ -55,17 +67,23 @@ body
       background-position: 56px 0
     &.piece2
       background-position: 0 0
-    @for $i from 0 through $num
+    @for $i from 0 through $grid
       &.row#{$i}
         top: $height * $i
       &.col#{$i}
-        left: $width * $i + 4px
-  .grids
-    .grid
-      width: 65px
-      height: 64px
-      float: left
-      border-left: 1px solid #000
-      border-top: 1px solid #000
-      &.next
-        background: rgba(0,0,0,0.5)
+        left: $width * $i + 6px
+  .wood
+    position: absolute
+    &.vertical
+      width: 5px
+      height: $height * 2 + 5px
+      border-radius: 5px
+    &.horizontal
+      width: $width * 2 + 5px
+      height: 5px
+      border-radius: 5px
+    @for $i from 0 through $grid+1
+      &.row#{$i}
+        top: $height * $i
+      &.col#{$i}
+        left: $width * $i

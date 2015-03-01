@@ -217,7 +217,7 @@ module.exports = Application = (function(superClass) {
 
 
 },{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","./Board.coffee":"/Users/uzimith/dev/kokomade/components/Board.coffee","./ResultModal.coffee":"/Users/uzimith/dev/kokomade/components/ResultModal.coffee","./Room.coffee":"/Users/uzimith/dev/kokomade/components/Room.coffee","./Route.coffee":"/Users/uzimith/dev/kokomade/components/Route.coffee","flummox/component":"/Users/uzimith/dev/kokomade/node_modules/flummox/component.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/Board.coffee":[function(require,module,exports){
-var Board, FluxComponent, Grid, Piece, React, _, jade,
+var Board, FluxComponent, Grid, Piece, React, Wood, _, jade,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -233,6 +233,8 @@ FluxComponent = require('flummox/component');
 Grid = require('./Grid.coffee');
 
 Piece = require('./Piece.coffee');
+
+Wood = require('./Wood.coffee');
 
 module.exports = Board = (function(superClass) {
   extend(Board, superClass);
@@ -513,7 +515,7 @@ module.exports = Board = (function(superClass) {
 
 
 
-},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","./Grid.coffee":"/Users/uzimith/dev/kokomade/components/Grid.coffee","./Piece.coffee":"/Users/uzimith/dev/kokomade/components/Piece.coffee","flummox/component":"/Users/uzimith/dev/kokomade/node_modules/flummox/component.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/Grid.coffee":[function(require,module,exports){
+},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","./Grid.coffee":"/Users/uzimith/dev/kokomade/components/Grid.coffee","./Piece.coffee":"/Users/uzimith/dev/kokomade/components/Piece.coffee","./Wood.coffee":"/Users/uzimith/dev/kokomade/components/Wood.coffee","flummox/component":"/Users/uzimith/dev/kokomade/node_modules/flummox/component.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/Grid.coffee":[function(require,module,exports){
 var Grid, React, _, jade,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -535,11 +537,16 @@ module.exports = Grid = (function(superClass) {
   }
 
   Grid.prototype.render = function() {
-    var classes, cx;
+    var classes, cx, obj;
     cx = React.addons.classSet;
-    classes = cx({
-      next: this.props.grid.next
-    });
+    classes = cx((
+      obj = {
+        next: this.props.grid.next
+      },
+      obj["col" + this.props.grid.col] = true,
+      obj["row" + this.props.grid.row] = true,
+      obj
+    ));
     return (function (React) {
   var jade_globals_onClick = typeof onClick === "undefined" ? undefined : onClick;
   var jade_globals_classes = typeof classes === "undefined" ? undefined : classes;
@@ -721,9 +728,8 @@ module.exports = ResultModal = (function(superClass) {
     return (function (React) {
   var jade_globals_classes = typeof classes === "undefined" ? undefined : classes;
   var jade_globals_onClick = typeof onClick === "undefined" ? undefined : onClick;
-  var jade_globals_player = typeof player === "undefined" ? undefined : player;
-  var jade_globals_player_class = typeof player_class === "undefined" ? undefined : player_class;
   var jade_globals_winner = typeof winner === "undefined" ? undefined : winner;
+  var jade_globals_player_class = typeof player_class === "undefined" ? undefined : player_class;
   var fn = function(locals) {
     function jade_join_classes(val) {
       return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
@@ -733,9 +739,8 @@ module.exports = ResultModal = (function(superClass) {
       }).join(" ");
     }  var classes = "classes" in locals ? locals.classes : jade_globals_classes;
     var onClick = "onClick" in locals ? locals.onClick : jade_globals_onClick;
-    var player = "player" in locals ? locals.player : jade_globals_player;
-    var player_class = "player_class" in locals ? locals.player_class : jade_globals_player_class;
     var winner = "winner" in locals ? locals.winner : jade_globals_winner;
+    var player_class = "player_class" in locals ? locals.player_class : jade_globals_player_class;
     return function() {
       var tags = [];
       tags.push(React.createElement("div", {
@@ -759,7 +764,7 @@ module.exports = ResultModal = (function(superClass) {
         className: "winner"
       } ].concat(function() {
         var tags = [];
-        if (0 === player) tags.push(React.createElement("span", {}, "Draw")); else {
+        if (0 === winner) tags.push(React.createElement("span", {}, "Draw")); else {
           tags.push(React.createElement("span", {}, "Winner : "));
           tags.push(React.createElement("span", {
             className: jade_join_classes([ "result", player_class[winner] ])
@@ -985,7 +990,89 @@ module.exports = Route = (function(superClass) {
 
 
 
-},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","flummox/component":"/Users/uzimith/dev/kokomade/node_modules/flummox/component.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/dispatcher/AppFlux.coffee":[function(require,module,exports){
+},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","flummox/component":"/Users/uzimith/dev/kokomade/node_modules/flummox/component.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/Wood.coffee":[function(require,module,exports){
+var React, Wood, _, jade,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+React = require('react');
+
+
+
+_ = require('lodash');
+
+module.exports = Wood = (function(superClass) {
+  extend(Wood, superClass);
+
+  function Wood() {
+    this.render = bind(this.render, this);
+    return Wood.__super__.constructor.apply(this, arguments);
+  }
+
+  Wood.prototype.render = function() {
+    var classes, cx, obj, ref;
+    cx = React.addons.classSet;
+    classes = cx((
+      obj = {},
+      obj["player" + this.props.wood.player] = true,
+      obj["col" + this.props.wood.col] = true,
+      obj["row" + this.props.wood.row] = true,
+      obj[ref = "" + this.props.wood.status] = ref,
+      obj
+    ));
+    return (function (React) {
+  var jade_globals_onClick = typeof onClick === "undefined" ? undefined : onClick;
+  var jade_globals_classes = typeof classes === "undefined" ? undefined : classes;
+  var fn = function(locals) {
+    function jade_join_classes(val) {
+      return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
+        return val[key];
+      }) : [ val ]).filter(function(val) {
+        return null != val && "" !== val;
+      }).join(" ");
+    }  var onClick = "onClick" in locals ? locals.onClick : jade_globals_onClick;
+    var classes = "classes" in locals ? locals.classes : jade_globals_classes;
+    return function() {
+      var tags = [];
+      tags.push(React.createElement("div", {
+        onClick: onClick,
+        className: jade_join_classes([ "wood", classes ])
+      }));
+      if (1 === tags.length) return tags.pop();
+      tags.unshift("div", null);
+      return React.createElement.apply(React, tags);
+    }.call(this);
+  };;
+  fn.locals = function setLocals(locals) {
+    var render = this;
+    function newRender(additionalLocals) {
+      var newLocals = {};
+      for (var key in locals) {
+        newLocals[key] = locals[key];
+      }
+      if (additionalLocals) {
+        for (var key in additionalLocals) {
+          newLocals[key] = additionalLocals[key];
+        }
+      }
+      return render.call(this, newLocals);
+    }
+    newRender.locals = setLocals;
+    return newRender;
+  }
+  ;
+  return fn;
+}(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state));
+  };
+
+  return Wood;
+
+})(React.Component);
+
+
+
+},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/dispatcher/AppFlux.coffee":[function(require,module,exports){
 var AppFlux, BoardStore, Flux, GameActions, PanelActions, PanelStore,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -35650,9 +35737,31 @@ module.exports = BoardStore = (function(superClass) {
         col: 4
       }
     };
-    woods = [];
+    woods = [
+      {
+        status: "vertical",
+        row: 0,
+        col: 0,
+        player: 1
+      }, {
+        status: "horizontal",
+        row: 1,
+        col: 3,
+        player: 1
+      }, {
+        status: "horizontal",
+        row: 8,
+        col: 3,
+        player: 1
+      }, {
+        status: "vertical",
+        row: 0,
+        col: 1,
+        player: 1
+      }
+    ];
     grids = this.createGrids();
-    grids = this.searchNextPutableGrid(grids, pieces, player);
+    grids = this.searchNextPutableGrid(grids, pieces, woods, player);
     return this.setState({
       grids: grids,
       pieces: pieces,
@@ -35668,10 +35777,14 @@ module.exports = BoardStore = (function(superClass) {
     var end, grids, next_player, pieces;
     pieces = this.state.pieces;
     pieces[data.player] = data.piece;
-    end = false;
+    end = pieces[1].row === this.num - 1 || pieces[2].row === 0;
     grids = this.createGrids();
-    next_player = this.fetchNextPlayer(this.state.player);
-    grids = this.searchNextPutableGrid(grids, pieces, next_player);
+    if (!end) {
+      next_player = this.fetchNextPlayer(this.state.player);
+      grids = this.searchNextPutableGrid(grids, pieces, this.state.woods, next_player);
+    } else {
+      next_player = 0;
+    }
     return this.setState({
       grids: grids,
       pieces: pieces,
@@ -35683,7 +35796,13 @@ module.exports = BoardStore = (function(superClass) {
   BoardStore.prototype.handleEndGame = function() {
     var grids, winner;
     grids = this.createGrids();
-    winner = 1;
+    winner = 0;
+    if (this.state.pieces[1].row === this.num - 1) {
+      winner = 1;
+    }
+    if (this.state.pieces[2].row === 0) {
+      winner = 2;
+    }
     return this.setState({
       grids: grids,
       winner: winner,
@@ -35744,23 +35863,81 @@ module.exports = BoardStore = (function(superClass) {
     }
   };
 
-  BoardStore.prototype.searchNextPutableGrid = function(grids, pieces, player) {
-    var arounds, d, fn, j, key, len, piece;
-    arounds = [[1, 0], [0, 1], [-1, 0], [0, -1]];
-    for (key in pieces) {
-      piece = pieces[key];
+  BoardStore.prototype.searchNextPutableGrid = function(grids, pieces, woods, player) {
+    var around, arounds, fn, j, ke, len, piece;
+    arounds = [
+      {
+        diff: [-1, 0],
+        direction: "left"
+      }, {
+        diff: [1, 0],
+        direction: "right"
+      }, {
+        diff: [0, -1],
+        direction: "above"
+      }, {
+        diff: [0, 1],
+        direction: "below"
+      }
+    ];
+    for (ke in pieces) {
+      piece = pieces[ke];
       if (piece.player === player) {
         fn = (function(_this) {
           return function() {
             var col, dx, dy, i, k, ref, row;
-            dx = d[0];
-            dy = d[1];
+            dx = around.diff[1];
+            dy = around.diff[0];
             row = piece.row;
             col = piece.col;
             for (i = k = 0, ref = _this.num; 0 <= ref ? k < ref : k > ref; i = 0 <= ref ? ++k : --k) {
               row += dx;
               col += dy;
               if (!((0 <= row && row < _this.num) && (0 <= col && col < _this.num))) {
+                return;
+              }
+              if (around.direction === "left" && (_.findWhere(woods, {
+                row: row,
+                col: col + 1,
+                status: "vertical"
+              }) || _.findWhere(woods, {
+                row: row - 1,
+                col: col + 1,
+                status: "vertical"
+              }))) {
+                return;
+              }
+              if (around.direction === "right" && (_.findWhere(woods, {
+                row: row,
+                col: col,
+                status: "vertical"
+              }) || _.findWhere(woods, {
+                row: row - 1,
+                col: col,
+                status: "vertical"
+              }))) {
+                return;
+              }
+              if (around.direction === "above" && (_.findWhere(woods, {
+                row: row + 1,
+                col: col,
+                status: "horizontal"
+              }) || _.findWhere(woods, {
+                row: row + 1,
+                col: col - 1,
+                status: "horizontal"
+              }))) {
+                return;
+              }
+              if (around.direction === "below" && (_.findWhere(woods, {
+                row: row,
+                col: col,
+                status: "horizontal"
+              }) || _.findWhere(woods, {
+                row: row,
+                col: col - 1,
+                status: "horizontal"
+              }))) {
                 return;
               }
               if (!_.findWhere(pieces, {
@@ -35774,7 +35951,7 @@ module.exports = BoardStore = (function(superClass) {
           };
         })(this);
         for (j = 0, len = arounds.length; j < len; j++) {
-          d = arounds[j];
+          around = arounds[j];
           fn();
         }
       }
