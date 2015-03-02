@@ -4,7 +4,7 @@ _ = require('lodash')
 
 FluxComponent = require('flummox/component')
 
-Board = require('./Board.coffee')
+Game = require('./Game.coffee')
 Room = require('./Room.coffee')
 Route = require('./Route.coffee')
 ResultModal = require('./ResultModal.coffee')
@@ -24,8 +24,8 @@ class Application extends React.Component
                   Room
             FluxComponent(flux=flux connectToStores=['panel'])
               Route(show="Board")
-                FluxComponent(flux=flux connectToStores=['board', 'panel'])
-                  Board
+                FluxComponent(flux=flux connectToStores=['panel'])
+                  Game
             FluxComponent(flux=flux connectToStores=['board', 'panel'])
               ResultModal
     """)(_.assign(@, @props, @state))
