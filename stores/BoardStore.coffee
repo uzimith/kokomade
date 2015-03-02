@@ -14,8 +14,14 @@ class BoardStore extends Store
     @register(gameActions.endGame, @handleEndGame)
     @register(gameActions.giveupGame, @handleGiveup)
     @register(gameActions.shareBoard, @shareBoard)
+    @register(gameActions.backHistory, @backHistory)
+    @register(gameActions.nextHistory, @nextHistory)
     @num = 9
     @player = 2
+
+    @history = []
+    @post_history = []
+    @state_number = 0
     grids = @createGrids()
     @state =
       pieces: {}
@@ -31,8 +37,11 @@ class BoardStore extends Store
       winner: 0
       play: false
       end: false
+      look_back: false
 
   handleNewGame: (data) ->
+    @history = []
+    @post_history = []
     if data.pair
       @player = 4
       pieces =
@@ -83,9 +92,11 @@ class BoardStore extends Store
       select_wood: false
 
   handlePiece: (piece) ->
+    if @state.look_back
+      console.log("warn")
+    @pushHistroy(@history, @state)
     # move piece
-    pieces = @state.pieces
-    pieces[piece.player] = piece
+    pieces = React.addons.update(@state.pieces, {"#{piece.player}": {$set: piece}})
 
     # update
     if @state.pair
@@ -108,14 +119,17 @@ class BoardStore extends Store
       select_wood: false
 
   handleSelectWood: (wood) ->
+    @pushHistroy(@history, @state)
     grids = @createGrids()
     @setState
       grids: grids
       select_wood: true
   handleMoveWood: (wood) ->
+    if @state.look_back
+      console.log("warn")
+    @pushHistroy(@history, @state)
     # move wood
-    woods = @state.woods
-    woods.push(wood)
+    woods = React.addons.update(@state.woods, {$push: [wood]})
 
     wood_points = @state.wood_points
     _.remove @state.wood_points, (point) ->
@@ -175,6 +189,24 @@ class BoardStore extends Store
       grids: grids
       winner: winner
       play: false
+
+  shareBoard: (state) ->
+    @setState state
+
+  pushHistroy: (history, state)->
+    history.push(state)
+    @state_number++
+
+  backHistory: ->
+    if @state_number > 0
+      @state_number--
+      console.log(@state_number)
+      @setState _.assign(@history[@state_number], look_back: true)
+      @post_history.push(@state)
+  nextHistory: ->
+    if @post_history.length > 0
+      @state_number++
+      @setState _.assign(@post_history.pop(), look_back: @post_history.length isnt 0) 
 
   # private
 
@@ -246,6 +278,3 @@ class BoardStore extends Store
                 grids[row][col].next = true
                 return
     return grids
-
-  shareBoard: (state) ->
-    @setState state

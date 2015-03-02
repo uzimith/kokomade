@@ -18,8 +18,6 @@ class GameActions extends Actions
     piece
   selectWood: ->
     null
-  shareBoard: (state) =>
-    state
   moveWood: (point, player, moves) ->
     wood = {
       col: point.col
@@ -29,3 +27,9 @@ class GameActions extends Actions
       moves: ++moves
     }
     wood
+  shareBoard: (state) =>
+    state
+  backHistory: ->
+    null
+  nextHistory: ->
+    null
