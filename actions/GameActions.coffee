@@ -2,8 +2,8 @@ Actions = require('flummox').Actions
 
 module.exports =
 class GameActions extends Actions
-  startGame: (player) ->
-    player
+  startGame: (player, pair) ->
+    player: player, pair: pair
   endGame: ->
     null
   giveupGame: (player) ->

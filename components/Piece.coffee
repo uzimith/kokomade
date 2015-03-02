@@ -7,8 +7,7 @@ class Piece extends React.Component
   render: =>
     cx = React.addons.classSet
     classes = cx {
-      piece1: @props.piece.player is 1
-      piece2: @props.piece.player is 2
+      "player#{@props.piece.player}": true
       "col#{@props.piece.col}": true
       "row#{@props.piece.row}": true
     }

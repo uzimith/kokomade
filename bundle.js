@@ -43,8 +43,11 @@ module.exports = GameActions = (function(superClass) {
     return GameActions.__super__.constructor.apply(this, arguments);
   }
 
-  GameActions.prototype.startGame = function(player) {
-    return player;
+  GameActions.prototype.startGame = function(player, pair) {
+    return {
+      player: player,
+      pair: pair
+    };
   };
 
   GameActions.prototype.endGame = function() {
@@ -250,11 +253,14 @@ module.exports = Board = (function(superClass) {
   extend(Board, superClass);
 
   function Board() {
+    this.onChange = bind(this.onChange, this);
     this.endGame = bind(this.endGame, this);
     this.giveupGame = bind(this.giveupGame, this);
     this.startGame = bind(this.startGame, this);
     this.render = bind(this.render, this);
-    return Board.__super__.constructor.apply(this, arguments);
+    this.state = {
+      pair: true
+    };
   }
 
   Board.prototype.render = function() {
@@ -266,6 +272,12 @@ module.exports = Board = (function(superClass) {
       }),
       2: cx({
         player2: true
+      }),
+      3: cx({
+        player3: true
+      }),
+      4: cx({
+        player4: true
       })
     };
     start_classes = cx({
@@ -283,6 +295,7 @@ module.exports = Board = (function(superClass) {
     return (function (React) {
   var jade_globals_startGame = typeof startGame === "undefined" ? undefined : startGame;
   var jade_globals_start_classes = typeof start_classes === "undefined" ? undefined : start_classes;
+  var jade_globals_onChange = typeof onChange === "undefined" ? undefined : onChange;
   var jade_globals_giveupGame = typeof giveupGame === "undefined" ? undefined : giveupGame;
   var jade_globals_giveup_classes = typeof giveup_classes === "undefined" ? undefined : giveup_classes;
   var jade_globals_endGame = typeof endGame === "undefined" ? undefined : endGame;
@@ -310,6 +323,7 @@ module.exports = Board = (function(superClass) {
       }).join(" ");
     }  var startGame = "startGame" in locals ? locals.startGame : jade_globals_startGame;
     var start_classes = "start_classes" in locals ? locals.start_classes : jade_globals_start_classes;
+    var onChange = "onChange" in locals ? locals.onChange : jade_globals_onChange;
     var giveupGame = "giveupGame" in locals ? locals.giveupGame : jade_globals_giveupGame;
     var giveup_classes = "giveup_classes" in locals ? locals.giveup_classes : jade_globals_giveup_classes;
     var endGame = "endGame" in locals ? locals.endGame : jade_globals_endGame;
@@ -339,7 +353,14 @@ module.exports = Board = (function(superClass) {
       }, React.createElement("a", {
         onClick: startGame,
         className: jade_join_classes([ "control", "btn", "btn-default", start_classes ])
-      }, "Start"), React.createElement("a", {
+      }, "Start"), React.createElement("select", {
+        onChange: onChange,
+        className: jade_join_classes([ "form-control", start_classes ])
+      }, React.createElement("option", {
+        value: "single"
+      }, "Single"), React.createElement("option", {
+        value: "pair"
+      }, "Pair")), React.createElement("a", {
         onClick: giveupGame,
         className: jade_join_classes([ "control", "btn", "btn-default", giveup_classes ])
       }, "Give up"), React.createElement("a", {
@@ -564,7 +585,7 @@ module.exports = Board = (function(superClass) {
   Board.prototype.startGame = function() {
     return socket.push('action', {
       action: "startGame",
-      args: [1]
+      args: [1, this.state.pair]
     });
   };
 
@@ -581,6 +602,12 @@ module.exports = Board = (function(superClass) {
     return socket.push('action', {
       action: "endGame",
       args: []
+    });
+  };
+
+  Board.prototype.onChange = function(e) {
+    return this.setState({
+      pair: e.target.options[e.target.options.selectedIndex].value === "pair"
     });
   };
 
@@ -708,10 +735,8 @@ module.exports = Piece = (function(superClass) {
     var classes, cx, obj;
     cx = React.addons.classSet;
     classes = cx((
-      obj = {
-        piece1: this.props.piece.player === 1,
-        piece2: this.props.piece.player === 2
-      },
+      obj = {},
+      obj["player" + this.props.piece.player] = true,
       obj["col" + this.props.piece.col] = true,
       obj["row" + this.props.piece.row] = true,
       obj
@@ -798,6 +823,12 @@ module.exports = ResultModal = (function(superClass) {
       }),
       2: cx({
         player2: true
+      }),
+      3: cx({
+        player3: true
+      }),
+      4: cx({
+        player4: true
       })
     };
     return (function (React) {
@@ -35914,33 +35945,67 @@ module.exports = BoardStore = (function(superClass) {
       unused_woods: {},
       grids: grids,
       player: 0,
+      pair: false,
       winner: 0,
       play: false,
       end: false
     };
   }
 
-  BoardStore.prototype.handleNewGame = function(player) {
+  BoardStore.prototype.handleNewGame = function(data) {
     var grids, j, pieces, ref, results, unused_woods, wood_count, wood_points, woods;
-    pieces = {
-      1: {
-        player: 1,
-        row: 0,
-        col: 4
-      },
-      2: {
-        player: 2,
-        row: this.num - 1,
-        col: 4
-      }
-    };
+    if (data.pair) {
+      this.player = 4;
+      pieces = {
+        1: {
+          player: 1,
+          row: 0,
+          col: 4
+        },
+        2: {
+          player: 2,
+          row: 4,
+          col: this.num - 1
+        },
+        3: {
+          player: 3,
+          row: this.num - 1,
+          col: 4
+        },
+        4: {
+          player: 4,
+          row: 4,
+          col: 0
+        }
+      };
+      wood_count = {
+        1: 5,
+        2: 5,
+        3: 5,
+        4: 5
+      };
+    } else {
+      this.player = 2;
+      pieces = {
+        1: {
+          player: 1,
+          row: 0,
+          col: 4
+        },
+        2: {
+          player: 2,
+          row: this.num - 1,
+          col: 4
+        }
+      };
+      wood_count = {
+        1: 10,
+        2: 10
+      };
+    }
     woods = [];
-    wood_count = {
-      1: 10,
-      2: 10
-    };
     unused_woods = _.flatten(_.map(wood_count, function(count, player) {
-      return _.map(_.range(1, count), function(i) {
+      return _.map(_.range(1, count + 1), function(i) {
         return {
           id: i,
           status: "waiting",
@@ -35977,7 +36042,7 @@ module.exports = BoardStore = (function(superClass) {
       };
     })(this))));
     grids = this.createGrids();
-    grids = this.searchNextPutableGrid(grids, pieces, woods, player);
+    grids = this.searchNextPutableGrid(grids, pieces, woods, data.player);
     return this.setState({
       grids: grids,
       pieces: pieces,
@@ -35985,10 +36050,11 @@ module.exports = BoardStore = (function(superClass) {
       wood_count: wood_count,
       wood_points: wood_points,
       unused_woods: unused_woods,
-      player: player,
+      player: data.player,
       winner: 0,
       play: true,
-      end: false
+      end: false,
+      pair: data.pair
     });
   };
 
@@ -35996,7 +36062,12 @@ module.exports = BoardStore = (function(superClass) {
     var end, grids, next_player, pieces;
     pieces = this.state.pieces;
     pieces[piece.player] = piece;
-    end = pieces[1].row === this.num - 1 || pieces[2].row === 0;
+    if (this.state.pair) {
+      end = pieces[1].row === this.num - 1 || pieces[2].col === 0 || pieces[3].row === 0 || pieces[4].col === this.num - 1;
+      console.log(end);
+    } else {
+      end = pieces[1].row === this.num - 1 || pieces[2].row === 0;
+    }
     grids = this.createGrids();
     if (!end) {
       next_player = this.fetchNextPlayer(this.state.player);
@@ -36018,20 +36089,11 @@ module.exports = BoardStore = (function(superClass) {
     woods.push(wood);
     wood_points = this.state.wood_points;
     _.remove(this.state.wood_points, function(point) {
-      var j, k, ref, ref1, ref2, ref3, results, results1;
       if (wood.status === "horizontal") {
-        return (wood.row === point.row && _.includes((function() {
-          results = [];
-          for (var j = ref = wood.col - 1, ref1 = wood.col + 2; ref <= ref1 ? j <= ref1 : j >= ref1; ref <= ref1 ? j++ : j--){ results.push(j); }
-          return results;
-        }).apply(this), point.col) && point.status === "horizontal") || (wood.col + 1 === point.col && _.includes([wood.row - 1, wood.row], point.row) && point.status === "vertical");
+        return (wood.row === point.row && _.includes([wood.col, wood.col + 1], point.col) && point.status === "horizontal") || (wood.col + 1 === point.col && wood.row - 1 === point.row && point.status === "vertical");
       }
       if (wood.status === "vertical") {
-        return (_.includes((function() {
-          results1 = [];
-          for (var k = ref2 = wood.row - 1, ref3 = wood.row + 2; ref2 <= ref3 ? k <= ref3 : k >= ref3; ref2 <= ref3 ? k++ : k--){ results1.push(k); }
-          return results1;
-        }).apply(this), point.row) && wood.col === point.col && point.status === "vertical") || (wood.row + 1 === point.row && _.includes([wood.col - 1, wood.col], point.col) && point.status === "horizontal");
+        return (_.includes([wood.row, wood.row + 1], point.row) && wood.col === point.col && point.status === "vertical") || (wood.row + 1 === point.row && wood.col - 1 === point.col && point.status === "horizontal");
       }
     });
     wood_count = this.state.wood_count;
@@ -36064,11 +36126,26 @@ module.exports = BoardStore = (function(superClass) {
     var grids, winner;
     grids = this.createGrids();
     winner = 0;
-    if (this.state.pieces[1].row === this.num - 1) {
-      winner = 1;
-    }
-    if (this.state.pieces[2].row === 0) {
-      winner = 2;
+    if (this.state.pair) {
+      if (this.state.pieces[1].row === this.num - 1) {
+        winner = 1;
+      }
+      if (this.state.pieces[2].col === 0) {
+        winner = 2;
+      }
+      if (this.state.pieces[3].row === 0) {
+        winner = 3;
+      }
+      if (this.state.pieces[4].col === this.num - 1) {
+        winner = 4;
+      }
+    } else {
+      if (this.state.pieces[1].row === this.num - 1) {
+        winner = 1;
+      }
+      if (this.state.pieces[2].row === 0) {
+        winner = 2;
+      }
     }
     return this.setState({
       grids: grids,
@@ -36113,20 +36190,50 @@ module.exports = BoardStore = (function(superClass) {
   };
 
   BoardStore.prototype.fetchNextPlayer = function(player) {
-    if (player === 1) {
-      return 2;
-    }
-    if (player === 2) {
-      return 1;
+    if (this.state.pair) {
+      if (player === 1) {
+        return 2;
+      }
+      if (player === 2) {
+        return 3;
+      }
+      if (player === 3) {
+        return 4;
+      }
+      if (player === 4) {
+        return 1;
+      }
+    } else {
+      if (player === 1) {
+        return 2;
+      }
+      if (player === 2) {
+        return 1;
+      }
     }
   };
 
   BoardStore.prototype.fetchOpponent = function(player) {
-    if (player === 1) {
-      return 2;
-    }
-    if (player === 2) {
-      return 1;
+    if (this.state.pair) {
+      if (player === 1) {
+        return 3;
+      }
+      if (player === 2) {
+        return 4;
+      }
+      if (player === 2) {
+        return 4;
+      }
+      if (player === 3) {
+        return 1;
+      }
+    } else {
+      if (player === 1) {
+        return 2;
+      }
+      if (player === 2) {
+        return 1;
+      }
     }
   };
 

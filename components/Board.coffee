@@ -11,11 +11,15 @@ WoodPoint = require('./WoodPoint.coffee')
 
 module.exports =
 class Board extends React.Component
+  constructor: ->
+    @state = pair: true
   render: =>
     cx = React.addons.classSet
     player_class =
       1: cx(player1: true)
       2: cx(player2: true)
+      3: cx(player3: true)
+      4: cx(player4: true)
     start_classes  = cx show: !@props.play, hide:  @props.play
     giveup_classes = cx show:  @props.play, hide: !@props.play
     end_classes    = cx show:  @props.end, hide: !@props.end
@@ -25,6 +29,9 @@ class Board extends React.Component
         .col-md-2.col-md-offset-2
           .row
             a.control.btn.btn-default(class=start_classes onClick=startGame) Start
+            select.form-control(class=start_classes onChange=onChange)
+              option(value="single") Single
+              option(value="pair") Pair
             a.control.btn.btn-default(class=giveup_classes onClick=giveupGame) Give up
             a.control.btn.btn-default(class=end_classes onClick=endGame) End
 
@@ -64,9 +71,11 @@ class Board extends React.Component
 
     """)(_.assign(@, @props, @state))
   startGame: =>
-    socket.push('action', action: "startGame", args: [1])
+    socket.push('action', action: "startGame", args: [1, @state.pair])
   giveupGame: =>
     player = @props.flux.getStore("board").state.player
     socket.push('action', action: "giveupGame", args: [player])
   endGame: =>
     socket.push('action', action: "endGame", args: [])
+  onChange: (e) =>
+    @setState pair: e.target.options[e.target.options.selectedIndex].value is "pair"

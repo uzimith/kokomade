@@ -15,6 +15,8 @@ class ResultModal extends React.Component
     player_class =
       1: cx(player1: true)
       2: cx(player2: true)
+      3: cx(player3: true)
+      4: cx(player4: true)
 
     jade.compile("""
       .modal.fade(class=classes)

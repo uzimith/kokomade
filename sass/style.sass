@@ -19,22 +19,21 @@ body
 .control
   margin-right: 5px
 
-.player1
-  background: #f2dede
-.player2
-  background: #d9edf7
 .player
   font-size: 130%
   font-weight: bold
 .score
   font-size: 130%
   font-weight: bold
-.low .score
-  color: darken(#0FC6FF, 30%)
-.middle .score
-  color: darken(#E8DB0D, 30%)
-.high .score
-  color:  darken(#FF1B40, 30%)
+.player1
+  background: lighten(#0FC6FF, 30%)
+.player2
+  background: lighten(#E8DB0D, 30%)
+.player3
+  background: lighten(#FF1B40, 30%)
+.player4
+  background: lighten(#02D90D, 30%)
+
 .result
   padding: 10px
   border-radius: 5px
@@ -61,12 +60,8 @@ body
     position: absolute
     width: 56px
     height: 56px
-    background: image-url("pieces.png")
     margin: 5px auto
-    &.piece1
-      background-position: 56px 0
-    &.piece2
-      background-position: 0 0
+    border-radius: 50%
     @for $i from 0 through $grid
       &.row#{$i}
         top: $grid_height * $i
@@ -96,18 +91,20 @@ body
     &:hover + .wood
       display: block
     position: absolute
-    background: rgba(255,255,255, 0.5)
+    // background: rgba(255,255,255, 0.5)
     z-index: 5
     &.vertical
-      width: 5px
+      width: 22px
       height: $grid_height - 5px
       border-radius: 5px
       margin-top: 5px
+      margin-left: -10px
     &.horizontal
       width: $grid_width - 5px
-      height: 5px
+      height: 22px
       border-radius: 5px
       margin-left: 5px
+      margin-top: -10px
     @for $i from 0 through $grid+1
       &.row#{$i}
         top: $grid_height * $i
@@ -125,9 +122,12 @@ body
     width: 8px
     height: $grid_height * 2 + 5px
     border-radius: 5px
-    @for $player from 1 through 4
-      &.player#{$player}
+    @for $player from 1 through 2
+      &.player#{$player}, &.player#{$player + 2}
         top: 10px + ($grid_height * 2 + 15px) * ($player - 1)
     @for $i from 0 through 10
       &.wood#{$i}
         left: 50px * $i
+    @for $i from 0 through 5
+      &.player3.wood#{$i}, &.player4.wood#{$i}
+        left: 50px * ($i+5)
