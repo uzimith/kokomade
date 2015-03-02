@@ -121,7 +121,7 @@ class BoardStore extends Store
     wood_count[wood.player]--
 
     unused_woods = _.flatten _.map wood_count, (count,player) ->
-      _.map _.range(1, count), (i) ->
+      _.map _.range(1, count+1), (i) ->
         {id: i, status: "waiting", row: 0, col: 0, player: +player}
 
     # update

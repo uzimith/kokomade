@@ -95,8 +95,8 @@ module.exports = PanelActions = (function(superClass) {
     return PanelActions.__super__.constructor.apply(this, arguments);
   }
 
-  PanelActions.prototype.joinBoard = function(name) {
-    return name;
+  PanelActions.prototype.joinBoard = function() {
+    return null;
   };
 
   PanelActions.prototype.createBoard = function() {
@@ -43136,7 +43136,7 @@ module.exports = BoardStore = (function(superClass) {
     wood_count = this.state.wood_count;
     wood_count[wood.player]--;
     unused_woods = _.flatten(_.map(wood_count, function(count, player) {
-      return _.map(_.range(1, count), function(i) {
+      return _.map(_.range(1, count + 1), function(i) {
         return {
           id: i,
           status: "waiting",
