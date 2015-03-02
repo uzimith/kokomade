@@ -1,1 +1,1 @@
-web: coffee server.coffee
+web: bundle exec ruby server.rb -p $PORT

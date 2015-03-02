@@ -2,7 +2,7 @@ require 'sinatra'
 require 'sinatra/rocketio'
 set :public_folder, File.dirname(__FILE__)
 set :cometio, :timeout => 120, :post_interval => 2, :allow_crossdomain => false
-set :rocketio, :websocket => true, :comet => false
+set :rocketio, :websocket => true, :comet => true
 
 
 if development?
