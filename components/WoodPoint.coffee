@@ -8,6 +8,7 @@ class WoodPoint extends React.Component
     @state = hover: false
   render: =>
     cx = React.addons.classSet
+
     classes = cx {
       "col#{@props.point.col}": true
       "row#{@props.point.row}": true
@@ -18,8 +19,7 @@ class WoodPoint extends React.Component
       .wood.hover(class=classes)
     """)(_.assign(@, @props, @state))
   onClick: =>
-    player = @props.flux.getStore("board").state.player
-    socket.push('action', action: "moveWood", args: [@props.point, player])
+    socket.push('action', action: "moveWood", args: [@props.point, @props.player, @props.moves])
   onMouseOver: =>
     @setState hover: true
   onMouseOut: =>

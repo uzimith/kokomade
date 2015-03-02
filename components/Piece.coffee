@@ -10,6 +10,7 @@ class Piece extends React.Component
       "player#{@props.piece.player}": true
       "col#{@props.piece.col}": true
       "row#{@props.piece.row}": true
+      "current": @props.piece.moves is @props.moves
     }
     jade.compile("""
     .piece(class=classes)

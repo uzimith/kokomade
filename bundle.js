@@ -58,23 +58,25 @@ module.exports = GameActions = (function(superClass) {
     return player;
   };
 
-  GameActions.prototype.movePiece = function(grid, player) {
+  GameActions.prototype.movePiece = function(grid, player, moves) {
     var piece;
     piece = {
       col: grid.col,
       row: grid.row,
-      player: player
+      player: player,
+      moves: ++moves
     };
     return piece;
   };
 
-  GameActions.prototype.moveWood = function(point, player) {
+  GameActions.prototype.moveWood = function(point, player, moves) {
     var wood;
     wood = {
       col: point.col,
       row: point.row,
       status: point.status,
-      player: player
+      player: player,
+      moves: ++moves
     };
     return wood;
   };
@@ -259,7 +261,7 @@ module.exports = Board = (function(superClass) {
     this.startGame = bind(this.startGame, this);
     this.render = bind(this.render, this);
     this.state = {
-      pair: true
+      pair: false
     };
   }
 
@@ -301,18 +303,20 @@ module.exports = Board = (function(superClass) {
   var jade_globals_endGame = typeof endGame === "undefined" ? undefined : endGame;
   var jade_globals_end_classes = typeof end_classes === "undefined" ? undefined : end_classes;
   var jade_globals_roomId = typeof roomId === "undefined" ? undefined : roomId;
+  var jade_globals_moves = typeof moves === "undefined" ? undefined : moves;
   var jade_globals_player_class = typeof player_class === "undefined" ? undefined : player_class;
   var jade_globals_player = typeof player === "undefined" ? undefined : player;
   var jade_globals_pieces = typeof pieces === "undefined" ? undefined : pieces;
+  var jade_globals_FluxComponent = typeof FluxComponent === "undefined" ? undefined : FluxComponent;
   var jade_globals_Piece = typeof Piece === "undefined" ? undefined : Piece;
   var jade_globals_woods = typeof woods === "undefined" ? undefined : woods;
   var jade_globals_Wood = typeof Wood === "undefined" ? undefined : Wood;
   var jade_globals_wood_count = typeof wood_count === "undefined" ? undefined : wood_count;
   var jade_globals_wood_points = typeof wood_points === "undefined" ? undefined : wood_points;
   var jade_globals_WoodPoint = typeof WoodPoint === "undefined" ? undefined : WoodPoint;
-  var jade_globals_flux = typeof flux === "undefined" ? undefined : flux;
   var jade_globals_grids = typeof grids === "undefined" ? undefined : grids;
   var jade_globals_Grid = typeof Grid === "undefined" ? undefined : Grid;
+  var jade_globals_flux = typeof flux === "undefined" ? undefined : flux;
   var jade_globals_unused_woods = typeof unused_woods === "undefined" ? undefined : unused_woods;
   var fn = function(locals) {
     function jade_join_classes(val) {
@@ -329,18 +333,20 @@ module.exports = Board = (function(superClass) {
     var endGame = "endGame" in locals ? locals.endGame : jade_globals_endGame;
     var end_classes = "end_classes" in locals ? locals.end_classes : jade_globals_end_classes;
     var roomId = "roomId" in locals ? locals.roomId : jade_globals_roomId;
+    var moves = "moves" in locals ? locals.moves : jade_globals_moves;
     var player_class = "player_class" in locals ? locals.player_class : jade_globals_player_class;
     var player = "player" in locals ? locals.player : jade_globals_player;
     var pieces = "pieces" in locals ? locals.pieces : jade_globals_pieces;
+    var FluxComponent = "FluxComponent" in locals ? locals.FluxComponent : jade_globals_FluxComponent;
     var Piece = "Piece" in locals ? locals.Piece : jade_globals_Piece;
     var woods = "woods" in locals ? locals.woods : jade_globals_woods;
     var Wood = "Wood" in locals ? locals.Wood : jade_globals_Wood;
     var wood_count = "wood_count" in locals ? locals.wood_count : jade_globals_wood_count;
     var wood_points = "wood_points" in locals ? locals.wood_points : jade_globals_wood_points;
     var WoodPoint = "WoodPoint" in locals ? locals.WoodPoint : jade_globals_WoodPoint;
-    var flux = "flux" in locals ? locals.flux : jade_globals_flux;
     var grids = "grids" in locals ? locals.grids : jade_globals_grids;
     var Grid = "Grid" in locals ? locals.Grid : jade_globals_Grid;
+    var flux = "flux" in locals ? locals.flux : jade_globals_flux;
     var unused_woods = "unused_woods" in locals ? locals.unused_woods : jade_globals_unused_woods;
     return function() {
       var tags = [];
@@ -368,7 +374,7 @@ module.exports = Board = (function(superClass) {
         className: jade_join_classes([ "control", "btn", "btn-default", end_classes ])
       }, "End")), React.createElement("hr", {}), React.createElement("table", {
         className: "table table-bordered back"
-      }, React.createElement("tbody", {}, React.createElement("tr", {}, React.createElement("th", {}, "Room"), React.createElement("td", {}, roomId)), React.createElement("tr", {
+      }, React.createElement("tbody", {}, React.createElement("tr", {}, React.createElement("th", {}, "Room"), React.createElement("td", {}, roomId)), React.createElement("tr", {}, React.createElement("th", {}, "Moves"), React.createElement("td", {}, moves)), React.createElement("tr", {
         className: jade_join_classes([ player_class[player] ])
       }, React.createElement("th", {}, "Current"), React.createElement("td", {}, player))))), React.createElement("div", {
         className: "col-md-8"
@@ -383,19 +389,23 @@ module.exports = Board = (function(superClass) {
           var $$obj = pieces;
           if ("number" == typeof $$obj.length) for (var index = 0, $$l = $$obj.length; $$l > index; index++) {
             var piece = $$obj[index];
-            tags.push(React.createElement(Piece, {
-              piece: piece,
+            tags.push(React.createElement(FluxComponent, {
+              connectToStores: [ "board" ],
               key: index
-            }));
+            }, React.createElement(Piece, {
+              piece: piece
+            })));
           } else {
             var $$l = 0;
             for (var index in $$obj) {
               $$l++;
               var piece = $$obj[index];
-              tags.push(React.createElement(Piece, {
-                piece: piece,
+              tags.push(React.createElement(FluxComponent, {
+                connectToStores: [ "board" ],
                 key: index
-              }));
+              }, React.createElement(Piece, {
+                piece: piece
+              })));
             }
           }
           return tags;
@@ -407,19 +417,23 @@ module.exports = Board = (function(superClass) {
           var $$obj = woods;
           if ("number" == typeof $$obj.length) for (var index = 0, $$l = $$obj.length; $$l > index; index++) {
             var wood = $$obj[index];
-            tags.push(React.createElement(Wood, {
-              wood: wood,
+            tags.push(React.createElement(FluxComponent, {
+              connectToStores: [ "board" ],
               key: index
-            }));
+            }, React.createElement(Wood, {
+              wood: wood
+            })));
           } else {
             var $$l = 0;
             for (var index in $$obj) {
               $$l++;
               var wood = $$obj[index];
-              tags.push(React.createElement(Wood, {
-                wood: wood,
+              tags.push(React.createElement(FluxComponent, {
+                connectToStores: [ "board" ],
                 key: index
-              }));
+              }, React.createElement(Wood, {
+                wood: wood
+              })));
             }
           }
           return tags;
@@ -431,21 +445,23 @@ module.exports = Board = (function(superClass) {
           var $$obj = wood_points;
           if ("number" == typeof $$obj.length) for (var index = 0, $$l = $$obj.length; $$l > index; index++) {
             var point = $$obj[index];
-            tags.push(React.createElement(WoodPoint, {
-              point: point,
-              key: index,
-              flux: flux
-            }));
+            tags.push(React.createElement(FluxComponent, {
+              connectToStores: [ "board" ],
+              key: index
+            }, React.createElement(WoodPoint, {
+              point: point
+            })));
           } else {
             var $$l = 0;
             for (var index in $$obj) {
               $$l++;
               var point = $$obj[index];
-              tags.push(React.createElement(WoodPoint, {
-                point: point,
-                key: index,
-                flux: flux
-              }));
+              tags.push(React.createElement(FluxComponent, {
+                connectToStores: [ "board" ],
+                key: index
+              }, React.createElement(WoodPoint, {
+                point: point
+              })));
             }
           }
           return tags;
@@ -538,19 +554,23 @@ module.exports = Board = (function(superClass) {
         var $$obj = unused_woods;
         if ("number" == typeof $$obj.length) for (var index = 0, $$l = $$obj.length; $$l > index; index++) {
           var wood = $$obj[index];
-          tags.push(React.createElement(Wood, {
-            wood: wood,
+          tags.push(React.createElement(FluxComponent, {
+            connectToStores: [ "board" ],
             key: index
-          }));
+          }, React.createElement(Wood, {
+            wood: wood
+          })));
         } else {
           var $$l = 0;
           for (var index in $$obj) {
             $$l++;
             var wood = $$obj[index];
-            tags.push(React.createElement(Wood, {
-              wood: wood,
+            tags.push(React.createElement(FluxComponent, {
+              connectToStores: [ "board" ],
               key: index
-            }));
+            }, React.createElement(Wood, {
+              wood: wood
+            })));
           }
         }
         return tags;
@@ -695,12 +715,13 @@ module.exports = Grid = (function(superClass) {
   };
 
   Grid.prototype.onClick = function() {
-    var player;
+    var moves, player;
     if (this.props.grid.next) {
       player = this.props.flux.getStore("board").state.player;
+      moves = this.props.flux.getStore("board").state.moves;
       return socket.push('action', {
         action: "movePiece",
-        args: [this.props.grid, player]
+        args: [this.props.grid, player, moves]
       });
     }
   };
@@ -739,6 +760,7 @@ module.exports = Piece = (function(superClass) {
       obj["player" + this.props.piece.player] = true,
       obj["col" + this.props.piece.col] = true,
       obj["row" + this.props.piece.row] = true,
+      obj["current"] = this.props.piece.moves === this.props.moves,
       obj
     ));
     return (function (React) {
@@ -1126,6 +1148,7 @@ module.exports = Wood = (function(superClass) {
       obj["row" + this.props.wood.row] = true,
       obj["wood" + this.props.wood.id] = _.isEmpty(this.props.wood.id),
       obj["" + this.props.wood.status] = true,
+      obj["current"] = this.props.wood.moves === this.props.moves,
       obj
     ));
     return (function (React) {
@@ -1269,11 +1292,9 @@ module.exports = WoodPoint = (function(superClass) {
   };
 
   WoodPoint.prototype.onClick = function() {
-    var player;
-    player = this.props.flux.getStore("board").state.player;
     return socket.push('action', {
       action: "moveWood",
-      args: [this.props.point, player]
+      args: [this.props.point, this.props.player, this.props.moves]
     });
   };
 
@@ -35943,6 +35964,7 @@ module.exports = BoardStore = (function(superClass) {
       wood_points: [],
       wood_count: {},
       unused_woods: {},
+      moves: 0,
       grids: grids,
       player: 0,
       pair: false,
@@ -36054,7 +36076,8 @@ module.exports = BoardStore = (function(superClass) {
       winner: 0,
       play: true,
       end: false,
-      pair: data.pair
+      pair: data.pair,
+      moves: 0
     });
   };
 
@@ -36064,7 +36087,6 @@ module.exports = BoardStore = (function(superClass) {
     pieces[piece.player] = piece;
     if (this.state.pair) {
       end = pieces[1].row === this.num - 1 || pieces[2].col === 0 || pieces[3].row === 0 || pieces[4].col === this.num - 1;
-      console.log(end);
     } else {
       end = pieces[1].row === this.num - 1 || pieces[2].row === 0;
     }
@@ -36079,7 +36101,8 @@ module.exports = BoardStore = (function(superClass) {
       grids: grids,
       pieces: pieces,
       player: next_player,
-      end: end
+      end: end,
+      moves: ++this.state.moves
     });
   };
 
@@ -36118,7 +36141,8 @@ module.exports = BoardStore = (function(superClass) {
       woods: woods,
       wood_count: wood_count,
       wood_points: wood_points,
-      unused_woods: unused_woods
+      unused_woods: unused_woods,
+      moves: ++this.state.moves
     });
   };
 

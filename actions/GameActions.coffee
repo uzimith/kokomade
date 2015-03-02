@@ -8,18 +8,20 @@ class GameActions extends Actions
     null
   giveupGame: (player) ->
     player
-  movePiece: (grid, player) ->
+  movePiece: (grid, player, moves) ->
     piece = {
       col: grid.col
       row: grid.row
       player: player
+      moves: ++moves
     }
     piece
-  moveWood: (point, player) ->
+  moveWood: (point, player, moves) ->
     wood = {
       col: point.col
       row: point.row
       status: point.status
       player: player
+      moves: ++moves
     }
     wood

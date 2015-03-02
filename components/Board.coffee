@@ -12,7 +12,7 @@ WoodPoint = require('./WoodPoint.coffee')
 module.exports =
 class Board extends React.Component
   constructor: ->
-    @state = pair: true
+    @state = pair: false
   render: =>
     cx = React.addons.classSet
     player_class =
@@ -42,6 +42,9 @@ class Board extends React.Component
               tr
                 th Room
                 td= roomId
+              tr
+                th Moves
+                td= moves
               tr(class=player_class[player])
                 th Current
                 td= player
@@ -50,14 +53,17 @@ class Board extends React.Component
           #board
             .pieces
               each piece, index in pieces
-                Piece(piece=piece key=index)
+                FluxComponent(connectToStores=['board'] key=index)
+                  Piece(piece=piece)
             .woods
               each wood, index in woods
-                Wood(wood=wood key=index)
+                FluxComponent(connectToStores=['board'] key=index)
+                  Wood(wood=wood)
             if wood_count[player] > 0
               .wood_points
                 each point, index in wood_points
-                  WoodPoint(point=point key=index flux=flux)
+                  FluxComponent(connectToStores=['board'] key=index)
+                    WoodPoint(point=point)
             .grids
               each rows, index in grids
                 .clearfix(key=index)
@@ -67,7 +73,8 @@ class Board extends React.Component
           #case
             .woods
               each wood, index in unused_woods
-                Wood(wood=wood key=index)
+                FluxComponent(connectToStores=['board'] key=index)
+                  Wood(wood=wood)
 
     """)(_.assign(@, @props, @state))
   startGame: =>

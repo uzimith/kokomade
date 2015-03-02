@@ -21,6 +21,7 @@ class BoardStore extends Store
       wood_points: []
       wood_count: {}
       unused_woods: {}
+      moves: 0
       grids: grids
       player: 0
       pair: false
@@ -75,6 +76,7 @@ class BoardStore extends Store
       play: true
       end: false
       pair: data.pair
+      moves: 0
 
   handlePiece: (piece) ->
     # move piece
@@ -85,7 +87,6 @@ class BoardStore extends Store
     if @state.pair
       end = pieces[1].row is @num - 1 or pieces[2].col is 0 or
             pieces[3].row is        0 or pieces[4].col is @num - 1
-      console.log(end)
     else
       end = pieces[1].row is @num - 1 or pieces[2].row is 0
     grids = @createGrids()
@@ -99,6 +100,7 @@ class BoardStore extends Store
       pieces: pieces
       player: next_player
       end: end
+      moves: ++@state.moves
 
   handleWood: (wood) ->
     # move wood
@@ -133,6 +135,7 @@ class BoardStore extends Store
       wood_count: wood_count
       wood_points: wood_points
       unused_woods: unused_woods
+      moves: ++@state.moves
 
 
   handleEndGame: ->
