@@ -34,6 +34,13 @@ class Board extends React.Component
               option(value="pair") Pair
             a.control.btn.btn-default(class=playing_classes onClick=giveupGame) Give up
             a.control.btn.btn-default(class=playing_classes onClick=shareBoard) Share Board
+            .row
+              .col-sm-6
+                a.control.btn.btn-default(class=playing_classes onClick=backHistory)
+                  .glyphicon.glyphicon-menu-left
+              .col-sm-6
+                a.control.btn.btn-default(class=playing_classes onClick=nextHistory)
+                  .glyphicon.glyphicon-menu-right
             a.control.btn.btn-default(class=end_classes onClick=endGame) End
 
           hr
@@ -117,3 +124,7 @@ class Board extends React.Component
       play: @props.play
       end: @props.end
     socket.emit('action', action: "shareBoard", args: [state])
+  backHistory: =>
+    @props.flux.getActions("game").backHistory()
+  nextHistory: =>
+    @props.flux.getActions("game").nextHistory()
