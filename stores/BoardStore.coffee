@@ -13,6 +13,7 @@ class BoardStore extends Store
     @register(gameActions.startGame, @handleNewGame)
     @register(gameActions.endGame, @handleEndGame)
     @register(gameActions.giveupGame, @handleGiveup)
+    @register(gameActions.shareBoard, @shareBoard)
     @num = 9
     @player = 2
     grids = @createGrids()
@@ -246,3 +247,5 @@ class BoardStore extends Store
                 return
     return grids
 
+  shareBoard: (state) ->
+    @setState state
