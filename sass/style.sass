@@ -57,6 +57,14 @@ body
       border-left: 5px solid $border
       border-top: 5px solid $border
       background: $background
+      &.player1
+        background: darken(#0FC6FF, 30%)
+      &.player2
+        background: darken(#E8DB0D, 30%)
+      &.player3
+        background: darken(#FF1B40, 30%)
+      &.player4
+        background: darken(#02D90D, 30%)
       &.next
         background: #ddd
   .piece
@@ -68,9 +76,9 @@ body
     transition: all 0.5s linear 0
     @for $i from 0 through $grid
       &.row#{$i}
-        top: $grid_height * $i
+        top: $grid_height * $i + 1px
       &.col#{$i}
-        left: $grid_width * $i + 6px
+        left: $grid_width * $i + 7px
   .wood
     position: absolute
     z-index: 10
@@ -98,17 +106,17 @@ body
     // background: rgba(255,255,255, 0.5)
     z-index: 5
     &.vertical
-      width: 22px
+      width: 12px
       height: $grid_height - 5px
       border-radius: 5px
       margin-top: 5px
-      margin-left: -10px
+      margin-left: -4px
     &.horizontal
       width: $grid_width - 5px
-      height: 22px
+      height: 12px
       border-radius: 5px
       margin-left: 5px
-      margin-top: -10px
+      margin-top: -4px
     @for $i from 0 through $grid+1
       &.row#{$i}
         top: $grid_height * $i
@@ -119,7 +127,7 @@ body
   position: relative
   background: rgba(0,0,0,0.8)
   width: $grid_width * 9 + 5
-  height: $grid_height * 2 * 4 + 20px
+  height: $grid_height * 2 * 2 + 40px
   border-radius: 5px
   .wood
     position: absolute

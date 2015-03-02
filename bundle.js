@@ -664,7 +664,7 @@ module.exports = Grid = (function(superClass) {
   }
 
   Grid.prototype.render = function() {
-    var classes, cx, obj;
+    var classes, cx, obj, player_class;
     cx = React.addons.classSet;
     classes = cx((
       obj = {
@@ -674,9 +674,23 @@ module.exports = Grid = (function(superClass) {
       obj["row" + this.props.grid.row] = true,
       obj
     ));
+    if (this.props.pair) {
+      player_class = cx({
+        "player1": this.props.player === 1 && this.props.grid.row === 8,
+        "player2": this.props.player === 2 && this.props.grid.col === 0,
+        "player3": this.props.player === 3 && this.props.grid.row === 0,
+        "player4": this.props.player === 4 && this.props.grid.col === 8
+      });
+    } else {
+      player_class = cx({
+        "player1": this.props.player === 1 && this.props.grid.row === 8,
+        "player2": this.props.player === 2 && this.props.grid.row === 0
+      });
+    }
     return (function (React) {
   var jade_globals_onClick = typeof onClick === "undefined" ? undefined : onClick;
   var jade_globals_classes = typeof classes === "undefined" ? undefined : classes;
+  var jade_globals_player_class = typeof player_class === "undefined" ? undefined : player_class;
   var fn = function(locals) {
     function jade_join_classes(val) {
       return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
@@ -686,11 +700,12 @@ module.exports = Grid = (function(superClass) {
       }).join(" ");
     }  var onClick = "onClick" in locals ? locals.onClick : jade_globals_onClick;
     var classes = "classes" in locals ? locals.classes : jade_globals_classes;
+    var player_class = "player_class" in locals ? locals.player_class : jade_globals_player_class;
     return function() {
       var tags = [];
       tags.push(React.createElement("div", {
         onClick: onClick,
-        className: jade_join_classes([ "grid", classes ])
+        className: jade_join_classes([ "grid", [ classes, player_class ] ])
       }));
       if (1 === tags.length) return tags.pop();
       tags.unshift("div", null);
