@@ -69,6 +69,10 @@ module.exports = GameActions = (function(superClass) {
     return null;
   };
 
+  GameActions.prototype.unselectWood = function() {
+    return null;
+  };
+
   GameActions.prototype.moveWood = function(point, player, moves) {
     var wood;
     wood = {
@@ -561,6 +565,7 @@ module.exports = Controller = (function(superClass) {
     this.nextHistory = bind(this.nextHistory, this);
     this.backHistory = bind(this.backHistory, this);
     this.shareBoard = bind(this.shareBoard, this);
+    this.unselectWood = bind(this.unselectWood, this);
     this.selectWood = bind(this.selectWood, this);
     this.onChange = bind(this.onChange, this);
     this.endGame = bind(this.endGame, this);
@@ -573,7 +578,7 @@ module.exports = Controller = (function(superClass) {
   }
 
   Controller.prototype.render = function() {
-    var cx, end_classes, player_class, playing_classes, start_classes;
+    var cx, end_classes, player_class, playing_classes, select_classes, start_classes, unselect_classes;
     cx = React.addons.classSet;
     player_class = {
       1: cx({
@@ -601,6 +606,14 @@ module.exports = Controller = (function(superClass) {
       show: this.props.end,
       hide: !this.props.end
     });
+    select_classes = cx({
+      show: !this.props.select_wood && this.props.play,
+      hide: this.props.select_wood || !this.props.play
+    });
+    unselect_classes = cx({
+      show: this.props.select_wood && this.props.play,
+      hide: !this.props.select_wood || !this.props.play
+    });
     return (function (React) {
   var jade_globals_startGame = typeof startGame === "undefined" ? undefined : startGame;
   var jade_globals_start_classes = typeof start_classes === "undefined" ? undefined : start_classes;
@@ -617,6 +630,9 @@ module.exports = Controller = (function(superClass) {
   var jade_globals_player_class = typeof player_class === "undefined" ? undefined : player_class;
   var jade_globals_player = typeof player === "undefined" ? undefined : player;
   var jade_globals_selectWood = typeof selectWood === "undefined" ? undefined : selectWood;
+  var jade_globals_select_classes = typeof select_classes === "undefined" ? undefined : select_classes;
+  var jade_globals_unselectWood = typeof unselectWood === "undefined" ? undefined : unselectWood;
+  var jade_globals_unselect_classes = typeof unselect_classes === "undefined" ? undefined : unselect_classes;
   var fn = function(locals) {
     function jade_join_classes(val) {
       return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
@@ -639,6 +655,9 @@ module.exports = Controller = (function(superClass) {
     var player_class = "player_class" in locals ? locals.player_class : jade_globals_player_class;
     var player = "player" in locals ? locals.player : jade_globals_player;
     var selectWood = "selectWood" in locals ? locals.selectWood : jade_globals_selectWood;
+    var select_classes = "select_classes" in locals ? locals.select_classes : jade_globals_select_classes;
+    var unselectWood = "unselectWood" in locals ? locals.unselectWood : jade_globals_unselectWood;
+    var unselect_classes = "unselect_classes" in locals ? locals.unselect_classes : jade_globals_unselect_classes;
     return function() {
       var tags = [];
       tags.push(React.createElement("div", {
@@ -690,8 +709,11 @@ module.exports = Controller = (function(superClass) {
         className: "row"
       }, React.createElement("a", {
         onClick: selectWood,
-        className: jade_join_classes([ "control", "btn", "btn-default", [ player_class[player], playing_classes ] ])
-      }, "Wood")));
+        className: jade_join_classes([ "control", "btn", "btn-default", [ player_class[player], select_classes ] ])
+      }, "Wood"), React.createElement("a", {
+        onClick: unselectWood,
+        className: jade_join_classes([ "control", "btn", "btn-default", [ player_class[player], unselect_classes ] ])
+      }, "Piece")));
       if (1 === tags.length) return tags.pop();
       tags.unshift("div", null);
       return React.createElement.apply(React, tags);
@@ -753,6 +775,10 @@ module.exports = Controller = (function(superClass) {
 
   Controller.prototype.selectWood = function() {
     return this.props.flux.getActions("game").selectWood();
+  };
+
+  Controller.prototype.unselectWood = function() {
+    return this.props.flux.getActions("game").unselectWood();
   };
 
   Controller.prototype.shareBoard = function() {
@@ -43245,6 +43271,7 @@ module.exports = BoardStore = (function(superClass) {
     this.register(gameActions.movePiece, this.handlePiece);
     this.register(gameActions.moveWood, this.handleMoveWood);
     this.register(gameActions.selectWood, this.handleSelectWood);
+    this.register(gameActions.unselectWood, this.handleUnselectWood);
     this.register(gameActions.startGame, this.handleNewGame);
     this.register(gameActions.endGame, this.handleEndGame);
     this.register(gameActions.giveupGame, this.handleGiveup);
@@ -43420,9 +43447,8 @@ module.exports = BoardStore = (function(superClass) {
     });
   };
 
-  BoardStore.prototype.handleSelectWood = function(wood) {
+  BoardStore.prototype.handleSelectWood = function() {
     var grids;
-    this.pushHistroy(this.history, this.state);
     grids = this.createGrids();
     return this.setState({
       grids: grids,
@@ -43430,8 +43456,18 @@ module.exports = BoardStore = (function(superClass) {
     });
   };
 
+  BoardStore.prototype.handleUnselectWood = function() {
+    var grids;
+    grids = this.createGrids();
+    grids = this.searchNextPutableGrid(grids, this.state.pieces, this.state.woods, this.state.player);
+    return this.setState({
+      grids: grids,
+      select_wood: false
+    });
+  };
+
   BoardStore.prototype.handleMoveWood = function(wood) {
-    var grids, next_player, unused_woods, wood_count, wood_points, woods;
+    var grids, next_player, obj, unused_woods, wood_count, wood_points, woods;
     if (this.state.look_back) {
       console.log("warn");
     }
@@ -43439,8 +43475,8 @@ module.exports = BoardStore = (function(superClass) {
     woods = React.addons.update(this.state.woods, {
       $push: [wood]
     });
-    wood_points = this.state.wood_points;
-    _.remove(this.state.wood_points, function(point) {
+    wood_points = _.clone(this.state.wood_points);
+    _.remove(wood_points, function(point) {
       if (wood.status === "horizontal") {
         return (wood.row === point.row && _.includes([wood.col, wood.col + 1], point.col) && point.status === "horizontal") || (wood.col + 1 === point.col && wood.row - 1 === point.row && point.status === "vertical");
       }
@@ -43448,8 +43484,13 @@ module.exports = BoardStore = (function(superClass) {
         return (_.includes([wood.row, wood.row + 1], point.row) && wood.col === point.col && point.status === "vertical") || (wood.row + 1 === point.row && wood.col - 1 === point.col && point.status === "horizontal");
       }
     });
-    wood_count = this.state.wood_count;
-    wood_count[wood.player]--;
+    wood_count = React.addons.update(this.state.wood_count, (
+      obj = {},
+      obj["" + wood.player] = {
+        $set: this.state.wood_count[wood.player] - 1
+      },
+      obj
+    ));
     unused_woods = _.flatten(_.map(wood_count, function(count, player) {
       return _.map(_.range(1, count + 1), function(i) {
         return {

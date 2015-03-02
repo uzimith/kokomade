@@ -10,6 +10,7 @@ class BoardStore extends Store
     @register(gameActions.movePiece, @handlePiece)
     @register(gameActions.moveWood, @handleMoveWood)
     @register(gameActions.selectWood, @handleSelectWood)
+    @register(gameActions.unselectWood, @handleUnselectWood)
     @register(gameActions.startGame, @handleNewGame)
     @register(gameActions.endGame, @handleEndGame)
     @register(gameActions.giveupGame, @handleGiveup)
@@ -118,12 +119,19 @@ class BoardStore extends Store
       moves: ++@state.moves
       select_wood: false
 
-  handleSelectWood: (wood) ->
-    @pushHistroy(@history, @state)
+  handleSelectWood: ->
     grids = @createGrids()
     @setState
       grids: grids
       select_wood: true
+
+  handleUnselectWood: ->
+    grids = @createGrids()
+    grids = @searchNextPutableGrid(grids, @state.pieces, @state.woods, @state.player)
+    @setState
+      grids: grids
+      select_wood: false
+
   handleMoveWood: (wood) ->
     if @state.look_back
       console.log("warn")
@@ -131,8 +139,8 @@ class BoardStore extends Store
     # move wood
     woods = React.addons.update(@state.woods, {$push: [wood]})
 
-    wood_points = @state.wood_points
-    _.remove @state.wood_points, (point) ->
+    wood_points = _.clone(@state.wood_points)
+    _.remove wood_points, (point) ->
       if wood.status is "horizontal"
         return (wood.row is point.row and _.includes([wood.col,wood.col+1], point.col) and point.status is "horizontal") or
           (wood.col+1 is point.col and wood.row-1 is point.row and point.status is "vertical")
@@ -141,8 +149,7 @@ class BoardStore extends Store
           (wood.row+1 is point.row and wood.col-1 is point.col and point.status is "horizontal")
 
 
-    wood_count = @state.wood_count
-    wood_count[wood.player]--
+    wood_count = React.addons.update(@state.wood_count, {"#{wood.player}": {$set: @state.wood_count[wood.player] - 1}})
 
     unused_woods = _.flatten _.map wood_count, (count,player) ->
       _.map _.range(1, count), (i) ->

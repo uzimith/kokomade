@@ -14,8 +14,10 @@ class Controller extends React.Component
       3: cx(player3: true)
       4: cx(player4: true)
     start_classes  = cx show: !@props.play, hide:  @props.play
-    playing_classes = cx show:  @props.play, hide: !@props.play
-    end_classes    = cx show:  @props.end, hide: !@props.end
+    playing_classes = cx show: @props.play, hide: !@props.play
+    end_classes = cx show: @props.end, hide: !@props.end
+    select_classes = cx show: !@props.select_wood and @props.play, hide: @props.select_wood or !@props.play
+    unselect_classes = cx show: @props.select_wood and @props.play, hide: !@props.select_wood or !@props.play
     jade.compile("""
     .row
       a.control.btn.btn-default(class=start_classes onClick=startGame) Start
@@ -51,7 +53,9 @@ class Controller extends React.Component
     hr
 
     .row
-      a.control.btn.btn-default(class=[player_class[player], playing_classes] onClick=selectWood) Wood
+      a.control.btn.btn-default(class=[player_class[player], select_classes] onClick=selectWood) Wood
+      a.control.btn.btn-default(class=[player_class[player], unselect_classes] onClick=unselectWood) Piece
+
     """)(_.assign(@, @props, @state))
   startGame: =>
     socket.emit('action', action: "startGame", args: [1, @state.pair])
@@ -67,6 +71,8 @@ class Controller extends React.Component
     @setState pair: e.target.options[e.target.options.selectedIndex].value is "pair"
   selectWood: =>
     @props.flux.getActions("game").selectWood()
+  unselectWood: =>
+    @props.flux.getActions("game").unselectWood()
   shareBoard: =>
     state =
       pieces: @props.pieces
