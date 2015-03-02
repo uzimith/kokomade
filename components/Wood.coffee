@@ -17,3 +17,5 @@ class Wood extends React.Component
     jade.compile("""
       .wood(class=classes onClick=onClick)
     """)(_.assign(@, @props, @state))
+  onClick: =>
+    @props.flux.getActions("game").selectWood()
