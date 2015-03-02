@@ -25,6 +25,7 @@ React.render(React.createFactory(Application)({
 
 },{"./components/Application.coffee":"/Users/uzimith/dev/kokomade/components/Application.coffee","./dispatcher/AppFlux.coffee":"/Users/uzimith/dev/kokomade/dispatcher/AppFlux.coffee","./socket.coffee":"/Users/uzimith/dev/kokomade/socket.coffee","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","socket.io-client":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/index.js"}],"/Users/uzimith/dev/kokomade/actions/GameActions.coffee":[function(require,module,exports){
 var Actions, GameActions,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
@@ -34,6 +35,7 @@ module.exports = GameActions = (function(superClass) {
   extend(GameActions, superClass);
 
   function GameActions() {
+    this.shareBoard = bind(this.shareBoard, this);
     return GameActions.__super__.constructor.apply(this, arguments);
   }
 
@@ -65,6 +67,10 @@ module.exports = GameActions = (function(superClass) {
 
   GameActions.prototype.selectWood = function() {
     return null;
+  };
+
+  GameActions.prototype.shareBoard = function(state) {
+    return state;
   };
 
   GameActions.prototype.moveWood = function(point, player, moves) {
@@ -253,6 +259,7 @@ module.exports = Board = (function(superClass) {
   extend(Board, superClass);
 
   function Board() {
+    this.shareBoard = bind(this.shareBoard, this);
     this.selectWood = bind(this.selectWood, this);
     this.onChange = bind(this.onChange, this);
     this.endGame = bind(this.endGame, this);
@@ -299,6 +306,7 @@ module.exports = Board = (function(superClass) {
   var jade_globals_onChange = typeof onChange === "undefined" ? undefined : onChange;
   var jade_globals_giveupGame = typeof giveupGame === "undefined" ? undefined : giveupGame;
   var jade_globals_playing_classes = typeof playing_classes === "undefined" ? undefined : playing_classes;
+  var jade_globals_shareBoard = typeof shareBoard === "undefined" ? undefined : shareBoard;
   var jade_globals_endGame = typeof endGame === "undefined" ? undefined : endGame;
   var jade_globals_end_classes = typeof end_classes === "undefined" ? undefined : end_classes;
   var jade_globals_roomId = typeof roomId === "undefined" ? undefined : roomId;
@@ -331,6 +339,7 @@ module.exports = Board = (function(superClass) {
     var onChange = "onChange" in locals ? locals.onChange : jade_globals_onChange;
     var giveupGame = "giveupGame" in locals ? locals.giveupGame : jade_globals_giveupGame;
     var playing_classes = "playing_classes" in locals ? locals.playing_classes : jade_globals_playing_classes;
+    var shareBoard = "shareBoard" in locals ? locals.shareBoard : jade_globals_shareBoard;
     var endGame = "endGame" in locals ? locals.endGame : jade_globals_endGame;
     var end_classes = "end_classes" in locals ? locals.end_classes : jade_globals_end_classes;
     var roomId = "roomId" in locals ? locals.roomId : jade_globals_roomId;
@@ -373,6 +382,9 @@ module.exports = Board = (function(superClass) {
         onClick: giveupGame,
         className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
       }, "Give up"), React.createElement("a", {
+        onClick: shareBoard,
+        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
+      }, "Share Board"), React.createElement("a", {
         onClick: endGame,
         className: jade_join_classes([ "control", "btn", "btn-default", end_classes ])
       }, "End")), React.createElement("hr", {}), React.createElement("table", {
@@ -652,6 +664,29 @@ module.exports = Board = (function(superClass) {
 
   Board.prototype.selectWood = function() {
     return this.props.flux.getActions("game").selectWood();
+  };
+
+  Board.prototype.shareBoard = function() {
+    var state;
+    state = {
+      pieces: this.props.pieces,
+      woods: this.props.woods,
+      wood_points: this.props.wood_points,
+      wood_count: this.props.wood_count,
+      unused_woods: this.props.unused_woods,
+      select_wood: this.props.select_wood,
+      moves: this.props.moves,
+      grids: this.props.grids,
+      player: this.props.player,
+      pair: this.props.pair,
+      winner: this.props.winner,
+      play: this.props.play,
+      end: this.props.end
+    };
+    return socket.emit('action', {
+      action: "shareBoard",
+      args: [state]
+    });
   };
 
   return Board;
@@ -43008,6 +43043,7 @@ module.exports = BoardStore = (function(superClass) {
     this.register(gameActions.startGame, this.handleNewGame);
     this.register(gameActions.endGame, this.handleEndGame);
     this.register(gameActions.giveupGame, this.handleGiveup);
+    this.register(gameActions.shareBoard, this.shareBoard);
     this.num = 9;
     this.player = 2;
     grids = this.createGrids();
@@ -43421,6 +43457,10 @@ module.exports = BoardStore = (function(superClass) {
       }
     }
     return grids;
+  };
+
+  BoardStore.prototype.shareBoard = function(state) {
+    return this.setState(state);
   };
 
   return BoardStore;

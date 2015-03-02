@@ -33,6 +33,7 @@ class Board extends React.Component
               option(value="single") Single
               option(value="pair") Pair
             a.control.btn.btn-default(class=playing_classes onClick=giveupGame) Give up
+            a.control.btn.btn-default(class=playing_classes onClick=shareBoard) Share Board
             a.control.btn.btn-default(class=end_classes onClick=endGame) End
 
           hr
@@ -100,3 +101,19 @@ class Board extends React.Component
     @setState pair: e.target.options[e.target.options.selectedIndex].value is "pair"
   selectWood: =>
     @props.flux.getActions("game").selectWood()
+  shareBoard: =>
+    state =
+      pieces: @props.pieces
+      woods: @props.woods
+      wood_points: @props.wood_points
+      wood_count: @props.wood_count
+      unused_woods: @props.unused_woods
+      select_wood: @props.select_wood
+      moves: @props.moves
+      grids: @props.grids
+      player: @props.player
+      pair: @props.pair
+      winner: @props.winner
+      play: @props.play
+      end: @props.end
+    socket.emit('action', action: "shareBoard", args: [state])
