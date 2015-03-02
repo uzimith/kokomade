@@ -16,6 +16,8 @@ class GameActions extends Actions
       moves: ++moves
     }
     piece
+  selectWood: () ->
+    null
   moveWood: (point, player, moves) ->
     wood = {
       col: point.col

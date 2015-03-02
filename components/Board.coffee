@@ -21,7 +21,7 @@ class Board extends React.Component
       3: cx(player3: true)
       4: cx(player4: true)
     start_classes  = cx show: !@props.play, hide:  @props.play
-    giveup_classes = cx show:  @props.play, hide: !@props.play
+    playing_classes = cx show:  @props.play, hide: !@props.play
     end_classes    = cx show:  @props.end, hide: !@props.end
 
     jade.compile("""
@@ -32,7 +32,7 @@ class Board extends React.Component
             select.form-control(class=start_classes onChange=onChange)
               option(value="single") Single
               option(value="pair") Pair
-            a.control.btn.btn-default(class=giveup_classes onClick=giveupGame) Give up
+            a.control.btn.btn-default(class=playing_classes onClick=giveupGame) Give up
             a.control.btn.btn-default(class=end_classes onClick=endGame) End
 
           hr
@@ -49,6 +49,14 @@ class Board extends React.Component
                 th Current
                 td= player
 
+
+          hr
+
+          .row
+            a.control.btn.btn-default(class=[player_class[player], playing_classes] onClick=selectWood) Wood
+
+          hr
+
         .col-md-8
           #board
             .pieces
@@ -59,7 +67,7 @@ class Board extends React.Component
               each wood, index in woods
                 FluxComponent(connectToStores=['board'] key=index)
                   Wood(wood=wood)
-            if wood_count[player] > 0
+            if wood_count[player] > 0 && select_wood
               .wood_points
                 each point, index in wood_points
                   FluxComponent(connectToStores=['board'] key=index)
@@ -90,3 +98,5 @@ class Board extends React.Component
     @props.flux.getActions("game").endGame()
   onChange: (e) =>
     @setState pair: e.target.options[e.target.options.selectedIndex].value is "pair"
+  selectWood: =>
+    @props.flux.getActions("game").selectWood()

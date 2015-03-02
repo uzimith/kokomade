@@ -8,7 +8,8 @@ class BoardStore extends Store
     super
     gameActions = flux.getActionIds('game')
     @register(gameActions.movePiece, @handlePiece)
-    @register(gameActions.moveWood, @handleWood)
+    @register(gameActions.moveWood, @handleMoveWood)
+    @register(gameActions.selectWood, @handleSelectWood)
     @register(gameActions.startGame, @handleNewGame)
     @register(gameActions.endGame, @handleEndGame)
     @register(gameActions.giveupGame, @handleGiveup)
@@ -21,6 +22,7 @@ class BoardStore extends Store
       wood_points: []
       wood_count: {}
       unused_woods: {}
+      select_wood: false
       moves: 0
       grids: grids
       player: 0
@@ -77,6 +79,7 @@ class BoardStore extends Store
       end: false
       pair: data.pair
       moves: 0
+      select_wood: false
 
   handlePiece: (piece) ->
     # move piece
@@ -101,8 +104,14 @@ class BoardStore extends Store
       player: next_player
       end: end
       moves: ++@state.moves
+      select_wood: false
 
-  handleWood: (wood) ->
+  handleSelectWood: (wood) ->
+    grids = @createGrids()
+    @setState
+      grids: grids
+      select_wood: true
+  handleMoveWood: (wood) ->
     # move wood
     woods = @state.woods
     woods.push(wood)
@@ -136,6 +145,7 @@ class BoardStore extends Store
       wood_points: wood_points
       unused_woods: unused_woods
       moves: ++@state.moves
+      select_wood: false
 
 
   handleEndGame: ->

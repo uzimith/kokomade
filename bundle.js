@@ -63,6 +63,10 @@ module.exports = GameActions = (function(superClass) {
     return piece;
   };
 
+  GameActions.prototype.selectWood = function() {
+    return null;
+  };
+
   GameActions.prototype.moveWood = function(point, player, moves) {
     var wood;
     wood = {
@@ -249,6 +253,7 @@ module.exports = Board = (function(superClass) {
   extend(Board, superClass);
 
   function Board() {
+    this.selectWood = bind(this.selectWood, this);
     this.onChange = bind(this.onChange, this);
     this.endGame = bind(this.endGame, this);
     this.giveupGame = bind(this.giveupGame, this);
@@ -260,7 +265,7 @@ module.exports = Board = (function(superClass) {
   }
 
   Board.prototype.render = function() {
-    var cx, end_classes, giveup_classes, player_class, start_classes;
+    var cx, end_classes, player_class, playing_classes, start_classes;
     cx = React.addons.classSet;
     player_class = {
       1: cx({
@@ -280,7 +285,7 @@ module.exports = Board = (function(superClass) {
       show: !this.props.play,
       hide: this.props.play
     });
-    giveup_classes = cx({
+    playing_classes = cx({
       show: this.props.play,
       hide: !this.props.play
     });
@@ -293,19 +298,21 @@ module.exports = Board = (function(superClass) {
   var jade_globals_start_classes = typeof start_classes === "undefined" ? undefined : start_classes;
   var jade_globals_onChange = typeof onChange === "undefined" ? undefined : onChange;
   var jade_globals_giveupGame = typeof giveupGame === "undefined" ? undefined : giveupGame;
-  var jade_globals_giveup_classes = typeof giveup_classes === "undefined" ? undefined : giveup_classes;
+  var jade_globals_playing_classes = typeof playing_classes === "undefined" ? undefined : playing_classes;
   var jade_globals_endGame = typeof endGame === "undefined" ? undefined : endGame;
   var jade_globals_end_classes = typeof end_classes === "undefined" ? undefined : end_classes;
   var jade_globals_roomId = typeof roomId === "undefined" ? undefined : roomId;
   var jade_globals_moves = typeof moves === "undefined" ? undefined : moves;
   var jade_globals_player_class = typeof player_class === "undefined" ? undefined : player_class;
   var jade_globals_player = typeof player === "undefined" ? undefined : player;
+  var jade_globals_selectWood = typeof selectWood === "undefined" ? undefined : selectWood;
   var jade_globals_pieces = typeof pieces === "undefined" ? undefined : pieces;
   var jade_globals_FluxComponent = typeof FluxComponent === "undefined" ? undefined : FluxComponent;
   var jade_globals_Piece = typeof Piece === "undefined" ? undefined : Piece;
   var jade_globals_woods = typeof woods === "undefined" ? undefined : woods;
   var jade_globals_Wood = typeof Wood === "undefined" ? undefined : Wood;
   var jade_globals_wood_count = typeof wood_count === "undefined" ? undefined : wood_count;
+  var jade_globals_select_wood = typeof select_wood === "undefined" ? undefined : select_wood;
   var jade_globals_wood_points = typeof wood_points === "undefined" ? undefined : wood_points;
   var jade_globals_WoodPoint = typeof WoodPoint === "undefined" ? undefined : WoodPoint;
   var jade_globals_grids = typeof grids === "undefined" ? undefined : grids;
@@ -323,19 +330,21 @@ module.exports = Board = (function(superClass) {
     var start_classes = "start_classes" in locals ? locals.start_classes : jade_globals_start_classes;
     var onChange = "onChange" in locals ? locals.onChange : jade_globals_onChange;
     var giveupGame = "giveupGame" in locals ? locals.giveupGame : jade_globals_giveupGame;
-    var giveup_classes = "giveup_classes" in locals ? locals.giveup_classes : jade_globals_giveup_classes;
+    var playing_classes = "playing_classes" in locals ? locals.playing_classes : jade_globals_playing_classes;
     var endGame = "endGame" in locals ? locals.endGame : jade_globals_endGame;
     var end_classes = "end_classes" in locals ? locals.end_classes : jade_globals_end_classes;
     var roomId = "roomId" in locals ? locals.roomId : jade_globals_roomId;
     var moves = "moves" in locals ? locals.moves : jade_globals_moves;
     var player_class = "player_class" in locals ? locals.player_class : jade_globals_player_class;
     var player = "player" in locals ? locals.player : jade_globals_player;
+    var selectWood = "selectWood" in locals ? locals.selectWood : jade_globals_selectWood;
     var pieces = "pieces" in locals ? locals.pieces : jade_globals_pieces;
     var FluxComponent = "FluxComponent" in locals ? locals.FluxComponent : jade_globals_FluxComponent;
     var Piece = "Piece" in locals ? locals.Piece : jade_globals_Piece;
     var woods = "woods" in locals ? locals.woods : jade_globals_woods;
     var Wood = "Wood" in locals ? locals.Wood : jade_globals_Wood;
     var wood_count = "wood_count" in locals ? locals.wood_count : jade_globals_wood_count;
+    var select_wood = "select_wood" in locals ? locals.select_wood : jade_globals_select_wood;
     var wood_points = "wood_points" in locals ? locals.wood_points : jade_globals_wood_points;
     var WoodPoint = "WoodPoint" in locals ? locals.WoodPoint : jade_globals_WoodPoint;
     var grids = "grids" in locals ? locals.grids : jade_globals_grids;
@@ -362,7 +371,7 @@ module.exports = Board = (function(superClass) {
         value: "pair"
       }, "Pair")), React.createElement("a", {
         onClick: giveupGame,
-        className: jade_join_classes([ "control", "btn", "btn-default", giveup_classes ])
+        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
       }, "Give up"), React.createElement("a", {
         onClick: endGame,
         className: jade_join_classes([ "control", "btn", "btn-default", end_classes ])
@@ -370,7 +379,12 @@ module.exports = Board = (function(superClass) {
         className: "table table-bordered back"
       }, React.createElement("tbody", {}, React.createElement("tr", {}, React.createElement("th", {}, "Room"), React.createElement("td", {}, roomId)), React.createElement("tr", {}, React.createElement("th", {}, "Moves"), React.createElement("td", {}, moves)), React.createElement("tr", {
         className: jade_join_classes([ player_class[player] ])
-      }, React.createElement("th", {}, "Current"), React.createElement("td", {}, player))))), React.createElement("div", {
+      }, React.createElement("th", {}, "Current"), React.createElement("td", {}, player)))), React.createElement("hr", {}), React.createElement("div", {
+        className: "row"
+      }, React.createElement("a", {
+        onClick: selectWood,
+        className: jade_join_classes([ "control", "btn", "btn-default", [ player_class[player], playing_classes ] ])
+      }, "Wood")), React.createElement("hr", {})), React.createElement("div", {
         className: "col-md-8"
       }, React.createElement.apply(React, [ "div", {
         id: "board"
@@ -432,7 +446,7 @@ module.exports = Board = (function(superClass) {
           }
           return tags;
         }.call(this)));
-        wood_count[player] > 0 && tags.push(React.createElement("div", {
+        wood_count[player] > 0 && select_wood && tags.push(React.createElement("div", {
           className: "wood_points"
         }, function() {
           var tags = [];
@@ -634,6 +648,10 @@ module.exports = Board = (function(superClass) {
     return this.setState({
       pair: e.target.options[e.target.options.selectedIndex].value === "pair"
     });
+  };
+
+  Board.prototype.selectWood = function() {
+    return this.props.flux.getActions("game").selectWood();
   };
 
   return Board;
@@ -1152,6 +1170,7 @@ module.exports = Wood = (function(superClass) {
   extend(Wood, superClass);
 
   function Wood() {
+    this.onClick = bind(this.onClick, this);
     this.render = bind(this.render, this);
     return Wood.__super__.constructor.apply(this, arguments);
   }
@@ -1212,6 +1231,10 @@ module.exports = Wood = (function(superClass) {
   ;
   return fn;
 }(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state));
+  };
+
+  Wood.prototype.onClick = function() {
+    return this.props.flux.getActions("game").selectWood();
   };
 
   return Wood;
@@ -42980,7 +43003,8 @@ module.exports = BoardStore = (function(superClass) {
     BoardStore.__super__.constructor.apply(this, arguments);
     gameActions = flux.getActionIds('game');
     this.register(gameActions.movePiece, this.handlePiece);
-    this.register(gameActions.moveWood, this.handleWood);
+    this.register(gameActions.moveWood, this.handleMoveWood);
+    this.register(gameActions.selectWood, this.handleSelectWood);
     this.register(gameActions.startGame, this.handleNewGame);
     this.register(gameActions.endGame, this.handleEndGame);
     this.register(gameActions.giveupGame, this.handleGiveup);
@@ -42993,6 +43017,7 @@ module.exports = BoardStore = (function(superClass) {
       wood_points: [],
       wood_count: {},
       unused_woods: {},
+      select_wood: false,
       moves: 0,
       grids: grids,
       player: 0,
@@ -43106,7 +43131,8 @@ module.exports = BoardStore = (function(superClass) {
       play: true,
       end: false,
       pair: data.pair,
-      moves: 0
+      moves: 0,
+      select_wood: false
     });
   };
 
@@ -43131,11 +43157,21 @@ module.exports = BoardStore = (function(superClass) {
       pieces: pieces,
       player: next_player,
       end: end,
-      moves: ++this.state.moves
+      moves: ++this.state.moves,
+      select_wood: false
     });
   };
 
-  BoardStore.prototype.handleWood = function(wood) {
+  BoardStore.prototype.handleSelectWood = function(wood) {
+    var grids;
+    grids = this.createGrids();
+    return this.setState({
+      grids: grids,
+      select_wood: true
+    });
+  };
+
+  BoardStore.prototype.handleMoveWood = function(wood) {
     var grids, next_player, unused_woods, wood_count, wood_points, woods;
     woods = this.state.woods;
     woods.push(wood);
@@ -43171,7 +43207,8 @@ module.exports = BoardStore = (function(superClass) {
       wood_count: wood_count,
       wood_points: wood_points,
       unused_woods: unused_woods,
-      moves: ++this.state.moves
+      moves: ++this.state.moves,
+      select_wood: false
     });
   };
 
