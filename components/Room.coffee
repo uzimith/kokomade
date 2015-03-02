@@ -29,11 +29,11 @@ class Room extends React.Component
 
   onCreateForm: (e) =>
     e.preventDefault()
-    socket.push("create", null)
+    socket.emit("create")
     @props.flux.getActions("panel").createBoard()
 
   onJoinForm: (e) =>
     e.preventDefault()
     if @state.roomId
-      socket.push("join", @state.roomId)
+      socket.emit("join", @state.roomId)
       @props.flux.getActions("panel").joinBoard()

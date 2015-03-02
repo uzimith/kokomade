@@ -1,4 +1,4 @@
-window.socket = new RocketIO(channel: channel).connect()
+window.socket = require('socket.io-client')()
 
 React = require('react')
 jade = require('react-jade')
@@ -9,7 +9,5 @@ AppFlux = require('./dispatcher/AppFlux.coffee')
 flux = new AppFlux
 
 require('./socket.coffee')(flux)
-
-flux.getActions("panel").joinBoard(channel) if channel
 
 React.render(React.createFactory(Application)(flux: flux), document.getElementById("container"))

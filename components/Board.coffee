@@ -69,7 +69,8 @@ class Board extends React.Component
                 .clearfix(key=index)
                   each col,index in rows
                     .col(key=index)
-                      Grid(grid=col flux=flux)
+                      FluxComponent(connectToStores=['board'])
+                        Grid(grid=col flux=flux)
           #case
             .woods
               each wood, index in unused_woods
@@ -78,11 +79,14 @@ class Board extends React.Component
 
     """)(_.assign(@, @props, @state))
   startGame: =>
-    socket.push('action', action: "startGame", args: [1, @state.pair])
+    socket.emit('action', action: "startGame", args: [1, @state.pair])
+    @props.flux.getActions("game").startGame(1, @state.pair)
   giveupGame: =>
     player = @props.flux.getStore("board").state.player
-    socket.push('action', action: "giveupGame", args: [player])
+    socket.emit('action', action: "giveupGame", args: [player])
+    @props.flux.getActions("game").giveupGame(player)
   endGame: =>
-    socket.push('action', action: "endGame", args: [])
+    socket.emit('action', action: "endGame", args: [])
+    @props.flux.getActions("game").endGame()
   onChange: (e) =>
     @setState pair: e.target.options[e.target.options.selectedIndex].value is "pair"
