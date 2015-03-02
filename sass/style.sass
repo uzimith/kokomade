@@ -39,7 +39,7 @@ body
   border-radius: 5px
 
 .current
-  border: 3px solid #fff
+  box-shadow: 0 0 0 3px #fff
 
 #board
   $border: #333
@@ -73,7 +73,10 @@ body
     height: 56px
     margin: 5px auto
     border-radius: 50%
-    transition: all 0.5s linear 0
+    transition: top 0.5s linear 0, left 0.5s linear 0
+    font-size: 25px
+    line-height: 60px
+    text-align: center
     @for $i from 0 through $grid
       &.row#{$i}
         top: $grid_height * $i + 1px

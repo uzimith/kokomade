@@ -836,6 +836,8 @@ module.exports = Piece = (function(superClass) {
     ));
     return (function (React) {
   var jade_globals_classes = typeof classes === "undefined" ? undefined : classes;
+  var jade_globals_pair = typeof pair === "undefined" ? undefined : pair;
+  var jade_globals_piece = typeof piece === "undefined" ? undefined : piece;
   var fn = function(locals) {
     function jade_join_classes(val) {
       return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
@@ -844,11 +846,37 @@ module.exports = Piece = (function(superClass) {
         return null != val && "" !== val;
       }).join(" ");
     }  var classes = "classes" in locals ? locals.classes : jade_globals_classes;
+    var pair = "pair" in locals ? locals.pair : jade_globals_pair;
+    var piece = "piece" in locals ? locals.piece : jade_globals_piece;
     return function() {
       var tags = [];
-      tags.push(React.createElement("div", {
+      tags.push(React.createElement.apply(React, [ "div", {
         className: jade_join_classes([ "piece", classes ])
-      }));
+      } ].concat(function() {
+        var tags = [];
+        if (pair) {
+          1 === piece.player && tags.push(React.createElement("div", {
+            className: "glyphicon glyphicon-menu-down"
+          }));
+          2 === piece.player && tags.push(React.createElement("div", {
+            className: "glyphicon glyphicon-menu-left"
+          }));
+          3 === piece.player && tags.push(React.createElement("div", {
+            className: "glyphicon glyphicon-menu-up"
+          }));
+          4 === piece.player && tags.push(React.createElement("div", {
+            className: "glyphicon glyphicon-menu-right"
+          }));
+        } else {
+          1 === piece.player && tags.push(React.createElement("div", {
+            className: "glyphicon glyphicon-menu-down"
+          }));
+          2 === piece.player && tags.push(React.createElement("div", {
+            className: "glyphicon glyphicon-menu-up"
+          }));
+        }
+        return tags;
+      }.call(this))));
       if (1 === tags.length) return tags.pop();
       tags.unshift("div", null);
       return React.createElement.apply(React, tags);

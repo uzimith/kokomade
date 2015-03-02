@@ -14,4 +14,18 @@ class Piece extends React.Component
     }
     jade.compile("""
     .piece(class=classes)
+      if pair
+        if piece.player === 1
+          .glyphicon.glyphicon-menu-down
+        if piece.player === 2
+          .glyphicon.glyphicon-menu-left
+        if piece.player === 3
+          .glyphicon.glyphicon-menu-up
+        if piece.player === 4
+          .glyphicon.glyphicon-menu-right
+      else
+        if piece.player === 1
+          .glyphicon.glyphicon-menu-down
+        if piece.player === 2
+          .glyphicon.glyphicon-menu-up
     """)(_.assign(@, @props, @state))
