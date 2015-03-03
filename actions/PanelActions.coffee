@@ -8,3 +8,7 @@ class PanelActions extends Actions
     null
   hideResult: ->
     null
+  showHistory: ->
+    null
+  hideHistory: ->
+    null

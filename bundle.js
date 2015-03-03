@@ -127,6 +127,14 @@ module.exports = PanelActions = (function(superClass) {
     return null;
   };
 
+  PanelActions.prototype.showHistory = function() {
+    return null;
+  };
+
+  PanelActions.prototype.hideHistory = function() {
+    return null;
+  };
+
   return PanelActions;
 
 })(Actions);
@@ -134,7 +142,7 @@ module.exports = PanelActions = (function(superClass) {
 
 
 },{"flummox":"/Users/uzimith/dev/kokomade/node_modules/flummox/lib/Flux.js"}],"/Users/uzimith/dev/kokomade/components/Application.coffee":[function(require,module,exports){
-var Application, FluxComponent, Game, React, ResultModal, Room, Route, _, jade,
+var Application, FluxComponent, Game, History, React, ResultModal, Room, Route, _, jade,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -155,6 +163,8 @@ Route = require('./Route.coffee');
 
 ResultModal = require('./ResultModal.coffee');
 
+History = require('./History.coffee');
+
 module.exports = Application = (function(superClass) {
   extend(Application, superClass);
 
@@ -170,12 +180,14 @@ module.exports = Application = (function(superClass) {
   var jade_globals_Route = typeof Route === "undefined" ? undefined : Route;
   var jade_globals_Room = typeof Room === "undefined" ? undefined : Room;
   var jade_globals_Game = typeof Game === "undefined" ? undefined : Game;
+  var jade_globals_History = typeof History === "undefined" ? undefined : History;
   var jade_globals_ResultModal = typeof ResultModal === "undefined" ? undefined : ResultModal;
   var fn = function(locals) {  var FluxComponent = "FluxComponent" in locals ? locals.FluxComponent : jade_globals_FluxComponent;
     var flux = "flux" in locals ? locals.flux : jade_globals_flux;
     var Route = "Route" in locals ? locals.Route : jade_globals_Route;
     var Room = "Room" in locals ? locals.Room : jade_globals_Room;
     var Game = "Game" in locals ? locals.Game : jade_globals_Game;
+    var History = "History" in locals ? locals.History : jade_globals_History;
     var ResultModal = "ResultModal" in locals ? locals.ResultModal : jade_globals_ResultModal;
     return function() {
       var tags = [];
@@ -207,6 +219,14 @@ module.exports = Application = (function(superClass) {
         flux: flux,
         connectToStores: [ "board", "panel" ]
       }, React.createElement(Game, {})))), React.createElement(FluxComponent, {
+        flux: flux,
+        connectToStores: [ "panel" ]
+      }, React.createElement(Route, {
+        show: "History"
+      }, React.createElement(FluxComponent, {
+        flux: flux,
+        connectToStores: [ "board", "panel" ]
+      }, React.createElement(History, {})))), React.createElement(FluxComponent, {
         flux: flux,
         connectToStores: [ "board", "panel" ]
       }, React.createElement(ResultModal, {}))));
@@ -243,7 +263,7 @@ module.exports = Application = (function(superClass) {
 
 
 
-},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","./Game.coffee":"/Users/uzimith/dev/kokomade/components/Game.coffee","./ResultModal.coffee":"/Users/uzimith/dev/kokomade/components/ResultModal.coffee","./Room.coffee":"/Users/uzimith/dev/kokomade/components/Room.coffee","./Route.coffee":"/Users/uzimith/dev/kokomade/components/Route.coffee","flummox/component":"/Users/uzimith/dev/kokomade/node_modules/flummox/component.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/Board.coffee":[function(require,module,exports){
+},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","./Game.coffee":"/Users/uzimith/dev/kokomade/components/Game.coffee","./History.coffee":"/Users/uzimith/dev/kokomade/components/History.coffee","./ResultModal.coffee":"/Users/uzimith/dev/kokomade/components/ResultModal.coffee","./Room.coffee":"/Users/uzimith/dev/kokomade/components/Room.coffee","./Route.coffee":"/Users/uzimith/dev/kokomade/components/Route.coffee","flummox/component":"/Users/uzimith/dev/kokomade/node_modules/flummox/component.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/Board.coffee":[function(require,module,exports){
 var Board, FluxComponent, Grid, Piece, React, Wood, WoodPoint, _, jade,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -562,7 +582,6 @@ module.exports = Controller = (function(superClass) {
   function Controller() {
     this.nextHistory = bind(this.nextHistory, this);
     this.backHistory = bind(this.backHistory, this);
-    this.shareBoard = bind(this.shareBoard, this);
     this.unselectWood = bind(this.unselectWood, this);
     this.selectWood = bind(this.selectWood, this);
     this.onChange = bind(this.onChange, this);
@@ -620,7 +639,6 @@ module.exports = Controller = (function(superClass) {
   var jade_globals_onChange = typeof onChange === "undefined" ? undefined : onChange;
   var jade_globals_giveupGame = typeof giveupGame === "undefined" ? undefined : giveupGame;
   var jade_globals_playing_classes = typeof playing_classes === "undefined" ? undefined : playing_classes;
-  var jade_globals_shareBoard = typeof shareBoard === "undefined" ? undefined : shareBoard;
   var jade_globals_roomId = typeof roomId === "undefined" ? undefined : roomId;
   var jade_globals_board = typeof board === "undefined" ? undefined : board;
   var jade_globals_player_class = typeof player_class === "undefined" ? undefined : player_class;
@@ -642,7 +660,6 @@ module.exports = Controller = (function(superClass) {
     var onChange = "onChange" in locals ? locals.onChange : jade_globals_onChange;
     var giveupGame = "giveupGame" in locals ? locals.giveupGame : jade_globals_giveupGame;
     var playing_classes = "playing_classes" in locals ? locals.playing_classes : jade_globals_playing_classes;
-    var shareBoard = "shareBoard" in locals ? locals.shareBoard : jade_globals_shareBoard;
     var roomId = "roomId" in locals ? locals.roomId : jade_globals_roomId;
     var board = "board" in locals ? locals.board : jade_globals_board;
     var player_class = "player_class" in locals ? locals.player_class : jade_globals_player_class;
@@ -670,10 +687,7 @@ module.exports = Controller = (function(superClass) {
       }, "Pair")), React.createElement("a", {
         onClick: giveupGame,
         className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
-      }, "Give up"), React.createElement("a", {
-        onClick: shareBoard,
-        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
-      }, "Share Board")));
+      }, "Give up")));
       tags.push(React.createElement("hr", {}));
       tags.push(React.createElement("table", {
         className: "table table-bordered back"
@@ -757,13 +771,6 @@ module.exports = Controller = (function(superClass) {
 
   Controller.prototype.unselectWood = function() {
     return this.props.flux.getActions("game").unselectWood();
-  };
-
-  Controller.prototype.shareBoard = function() {
-    return socket.emit('action', {
-      action: "shareBoard",
-      args: [this.props.board]
-    });
   };
 
   Controller.prototype.backHistory = function() {
@@ -974,7 +981,178 @@ module.exports = Grid = (function(superClass) {
 
 
 
-},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/Piece.coffee":[function(require,module,exports){
+},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/History.coffee":[function(require,module,exports){
+var Board, History, React, _, jade,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+React = require('react');
+
+
+
+_ = require('lodash');
+
+Board = require('./Board.coffee');
+
+module.exports = History = (function(superClass) {
+  extend(History, superClass);
+
+  function History() {
+    this.nextHistory = bind(this.nextHistory, this);
+    this.backHistory = bind(this.backHistory, this);
+    this.shareBoard = bind(this.shareBoard, this);
+    this.render = bind(this.render, this);
+    this.state = {
+      moves: 0
+    };
+  }
+
+  History.prototype.render = function() {
+    var cx, player_class;
+    cx = React.addons.classSet;
+    player_class = {
+      1: cx({
+        player1: true
+      }),
+      2: cx({
+        player2: true
+      }),
+      3: cx({
+        player3: true
+      }),
+      4: cx({
+        player4: true
+      })
+    };
+    return (function (React) {
+  var jade_globals_shareBoard = typeof shareBoard === "undefined" ? undefined : shareBoard;
+  var jade_globals_playing_classes = typeof playing_classes === "undefined" ? undefined : playing_classes;
+  var jade_globals_moves = typeof moves === "undefined" ? undefined : moves;
+  var jade_globals_backHistory = typeof backHistory === "undefined" ? undefined : backHistory;
+  var jade_globals_history = typeof history === "undefined" ? undefined : history;
+  var jade_globals_nextHistory = typeof nextHistory === "undefined" ? undefined : nextHistory;
+  var jade_globals_Board = typeof Board === "undefined" ? undefined : Board;
+  var fn = function(locals) {
+    function jade_join_classes(val) {
+      return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
+        return val[key];
+      }) : [ val ]).filter(function(val) {
+        return null != val && "" !== val;
+      }).join(" ");
+    }  var shareBoard = "shareBoard" in locals ? locals.shareBoard : jade_globals_shareBoard;
+    var playing_classes = "playing_classes" in locals ? locals.playing_classes : jade_globals_playing_classes;
+    var moves = "moves" in locals ? locals.moves : jade_globals_moves;
+    var backHistory = "backHistory" in locals ? locals.backHistory : jade_globals_backHistory;
+    var history = "history" in locals ? locals.history : jade_globals_history;
+    var nextHistory = "nextHistory" in locals ? locals.nextHistory : jade_globals_nextHistory;
+    var Board = "Board" in locals ? locals.Board : jade_globals_Board;
+    return function() {
+      var tags = [];
+      tags.push(React.createElement("div", {
+        id: "history"
+      }, React.createElement("div", {
+        className: "row"
+      }, React.createElement("div", {
+        className: "col-md-2 col-md-offset-2"
+      }, React.createElement("a", {
+        onClick: shareBoard,
+        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
+      }, "Share Board"), React.createElement("hr", {}), React.createElement("div", {
+        className: "row"
+      }, React.createElement("div", {
+        className: "col-sm-6"
+      }, moves > 0 ? React.createElement("btn", {
+        onClick: backHistory,
+        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
+      }, React.createElement("div", {
+        className: "glyphicon glyphicon-menu-left"
+      })) : React.createElement("btn", {
+        onClick: backHistory,
+        disabled: !0,
+        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
+      }, React.createElement("div", {
+        className: "glyphicon glyphicon-menu-left"
+      }))), React.createElement("div", {
+        className: "col-sm-6"
+      }, moves < history.length - 1 ? React.createElement("btn", {
+        onClick: nextHistory,
+        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
+      }, React.createElement("div", {
+        className: "glyphicon glyphicon-menu-right"
+      })) : React.createElement("btn", {
+        onClick: nextHistory,
+        disabled: !0,
+        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
+      }, React.createElement("div", {
+        className: "glyphicon glyphicon-menu-right"
+      }))))), React.createElement.apply(React, [ "div", {
+        className: "col-md-8"
+      } ].concat(function() {
+        var tags = [];
+        history[moves] && tags.push(React.createElement(Board, {
+          board: history[moves]
+        }));
+        return tags;
+      }.call(this))))));
+      if (1 === tags.length) return tags.pop();
+      tags.unshift("div", null);
+      return React.createElement.apply(React, tags);
+    }.call(this);
+  };;
+  fn.locals = function setLocals(locals) {
+    var render = this;
+    function newRender(additionalLocals) {
+      var newLocals = {};
+      for (var key in locals) {
+        newLocals[key] = locals[key];
+      }
+      if (additionalLocals) {
+        for (var key in additionalLocals) {
+          newLocals[key] = additionalLocals[key];
+        }
+      }
+      return render.call(this, newLocals);
+    }
+    newRender.locals = setLocals;
+    return newRender;
+  }
+  ;
+  return fn;
+}(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state));
+  };
+
+  History.prototype.shareBoard = function() {
+    return socket.emit('action', {
+      action: "shareBoard",
+      args: [this.props.board]
+    });
+  };
+
+  History.prototype.backHistory = function() {
+    if (this.state.moves > 0) {
+      return this.setState({
+        moves: --this.state.moves
+      });
+    }
+  };
+
+  History.prototype.nextHistory = function() {
+    console.log(this.state.moves);
+    if (this.state.moves < this.props.history.length - 1) {
+      return this.setState({
+        moves: ++this.state.moves
+      });
+    }
+  };
+
+  return History;
+
+})(React.Component);
+
+
+
+},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","./Board.coffee":"/Users/uzimith/dev/kokomade/components/Board.coffee","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/Piece.coffee":[function(require,module,exports){
 var Piece, React, _, jade,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -43267,7 +43445,6 @@ module.exports = BoardStore = (function(superClass) {
         select_wood: false
       },
       winner: 0,
-      look_back: false,
       history: []
     };
   }
@@ -43379,19 +43556,16 @@ module.exports = BoardStore = (function(superClass) {
         select_wood: false
       },
       winner: 0,
-      look_back: false,
       history: []
     });
   };
 
   BoardStore.prototype.handlePiece = function(piece) {
     var board, end, grids, history, next_player, obj, pieces;
-    if (this.state.look_back) {
-      console.log("warn");
-    }
     history = React.addons.update(this.state.history, {
-      $push: [this.state]
+      $push: [this.state.board]
     });
+    console.log(history);
     pieces = React.addons.update(this.state.board.pieces, (
       obj = {},
       obj["" + piece.player] = {
@@ -43473,7 +43647,7 @@ module.exports = BoardStore = (function(superClass) {
   BoardStore.prototype.handleMoveWood = function(wood) {
     var board, grids, history, next_player, obj, unused_woods, wood_count, wood_points, woods;
     history = React.addons.update(this.state.history, {
-      $push: [this.state]
+      $push: [this.state.board]
     });
     woods = React.addons.update(this.state.board.woods, {
       $push: [wood]
@@ -43801,10 +43975,13 @@ module.exports = PanelActions = (function(superClass) {
     this.register(panelActions.hideResult, this.hideResultModal);
     this.register(gameActions.giveupGame, this.showResultModal);
     this.register(gameActions.endGame, this.showResultModal);
+    this.register(panelActions.showHistory, this.showHistory);
+    this.register(panelActions.hideHistory, this.hideHistory);
     this.state = {
       showBoard: false,
       showRoom: true,
-      showResult: false
+      showResult: false,
+      showHistory: true
     };
   }
 
@@ -43849,6 +44026,18 @@ module.exports = PanelActions = (function(superClass) {
   PanelActions.prototype.hideResultModal = function() {
     return this.setState({
       showResult: false
+    });
+  };
+
+  PanelActions.prototype.showHistory = function() {
+    return this.setState({
+      showHistory: true
+    });
+  };
+
+  PanelActions.prototype.hideHistory = function() {
+    return this.setState({
+      showHistory: false
     });
   };
 

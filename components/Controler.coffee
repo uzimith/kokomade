@@ -26,7 +26,6 @@ class Controller extends React.Component
         option(value="single") Single
         option(value="pair") Pair
       a.control.btn.btn-default(class=playing_classes onClick=giveupGame) Give up
-      a.control.btn.btn-default(class=playing_classes onClick=shareBoard) Share Board
 
     hr
 
@@ -67,8 +66,6 @@ class Controller extends React.Component
     @props.flux.getActions("game").selectWood()
   unselectWood: =>
     @props.flux.getActions("game").unselectWood()
-  shareBoard: =>
-    socket.emit('action', action: "shareBoard", args: [@props.board])
   backHistory: =>
     @props.flux.getActions("game").backHistory()
   nextHistory: =>

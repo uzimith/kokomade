@@ -13,10 +13,13 @@ class PanelActions extends Store
     @register(panelActions.hideResult, @hideResultModal)
     @register(gameActions.giveupGame, @showResultModal)
     @register(gameActions.endGame, @showResultModal)
+    @register(panelActions.showHistory, @showHistory)
+    @register(panelActions.hideHistory, @hideHistory)
     @state =
       showBoard: false
       showRoom: true
       showResult: false
+      showHistory: true
 
   createBoard: ->
     @setState {
@@ -38,3 +41,9 @@ class PanelActions extends Store
 
   hideResultModal: ->
     @setState showResult: false
+
+  showHistory: ->
+    @setState showHistory: true
+
+  hideHistory: ->
+    @setState showHistory: false
