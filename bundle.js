@@ -83,8 +83,8 @@ module.exports = GameActions = (function(superClass) {
     return wood;
   };
 
-  GameActions.prototype.shareBoard = function(state) {
-    return state;
+  GameActions.prototype.shareBoard = function(board) {
+    return board;
   };
 
   GameActions.prototype.backHistory = function() {
@@ -694,7 +694,7 @@ module.exports = Controller = (function(superClass) {
         className: "row"
       }, React.createElement("a", {
         onClick: endGame,
-        className: jade_join_classes([ "control", "btn", "btn-default", end_classes ])
+        className: jade_join_classes([ "control", "btn", "btn-danger", end_classes ])
       }, "End"), React.createElement("a", {
         onClick: startGame,
         className: jade_join_classes([ "control", "btn", "btn-default", start_classes ])
@@ -1159,10 +1159,11 @@ module.exports = History = (function(superClass) {
   };
 
   History.prototype.shareBoard = function() {
-    return socket.emit('action', {
+    socket.emit('action', {
       action: "shareBoard",
-      args: [this.props.board]
+      args: [this.props.history[this.state.moves]]
     });
+    return this.props.flux.getActions("game").shareBoard(this.props.history[this.state.moves]);
   };
 
   History.prototype.backHistory = function() {
@@ -1174,7 +1175,6 @@ module.exports = History = (function(superClass) {
   };
 
   History.prototype.nextHistory = function() {
-    console.log(this.state.moves);
     if (this.state.moves < this.props.history.length - 1) {
       return this.setState({
         moves: ++this.state.moves
