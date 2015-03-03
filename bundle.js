@@ -1022,8 +1022,10 @@ module.exports = History = (function(superClass) {
   extend(History, superClass);
 
   function History() {
+    this.lastHistory = bind(this.lastHistory, this);
     this.nextHistory = bind(this.nextHistory, this);
     this.backHistory = bind(this.backHistory, this);
+    this.firstHistory = bind(this.firstHistory, this);
     this.shareBoard = bind(this.shareBoard, this);
     this.hideHistory = bind(this.hideHistory, this);
     this.render = bind(this.render, this);
@@ -1054,9 +1056,11 @@ module.exports = History = (function(superClass) {
   var jade_globals_hideHistory = typeof hideHistory === "undefined" ? undefined : hideHistory;
   var jade_globals_history = typeof history === "undefined" ? undefined : history;
   var jade_globals_moves = typeof moves === "undefined" ? undefined : moves;
-  var jade_globals_backHistory = typeof backHistory === "undefined" ? undefined : backHistory;
+  var jade_globals_firstHistory = typeof firstHistory === "undefined" ? undefined : firstHistory;
   var jade_globals_playing_classes = typeof playing_classes === "undefined" ? undefined : playing_classes;
+  var jade_globals_backHistory = typeof backHistory === "undefined" ? undefined : backHistory;
   var jade_globals_nextHistory = typeof nextHistory === "undefined" ? undefined : nextHistory;
+  var jade_globals_lastHistory = typeof lastHistory === "undefined" ? undefined : lastHistory;
   var jade_globals_Board = typeof Board === "undefined" ? undefined : Board;
   var fn = function(locals) {
     function jade_join_classes(val) {
@@ -1069,9 +1073,11 @@ module.exports = History = (function(superClass) {
     var hideHistory = "hideHistory" in locals ? locals.hideHistory : jade_globals_hideHistory;
     var history = "history" in locals ? locals.history : jade_globals_history;
     var moves = "moves" in locals ? locals.moves : jade_globals_moves;
-    var backHistory = "backHistory" in locals ? locals.backHistory : jade_globals_backHistory;
+    var firstHistory = "firstHistory" in locals ? locals.firstHistory : jade_globals_firstHistory;
     var playing_classes = "playing_classes" in locals ? locals.playing_classes : jade_globals_playing_classes;
+    var backHistory = "backHistory" in locals ? locals.backHistory : jade_globals_backHistory;
     var nextHistory = "nextHistory" in locals ? locals.nextHistory : jade_globals_nextHistory;
+    var lastHistory = "lastHistory" in locals ? locals.lastHistory : jade_globals_lastHistory;
     var Board = "Board" in locals ? locals.Board : jade_globals_Board;
     return function() {
       var tags = [];
@@ -1092,31 +1098,57 @@ module.exports = History = (function(superClass) {
       }, React.createElement("tbody", {}, React.createElement("tr", {}, React.createElement("th", {}, "Moves"), React.createElement("td", {}, history[moves].moves)))), React.createElement("div", {
         className: "row"
       }, React.createElement("div", {
-        className: "col-sm-6"
+        className: "col-sm-3"
+      }, moves > 0 ? React.createElement("btn", {
+        onClick: firstHistory,
+        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
+      }, React.createElement("div", {
+        className: "glyphicon glyphicon-step-backward"
+      })) : React.createElement("btn", {
+        onClick: firstHistory,
+        disabled: !0,
+        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
+      }, React.createElement("div", {
+        className: "glyphicon glyphicon-step-backward"
+      }))), React.createElement("div", {
+        className: "col-sm-3"
       }, moves > 0 ? React.createElement("btn", {
         onClick: backHistory,
         className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
       }, React.createElement("div", {
-        className: "glyphicon glyphicon-menu-left"
+        className: "glyphicon glyphicon-chevron-left"
       })) : React.createElement("btn", {
         onClick: backHistory,
         disabled: !0,
         className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
       }, React.createElement("div", {
-        className: "glyphicon glyphicon-menu-left"
+        className: "glyphicon glyphicon-chevron-left"
       }))), React.createElement("div", {
-        className: "col-sm-6"
+        className: "col-sm-3"
       }, moves < history.length - 1 ? React.createElement("btn", {
         onClick: nextHistory,
         className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
       }, React.createElement("div", {
-        className: "glyphicon glyphicon-menu-right"
+        className: "glyphicon glyphicon-chevron-right"
       })) : React.createElement("btn", {
         onClick: nextHistory,
         disabled: !0,
         className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
       }, React.createElement("div", {
-        className: "glyphicon glyphicon-menu-right"
+        className: "glyphicon glyphicon-chevron-right"
+      })), React.createElement("els", {})), React.createElement("div", {
+        className: "col-sm-3"
+      }, moves < history.length - 1 ? React.createElement("btn", {
+        onClick: lastHistory,
+        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
+      }, React.createElement("div", {
+        className: "glyphicon glyphicon-step-forward"
+      })) : React.createElement("btn", {
+        onClick: lastHistory,
+        disabled: !0,
+        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
+      }, React.createElement("div", {
+        className: "glyphicon glyphicon-step-forward"
       }))))), React.createElement.apply(React, [ "div", {
         className: "col-md-8"
       } ].concat(function() {
@@ -1166,6 +1198,12 @@ module.exports = History = (function(superClass) {
     return this.props.flux.getActions("game").shareBoard(this.props.history[this.state.moves]);
   };
 
+  History.prototype.firstHistory = function() {
+    return this.setState({
+      moves: 0
+    });
+  };
+
   History.prototype.backHistory = function() {
     if (this.state.moves > 0) {
       return this.setState({
@@ -1180,6 +1218,12 @@ module.exports = History = (function(superClass) {
         moves: ++this.state.moves
       });
     }
+  };
+
+  History.prototype.lastHistory = function() {
+    return this.setState({
+      moves: this.props.history.length - 1
+    });
   };
 
   return History;
@@ -1467,7 +1511,7 @@ module.exports = Room = (function(superClass) {
       }, React.createElement("input", {
         type: "submit",
         value: "Create",
-        className: "btn btn-default"
+        className: "control btn btn-default"
       })))), React.createElement("div", {
         className: "row"
       }, React.createElement("div", {
@@ -1478,11 +1522,11 @@ module.exports = Room = (function(superClass) {
         type: "text",
         value: roomId,
         onChange: handleRoomId,
-        className: "form-control"
+        className: "control form-control"
       }), React.createElement("input", {
         type: "submit",
         value: "Join",
-        className: "btn btn-default"
+        className: "control btn btn-default"
       }))))));
       if (1 === tags.length) return tags.pop();
       tags.unshift("div", null);
@@ -43489,7 +43533,7 @@ module.exports = BoardStore = (function(superClass) {
   }
 
   BoardStore.prototype.handleNewGame = function(data) {
-    var grids, j, pieces, ref, results, unused_woods, wood_count, wood_points, woods;
+    var board, grids, history, j, pieces, ref, results, unused_woods, wood_count, wood_points, woods;
     if (data.pair) {
       this.player = 4;
       pieces = {
@@ -43579,31 +43623,30 @@ module.exports = BoardStore = (function(superClass) {
     })(this))));
     grids = this._createGrids();
     grids = this._searchNextPutableGrid(grids, pieces, woods, data.player);
+    board = {
+      pair: data.pair,
+      pieces: pieces,
+      woods: woods,
+      wood_points: wood_points,
+      wood_count: wood_count,
+      unused_woods: unused_woods,
+      moves: 0,
+      grids: grids,
+      player: data.player,
+      play: true,
+      end: false,
+      select_wood: false
+    };
+    history = [board];
     return this.setState({
-      board: {
-        pair: data.pair,
-        pieces: pieces,
-        woods: woods,
-        wood_points: wood_points,
-        wood_count: wood_count,
-        unused_woods: unused_woods,
-        moves: 0,
-        grids: grids,
-        player: data.player,
-        play: true,
-        end: false,
-        select_wood: false
-      },
+      board: board,
       winner: 0,
-      history: []
+      history: history
     });
   };
 
   BoardStore.prototype.handlePiece = function(piece) {
     var board, end, grids, history, next_player, obj, pieces;
-    history = React.addons.update(this.state.history, {
-      $push: [this.state.board]
-    });
     pieces = React.addons.update(this.state.board.pieces, (
       obj = {},
       obj["" + piece.player] = {
@@ -43642,6 +43685,9 @@ module.exports = BoardStore = (function(superClass) {
       select_wood: {
         $set: false
       }
+    });
+    history = React.addons.update(this.state.history, {
+      $push: [board]
     });
     return this.setState({
       board: board,
@@ -43684,19 +43730,25 @@ module.exports = BoardStore = (function(superClass) {
 
   BoardStore.prototype.handleMoveWood = function(wood) {
     var board, grids, history, next_player, obj, unused_woods, wood_count, wood_points, woods;
-    history = React.addons.update(this.state.history, {
-      $push: [this.state.board]
-    });
     woods = React.addons.update(this.state.board.woods, {
       $push: [wood]
     });
     wood_points = _.clone(this.state.board.wood_points);
     _.remove(wood_points, function(point) {
+      var j, k, ref, ref1, ref2, ref3, results, results1;
       if (wood.status === "horizontal") {
-        return (wood.row === point.row && _.includes([wood.col, wood.col + 1], point.col) && point.status === "horizontal") || (wood.col + 1 === point.col && wood.row - 1 === point.row && point.status === "vertical");
+        return (wood.row === point.row && _.includes((function() {
+          results = [];
+          for (var j = ref = wood.col - 1, ref1 = wood.col + 1; ref <= ref1 ? j <= ref1 : j >= ref1; ref <= ref1 ? j++ : j--){ results.push(j); }
+          return results;
+        }).apply(this), point.col) && point.status === "horizontal") || (wood.col + 1 === point.col && wood.row - 1 === point.row && point.status === "vertical");
       }
       if (wood.status === "vertical") {
-        return (_.includes([wood.row, wood.row + 1], point.row) && wood.col === point.col && point.status === "vertical") || (wood.row + 1 === point.row && wood.col - 1 === point.col && point.status === "horizontal");
+        return (_.includes((function() {
+          results1 = [];
+          for (var k = ref2 = wood.row - 1, ref3 = wood.row + 1; ref2 <= ref3 ? k <= ref3 : k >= ref3; ref2 <= ref3 ? k++ : k--){ results1.push(k); }
+          return results1;
+        }).apply(this), point.row) && wood.col === point.col && point.status === "vertical") || (wood.row + 1 === point.row && wood.col - 1 === point.col && point.status === "horizontal");
       }
     });
     wood_count = React.addons.update(this.state.board.wood_count, (
@@ -43746,8 +43798,12 @@ module.exports = BoardStore = (function(superClass) {
         $set: unused_woods
       }
     });
+    history = React.addons.update(this.state.history, {
+      $push: [board]
+    });
     return this.setState({
-      board: board
+      board: board,
+      history: history
     });
   };
 

@@ -15,13 +15,13 @@ class Room extends React.Component
         .col-md-2
           hr
           form(onSubmit=onCreateForm)
-            input.btn.btn-default(type="submit" value="Create")
+            input.control.btn.btn-default(type="submit" value="Create")
       .row
         .col-md-2
           hr
           form(onSubmit=onJoinForm)
-            input.form-control(type="text" value=roomId onChange=handleRoomId)
-            input.btn.btn-default(type="submit" value="Join")
+            input.control.form-control(type="text" value=roomId onChange=handleRoomId)
+            input.control.btn.btn-default(type="submit" value="Join")
     """)(_.assign(@, @props, @state))
 
   handleRoomId: (e) =>

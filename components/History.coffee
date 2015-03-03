@@ -30,20 +30,35 @@ class History extends React.Component
                   th Moves
                   td= history[moves].moves
             .row
-              .col-sm-6
+              .col-sm-3
+                if moves > 0
+                  btn.control.btn.btn-default(class=playing_classes onClick=firstHistory)
+                    .glyphicon.glyphicon-step-backward
+                else
+                  btn.control.btn.btn-default(class=playing_classes onClick=firstHistory disabled)
+                    .glyphicon.glyphicon-step-backward
+              .col-sm-3
                 if moves > 0
                   btn.control.btn.btn-default(class=playing_classes onClick=backHistory)
-                    .glyphicon.glyphicon-menu-left
+                    .glyphicon.glyphicon-chevron-left
                 else
                   btn.control.btn.btn-default(class=playing_classes onClick=backHistory disabled)
-                    .glyphicon.glyphicon-menu-left
-              .col-sm-6
+                    .glyphicon.glyphicon-chevron-left
+              .col-sm-3
                 if moves < history.length - 1
                   btn.control.btn.btn-default(class=playing_classes onClick=nextHistory)
-                    .glyphicon.glyphicon-menu-right
+                    .glyphicon.glyphicon-chevron-right
                 else
                   btn.control.btn.btn-default(class=playing_classes onClick=nextHistory disabled)
-                    .glyphicon.glyphicon-menu-right
+                    .glyphicon.glyphicon-chevron-right
+                els
+              .col-sm-3
+                if moves < history.length - 1
+                  btn.control.btn.btn-default(class=playing_classes onClick=lastHistory)
+                    .glyphicon.glyphicon-step-forward
+                else
+                  btn.control.btn.btn-default(class=playing_classes onClick=lastHistory disabled)
+                    .glyphicon.glyphicon-step-forward
           .col-md-8
             if history[moves]
               Board(board=history[moves] viewer=true)
@@ -54,9 +69,13 @@ class History extends React.Component
   shareBoard: =>
     socket.emit('action', action: "shareBoard", args: [@props.history[@state.moves]])
     @props.flux.getActions("game").shareBoard(@props.history[@state.moves])
+  firstHistory: =>
+    @setState moves: 0
   backHistory: =>
     if @state.moves > 0
       @setState moves: --@state.moves
   nextHistory: =>
     if @state.moves < @props.history.length - 1
       @setState moves: ++@state.moves
+  lastHistory: =>
+    @setState moves: @props.history.length - 1

@@ -70,25 +70,26 @@ class BoardStore extends Store
     )
     grids = @_createGrids()
     grids = @_searchNextPutableGrid(grids, pieces, woods, data.player)
+    board =
+      pair: data.pair
+      pieces: pieces
+      woods: woods
+      wood_points: wood_points
+      wood_count: wood_count
+      unused_woods: unused_woods
+      moves: 0
+      grids: grids
+      player: data.player
+      play: true
+      end: false
+      select_wood: false
+    history = [board]
     @setState
-      board:
-        pair: data.pair
-        pieces: pieces
-        woods: woods
-        wood_points: wood_points
-        wood_count: wood_count
-        unused_woods: unused_woods
-        moves: 0
-        grids: grids
-        player: data.player
-        play: true
-        end: false
-        select_wood: false
-      winner: 0
-      history: []
+        board: board
+        winner: 0
+        history: history
 
   handlePiece: (piece) ->
-    history = React.addons.update(@state.history, {$push: [@state.board]})
     # move piece
     pieces = React.addons.update(@state.board.pieces, {"#{piece.player}": {$set: piece}})
 
@@ -113,6 +114,7 @@ class BoardStore extends Store
       moves: {$set: ++@state.board.moves}
       select_wood: {$set: false}
     }
+    history = React.addons.update(@state.history, {$push: [board]})
     @setState
       board: board
       history: history
@@ -137,17 +139,16 @@ class BoardStore extends Store
       board: board
 
   handleMoveWood: (wood) ->
-    history = React.addons.update(@state.history, {$push: [@state.board]})
     # move wood
     woods = React.addons.update(@state.board.woods, {$push: [wood]})
 
     wood_points = _.clone(@state.board.wood_points)
     _.remove wood_points, (point) ->
       if wood.status is "horizontal"
-        return (wood.row is point.row and _.includes([wood.col,wood.col+1], point.col) and point.status is "horizontal") or
+        return (wood.row is point.row and _.includes([wood.col-1..wood.col+1], point.col) and point.status is "horizontal") or
           (wood.col+1 is point.col and wood.row-1 is point.row and point.status is "vertical")
       if wood.status is "vertical"
-        return (_.includes([wood.row,wood.row+1], point.row) and wood.col is point.col and point.status is "vertical") or
+        return (_.includes([wood.row-1..wood.row+1], point.row) and wood.col is point.col and point.status is "vertical") or
           (wood.row+1 is point.row and wood.col-1 is point.col and point.status is "horizontal")
 
 
@@ -172,8 +173,10 @@ class BoardStore extends Store
       wood_points: {$set: wood_points}
       unused_woods: {$set: unused_woods}
     }
+    history = React.addons.update(@state.history, {$push: [board]})
     @setState
       board: board
+      history: history
 
 
   handleEndGame: ->
