@@ -30,7 +30,6 @@ io.on 'connection', (socket) ->
     socket.leave(name)
 
   socket.on 'action', (data) ->
-    console.log("action")
     console.log(data)
     socket.to(socket.game_room).broadcast.emit('action', data)
 

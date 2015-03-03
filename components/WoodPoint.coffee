@@ -15,7 +15,7 @@ class WoodPoint extends React.Component
       "#{@props.point.status}": true
     }
     jade.compile("""
-      .wood_point(class=classes onClick=onClick onMouseOver=onMouseOver onMouseOut=onMouseOut)
+      .wood_point(class=classes onClick=onClick onTouchTap=onClick onMouseOver=onMouseOver onMouseOut=onMouseOut)
       .wood.hover(class=classes)
     """)(_.assign(@, @props, @state))
   onClick: =>

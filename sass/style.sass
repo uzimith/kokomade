@@ -3,6 +3,7 @@ $navbar-default-border: lighten($navbar-default-bg, 6.5%)
 $navbar-default-link-color: #fff
 // $gray-base: #fff
 @import ../bower_components/bootstrap-sass/assets/stylesheets/bootstrap
+@import breakpoint
 
 $grid: 9
 $grid_width: 65px
@@ -48,6 +49,7 @@ body
   border-bottom: 5px solid $border
   width: $grid_width * 9 + 5
   height: $grid_height * 9 + 5
+  margin: auto
   position: relative
   +transition-property(transform)
   +transition-duration(0.5s)
@@ -147,6 +149,7 @@ body
   background: rgba(0,0,0,0.8)
   width: $grid_width * 9 + 5
   height: $grid_height * 2 * 2 + 40px
+  margin: auto
   border-radius: 5px
   .wood
     position: absolute
@@ -162,3 +165,61 @@ body
     @for $i from 0 through 5
       &.player3.wood#{$i}, &.player4.wood#{$i}
         left: 50px * ($i+5)
+
+$grid_width: 30px
+$grid_height: 30px
+#board
+  +breakpoint(max-width $screen-phone)
+    width: $grid_width * 9 + 5
+    height: $grid_height * 9 + 5
+    .grids
+      .grid
+        width: $grid_width
+        height: $grid_height
+    .piece
+      width: $grid_width - 5px
+      height: $grid_height - 5px
+      font-size: 20px
+      line-height: $grid_height
+      @for $i from 0 through $grid
+        &.row#{$i}
+          top: $grid_height * $i + 1px
+        &.col#{$i}
+          left: $grid_width * $i + 5px
+    .wood
+      &.vertical
+        height: $grid_height * 2 + 5px
+      &.horizontal
+        width: $grid_width * 2 + 5px
+      @for $i from 0 through $grid+1
+        &.row#{$i}
+          top: $grid_height * $i
+        &.col#{$i}
+          left: $grid_width * $i
+    .wood_point
+      &.vertical
+        width: 12px
+        height: $grid_height - 5px
+      &.horizontal
+        width: $grid_width - 5px
+        height: 12px
+      @for $i from 0 through $grid+1
+        &.row#{$i}
+          top: $grid_height * $i
+        &.col#{$i}
+          left: $grid_width * $i
+#case
+  +breakpoint(max-width $screen-phone)
+    width: $grid_width * 9 + 5
+    height: $grid_height * 2 * 2 + 40px
+    .wood
+      height: $grid_height * 2 + 5px
+      @for $player from 1 through 2
+        &.player#{$player}, &.player#{$player + 2}
+          top: 10px + ($grid_height * 2 + 15px) * ($player - 1)
+      @for $i from 0 through 10
+        &.wood#{$i}
+          left: 25px * $i
+      @for $i from 0 through 5
+        &.player3.wood#{$i}, &.player4.wood#{$i}
+          left: 10px * ($i+5)

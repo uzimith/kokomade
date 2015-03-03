@@ -1,6 +1,9 @@
 window.socket = require('socket.io-client')()
 
 React = require('react')
+injectTapEventPlugin = require("react-tap-event-plugin")
+injectTapEventPlugin()
+
 jade = require('react-jade')
 _ = require('lodash')
 Application = require('./components/Application.coffee')

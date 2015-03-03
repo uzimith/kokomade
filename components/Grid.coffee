@@ -24,7 +24,7 @@ class Grid extends React.Component
         "player2": @props.board.player is 2 and @props.grid.row is 0
       }
     jade.compile("""
-      .grid(class=[classes, player_class] onClick=onClick)
+      .grid(class=[classes, player_class] onClick=onClick onTouchTap=onClick)
     """)(_.assign(@, @props, @state))
   onClick: =>
     if @props.viewer
