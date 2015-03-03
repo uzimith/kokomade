@@ -24,7 +24,7 @@ class Application extends React.Component
                   Room
             FluxComponent(flux=flux connectToStores=['panel'])
               Route(show="Board")
-                FluxComponent(flux=flux connectToStores=['panel'])
+                FluxComponent(flux=flux connectToStores=['board', 'panel'])
                   Game
             FluxComponent(flux=flux connectToStores=['board', 'panel'])
               ResultModal

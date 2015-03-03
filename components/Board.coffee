@@ -39,4 +39,4 @@ class Board extends React.Component
         each wood, index in unused_woods
           FluxComponent(connectToStores=['board'] key=index)
             Wood(wood=wood)
-    """)(_.assign(@, @props, @state))
+    """)(_.assign(@props.board))

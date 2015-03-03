@@ -19,7 +19,11 @@ class WoodPoint extends React.Component
       .wood.hover(class=classes)
     """)(_.assign(@, @props, @state))
   onClick: =>
-    socket.push('action', action: "moveWood", args: [@props.point, @props.player, @props.moves])
+    point = @props.point
+    player = @props.board.player
+    moves = @props.board.moves
+    socket.emit('action', action: "moveWood", args: [point, player, moves])
+    @props.flux.getActions("game").moveWood(point, player, moves)
   onMouseOver: =>
     @setState hover: true
   onMouseOut: =>
