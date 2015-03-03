@@ -49,6 +49,18 @@ body
   width: $grid_width * 9 + 5
   height: $grid_height * 9 + 5
   position: relative
+  +transition-property(transform)
+  +transition-duration(0.5s)
+  +transition-timing-function(linear)
+  +transition-delay(0)
+  &.rotate0
+    transform: rotate(0deg)
+  &.rotate1
+    transform: rotate(90deg)
+  &.rotate2
+    transform: rotate(180deg)
+  &.rotate3
+    transform: rotate(270deg)
   .grids
     .grid
       width: $grid_width

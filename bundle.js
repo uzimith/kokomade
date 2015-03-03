@@ -288,11 +288,6 @@ WoodPoint = require('./WoodPoint.coffee');
 module.exports = Board = (function(superClass) {
   extend(Board, superClass);
 
-  function Board() {
-    this.render = bind(this.render, this);
-    return Board.__super__.constructor.apply(this, arguments);
-  }
-
   Board.propTypes = {
     viewer: React.PropTypes.bool
   };
@@ -301,8 +296,24 @@ module.exports = Board = (function(superClass) {
     viewer: false
   };
 
+  function Board() {
+    this.rotateLeft = bind(this.rotateLeft, this);
+    this.render = bind(this.render, this);
+    this.state = {
+      rotate: 0
+    };
+  }
+
   Board.prototype.render = function() {
+    var cx, obj, rotate_class;
+    cx = React.addons.classSet;
+    rotate_class = cx((
+      obj = {},
+      obj["rotate" + (this.state.rotate % 4)] = true,
+      obj
+    ));
     return (function (React) {
+  var jade_globals_rotate_class = typeof rotate_class === "undefined" ? undefined : rotate_class;
   var jade_globals_pieces = typeof pieces === "undefined" ? undefined : pieces;
   var jade_globals_FluxComponent = typeof FluxComponent === "undefined" ? undefined : FluxComponent;
   var jade_globals_Piece = typeof Piece === "undefined" ? undefined : Piece;
@@ -316,8 +327,17 @@ module.exports = Board = (function(superClass) {
   var jade_globals_WoodPoint = typeof WoodPoint === "undefined" ? undefined : WoodPoint;
   var jade_globals_grids = typeof grids === "undefined" ? undefined : grids;
   var jade_globals_Grid = typeof Grid === "undefined" ? undefined : Grid;
+  var jade_globals_rotateLeft = typeof rotateLeft === "undefined" ? undefined : rotateLeft;
   var jade_globals_unused_woods = typeof unused_woods === "undefined" ? undefined : unused_woods;
-  var fn = function(locals) {  var pieces = "pieces" in locals ? locals.pieces : jade_globals_pieces;
+  var fn = function(locals) {
+    function jade_join_classes(val) {
+      return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
+        return val[key];
+      }) : [ val ]).filter(function(val) {
+        return null != val && "" !== val;
+      }).join(" ");
+    }  var rotate_class = "rotate_class" in locals ? locals.rotate_class : jade_globals_rotate_class;
+    var pieces = "pieces" in locals ? locals.pieces : jade_globals_pieces;
     var FluxComponent = "FluxComponent" in locals ? locals.FluxComponent : jade_globals_FluxComponent;
     var Piece = "Piece" in locals ? locals.Piece : jade_globals_Piece;
     var viewer = "viewer" in locals ? locals.viewer : jade_globals_viewer;
@@ -330,11 +350,13 @@ module.exports = Board = (function(superClass) {
     var WoodPoint = "WoodPoint" in locals ? locals.WoodPoint : jade_globals_WoodPoint;
     var grids = "grids" in locals ? locals.grids : jade_globals_grids;
     var Grid = "Grid" in locals ? locals.Grid : jade_globals_Grid;
+    var rotateLeft = "rotateLeft" in locals ? locals.rotateLeft : jade_globals_rotateLeft;
     var unused_woods = "unused_woods" in locals ? locals.unused_woods : jade_globals_unused_woods;
     return function() {
       var tags = [];
       tags.push(React.createElement.apply(React, [ "div", {
-        id: "board"
+        id: "board",
+        className: jade_join_classes([ rotate_class ])
       } ].concat(function() {
         var tags = [];
         tags.push(React.createElement("div", {
@@ -513,6 +535,20 @@ module.exports = Board = (function(superClass) {
         }.call(this)));
         return tags;
       }.call(this))));
+      tags.push(React.createElement("hr", {}));
+      tags.push(React.createElement("div", {
+        className: "controller"
+      }, React.createElement("div", {
+        className: "row"
+      }, React.createElement("div", {
+        className: "col-sm-3"
+      }, React.createElement("btn", {
+        onClick: rotateLeft,
+        className: "control btn btn-default control show"
+      }, React.createElement("div", {
+        className: "glyphicon glyphicon-refresh"
+      }))))));
+      tags.push(React.createElement("hr", {}));
       tags.push(React.createElement("div", {
         id: "case"
       }, React.createElement("div", {
@@ -570,6 +606,12 @@ module.exports = Board = (function(superClass) {
   ;
   return fn;
 }(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state, this.props.board));
+  };
+
+  Board.prototype.rotateLeft = function() {
+    return this.setState({
+      rotate: ++this.state.rotate
+    });
   };
 
   return Board;
@@ -1058,9 +1100,9 @@ module.exports = History = (function(superClass) {
   var jade_globals_moves = typeof moves === "undefined" ? undefined : moves;
   var jade_globals_firstHistory = typeof firstHistory === "undefined" ? undefined : firstHistory;
   var jade_globals_playing_classes = typeof playing_classes === "undefined" ? undefined : playing_classes;
+  var jade_globals_lastHistory = typeof lastHistory === "undefined" ? undefined : lastHistory;
   var jade_globals_backHistory = typeof backHistory === "undefined" ? undefined : backHistory;
   var jade_globals_nextHistory = typeof nextHistory === "undefined" ? undefined : nextHistory;
-  var jade_globals_lastHistory = typeof lastHistory === "undefined" ? undefined : lastHistory;
   var jade_globals_Board = typeof Board === "undefined" ? undefined : Board;
   var fn = function(locals) {
     function jade_join_classes(val) {
@@ -1075,9 +1117,9 @@ module.exports = History = (function(superClass) {
     var moves = "moves" in locals ? locals.moves : jade_globals_moves;
     var firstHistory = "firstHistory" in locals ? locals.firstHistory : jade_globals_firstHistory;
     var playing_classes = "playing_classes" in locals ? locals.playing_classes : jade_globals_playing_classes;
+    var lastHistory = "lastHistory" in locals ? locals.lastHistory : jade_globals_lastHistory;
     var backHistory = "backHistory" in locals ? locals.backHistory : jade_globals_backHistory;
     var nextHistory = "nextHistory" in locals ? locals.nextHistory : jade_globals_nextHistory;
-    var lastHistory = "lastHistory" in locals ? locals.lastHistory : jade_globals_lastHistory;
     var Board = "Board" in locals ? locals.Board : jade_globals_Board;
     return function() {
       var tags = [];
@@ -1098,57 +1140,59 @@ module.exports = History = (function(superClass) {
       }, React.createElement("tbody", {}, React.createElement("tr", {}, React.createElement("th", {}, "Moves"), React.createElement("td", {}, history[moves].moves)))), React.createElement("div", {
         className: "row"
       }, React.createElement("div", {
-        className: "col-sm-3"
+        className: "col-sm-6"
       }, moves > 0 ? React.createElement("btn", {
         onClick: firstHistory,
-        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
+        className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
       }, React.createElement("div", {
         className: "glyphicon glyphicon-step-backward"
       })) : React.createElement("btn", {
         onClick: firstHistory,
         disabled: !0,
-        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
+        className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
       }, React.createElement("div", {
         className: "glyphicon glyphicon-step-backward"
       }))), React.createElement("div", {
-        className: "col-sm-3"
+        className: "col-sm-6"
+      }, moves < history.length - 1 ? React.createElement("btn", {
+        onClick: lastHistory,
+        className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
+      }, React.createElement("div", {
+        className: "glyphicon glyphicon-step-forward"
+      })) : React.createElement("btn", {
+        onClick: lastHistory,
+        disabled: !0,
+        className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
+      }, React.createElement("div", {
+        className: "glyphicon glyphicon-step-forward"
+      })))), React.createElement("div", {
+        className: "row"
+      }, React.createElement("div", {
+        className: "col-sm-6"
       }, moves > 0 ? React.createElement("btn", {
         onClick: backHistory,
-        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
+        className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
       }, React.createElement("div", {
         className: "glyphicon glyphicon-chevron-left"
       })) : React.createElement("btn", {
         onClick: backHistory,
         disabled: !0,
-        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
+        className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
       }, React.createElement("div", {
         className: "glyphicon glyphicon-chevron-left"
       }))), React.createElement("div", {
-        className: "col-sm-3"
+        className: "col-sm-6"
       }, moves < history.length - 1 ? React.createElement("btn", {
         onClick: nextHistory,
-        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
+        className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
       }, React.createElement("div", {
         className: "glyphicon glyphicon-chevron-right"
       })) : React.createElement("btn", {
         onClick: nextHistory,
         disabled: !0,
-        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
+        className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
       }, React.createElement("div", {
         className: "glyphicon glyphicon-chevron-right"
-      })), React.createElement("els", {})), React.createElement("div", {
-        className: "col-sm-3"
-      }, moves < history.length - 1 ? React.createElement("btn", {
-        onClick: lastHistory,
-        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
-      }, React.createElement("div", {
-        className: "glyphicon glyphicon-step-forward"
-      })) : React.createElement("btn", {
-        onClick: lastHistory,
-        disabled: !0,
-        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
-      }, React.createElement("div", {
-        className: "glyphicon glyphicon-step-forward"
       }))))), React.createElement.apply(React, [ "div", {
         className: "col-md-8"
       } ].concat(function() {
