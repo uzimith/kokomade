@@ -18,6 +18,7 @@ class Controller extends React.Component
     end_classes = cx show: @props.board.end, hide: !@props.board.end
     select_classes = cx show: !@props.board.select_wood and @props.board.play, hide: @props.board.select_wood or !@props.board.play
     unselect_classes = cx show: @props.board.select_wood and @props.board.play, hide: !@props.board.select_wood or !@props.board.play
+    history_classes = cx show: @props.history and @props.history.length > 0, hide: !(@props.history and @props.history.length > 0)
     jade.compile("""
     .row
       a.control.btn.btn-default(class=end_classes onClick=endGame) End
@@ -26,6 +27,7 @@ class Controller extends React.Component
         option(value="single") Single
         option(value="pair") Pair
       a.control.btn.btn-default(class=playing_classes onClick=giveupGame) Give up
+      a.control.btn.btn-default(class=history_classes onClick=toggleHistory) History
 
     hr
 
@@ -66,7 +68,5 @@ class Controller extends React.Component
     @props.flux.getActions("game").selectWood()
   unselectWood: =>
     @props.flux.getActions("game").unselectWood()
-  backHistory: =>
-    @props.flux.getActions("game").backHistory()
-  nextHistory: =>
-    @props.flux.getActions("game").nextHistory()
+  toggleHistory: =>
+    @props.flux.getActions("panel").showHistory()
