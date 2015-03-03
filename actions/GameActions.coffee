@@ -29,7 +29,7 @@ class GameActions extends Actions
       moves: ++moves
     }
     wood
-  shareBoard: (state) =>
+  shareBoard: (state) ->
     state
   backHistory: ->
     null
