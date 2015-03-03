@@ -30,35 +30,35 @@ class History extends React.Component
                   th Moves
                   td= history[moves].moves
             .row
-              .col-sm-3
+              .col-sm-6
                 if moves > 0
-                  btn.control.btn.btn-default(class=playing_classes onClick=firstHistory)
+                  btn.control.btn.btn-default.show(class=playing_classes onClick=firstHistory)
                     .glyphicon.glyphicon-step-backward
                 else
-                  btn.control.btn.btn-default(class=playing_classes onClick=firstHistory disabled)
+                  btn.control.btn.btn-default.show(class=playing_classes onClick=firstHistory disabled)
                     .glyphicon.glyphicon-step-backward
-              .col-sm-3
+              .col-sm-6
+                if moves < history.length - 1
+                  btn.control.btn.btn-default.show(class=playing_classes onClick=lastHistory)
+                    .glyphicon.glyphicon-step-forward
+                else
+                  btn.control.btn.btn-default.show(class=playing_classes onClick=lastHistory disabled)
+                    .glyphicon.glyphicon-step-forward
+            .row
+              .col-sm-6
                 if moves > 0
-                  btn.control.btn.btn-default(class=playing_classes onClick=backHistory)
+                  btn.control.btn.btn-default.show(class=playing_classes onClick=backHistory)
                     .glyphicon.glyphicon-chevron-left
                 else
-                  btn.control.btn.btn-default(class=playing_classes onClick=backHistory disabled)
+                  btn.control.btn.btn-default.show(class=playing_classes onClick=backHistory disabled)
                     .glyphicon.glyphicon-chevron-left
-              .col-sm-3
+              .col-sm-6
                 if moves < history.length - 1
-                  btn.control.btn.btn-default(class=playing_classes onClick=nextHistory)
+                  btn.control.btn.btn-default.show(class=playing_classes onClick=nextHistory)
                     .glyphicon.glyphicon-chevron-right
                 else
-                  btn.control.btn.btn-default(class=playing_classes onClick=nextHistory disabled)
+                  btn.control.btn.btn-default.show(class=playing_classes onClick=nextHistory disabled)
                     .glyphicon.glyphicon-chevron-right
-                els
-              .col-sm-3
-                if moves < history.length - 1
-                  btn.control.btn.btn-default(class=playing_classes onClick=lastHistory)
-                    .glyphicon.glyphicon-step-forward
-                else
-                  btn.control.btn.btn-default(class=playing_classes onClick=lastHistory disabled)
-                    .glyphicon.glyphicon-step-forward
           .col-md-8
             if history[moves]
               Board(board=history[moves] viewer=true)

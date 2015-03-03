@@ -15,9 +15,13 @@ class Board extends React.Component
     viewer: React.PropTypes.bool
   @defaultProps =
         viewer: false
+  constructor: ->
+    @state = rotate: 0
   render: =>
+    cx = React.addons.classSet
+    rotate_class = cx("rotate#{ @state.rotate % 4}": true)
     jade.compile("""
-    #board
+    #board(class=rotate_class)
       .pieces
         each piece, index in pieces
           FluxComponent(connectToStores=['board'] key=index)
@@ -38,9 +42,22 @@ class Board extends React.Component
               .col(key=index)
                 FluxComponent(connectToStores=['board'])
                   Grid(grid=col viewer=viewer)
+
+    hr
+
+    .controller
+      .row
+        .col-sm-3
+            btn.control.btn.btn-default.control.show(onClick=rotateLeft)
+              .glyphicon.glyphicon-refresh
+
+    hr
+
     #case
       .woods
         each wood, index in unused_woods
           FluxComponent(connectToStores=['board'] key=index)
             Wood(wood=wood viewer=viewer)
     """)(_.assign(@, @props, @state, @props.board))
+  rotateLeft: =>
+    @setState rotate: ++@state.rotate
