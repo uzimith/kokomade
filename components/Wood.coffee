@@ -12,7 +12,7 @@ class Wood extends React.Component
       "row#{@props.wood.row}": true
       "wood#{@props.wood.id}": _.isEmpty(@props.wood.id)
       "#{@props.wood.status}": true
-      "current": @props.wood.moves is @props.moves
+      "current": @props.wood.moves is @props.board.moves
     }
     jade.compile("""
       .wood(class=classes onClick=onClick)

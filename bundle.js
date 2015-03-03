@@ -25,7 +25,6 @@ React.render(React.createFactory(Application)({
 
 },{"./components/Application.coffee":"/Users/uzimith/dev/kokomade/components/Application.coffee","./dispatcher/AppFlux.coffee":"/Users/uzimith/dev/kokomade/dispatcher/AppFlux.coffee","./socket.coffee":"/Users/uzimith/dev/kokomade/socket.coffee","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","socket.io-client":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/index.js"}],"/Users/uzimith/dev/kokomade/actions/GameActions.coffee":[function(require,module,exports){
 var Actions, GameActions,
-  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
@@ -35,7 +34,6 @@ module.exports = GameActions = (function(superClass) {
   extend(GameActions, superClass);
 
   function GameActions() {
-    this.shareBoard = bind(this.shareBoard, this);
     return GameActions.__super__.constructor.apply(this, arguments);
   }
 
@@ -207,7 +205,7 @@ module.exports = Application = (function(superClass) {
         show: "Board"
       }, React.createElement(FluxComponent, {
         flux: flux,
-        connectToStores: [ "panel" ]
+        connectToStores: [ "board", "panel" ]
       }, React.createElement(Game, {})))), React.createElement(FluxComponent, {
         flux: flux,
         connectToStores: [ "board", "panel" ]
@@ -537,7 +535,7 @@ module.exports = Board = (function(superClass) {
   }
   ;
   return fn;
-}(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state));
+}(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this.props.board));
   };
 
   return Board;
@@ -595,40 +593,37 @@ module.exports = Controller = (function(superClass) {
       })
     };
     start_classes = cx({
-      show: !this.props.play,
-      hide: this.props.play
+      show: !this.props.board.play,
+      hide: this.props.board.play
     });
     playing_classes = cx({
-      show: this.props.play,
-      hide: !this.props.play
+      show: this.props.board.play && !this.props.board.end,
+      hide: !this.props.board.play || this.props.board.end
     });
     end_classes = cx({
-      show: this.props.end,
-      hide: !this.props.end
+      show: this.props.board.end,
+      hide: !this.props.board.end
     });
     select_classes = cx({
-      show: !this.props.select_wood && this.props.play,
-      hide: this.props.select_wood || !this.props.play
+      show: !this.props.board.select_wood && this.props.board.play,
+      hide: this.props.board.select_wood || !this.props.board.play
     });
     unselect_classes = cx({
-      show: this.props.select_wood && this.props.play,
-      hide: !this.props.select_wood || !this.props.play
+      show: this.props.board.select_wood && this.props.board.play,
+      hide: !this.props.board.select_wood || !this.props.board.play
     });
     return (function (React) {
+  var jade_globals_endGame = typeof endGame === "undefined" ? undefined : endGame;
+  var jade_globals_end_classes = typeof end_classes === "undefined" ? undefined : end_classes;
   var jade_globals_startGame = typeof startGame === "undefined" ? undefined : startGame;
   var jade_globals_start_classes = typeof start_classes === "undefined" ? undefined : start_classes;
   var jade_globals_onChange = typeof onChange === "undefined" ? undefined : onChange;
   var jade_globals_giveupGame = typeof giveupGame === "undefined" ? undefined : giveupGame;
   var jade_globals_playing_classes = typeof playing_classes === "undefined" ? undefined : playing_classes;
   var jade_globals_shareBoard = typeof shareBoard === "undefined" ? undefined : shareBoard;
-  var jade_globals_backHistory = typeof backHistory === "undefined" ? undefined : backHistory;
-  var jade_globals_nextHistory = typeof nextHistory === "undefined" ? undefined : nextHistory;
-  var jade_globals_endGame = typeof endGame === "undefined" ? undefined : endGame;
-  var jade_globals_end_classes = typeof end_classes === "undefined" ? undefined : end_classes;
   var jade_globals_roomId = typeof roomId === "undefined" ? undefined : roomId;
-  var jade_globals_moves = typeof moves === "undefined" ? undefined : moves;
+  var jade_globals_board = typeof board === "undefined" ? undefined : board;
   var jade_globals_player_class = typeof player_class === "undefined" ? undefined : player_class;
-  var jade_globals_player = typeof player === "undefined" ? undefined : player;
   var jade_globals_selectWood = typeof selectWood === "undefined" ? undefined : selectWood;
   var jade_globals_select_classes = typeof select_classes === "undefined" ? undefined : select_classes;
   var jade_globals_unselectWood = typeof unselectWood === "undefined" ? undefined : unselectWood;
@@ -640,20 +635,17 @@ module.exports = Controller = (function(superClass) {
       }) : [ val ]).filter(function(val) {
         return null != val && "" !== val;
       }).join(" ");
-    }  var startGame = "startGame" in locals ? locals.startGame : jade_globals_startGame;
+    }  var endGame = "endGame" in locals ? locals.endGame : jade_globals_endGame;
+    var end_classes = "end_classes" in locals ? locals.end_classes : jade_globals_end_classes;
+    var startGame = "startGame" in locals ? locals.startGame : jade_globals_startGame;
     var start_classes = "start_classes" in locals ? locals.start_classes : jade_globals_start_classes;
     var onChange = "onChange" in locals ? locals.onChange : jade_globals_onChange;
     var giveupGame = "giveupGame" in locals ? locals.giveupGame : jade_globals_giveupGame;
     var playing_classes = "playing_classes" in locals ? locals.playing_classes : jade_globals_playing_classes;
     var shareBoard = "shareBoard" in locals ? locals.shareBoard : jade_globals_shareBoard;
-    var backHistory = "backHistory" in locals ? locals.backHistory : jade_globals_backHistory;
-    var nextHistory = "nextHistory" in locals ? locals.nextHistory : jade_globals_nextHistory;
-    var endGame = "endGame" in locals ? locals.endGame : jade_globals_endGame;
-    var end_classes = "end_classes" in locals ? locals.end_classes : jade_globals_end_classes;
     var roomId = "roomId" in locals ? locals.roomId : jade_globals_roomId;
-    var moves = "moves" in locals ? locals.moves : jade_globals_moves;
+    var board = "board" in locals ? locals.board : jade_globals_board;
     var player_class = "player_class" in locals ? locals.player_class : jade_globals_player_class;
-    var player = "player" in locals ? locals.player : jade_globals_player;
     var selectWood = "selectWood" in locals ? locals.selectWood : jade_globals_selectWood;
     var select_classes = "select_classes" in locals ? locals.select_classes : jade_globals_select_classes;
     var unselectWood = "unselectWood" in locals ? locals.unselectWood : jade_globals_unselectWood;
@@ -663,11 +655,14 @@ module.exports = Controller = (function(superClass) {
       tags.push(React.createElement("div", {
         className: "row"
       }, React.createElement("a", {
+        onClick: endGame,
+        className: jade_join_classes([ "control", "btn", "btn-default", end_classes ])
+      }, "End"), React.createElement("a", {
         onClick: startGame,
         className: jade_join_classes([ "control", "btn", "btn-default", start_classes ])
       }, "Start"), React.createElement("select", {
         onChange: onChange,
-        className: jade_join_classes([ "form-control", start_classes ])
+        className: jade_join_classes([ "control", "form-control", start_classes ])
       }, React.createElement("option", {
         value: "single"
       }, "Single"), React.createElement("option", {
@@ -678,41 +673,22 @@ module.exports = Controller = (function(superClass) {
       }, "Give up"), React.createElement("a", {
         onClick: shareBoard,
         className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
-      }, "Share Board"), React.createElement("div", {
-        className: "row"
-      }, React.createElement("div", {
-        className: "col-sm-6"
-      }, React.createElement("a", {
-        onClick: backHistory,
-        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
-      }, React.createElement("div", {
-        className: "glyphicon glyphicon-menu-left"
-      }))), React.createElement("div", {
-        className: "col-sm-6"
-      }, React.createElement("a", {
-        onClick: nextHistory,
-        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
-      }, React.createElement("div", {
-        className: "glyphicon glyphicon-menu-right"
-      })))), React.createElement("a", {
-        onClick: endGame,
-        className: jade_join_classes([ "control", "btn", "btn-default", end_classes ])
-      }, "End")));
+      }, "Share Board")));
       tags.push(React.createElement("hr", {}));
       tags.push(React.createElement("table", {
         className: "table table-bordered back"
-      }, React.createElement("tbody", {}, React.createElement("tr", {}, React.createElement("th", {}, "Room"), React.createElement("td", {}, roomId)), React.createElement("tr", {}, React.createElement("th", {}, "Moves"), React.createElement("td", {}, moves)), React.createElement("tr", {
-        className: jade_join_classes([ player_class[player] ])
-      }, React.createElement("th", {}, "Current"), React.createElement("td", {}, player)))));
+      }, React.createElement("tbody", {}, React.createElement("tr", {}, React.createElement("th", {}, "Room"), React.createElement("td", {}, roomId)), React.createElement("tr", {}, React.createElement("th", {}, "Moves"), React.createElement("td", {}, board.moves)), React.createElement("tr", {
+        className: jade_join_classes([ player_class[board.player] ])
+      }, React.createElement("th", {}, "Current"), React.createElement("td", {}, board.player)))));
       tags.push(React.createElement("hr", {}));
       tags.push(React.createElement("div", {
         className: "row"
       }, React.createElement("a", {
         onClick: selectWood,
-        className: jade_join_classes([ "control", "btn", "btn-default", [ player_class[player], select_classes ] ])
+        className: jade_join_classes([ "control", "btn", "btn-default", [ player_class[board.player], select_classes ] ])
       }, "Wood"), React.createElement("a", {
         onClick: unselectWood,
-        className: jade_join_classes([ "control", "btn", "btn-default", [ player_class[player], unselect_classes ] ])
+        className: jade_join_classes([ "control", "btn", "btn-default", [ player_class[board.player], unselect_classes ] ])
       }, "Piece")));
       if (1 === tags.length) return tags.pop();
       tags.unshift("div", null);
@@ -742,16 +718,18 @@ module.exports = Controller = (function(superClass) {
   };
 
   Controller.prototype.startGame = function() {
+    var pair;
+    pair = this.state.pair;
     socket.emit('action', {
       action: "startGame",
-      args: [1, this.state.pair]
+      args: [1, pair]
     });
-    return this.props.flux.getActions("game").startGame(1, this.state.pair);
+    return this.props.flux.getActions("game").startGame(1, pair);
   };
 
   Controller.prototype.giveupGame = function() {
     var player;
-    player = this.props.flux.getStore("board").state.player;
+    player = this.props.board.player;
     socket.emit('action', {
       action: "giveupGame",
       args: [player]
@@ -782,25 +760,9 @@ module.exports = Controller = (function(superClass) {
   };
 
   Controller.prototype.shareBoard = function() {
-    var state;
-    state = {
-      pieces: this.props.pieces,
-      woods: this.props.woods,
-      wood_points: this.props.wood_points,
-      wood_count: this.props.wood_count,
-      unused_woods: this.props.unused_woods,
-      select_wood: this.props.select_wood,
-      moves: this.props.moves,
-      grids: this.props.grids,
-      player: this.props.player,
-      pair: this.props.pair,
-      winner: this.props.winner,
-      play: this.props.play,
-      end: this.props.end
-    };
     return socket.emit('action', {
       action: "shareBoard",
-      args: [state]
+      args: [this.props.board]
     });
   };
 
@@ -849,9 +811,11 @@ module.exports = Game = (function(superClass) {
   var jade_globals_FluxComponent = typeof FluxComponent === "undefined" ? undefined : FluxComponent;
   var jade_globals_Controller = typeof Controller === "undefined" ? undefined : Controller;
   var jade_globals_Board = typeof Board === "undefined" ? undefined : Board;
+  var jade_globals_board = typeof board === "undefined" ? undefined : board;
   var fn = function(locals) {  var FluxComponent = "FluxComponent" in locals ? locals.FluxComponent : jade_globals_FluxComponent;
     var Controller = "Controller" in locals ? locals.Controller : jade_globals_Controller;
     var Board = "Board" in locals ? locals.Board : jade_globals_Board;
+    var board = "board" in locals ? locals.board : jade_globals_board;
     return function() {
       var tags = [];
       tags.push(React.createElement("div", {
@@ -859,12 +823,12 @@ module.exports = Game = (function(superClass) {
       }, React.createElement("div", {
         className: "col-md-2 col-md-offset-2"
       }, React.createElement(FluxComponent, {
-        connectToStores: [ "board" ]
+        connectToStores: [ "board", "panel" ]
       }, React.createElement(Controller, {}))), React.createElement("div", {
         className: "col-md-8"
-      }, React.createElement(FluxComponent, {
-        connectToStores: [ "board" ]
-      }, React.createElement(Board, {})))));
+      }, React.createElement(Board, {
+        board: board
+      }))));
       if (1 === tags.length) return tags.pop();
       tags.unshift("div", null);
       return React.createElement.apply(React, tags);
@@ -932,15 +896,15 @@ module.exports = Grid = (function(superClass) {
     ));
     if (this.props.pair) {
       player_class = cx({
-        "player1": this.props.player === 1 && this.props.grid.row === 8,
-        "player2": this.props.player === 2 && this.props.grid.col === 0,
-        "player3": this.props.player === 3 && this.props.grid.row === 0,
-        "player4": this.props.player === 4 && this.props.grid.col === 8
+        "player1": this.props.board.player === 1 && this.props.grid.row === 8,
+        "player2": this.props.board.player === 2 && this.props.grid.col === 0,
+        "player3": this.props.board.player === 3 && this.props.grid.row === 0,
+        "player4": this.props.board.player === 4 && this.props.grid.col === 8
       });
     } else {
       player_class = cx({
-        "player1": this.props.player === 1 && this.props.grid.row === 8,
-        "player2": this.props.player === 2 && this.props.grid.row === 0
+        "player1": this.props.board.player === 1 && this.props.grid.row === 8,
+        "player2": this.props.board.player === 2 && this.props.grid.row === 0
       });
     }
     return (function (React) {
@@ -991,12 +955,16 @@ module.exports = Grid = (function(superClass) {
   };
 
   Grid.prototype.onClick = function() {
+    var grid, moves, player;
     if (this.props.grid.next) {
+      grid = this.props.grid;
+      player = this.props.board.player;
+      moves = this.props.board.moves;
       socket.emit('action', {
         action: "movePiece",
-        args: [this.props.grid, this.props.player, this.props.moves]
+        args: [grid, player, moves]
       });
-      return this.props.flux.getActions("game").movePiece(this.props.grid, this.props.player, this.props.moves);
+      return this.props.flux.getActions("game").movePiece(grid, player, moves);
     }
   };
 
@@ -1034,12 +1002,12 @@ module.exports = Piece = (function(superClass) {
       obj["player" + this.props.piece.player] = true,
       obj["col" + this.props.piece.col] = true,
       obj["row" + this.props.piece.row] = true,
-      obj["current"] = this.props.piece.moves === this.props.moves,
+      obj["current"] = this.props.piece.moves === this.props.board.moves,
       obj
     ));
     return (function (React) {
   var jade_globals_classes = typeof classes === "undefined" ? undefined : classes;
-  var jade_globals_pair = typeof pair === "undefined" ? undefined : pair;
+  var jade_globals_board = typeof board === "undefined" ? undefined : board;
   var jade_globals_piece = typeof piece === "undefined" ? undefined : piece;
   var fn = function(locals) {
     function jade_join_classes(val) {
@@ -1049,7 +1017,7 @@ module.exports = Piece = (function(superClass) {
         return null != val && "" !== val;
       }).join(" ");
     }  var classes = "classes" in locals ? locals.classes : jade_globals_classes;
-    var pair = "pair" in locals ? locals.pair : jade_globals_pair;
+    var board = "board" in locals ? locals.board : jade_globals_board;
     var piece = "piece" in locals ? locals.piece : jade_globals_piece;
     return function() {
       var tags = [];
@@ -1057,7 +1025,7 @@ module.exports = Piece = (function(superClass) {
         className: jade_join_classes([ "piece", classes ])
       } ].concat(function() {
         var tags = [];
-        if (pair) {
+        if (board.pair) {
           1 === piece.player && tags.push(React.createElement("div", {
             className: "glyphicon glyphicon-menu-down"
           }));
@@ -1451,7 +1419,7 @@ module.exports = Wood = (function(superClass) {
       obj["row" + this.props.wood.row] = true,
       obj["wood" + this.props.wood.id] = _.isEmpty(this.props.wood.id),
       obj["" + this.props.wood.status] = true,
-      obj["current"] = this.props.wood.moves === this.props.moves,
+      obj["current"] = this.props.wood.moves === this.props.board.moves,
       obj
     ));
     return (function (React) {
@@ -1599,11 +1567,15 @@ module.exports = WoodPoint = (function(superClass) {
   };
 
   WoodPoint.prototype.onClick = function() {
+    var moves, player, point;
+    point = this.props.point;
+    player = this.props.board.player;
+    moves = this.props.board.moves;
     socket.emit('action', {
       action: "moveWood",
-      args: [this.props.point, this.props.player, this.props.moves]
+      args: [point, player, moves]
     });
-    return this.props.flux.getActions("game").moveWood(this.props.point, this.props.player, this.props.moves);
+    return this.props.flux.getActions("game").moveWood(point, player, moves);
   };
 
   WoodPoint.prototype.onMouseOver = function() {
@@ -43276,36 +43248,32 @@ module.exports = BoardStore = (function(superClass) {
     this.register(gameActions.endGame, this.handleEndGame);
     this.register(gameActions.giveupGame, this.handleGiveup);
     this.register(gameActions.shareBoard, this.shareBoard);
-    this.register(gameActions.backHistory, this.backHistory);
-    this.register(gameActions.nextHistory, this.nextHistory);
     this.num = 9;
     this.player = 2;
-    this.history = [];
-    this.post_history = [];
-    this.state_number = 0;
-    grids = this.createGrids();
+    grids = this._createGrids();
     this.state = {
-      pieces: {},
-      woods: [],
-      wood_points: [],
-      wood_count: {},
-      unused_woods: {},
-      select_wood: false,
-      moves: 0,
-      grids: grids,
-      player: 0,
-      pair: false,
+      board: {
+        pair: false,
+        pieces: {},
+        woods: [],
+        wood_points: [],
+        wood_count: {},
+        unused_woods: {},
+        moves: 0,
+        grids: grids,
+        player: 0,
+        play: false,
+        end: false,
+        select_wood: false
+      },
       winner: 0,
-      play: false,
-      end: false,
-      look_back: false
+      look_back: false,
+      history: []
     };
   }
 
   BoardStore.prototype.handleNewGame = function(data) {
     var grids, j, pieces, ref, results, unused_woods, wood_count, wood_points, woods;
-    this.history = [];
-    this.post_history = [];
     if (data.pair) {
       this.player = 4;
       pieces = {
@@ -43393,89 +43361,124 @@ module.exports = BoardStore = (function(superClass) {
         });
       };
     })(this))));
-    grids = this.createGrids();
-    grids = this.searchNextPutableGrid(grids, pieces, woods, data.player);
+    grids = this._createGrids();
+    grids = this._searchNextPutableGrid(grids, pieces, woods, data.player);
     return this.setState({
-      grids: grids,
-      pieces: pieces,
-      woods: woods,
-      wood_count: wood_count,
-      wood_points: wood_points,
-      unused_woods: unused_woods,
-      player: data.player,
+      board: {
+        pair: data.pair,
+        pieces: pieces,
+        woods: woods,
+        wood_points: wood_points,
+        wood_count: wood_count,
+        unused_woods: unused_woods,
+        moves: 0,
+        grids: grids,
+        player: data.player,
+        play: true,
+        end: false,
+        select_wood: false
+      },
       winner: 0,
-      play: true,
-      end: false,
-      pair: data.pair,
-      moves: 0,
-      select_wood: false
+      look_back: false,
+      history: []
     });
   };
 
   BoardStore.prototype.handlePiece = function(piece) {
-    var end, grids, next_player, obj, pieces;
+    var board, end, grids, history, next_player, obj, pieces;
     if (this.state.look_back) {
       console.log("warn");
     }
-    this.pushHistroy(this.history, this.state);
-    pieces = React.addons.update(this.state.pieces, (
+    history = React.addons.update(this.state.history, {
+      $push: [this.state]
+    });
+    pieces = React.addons.update(this.state.board.pieces, (
       obj = {},
       obj["" + piece.player] = {
         $set: piece
       },
       obj
     ));
-    if (this.state.pair) {
+    if (this.state.board.pair) {
       end = pieces[1].row === this.num - 1 || pieces[2].col === 0 || pieces[3].row === 0 || pieces[4].col === this.num - 1;
     } else {
       end = pieces[1].row === this.num - 1 || pieces[2].row === 0;
     }
-    grids = this.createGrids();
+    grids = this._createGrids();
     if (!end) {
-      next_player = this.fetchNextPlayer(this.state.player);
-      grids = this.searchNextPutableGrid(grids, pieces, this.state.woods, next_player);
+      next_player = this._fetchNextPlayer(this.state.board.player);
+      grids = this._searchNextPutableGrid(grids, pieces, this.state.board.woods, next_player);
     } else {
       next_player = 0;
     }
+    board = React.addons.update(this.state.board, {
+      grids: {
+        $set: grids
+      },
+      pieces: {
+        $set: pieces
+      },
+      player: {
+        $set: next_player
+      },
+      end: {
+        $set: end
+      },
+      moves: {
+        $set: ++this.state.board.moves
+      },
+      select_wood: {
+        $set: false
+      }
+    });
     return this.setState({
-      grids: grids,
-      pieces: pieces,
-      player: next_player,
-      end: end,
-      moves: ++this.state.moves,
-      select_wood: false
+      board: board,
+      history: history
     });
   };
 
   BoardStore.prototype.handleSelectWood = function() {
-    var grids;
-    grids = this.createGrids();
+    var board, grids;
+    grids = this._createGrids();
+    board = React.addons.update(this.state.board, {
+      grids: {
+        $set: grids
+      },
+      select_wood: {
+        $set: true
+      }
+    });
     return this.setState({
-      grids: grids,
-      select_wood: true
+      board: board
     });
   };
 
   BoardStore.prototype.handleUnselectWood = function() {
-    var grids;
-    grids = this.createGrids();
-    grids = this.searchNextPutableGrid(grids, this.state.pieces, this.state.woods, this.state.player);
+    var board, grids;
+    grids = this._createGrids();
+    grids = this._searchNextPutableGrid(grids, this.state.board.pieces, this.state.board.woods, this.state.board.player);
+    board = React.addons.update(this.state.board, {
+      grids: {
+        $set: grids
+      },
+      select_wood: {
+        $set: false
+      }
+    });
     return this.setState({
-      grids: grids,
-      select_wood: false
+      board: board
     });
   };
 
   BoardStore.prototype.handleMoveWood = function(wood) {
-    var grids, next_player, obj, unused_woods, wood_count, wood_points, woods;
-    if (this.state.look_back) {
-      console.log("warn");
-    }
-    this.pushHistroy(this.history, this.state);
-    woods = React.addons.update(this.state.woods, {
+    var board, grids, history, next_player, obj, unused_woods, wood_count, wood_points, woods;
+    history = React.addons.update(this.state.history, {
+      $push: [this.state]
+    });
+    woods = React.addons.update(this.state.board.woods, {
       $push: [wood]
     });
-    wood_points = _.clone(this.state.wood_points);
+    wood_points = _.clone(this.state.board.wood_points);
     _.remove(wood_points, function(point) {
       if (wood.status === "horizontal") {
         return (wood.row === point.row && _.includes([wood.col, wood.col + 1], point.col) && point.status === "horizontal") || (wood.col + 1 === point.col && wood.row - 1 === point.row && point.status === "vertical");
@@ -43484,10 +43487,10 @@ module.exports = BoardStore = (function(superClass) {
         return (_.includes([wood.row, wood.row + 1], point.row) && wood.col === point.col && point.status === "vertical") || (wood.row + 1 === point.row && wood.col - 1 === point.col && point.status === "horizontal");
       }
     });
-    wood_count = React.addons.update(this.state.wood_count, (
+    wood_count = React.addons.update(this.state.board.wood_count, (
       obj = {},
       obj["" + wood.player] = {
-        $set: this.state.wood_count[wood.player] - 1
+        $set: this.state.board.wood_count[wood.player] - 1
       },
       obj
     ));
@@ -43502,94 +43505,105 @@ module.exports = BoardStore = (function(superClass) {
         };
       });
     }));
-    grids = this.createGrids();
-    next_player = this.fetchNextPlayer(this.state.player);
-    grids = this.searchNextPutableGrid(grids, this.state.pieces, woods, next_player);
+    grids = this._createGrids();
+    next_player = this._fetchNextPlayer(this.state.board.player);
+    grids = this._searchNextPutableGrid(grids, this.state.board.pieces, woods, next_player);
+    board = React.addons.update(this.state.board, {
+      grids: {
+        $set: grids
+      },
+      player: {
+        $set: next_player
+      },
+      moves: {
+        $set: ++this.state.board.moves
+      },
+      select_wood: {
+        $set: false
+      },
+      woods: {
+        $set: woods
+      },
+      wood_count: {
+        $set: wood_count
+      },
+      wood_points: {
+        $set: wood_points
+      },
+      unused_woods: {
+        $set: unused_woods
+      }
+    });
     return this.setState({
-      grids: grids,
-      player: next_player,
-      woods: woods,
-      wood_count: wood_count,
-      wood_points: wood_points,
-      unused_woods: unused_woods,
-      moves: ++this.state.moves,
-      select_wood: false
+      board: board
     });
   };
 
   BoardStore.prototype.handleEndGame = function() {
-    var grids, winner;
-    grids = this.createGrids();
+    var board, grids, pieces, winner;
+    grids = this._createGrids();
     winner = 0;
-    if (this.state.pair) {
-      if (this.state.pieces[1].row === this.num - 1) {
+    pieces = this.state.board.pieces;
+    if (this.state.board.pair) {
+      if (pieces[1].row === this.num - 1) {
         winner = 1;
       }
-      if (this.state.pieces[2].col === 0) {
+      if (pieces[2].col === 0) {
         winner = 2;
       }
-      if (this.state.pieces[3].row === 0) {
+      if (pieces[3].row === 0) {
         winner = 3;
       }
-      if (this.state.pieces[4].col === this.num - 1) {
+      if (pieces[4].col === this.num - 1) {
         winner = 4;
       }
     } else {
-      if (this.state.pieces[1].row === this.num - 1) {
+      if (pieces[1].row === this.num - 1) {
         winner = 1;
       }
-      if (this.state.pieces[2].row === 0) {
+      if (pieces[2].row === 0) {
         winner = 2;
       }
     }
+    board = React.addons.update(this.state.board, {
+      grids: {
+        $set: grids
+      },
+      play: {
+        $set: false
+      }
+    });
     return this.setState({
-      grids: grids,
-      winner: winner,
-      play: false
+      board: board,
+      winner: winner
     });
   };
 
   BoardStore.prototype.handleGiveup = function(player) {
-    var grids, winner;
-    grids = this.createGrids();
-    winner = this.fetchOpponent(player);
+    var board, grids, winner;
+    grids = this._createGrids();
+    winner = this._fetchOpponent(player);
+    board = React.addons.update(this.state.board, {
+      grids: {
+        $set: grids
+      },
+      play: {
+        $set: false
+      }
+    });
     return this.setState({
-      grids: grids,
-      winner: winner,
-      play: false
+      board: board,
+      winner: winner
     });
   };
 
-  BoardStore.prototype.shareBoard = function(state) {
-    return this.setState(state);
+  BoardStore.prototype.shareBoard = function(board) {
+    return this.setState({
+      board: board
+    });
   };
 
-  BoardStore.prototype.pushHistroy = function(history, state) {
-    history.push(state);
-    return this.state_number++;
-  };
-
-  BoardStore.prototype.backHistory = function() {
-    if (this.state_number > 0) {
-      this.state_number--;
-      console.log(this.state_number);
-      this.setState(_.assign(this.history[this.state_number], {
-        look_back: true
-      }));
-      return this.post_history.push(this.state);
-    }
-  };
-
-  BoardStore.prototype.nextHistory = function() {
-    if (this.post_history.length > 0) {
-      this.state_number++;
-      return this.setState(_.assign(this.post_history.pop(), {
-        look_back: this.post_history.length !== 0
-      }));
-    }
-  };
-
-  BoardStore.prototype.createGrids = function() {
+  BoardStore.prototype._createGrids = function() {
     var j, ref, results;
     return _.map((function() {
       results = [];
@@ -43613,8 +43627,8 @@ module.exports = BoardStore = (function(superClass) {
     })(this));
   };
 
-  BoardStore.prototype.fetchNextPlayer = function(player) {
-    if (this.state.pair) {
+  BoardStore.prototype._fetchNextPlayer = function(player) {
+    if (this.state.board.pair) {
       if (player === 1) {
         return 2;
       }
@@ -43637,8 +43651,8 @@ module.exports = BoardStore = (function(superClass) {
     }
   };
 
-  BoardStore.prototype.fetchOpponent = function(player) {
-    if (this.state.pair) {
+  BoardStore.prototype._fetchOpponent = function(player) {
+    if (this.state.board.pair) {
       if (player === 1) {
         return 3;
       }
@@ -43661,7 +43675,7 @@ module.exports = BoardStore = (function(superClass) {
     }
   };
 
-  BoardStore.prototype.searchNextPutableGrid = function(grids, pieces, woods, player) {
+  BoardStore.prototype._searchNextPutableGrid = function(grids, pieces, woods, player) {
     var around, arounds, fn, j, ke, len, piece;
     arounds = [
       {

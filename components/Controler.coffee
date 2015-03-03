@@ -13,27 +13,20 @@ class Controller extends React.Component
       2: cx(player2: true)
       3: cx(player3: true)
       4: cx(player4: true)
-    start_classes  = cx show: !@props.play, hide:  @props.play
-    playing_classes = cx show: @props.play, hide: !@props.play
-    end_classes = cx show: @props.end, hide: !@props.end
-    select_classes = cx show: !@props.select_wood and @props.play, hide: @props.select_wood or !@props.play
-    unselect_classes = cx show: @props.select_wood and @props.play, hide: !@props.select_wood or !@props.play
+    start_classes  = cx show: !@props.board.play, hide:  @props.board.play
+    playing_classes = cx show: @props.board.play and !@props.board.end, hide: !@props.board.play or @props.board.end
+    end_classes = cx show: @props.board.end, hide: !@props.board.end
+    select_classes = cx show: !@props.board.select_wood and @props.board.play, hide: @props.board.select_wood or !@props.board.play
+    unselect_classes = cx show: @props.board.select_wood and @props.board.play, hide: !@props.board.select_wood or !@props.board.play
     jade.compile("""
     .row
+      a.control.btn.btn-default(class=end_classes onClick=endGame) End
       a.control.btn.btn-default(class=start_classes onClick=startGame) Start
-      select.form-control(class=start_classes onChange=onChange)
+      select.control.form-control(class=start_classes onChange=onChange)
         option(value="single") Single
         option(value="pair") Pair
       a.control.btn.btn-default(class=playing_classes onClick=giveupGame) Give up
       a.control.btn.btn-default(class=playing_classes onClick=shareBoard) Share Board
-      .row
-        .col-sm-6
-          a.control.btn.btn-default(class=playing_classes onClick=backHistory)
-            .glyphicon.glyphicon-menu-left
-        .col-sm-6
-          a.control.btn.btn-default(class=playing_classes onClick=nextHistory)
-            .glyphicon.glyphicon-menu-right
-      a.control.btn.btn-default(class=end_classes onClick=endGame) End
 
     hr
 
@@ -44,24 +37,25 @@ class Controller extends React.Component
           td= roomId
         tr
           th Moves
-          td= moves
-        tr(class=player_class[player])
+          td= board.moves
+        tr(class=player_class[board.player])
           th Current
-          td= player
+          td= board.player
 
 
     hr
 
     .row
-      a.control.btn.btn-default(class=[player_class[player], select_classes] onClick=selectWood) Wood
-      a.control.btn.btn-default(class=[player_class[player], unselect_classes] onClick=unselectWood) Piece
+      a.control.btn.btn-default(class=[player_class[board.player], select_classes] onClick=selectWood) Wood
+      a.control.btn.btn-default(class=[player_class[board.player], unselect_classes] onClick=unselectWood) Piece
 
     """)(_.assign(@, @props, @state))
   startGame: =>
-    socket.emit('action', action: "startGame", args: [1, @state.pair])
-    @props.flux.getActions("game").startGame(1, @state.pair)
+    pair = @state.pair
+    socket.emit('action', action: "startGame", args: [1, pair])
+    @props.flux.getActions("game").startGame(1, pair)
   giveupGame: =>
-    player = @props.flux.getStore("board").state.player
+    player = @props.board.player
     socket.emit('action', action: "giveupGame", args: [player])
     @props.flux.getActions("game").giveupGame(player)
   endGame: =>
@@ -74,21 +68,7 @@ class Controller extends React.Component
   unselectWood: =>
     @props.flux.getActions("game").unselectWood()
   shareBoard: =>
-    state =
-      pieces: @props.pieces
-      woods: @props.woods
-      wood_points: @props.wood_points
-      wood_count: @props.wood_count
-      unused_woods: @props.unused_woods
-      select_wood: @props.select_wood
-      moves: @props.moves
-      grids: @props.grids
-      player: @props.player
-      pair: @props.pair
-      winner: @props.winner
-      play: @props.play
-      end: @props.end
-    socket.emit('action', action: "shareBoard", args: [state])
+    socket.emit('action', action: "shareBoard", args: [@props.board])
   backHistory: =>
     @props.flux.getActions("game").backHistory()
   nextHistory: =>

@@ -18,21 +18,22 @@ class BoardStore extends Store
     @num = 9
     @player = 2
 
-    grids = @createGrids()
+    grids = @_createGrids()
     @state =
-      pieces: {}
-      woods: []
-      wood_points: []
-      wood_count: {}
-      unused_woods: {}
-      select_wood: false
-      moves: 0
-      grids: grids
-      player: 0
-      pair: false
+      board:
+        pair: false
+        pieces: {}
+        woods: []
+        wood_points: []
+        wood_count: {}
+        unused_woods: {}
+        moves: 0
+        grids: grids
+        player: 0
+        play: false
+        end: false
+        select_wood: false
       winner: 0
-      play: false
-      end: false
       look_back: false
       history: []
 
@@ -68,22 +69,24 @@ class BoardStore extends Store
         _.map [0...@num], (col) =>
           [ {row: row, col: col, status: "horizontal"}, {row: row, col: col, status: "vertical"} ]
     )
-    grids = @createGrids()
-    grids = @searchNextPutableGrid(grids, pieces, woods, data.player)
+    grids = @_createGrids()
+    grids = @_searchNextPutableGrid(grids, pieces, woods, data.player)
     @setState
-      grids: grids
-      pieces: pieces
-      woods: woods
-      wood_count: wood_count
-      wood_points: wood_points
-      unused_woods: unused_woods
-      player: data.player
+      board:
+        pair: data.pair
+        pieces: pieces
+        woods: woods
+        wood_points: wood_points
+        wood_count: wood_count
+        unused_woods: unused_woods
+        moves: 0
+        grids: grids
+        player: data.player
+        play: true
+        end: false
+        select_wood: false
       winner: 0
-      play: true
-      end: false
-      pair: data.pair
-      moves: 0
-      select_wood: false
+      look_back: false
       history: []
 
   handlePiece: (piece) ->
@@ -91,48 +94,58 @@ class BoardStore extends Store
       console.log("warn")
     history = React.addons.update(@state.history, {$push: [@state]})
     # move piece
-    pieces = React.addons.update(@state.pieces, {"#{piece.player}": {$set: piece}})
+    pieces = React.addons.update(@state.board.pieces, {"#{piece.player}": {$set: piece}})
 
     # update
-    if @state.pair
+    if @state.board.pair
       end = pieces[1].row is @num - 1 or pieces[2].col is 0 or
             pieces[3].row is        0 or pieces[4].col is @num - 1
     else
       end = pieces[1].row is @num - 1 or pieces[2].row is 0
-    grids = @createGrids()
+    grids = @_createGrids()
     unless end
-      next_player = @fetchNextPlayer(@state.player)
-      grids = @searchNextPutableGrid(grids, pieces, @state.woods, next_player)
+      next_player = @_fetchNextPlayer(@state.board.player)
+      grids = @_searchNextPutableGrid(grids, pieces, @state.board.woods, next_player)
     else
       next_player = 0
+
+    board = React.addons.update @state.board, {
+      grids: {$set: grids}
+      pieces: {$set: pieces}
+      player: {$set: next_player}
+      end: {$set: end}
+      moves: {$set: ++@state.board.moves}
+      select_wood: {$set: false}
+    }
     @setState
-      grids: grids
-      pieces: pieces
-      player: next_player
-      end: end
-      moves: ++@state.moves
-      select_wood: false
+      board: board
       history: history
 
   handleSelectWood: ->
-    grids = @createGrids()
+    grids = @_createGrids()
+    board = React.addons.update @state.board, {
+      grids: {$set: grids}
+      select_wood: {$set: true}
+    }
     @setState
-      grids: grids
-      select_wood: true
+      board: board
 
   handleUnselectWood: ->
-    grids = @createGrids()
-    grids = @searchNextPutableGrid(grids, @state.pieces, @state.woods, @state.player)
+    grids = @_createGrids()
+    grids = @_searchNextPutableGrid(grids, @state.board.pieces, @state.board.woods, @state.board.player)
+    board = React.addons.update @state.board, {
+      grids: {$set: grids}
+      select_wood: {$set: false}
+    }
     @setState
-      grids: grids
-      select_wood: false
+      board: board
 
   handleMoveWood: (wood) ->
     history = React.addons.update(@state.history, {$push: [@state]})
     # move wood
-    woods = React.addons.update(@state.woods, {$push: [wood]})
+    woods = React.addons.update(@state.board.woods, {$push: [wood]})
 
-    wood_points = _.clone(@state.wood_points)
+    wood_points = _.clone(@state.board.wood_points)
     _.remove wood_points, (point) ->
       if wood.status is "horizontal"
         return (wood.row is point.row and _.includes([wood.col,wood.col+1], point.col) and point.status is "horizontal") or
@@ -142,66 +155,78 @@ class BoardStore extends Store
           (wood.row+1 is point.row and wood.col-1 is point.col and point.status is "horizontal")
 
 
-    wood_count = React.addons.update(@state.wood_count, {"#{wood.player}": {$set: @state.wood_count[wood.player] - 1}})
+    wood_count = React.addons.update(@state.board.wood_count, {"#{wood.player}": {$set: @state.board.wood_count[wood.player] - 1}})
 
     unused_woods = _.flatten _.map wood_count, (count,player) ->
       _.map _.range(1, count+1), (i) ->
         {id: i, status: "waiting", row: 0, col: 0, player: +player}
 
     # update
-    grids = @createGrids()
-    next_player = @fetchNextPlayer(@state.player)
-    grids = @searchNextPutableGrid(grids, @state.pieces, woods, next_player)
+    grids = @_createGrids()
+    next_player = @_fetchNextPlayer(@state.board.player)
+    grids = @_searchNextPutableGrid(grids, @state.board.pieces, woods, next_player)
+
+    board = React.addons.update @state.board, {
+      grids: {$set: grids}
+      player: {$set: next_player}
+      moves: {$set: ++@state.board.moves}
+      select_wood: {$set: false}
+      woods: {$set: woods}
+      wood_count: {$set: wood_count}
+      wood_points: {$set: wood_points}
+      unused_woods: {$set: unused_woods}
+    }
     @setState
-      grids: grids
-      player: next_player
-      woods: woods
-      wood_count: wood_count
-      wood_points: wood_points
-      unused_woods: unused_woods
-      moves: ++@state.moves
-      select_wood: false
+      board: board
 
 
   handleEndGame: ->
-    grids = @createGrids()
+    grids = @_createGrids()
 
     winner = 0
-    if @state.pair
-      winner = 1 if @state.pieces[1].row is @num - 1
-      winner = 2 if @state.pieces[2].col is 0
-      winner = 3 if @state.pieces[3].row is 0
-      winner = 4 if @state.pieces[4].col is @num - 1
+    pieces = @state.board.pieces
+    if @state.board.pair
+      winner = 1 if pieces[1].row is @num - 1
+      winner = 2 if pieces[2].col is 0
+      winner = 3 if pieces[3].row is 0
+      winner = 4 if pieces[4].col is @num - 1
     else
-      winner = 1 if @state.pieces[1].row is @num - 1
-      winner = 2 if @state.pieces[2].row is 0
+      winner = 1 if pieces[1].row is @num - 1
+      winner = 2 if pieces[2].row is 0
 
+    board = React.addons.update @state.board, {
+      grids: {$set: grids}
+      play: {$set: false}
+    }
     @setState
-      grids: grids
+      board: board
       winner: winner
-      play: false
 
   handleGiveup: (player)->
-    grids = @createGrids()
-    winner = @fetchOpponent(player)
+    grids = @_createGrids()
+    winner = @_fetchOpponent(player)
 
+    board = React.addons.update @state.board, {
+      grids: {$set: grids}
+      play: {$set: false}
+    }
     @setState
-      grids: grids
+      board: board
       winner: winner
-      play: false
 
-  shareBoard: (state) ->
-    @setState state
+  shareBoard: (board) ->
+    @setState
+      board: board
 
   # private
 
-  createGrids: ->
+  _createGrids: ->
     _.map [0...@num], (row) =>
       _.map [0...@num], (col) =>
         row: row, col: col, next: false
 
-  fetchNextPlayer: (player) ->
-    if @state.pair
+  _fetchNextPlayer: (player) ->
+    if @state.board.pair
       if player is 1
         return 2
       if player is 2
@@ -216,8 +241,8 @@ class BoardStore extends Store
       if player is 2
         return 1
 
-  fetchOpponent: (player) ->
-    if @state.pair
+  _fetchOpponent: (player) ->
+    if @state.board.pair
       if player == 1
         return 3
       if player == 2
@@ -232,7 +257,7 @@ class BoardStore extends Store
       if player == 2
         return 1
 
-  searchNextPutableGrid: (grids, pieces, woods, player) ->
+  _searchNextPutableGrid: (grids, pieces, woods, player) ->
     arounds = [
       {diff: [-1,0], direction: "left"}
       {diff: [1,0], direction: "right"}

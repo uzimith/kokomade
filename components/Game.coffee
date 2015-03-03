@@ -13,9 +13,8 @@ class Game extends React.Component
     jade.compile("""
       .row
         .col-md-2.col-md-offset-2
-          FluxComponent(connectToStores=['board'])
+          FluxComponent(connectToStores=['board', 'panel'])
             Controller
         .col-md-8
-          FluxComponent(connectToStores=['board'])
-            Board
+          Board(board=board)
     """)(_.assign(@, @props, @state))
