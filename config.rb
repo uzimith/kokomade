@@ -1,6 +1,7 @@
 require 'compass/import-once/activate'
 # Require any additional compass plugins here.
 require 'autoprefixer-rails'
+require 'breakpoint'
 
 on_stylesheet_saved do |file|
   css = File.read(file)

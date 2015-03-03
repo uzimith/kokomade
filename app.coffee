@@ -1,6 +1,9 @@
 window.socket = new RocketIO(channel: channel).connect()
 
 React = require('react')
+injectTapEventPlugin = require("react-tap-event-plugin")
+injectTapEventPlugin()
+
 jade = require('react-jade')
 _ = require('lodash')
 Application = require('./components/Application.coffee')

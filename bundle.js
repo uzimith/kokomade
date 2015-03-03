@@ -1,9 +1,13 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"./app.coffee":[function(require,module,exports){
-var AppFlux, Application, React, _, flux, jade;
+var AppFlux, Application, React, _, flux, injectTapEventPlugin, jade;
 
 window.socket = require('socket.io-client')();
 
 React = require('react');
+
+injectTapEventPlugin = require("react-tap-event-plugin");
+
+injectTapEventPlugin();
 
 
 
@@ -23,7 +27,7 @@ React.render(React.createFactory(Application)({
 
 
 
-},{"./components/Application.coffee":"/Users/uzimith/dev/kokomade/components/Application.coffee","./dispatcher/AppFlux.coffee":"/Users/uzimith/dev/kokomade/dispatcher/AppFlux.coffee","./socket.coffee":"/Users/uzimith/dev/kokomade/socket.coffee","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","socket.io-client":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/index.js"}],"/Users/uzimith/dev/kokomade/actions/GameActions.coffee":[function(require,module,exports){
+},{"./components/Application.coffee":"/Users/uzimith/dev/kokomade/components/Application.coffee","./dispatcher/AppFlux.coffee":"/Users/uzimith/dev/kokomade/dispatcher/AppFlux.coffee","./socket.coffee":"/Users/uzimith/dev/kokomade/socket.coffee","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","react-tap-event-plugin":"/Users/uzimith/dev/kokomade/node_modules/react-tap-event-plugin/src/injectTapEventPlugin.js","socket.io-client":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/index.js"}],"/Users/uzimith/dev/kokomade/actions/GameActions.coffee":[function(require,module,exports){
 var Actions, GameActions,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -994,6 +998,7 @@ module.exports = Grid = (function(superClass) {
       var tags = [];
       tags.push(React.createElement("div", {
         onClick: onClick,
+        onTouchTap: onClick,
         className: jade_join_classes([ "grid", [ classes, player_class ] ])
       }));
       if (1 === tags.length) return tags.pop();
@@ -1834,6 +1839,7 @@ module.exports = WoodPoint = (function(superClass) {
       var tags = [];
       tags.push(React.createElement("div", {
         onClick: onClick,
+        onTouchTap: onClick,
         onMouseOver: onMouseOver,
         onMouseOut: onMouseOut,
         className: jade_join_classes([ "wood_point", classes ])
@@ -14971,7 +14977,531 @@ id.reset = function() {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/addons.js":[function(require,module,exports){
+},{}],"/Users/uzimith/dev/kokomade/node_modules/react-tap-event-plugin/src/ResponderEventPlugin.js":[function(require,module,exports){
+/**
+ * Copyright 2013-2014, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * @providesModule ResponderEventPlugin
+ */
+
+"use strict";
+
+var EventConstants = require('react/lib/EventConstants');
+var EventPluginUtils = require('react/lib/EventPluginUtils');
+var EventPropagators = require('react/lib/EventPropagators');
+var SyntheticEvent = require('react/lib/SyntheticEvent');
+
+var accumulateInto = require('react/lib/accumulateInto');
+var keyOf = require('react/lib/keyOf');
+
+var isStartish = EventPluginUtils.isStartish;
+var isMoveish = EventPluginUtils.isMoveish;
+var isEndish = EventPluginUtils.isEndish;
+var executeDirectDispatch = EventPluginUtils.executeDirectDispatch;
+var hasDispatches = EventPluginUtils.hasDispatches;
+var executeDispatchesInOrderStopAtTrue =
+  EventPluginUtils.executeDispatchesInOrderStopAtTrue;
+
+/**
+ * ID of element that should respond to touch/move types of interactions, as
+ * indicated explicitly by relevant callbacks.
+ */
+var responderID = null;
+var isPressing = false;
+
+var eventTypes = {
+  /**
+   * On a `touchStart`/`mouseDown`, is it desired that this element become the
+   * responder?
+   */
+  startShouldSetResponder: {
+    phasedRegistrationNames: {
+      bubbled: keyOf({onStartShouldSetResponder: null}),
+      captured: keyOf({onStartShouldSetResponderCapture: null})
+    }
+  },
+
+  /**
+   * On a `scroll`, is it desired that this element become the responder? This
+   * is usually not needed, but should be used to retroactively infer that a
+   * `touchStart` had occured during momentum scroll. During a momentum scroll,
+   * a touch start will be immediately followed by a scroll event if the view is
+   * currently scrolling.
+   */
+  scrollShouldSetResponder: {
+    phasedRegistrationNames: {
+      bubbled: keyOf({onScrollShouldSetResponder: null}),
+      captured: keyOf({onScrollShouldSetResponderCapture: null})
+    }
+  },
+
+  /**
+   * On a `touchMove`/`mouseMove`, is it desired that this element become the
+   * responder?
+   */
+  moveShouldSetResponder: {
+    phasedRegistrationNames: {
+      bubbled: keyOf({onMoveShouldSetResponder: null}),
+      captured: keyOf({onMoveShouldSetResponderCapture: null})
+    }
+  },
+
+  /**
+   * Direct responder events dispatched directly to responder. Do not bubble.
+   */
+  responderMove: {registrationName: keyOf({onResponderMove: null})},
+  responderRelease: {registrationName: keyOf({onResponderRelease: null})},
+  responderTerminationRequest: {
+    registrationName: keyOf({onResponderTerminationRequest: null})
+  },
+  responderGrant: {registrationName: keyOf({onResponderGrant: null})},
+  responderReject: {registrationName: keyOf({onResponderReject: null})},
+  responderTerminate: {registrationName: keyOf({onResponderTerminate: null})}
+};
+
+/**
+ * Performs negotiation between any existing/current responder, checks to see if
+ * any new entity is interested in becoming responder, performs that handshake
+ * and returns any events that must be emitted to notify the relevant parties.
+ *
+ * A note about event ordering in the `EventPluginHub`.
+ *
+ * Suppose plugins are injected in the following order:
+ *
+ * `[R, S, C]`
+ *
+ * To help illustrate the example, assume `S` is `SimpleEventPlugin` (for
+ * `onClick` etc) and `R` is `ResponderEventPlugin`.
+ *
+ * "Deferred-Dispatched Events":
+ *
+ * - The current event plugin system will traverse the list of injected plugins,
+ *   in order, and extract events by collecting the plugin's return value of
+ *   `extractEvents()`.
+ * - These events that are returned from `extractEvents` are "deferred
+ *   dispatched events".
+ * - When returned from `extractEvents`, deferred-dispatched events contain an
+ *   "accumulation" of deferred dispatches.
+ * - These deferred dispatches are accumulated/collected before they are
+ *   returned, but processed at a later time by the `EventPluginHub` (hence the
+ *   name deferred).
+ *
+ * In the process of returning their deferred-dispatched events, event plugins
+ * themselves can dispatch events on-demand without returning them from
+ * `extractEvents`. Plugins might want to do this, so that they can use event
+ * dispatching as a tool that helps them decide which events should be extracted
+ * in the first place.
+ *
+ * "On-Demand-Dispatched Events":
+ *
+ * - On-demand-dispatched events are not returned from `extractEvents`.
+ * - On-demand-dispatched events are dispatched during the process of returning
+ *   the deferred-dispatched events.
+ * - They should not have side effects.
+ * - They should be avoided, and/or eventually be replaced with another
+ *   abstraction that allows event plugins to perform multiple "rounds" of event
+ *   extraction.
+ *
+ * Therefore, the sequence of event dispatches becomes:
+ *
+ * - `R`s on-demand events (if any)   (dispatched by `R` on-demand)
+ * - `S`s on-demand events (if any)   (dispatched by `S` on-demand)
+ * - `C`s on-demand events (if any)   (dispatched by `C` on-demand)
+ * - `R`s extracted events (if any)   (dispatched by `EventPluginHub`)
+ * - `S`s extracted events (if any)   (dispatched by `EventPluginHub`)
+ * - `C`s extracted events (if any)   (dispatched by `EventPluginHub`)
+ *
+ * In the case of `ResponderEventPlugin`: If the `startShouldSetResponder`
+ * on-demand dispatch returns `true` (and some other details are satisfied) the
+ * `onResponderGrant` deferred dispatched event is returned from
+ * `extractEvents`. The sequence of dispatch executions in this case
+ * will appear as follows:
+ *
+ * - `startShouldSetResponder` (`ResponderEventPlugin` dispatches on-demand)
+ * - `touchStartCapture`       (`EventPluginHub` dispatches as usual)
+ * - `touchStart`              (`EventPluginHub` dispatches as usual)
+ * - `responderGrant/Reject`   (`EventPluginHub` dispatches as usual)
+ *
+ * @param {string} topLevelType Record from `EventConstants`.
+ * @param {string} topLevelTargetID ID of deepest React rendered element.
+ * @param {object} nativeEvent Native browser event.
+ * @return {*} An accumulation of synthetic events.
+ */
+function setResponderAndExtractTransfer(
+    topLevelType,
+    topLevelTargetID,
+    nativeEvent) {
+  var shouldSetEventType =
+    isStartish(topLevelType) ? eventTypes.startShouldSetResponder :
+    isMoveish(topLevelType) ? eventTypes.moveShouldSetResponder :
+    eventTypes.scrollShouldSetResponder;
+
+  var bubbleShouldSetFrom = responderID || topLevelTargetID;
+  var shouldSetEvent = SyntheticEvent.getPooled(
+    shouldSetEventType,
+    bubbleShouldSetFrom,
+    nativeEvent
+  );
+  EventPropagators.accumulateTwoPhaseDispatches(shouldSetEvent);
+  var wantsResponderID = executeDispatchesInOrderStopAtTrue(shouldSetEvent);
+  if (!shouldSetEvent.isPersistent()) {
+    shouldSetEvent.constructor.release(shouldSetEvent);
+  }
+
+  if (!wantsResponderID || wantsResponderID === responderID) {
+    return null;
+  }
+  var extracted;
+  var grantEvent = SyntheticEvent.getPooled(
+    eventTypes.responderGrant,
+    wantsResponderID,
+    nativeEvent
+  );
+
+  EventPropagators.accumulateDirectDispatches(grantEvent);
+  if (responderID) {
+    var terminationRequestEvent = SyntheticEvent.getPooled(
+      eventTypes.responderTerminationRequest,
+      responderID,
+      nativeEvent
+    );
+    EventPropagators.accumulateDirectDispatches(terminationRequestEvent);
+    var shouldSwitch = !hasDispatches(terminationRequestEvent) ||
+      executeDirectDispatch(terminationRequestEvent);
+    if (!terminationRequestEvent.isPersistent()) {
+      terminationRequestEvent.constructor.release(terminationRequestEvent);
+    }
+
+    if (shouldSwitch) {
+      var terminateType = eventTypes.responderTerminate;
+      var terminateEvent = SyntheticEvent.getPooled(
+        terminateType,
+        responderID,
+        nativeEvent
+      );
+      EventPropagators.accumulateDirectDispatches(terminateEvent);
+      extracted = accumulateInto(extracted, [grantEvent, terminateEvent]);
+      responderID = wantsResponderID;
+    } else {
+      var rejectEvent = SyntheticEvent.getPooled(
+        eventTypes.responderReject,
+        wantsResponderID,
+        nativeEvent
+      );
+      EventPropagators.accumulateDirectDispatches(rejectEvent);
+      extracted = accumulateInto(extracted, rejectEvent);
+    }
+  } else {
+    extracted = accumulateInto(extracted, grantEvent);
+    responderID = wantsResponderID;
+  }
+  return extracted;
+}
+
+/**
+ * A transfer is a negotiation between a currently set responder and the next
+ * element to claim responder status. Any start event could trigger a transfer
+ * of responderID. Any move event could trigger a transfer, so long as there is
+ * currently a responder set (in other words as long as the user is pressing
+ * down).
+ *
+ * @param {string} topLevelType Record from `EventConstants`.
+ * @return {boolean} True if a transfer of responder could possibly occur.
+ */
+function canTriggerTransfer(topLevelType) {
+  return topLevelType === EventConstants.topLevelTypes.topScroll ||
+         isStartish(topLevelType) ||
+         (isPressing && isMoveish(topLevelType));
+}
+
+/**
+ * Event plugin for formalizing the negotiation between claiming locks on
+ * receiving touches.
+ */
+var ResponderEventPlugin = {
+
+  getResponderID: function() {
+    return responderID;
+  },
+
+  eventTypes: eventTypes,
+
+  /**
+   * @param {string} topLevelType Record from `EventConstants`.
+   * @param {DOMEventTarget} topLevelTarget The listening component root node.
+   * @param {string} topLevelTargetID ID of `topLevelTarget`.
+   * @param {object} nativeEvent Native browser event.
+   * @return {*} An accumulation of synthetic events.
+   * @see {EventPluginHub.extractEvents}
+   */
+  extractEvents: function(
+      topLevelType,
+      topLevelTarget,
+      topLevelTargetID,
+      nativeEvent) {
+    var extracted;
+    // Must have missed an end event - reset the state here.
+    if (responderID && isStartish(topLevelType)) {
+      responderID = null;
+    }
+    if (isStartish(topLevelType)) {
+      isPressing = true;
+    } else if (isEndish(topLevelType)) {
+      isPressing = false;
+    }
+    if (canTriggerTransfer(topLevelType)) {
+      var transfer = setResponderAndExtractTransfer(
+        topLevelType,
+        topLevelTargetID,
+        nativeEvent
+      );
+      if (transfer) {
+        extracted = accumulateInto(extracted, transfer);
+      }
+    }
+    // Now that we know the responder is set correctly, we can dispatch
+    // responder type events (directly to the responder).
+    var type = isMoveish(topLevelType) ? eventTypes.responderMove :
+      isEndish(topLevelType) ? eventTypes.responderRelease :
+      isStartish(topLevelType) ? eventTypes.responderStart : null;
+    if (type) {
+      var gesture = SyntheticEvent.getPooled(
+        type,
+        responderID || '',
+        nativeEvent
+      );
+      EventPropagators.accumulateDirectDispatches(gesture);
+      extracted = accumulateInto(extracted, gesture);
+    }
+    if (type === eventTypes.responderRelease) {
+      responderID = null;
+    }
+    return extracted;
+  }
+
+};
+
+module.exports = ResponderEventPlugin;
+
+},{"react/lib/EventConstants":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js","react/lib/EventPluginUtils":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginUtils.js","react/lib/EventPropagators":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPropagators.js","react/lib/SyntheticEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticEvent.js","react/lib/accumulateInto":"/Users/uzimith/dev/kokomade/node_modules/react/lib/accumulateInto.js","react/lib/keyOf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyOf.js"}],"/Users/uzimith/dev/kokomade/node_modules/react-tap-event-plugin/src/TapEventPlugin.js":[function(require,module,exports){
+/**
+ * Copyright 2013-2014 Facebook, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @providesModule TapEventPlugin
+ * @typechecks static-only
+ */
+
+"use strict";
+
+var EventConstants = require('react/lib/EventConstants');
+var EventPluginUtils = require('react/lib/EventPluginUtils');
+var EventPropagators = require('react/lib/EventPropagators');
+var SyntheticUIEvent = require('react/lib/SyntheticUIEvent');
+var TouchEventUtils = require('./TouchEventUtils');
+var ViewportMetrics = require('react/lib/ViewportMetrics');
+
+var keyOf = require('react/lib/keyOf');
+var topLevelTypes = EventConstants.topLevelTypes;
+
+var isStartish = EventPluginUtils.isStartish;
+var isEndish = EventPluginUtils.isEndish;
+
+var isTouch = function(topLevelType) {
+  var touchTypes = [
+    topLevelTypes.topTouchCancel,
+    topLevelTypes.topTouchEnd,
+    topLevelTypes.topTouchStart,
+    topLevelTypes.topTouchMove
+  ];
+  return touchTypes.indexOf(topLevelType) >= 0;
+}
+
+/**
+ * Number of pixels that are tolerated in between a `touchStart` and `touchEnd`
+ * in order to still be considered a 'tap' event.
+ */
+var tapMoveThreshold = 10;
+var ignoreMouseThreshold = 750;
+var startCoords = {x: null, y: null};
+var lastTouchEvent = null;
+
+var Axis = {
+  x: {page: 'pageX', client: 'clientX', envScroll: 'currentPageScrollLeft'},
+  y: {page: 'pageY', client: 'clientY', envScroll: 'currentPageScrollTop'}
+};
+
+function getAxisCoordOfEvent(axis, nativeEvent) {
+  var singleTouch = TouchEventUtils.extractSingleTouch(nativeEvent);
+  if (singleTouch) {
+    return singleTouch[axis.page];
+  }
+  return axis.page in nativeEvent ?
+    nativeEvent[axis.page] :
+    nativeEvent[axis.client] + ViewportMetrics[axis.envScroll];
+}
+
+function getDistance(coords, nativeEvent) {
+  var pageX = getAxisCoordOfEvent(Axis.x, nativeEvent);
+  var pageY = getAxisCoordOfEvent(Axis.y, nativeEvent);
+  return Math.pow(
+    Math.pow(pageX - coords.x, 2) + Math.pow(pageY - coords.y, 2),
+    0.5
+  );
+}
+
+var dependencies = [
+  topLevelTypes.topMouseDown,
+  topLevelTypes.topMouseMove,
+  topLevelTypes.topMouseUp
+];
+
+if (EventPluginUtils.useTouchEvents) {
+  dependencies.push(
+    topLevelTypes.topTouchEnd,
+    topLevelTypes.topTouchStart,
+    topLevelTypes.topTouchMove
+  );
+}
+
+var eventTypes = {
+  touchTap: {
+    phasedRegistrationNames: {
+      bubbled: keyOf({onTouchTap: null}),
+      captured: keyOf({onTouchTapCapture: null})
+    },
+    dependencies: dependencies
+  }
+};
+
+var TapEventPlugin = {
+
+  tapMoveThreshold: tapMoveThreshold,
+
+  ignoreMouseThreshold: ignoreMouseThreshold,
+
+  eventTypes: eventTypes,
+
+  /**
+   * @param {string} topLevelType Record from `EventConstants`.
+   * @param {DOMEventTarget} topLevelTarget The listening component root node.
+   * @param {string} topLevelTargetID ID of `topLevelTarget`.
+   * @param {object} nativeEvent Native browser event.
+   * @return {*} An accumulation of synthetic events.
+   * @see {EventPluginHub.extractEvents}
+   */
+  extractEvents: function(
+      topLevelType,
+      topLevelTarget,
+      topLevelTargetID,
+      nativeEvent) {
+
+    if (isTouch(topLevelType)) {
+      lastTouchEvent = nativeEvent.timeStamp;
+    } else {
+      if (lastTouchEvent && (nativeEvent.timeStamp - lastTouchEvent) < ignoreMouseThreshold) {
+        return null;
+      }
+    }
+
+    if (!isStartish(topLevelType) && !isEndish(topLevelType)) {
+      return null;
+    }
+    var event = null;
+    var distance = getDistance(startCoords, nativeEvent);
+    if (isEndish(topLevelType) && distance < tapMoveThreshold) {
+      event = SyntheticUIEvent.getPooled(
+        eventTypes.touchTap,
+        topLevelTargetID,
+        nativeEvent
+      );
+    }
+    if (isStartish(topLevelType)) {
+      startCoords.x = getAxisCoordOfEvent(Axis.x, nativeEvent);
+      startCoords.y = getAxisCoordOfEvent(Axis.y, nativeEvent);
+    } else if (isEndish(topLevelType)) {
+      startCoords.x = 0;
+      startCoords.y = 0;
+    }
+    EventPropagators.accumulateTwoPhaseDispatches(event);
+    return event;
+  }
+
+};
+
+module.exports = TapEventPlugin;
+},{"./TouchEventUtils":"/Users/uzimith/dev/kokomade/node_modules/react-tap-event-plugin/src/TouchEventUtils.js","react/lib/EventConstants":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js","react/lib/EventPluginUtils":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginUtils.js","react/lib/EventPropagators":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPropagators.js","react/lib/SyntheticUIEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticUIEvent.js","react/lib/ViewportMetrics":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ViewportMetrics.js","react/lib/keyOf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyOf.js"}],"/Users/uzimith/dev/kokomade/node_modules/react-tap-event-plugin/src/TouchEventUtils.js":[function(require,module,exports){
+/**
+ * Copyright 2013-2014 Facebook, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @providesModule TouchEventUtils
+ */
+
+var TouchEventUtils = {
+  /**
+   * Utility function for common case of extracting out the primary touch from a
+   * touch event.
+   * - `touchEnd` events usually do not have the `touches` property.
+   *   http://stackoverflow.com/questions/3666929/
+   *   mobile-sarai-touchend-event-not-firing-when-last-touch-is-removed
+   *
+   * @param {Event} nativeEvent Native event that may or may not be a touch.
+   * @return {TouchesObject?} an object with pageX and pageY or null.
+   */
+  extractSingleTouch: function(nativeEvent) {
+    var touches = nativeEvent.touches;
+    var changedTouches = nativeEvent.changedTouches;
+    var hasTouches = touches && touches.length > 0;
+    var hasChangedTouches = changedTouches && changedTouches.length > 0;
+
+    return !hasTouches && hasChangedTouches ? changedTouches[0] :
+           hasTouches ? touches[0] :
+           nativeEvent;
+  }
+};
+
+module.exports = TouchEventUtils;
+
+},{}],"/Users/uzimith/dev/kokomade/node_modules/react-tap-event-plugin/src/injectTapEventPlugin.js":[function(require,module,exports){
+module.exports = function injectTapEventPlugin () {
+  var React = require("react");
+  React.initializeTouchEvents(true);
+
+  require('react/lib/EventPluginHub').injection.injectEventPluginsByName({
+    "ResponderEventPlugin": require('./ResponderEventPlugin.js'),
+    "TapEventPlugin":       require('./TapEventPlugin.js')
+  });
+};
+
+},{"./ResponderEventPlugin.js":"/Users/uzimith/dev/kokomade/node_modules/react-tap-event-plugin/src/ResponderEventPlugin.js","./TapEventPlugin.js":"/Users/uzimith/dev/kokomade/node_modules/react-tap-event-plugin/src/TapEventPlugin.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","react/lib/EventPluginHub":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginHub.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/addons.js":[function(require,module,exports){
 module.exports = require('./lib/ReactWithAddons');
 
 },{"./lib/ReactWithAddons":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactWithAddons.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/AutoFocusMixin.js":[function(require,module,exports){
@@ -15627,6 +16157,8 @@ module.exports = CSSCore;
  * CSS properties which accept numbers but are not in units of "px".
  */
 var isUnitlessNumber = {
+  boxFlex: true,
+  boxFlexGroup: true,
   columnCount: true,
   flex: true,
   flexGrow: true,
@@ -19470,7 +20002,7 @@ if ("production" !== process.env.NODE_ENV) {
   }
 }
 
-React.version = '0.13.0-beta.2';
+React.version = '0.13.0-rc1';
 
 module.exports = React;
 
@@ -20376,6 +20908,7 @@ module.exports = ReactChildren;
 'use strict';
 
 var ReactComponent = require("./ReactComponent");
+var ReactCurrentOwner = require("./ReactCurrentOwner");
 var ReactElement = require("./ReactElement");
 var ReactErrorUtils = require("./ReactErrorUtils");
 var ReactInstanceMap = require("./ReactInstanceMap");
@@ -21035,7 +21568,7 @@ function bindAutoBindMethod(component, method) {
           false,
           'bind(): You are binding a component method to the component. ' +
           'React does this for you automatically in a high-performance ' +
-          'way, so you can safely remove this call. See ',
+          'way, so you can safely remove this call. See %s',
           componentName
         ) : null);
         return boundMethod;
@@ -21112,6 +21645,21 @@ var ReactClassMixin = {
    * @final
    */
   isMounted: function() {
+    if ("production" !== process.env.NODE_ENV) {
+      var owner = ReactCurrentOwner.current;
+      if (owner !== null) {
+        ("production" !== process.env.NODE_ENV ? warning(
+          owner._warnedAboutRefsInRender,
+          '%s is accessing isMounted inside its render() function. ' +
+          'render() should be a pure function of props and state. It should ' +
+          'never access something that requires stale data from the previous ' +
+          'render, such as refs. Move this logic to componentDidMount and ' +
+          'componentDidUpdate instead.',
+          owner.getName() || 'A component'
+        ) : null);
+        owner._warnedAboutRefsInRender = true;
+      }
+    }
     var internalInstance = ReactInstanceMap.get(this);
     return (
       internalInstance &&
@@ -21177,6 +21725,14 @@ var ReactClass = {
     var Constructor = function(props, context) {
       // This constructor is overridden by mocks. The argument is used
       // by mocks to assert on what gets mounted.
+
+      if ("production" !== process.env.NODE_ENV) {
+        ("production" !== process.env.NODE_ENV ? warning(
+          this instanceof Constructor,
+          'Something is calling a React component directly. Use a factory or ' +
+          'JSX instead. See: http://fb.me/react-legacyfactory'
+        ) : null);
+      }
 
       // Wire up auto-binding
       if (this.__reactAutoBindMap) {
@@ -21283,7 +21839,7 @@ module.exports = ReactClass;
 
 }).call(this,require('_process'))
 
-},{"./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./ReactComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactComponent.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactErrorUtils":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactErrorUtils.js","./ReactInstanceMap":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceMap.js","./ReactLifeCycle":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactLifeCycle.js","./ReactPropTypeLocationNames":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPropTypeLocationNames.js","./ReactPropTypeLocations":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPropTypeLocations.js","./ReactUpdateQueue":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdateQueue.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./keyMirror":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyMirror.js","./keyOf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyOf.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactComponent.js":[function(require,module,exports){
+},{"./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./ReactComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactComponent.js","./ReactCurrentOwner":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCurrentOwner.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactErrorUtils":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactErrorUtils.js","./ReactInstanceMap":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceMap.js","./ReactLifeCycle":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactLifeCycle.js","./ReactPropTypeLocationNames":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPropTypeLocationNames.js","./ReactPropTypeLocations":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPropTypeLocations.js","./ReactUpdateQueue":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdateQueue.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./keyMirror":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyMirror.js","./keyOf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyOf.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactComponent.js":[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -25321,7 +25877,7 @@ var ReactElement = function(type, key, ref, owner, context, props) {
     // an external backing store so that we can freeze the whole object.
     // This can be replaced with a WeakMap once they are implemented in
     // commonly used development environments.
-    this._store = { props: props, originalProps: assign({}, props) };
+    this._store = {props: props, originalProps: assign({}, props)};
 
     // To make comparing ReactElements easier for testing purposes, we make
     // the validation flag non-enumerable (where possible, which should
@@ -25760,6 +26316,19 @@ function warnForPropsMutation(propName, element) {
   ) : null);
 }
 
+// Inline Object.is polyfill
+function is(a, b) {
+  if (a !== a) {
+    // NaN
+    return b !== b;
+  }
+  if (a === 0 && b === 0) {
+    // +-0
+    return 1 / a === 1 / b;
+  }
+  return a === b;
+}
+
 /**
  * Given an element, check if its props have been mutated since element
  * creation (or the last call to this function). In particular, check if any
@@ -25781,7 +26350,7 @@ function checkAndWarnForMutatedProps(element) {
   for (var propName in props) {
     if (props.hasOwnProperty(propName)) {
       if (!originalProps.hasOwnProperty(propName) ||
-          originalProps[propName] !== props[propName]) {
+          !is(originalProps[propName], props[propName])) {
         warnForPropsMutation(propName, element);
 
         // Copy over the new value so that the two props objects match again
@@ -25855,6 +26424,33 @@ var ReactElementValidator = {
     );
     // Legacy hook TODO: Warn if this is accessed
     validatedFactory.type = type;
+
+    if ("production" !== process.env.NODE_ENV) {
+      try {
+        Object.defineProperty(
+          validatedFactory,
+          'type',
+          {
+            enumerable: false,
+            get: function() {
+              ("production" !== process.env.NODE_ENV ? warning(
+                false,
+                'Factory.type is deprecated. Access the class directly ' +
+                'before passing it to createFactory.'
+              ) : null);
+              Object.defineProperty(this, 'type', {
+                value: type
+              });
+              return type;
+            }
+          }
+        );
+      } catch (x) {
+        // IE will fail on defineProperty (es5-shim/sham too)
+      }
+    }
+
+
     return validatedFactory;
   }
 
@@ -26268,13 +26864,13 @@ if ("production" !== process.env.NODE_ENV) {
     Object.defineProperty(
       {},
       fragmentKey,
-      { enumerable: false, value: true }
+      {enumerable: false, value: true}
     );
 
     Object.defineProperty(
       {},
       'key',
-      { enumerable: true, get: dummy }
+      {enumerable: true, get: dummy}
     );
 
     canWarnForReactFragment = true;
@@ -26325,11 +26921,19 @@ var ReactFragment = {
   // of its properties.
   create: function(object) {
     if ("production" !== process.env.NODE_ENV) {
-      if (typeof object !== 'object' || !object) {
+      if (typeof object !== 'object' || !object || Array.isArray(object)) {
         ("production" !== process.env.NODE_ENV ? warning(
           false,
-          'React.addons.createFragment only accepts a single object. Not %s',
+          'React.addons.createFragment only accepts a single object.',
           object
+        ) : null);
+        return object;
+      }
+      if (ReactElement.isValidElement(object)) {
+        ("production" !== process.env.NODE_ENV ? warning(
+          false,
+          'React.addons.createFragment does not accept a ReactElement ' +
+          'without a wrapper object.'
         ) : null);
         return object;
       }
@@ -27406,7 +28010,7 @@ function batchedMountComponentIntoNode(
 }
 
 /**
- * Mounting is the process of initializing a React component by creatings its
+ * Mounting is the process of initializing a React component by creating its
  * representative DOM elements and inserting them into a supplied `container`.
  * Any prior content inside `container` is destroyed in the process.
  *
@@ -27497,13 +28101,13 @@ var ReactMount = {
 
   /**
    * Render a new component into the DOM.
-   * @param {ReactComponent} nextComponent component instance to render
+   * @param {ReactElement} nextElement element to render
    * @param {DOMElement} container container to render into
    * @param {boolean} shouldReuseMarkup if we should skip the markup insertion
    * @return {ReactComponent} nextComponent
    */
   _renderNewRootComponent: function(
-    nextComponent,
+    nextElement,
     container,
     shouldReuseMarkup
   ) {
@@ -27518,7 +28122,7 @@ var ReactMount = {
       'componentDidUpdate.'
     ) : null);
 
-    var componentInstance = instantiateReactComponent(nextComponent, null);
+    var componentInstance = instantiateReactComponent(nextElement, null);
     var reactRootID = ReactMount._registerComponent(
       componentInstance,
       container
@@ -30094,6 +30698,7 @@ var EventPluginHub = require("./EventPluginHub");
 var EventPropagators = require("./EventPropagators");
 var React = require("./React");
 var ReactElement = require("./ReactElement");
+var ReactEmptyComponent = require("./ReactEmptyComponent");
 var ReactBrowserEventEmitter = require("./ReactBrowserEventEmitter");
 var ReactCompositeComponent = require("./ReactCompositeComponent");
 var ReactInstanceHandles = require("./ReactInstanceHandles");
@@ -30247,7 +30852,7 @@ var ReactTestUtils = {
     var all =
       ReactTestUtils.scryRenderedDOMComponentsWithClass(root, className);
     if (all.length !== 1) {
-      throw new Error('Did not find exactly one match '+
+      throw new Error('Did not find exactly one match ' +
         '(found: ' + all.length + ') for class:' + className
       );
     }
@@ -30400,14 +31005,17 @@ var ReactShallowRenderer = function() {
 ReactShallowRenderer.prototype.getRenderOutput = function() {
   return (
     (this._instance && this._instance._renderedComponent &&
-     this._instance._renderedComponent._currentElement)
+     this._instance._renderedComponent._renderedOutput)
     || null
   );
 };
 
 var NoopInternalComponent = function(element) {
-  this._currentElement = element;
-}
+  this._renderedOutput = element;
+  this._currentElement = element === null || element === false ?
+    ReactEmptyComponent.emptyElement :
+    element;
+};
 
 NoopInternalComponent.prototype = {
 
@@ -30415,11 +31023,13 @@ NoopInternalComponent.prototype = {
   },
 
   receiveComponent: function(element) {
-    this._currentElement = element;
+    this._renderedOutput = element;
+    this._currentElement = element === null || element === false ?
+      ReactEmptyComponent.emptyElement :
+      element;
   },
 
   unmountComponent: function() {
-
   }
 
 };
@@ -30442,6 +31052,12 @@ ReactShallowRenderer.prototype.render = function(element, context) {
   var transaction = ReactUpdates.ReactReconcileTransaction.getPooled();
   this._render(element, transaction, context);
   ReactUpdates.ReactReconcileTransaction.release(transaction);
+};
+
+ReactShallowRenderer.prototype.unmount = function() {
+  if (this._instance) {
+    this._instance.unmountComponent();
+  }
 };
 
 ReactShallowRenderer.prototype._render = function(element, transaction, context) {
@@ -30573,7 +31189,7 @@ for (eventType in topLevelTypes) {
 
 module.exports = ReactTestUtils;
 
-},{"./EventConstants":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js","./EventPluginHub":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginHub.js","./EventPropagators":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPropagators.js","./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./React":"/Users/uzimith/dev/kokomade/node_modules/react/lib/React.js","./ReactBrowserEventEmitter":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserEventEmitter.js","./ReactCompositeComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCompositeComponent.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactInstanceHandles":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceHandles.js","./ReactInstanceMap":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceMap.js","./ReactMount":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMount.js","./ReactUpdates":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdates.js","./SyntheticEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticEvent.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactTransitionChildMapping.js":[function(require,module,exports){
+},{"./EventConstants":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js","./EventPluginHub":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginHub.js","./EventPropagators":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPropagators.js","./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./React":"/Users/uzimith/dev/kokomade/node_modules/react/lib/React.js","./ReactBrowserEventEmitter":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserEventEmitter.js","./ReactCompositeComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCompositeComponent.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactEmptyComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactEmptyComponent.js","./ReactInstanceHandles":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceHandles.js","./ReactInstanceMap":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceMap.js","./ReactMount":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMount.js","./ReactUpdates":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdates.js","./SyntheticEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticEvent.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactTransitionChildMapping.js":[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33190,7 +33806,7 @@ var invariant = require("./invariant");
  *   content.
  * - (Future use case): Wrapping particular flushes of the `ReactWorker` queue
  *   to preserve the `scrollTop` (an automatic scroll aware DOM).
- * - (Future use case): Layout calculations before and after DOM upates.
+ * - (Future use case): Layout calculations before and after DOM updates.
  *
  * Transactional plugin API:
  * - A module that has an `initialize` method that returns any precomputation.
@@ -33599,10 +34215,10 @@ var CHILDREN_PROP = keyOf({children: null});
  * Sometimes you want to change the props of a child passed to you. Usually
  * this is to add a CSS class.
  *
- * @param {object} child child component you'd like to clone
+ * @param {ReactElement} child child element you'd like to clone
  * @param {object} props props you'd like to modify. className and style will be
  * merged automatically.
- * @return {object} a clone of child with props merged in.
+ * @return {ReactElement} a clone of child with props merged in.
  */
 function cloneWithProps(child, props) {
   if ("production" !== process.env.NODE_ENV) {
@@ -33915,6 +34531,7 @@ module.exports = createNodesFromMarkup;
 }).call(this,require('_process'))
 
 },{"./ExecutionEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ExecutionEnvironment.js","./createArrayFromMixed":"/Users/uzimith/dev/kokomade/node_modules/react/lib/createArrayFromMixed.js","./getMarkupWrap":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getMarkupWrap.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/cx.js":[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33941,7 +34558,22 @@ module.exports = createNodesFromMarkup;
  * @param [string ...]  Variable list of classNames in the string case.
  * @return string       Renderable space-separated CSS className.
  */
+
+'use strict';
+var warning = require("./warning");
+
+var warned = false;
+
 function cx(classNames) {
+  if ("production" !== process.env.NODE_ENV) {
+    ("production" !== process.env.NODE_ENV ? warning(
+      warned,
+      'React.addons.classSet will be deprecated in a future version. See ' +
+      'http://fb.me/react-addons-classset'
+    ) : null);
+    warned = true;
+  }
+
   if (typeof classNames == 'object') {
     return Object.keys(classNames).filter(function(className) {
       return classNames[className];
@@ -33953,7 +34585,9 @@ function cx(classNames) {
 
 module.exports = cx;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/dangerousStyleValue.js":[function(require,module,exports){
+}).call(this,require('_process'))
+
+},{"./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/dangerousStyleValue.js":[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34125,11 +34759,14 @@ module.exports = escapeTextContentForBrowser;
  */
 
 'use strict';
+
+var ReactCurrentOwner = require("./ReactCurrentOwner");
 var ReactInstanceMap = require("./ReactInstanceMap");
 var ReactMount = require("./ReactMount");
 
 var invariant = require("./invariant");
 var isNode = require("./isNode");
+var warning = require("./warning");
 
 /**
  * Returns the DOM node rendered by this element.
@@ -34138,6 +34775,21 @@ var isNode = require("./isNode");
  * @return {DOMElement} The root node of this element.
  */
 function findDOMNode(componentOrElement) {
+  if ("production" !== process.env.NODE_ENV) {
+    var owner = ReactCurrentOwner.current;
+    if (owner !== null) {
+      ("production" !== process.env.NODE_ENV ? warning(
+        owner._warnedAboutRefsInRender,
+        '%s is accessing getDOMNode or findDOMNode inside its render(). ' +
+        'render() should be a pure function of props and state. It should ' +
+        'never access something that requires stale data from the previous ' +
+        'render, such as refs. Move this logic to componentDidMount and ' +
+        'componentDidUpdate instead.',
+        owner.getName() || 'A component'
+      ) : null);
+      owner._warnedAboutRefsInRender = true;
+    }
+  }
   if (componentOrElement == null) {
     return null;
   }
@@ -34166,7 +34818,7 @@ module.exports = findDOMNode;
 
 }).call(this,require('_process'))
 
-},{"./ReactInstanceMap":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceMap.js","./ReactMount":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMount.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./isNode":"/Users/uzimith/dev/kokomade/node_modules/react/lib/isNode.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/flattenChildren.js":[function(require,module,exports){
+},{"./ReactCurrentOwner":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCurrentOwner.js","./ReactInstanceMap":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceMap.js","./ReactMount":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMount.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./isNode":"/Users/uzimith/dev/kokomade/node_modules/react/lib/isNode.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/flattenChildren.js":[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -35092,6 +35744,7 @@ function instantiateReactComponent(node, parentCompositeType) {
 
   if ("production" !== process.env.NODE_ENV) {
     instance._isOwnerNecessary = false;
+    instance._warnedAboutRefsInRender = false;
   }
 
   // Internal instances should fully constructed at this point, so they should
@@ -36045,6 +36698,7 @@ var ReactInstanceHandles = require("./ReactInstanceHandles");
 
 var getIteratorFn = require("./getIteratorFn");
 var invariant = require("./invariant");
+var warning = require("./warning");
 
 var SEPARATOR = ReactInstanceHandles.SEPARATOR;
 var SUBSEPARATOR = ':';
@@ -36061,6 +36715,8 @@ var userProvidedKeyEscaperLookup = {
 };
 
 var userProvidedKeyEscapeRegex = /[=.:]/g;
+
+var didWarnAboutMaps = false;
 
 function userProvidedKeyEscaper(match) {
   return userProvidedKeyEscaperLookup[match];
@@ -36186,6 +36842,15 @@ function traverseAllChildrenImpl(
           );
         }
       } else {
+        if ("production" !== process.env.NODE_ENV) {
+          ("production" !== process.env.NODE_ENV ? warning(
+            didWarnAboutMaps,
+            'Using Maps as children is not yet fully supported. It is an ' +
+            'experimental feature that might be removed. Convert it to a ' +
+            'sequence / iterable of keyed ReactElements instead.'
+          ) : null);
+          didWarnAboutMaps = true;
+        }
         // Iterator will provide entry [k,v] tuples rather than values.
         while (!(step = iterator.next()).done) {
           var entry = step.value;
@@ -36266,7 +36931,7 @@ module.exports = traverseAllChildren;
 
 }).call(this,require('_process'))
 
-},{"./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactFragment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactFragment.js","./ReactInstanceHandles":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceHandles.js","./getIteratorFn":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getIteratorFn.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/update.js":[function(require,module,exports){
+},{"./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactFragment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactFragment.js","./ReactInstanceHandles":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceHandles.js","./getIteratorFn":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getIteratorFn.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/update.js":[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
