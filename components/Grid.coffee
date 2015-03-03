@@ -27,6 +27,8 @@ class Grid extends React.Component
       .grid(class=[classes, player_class] onClick=onClick)
     """)(_.assign(@, @props, @state))
   onClick: =>
+    if @props.viewer
+      return
     if @props.grid.next
       grid = @props.grid
       player = @props.board.player

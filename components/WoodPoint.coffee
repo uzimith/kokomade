@@ -19,6 +19,8 @@ class WoodPoint extends React.Component
       .wood.hover(class=classes)
     """)(_.assign(@, @props, @state))
   onClick: =>
+    if @props.viewer
+      return
     point = @props.point
     player = @props.board.player
     moves = @props.board.moves

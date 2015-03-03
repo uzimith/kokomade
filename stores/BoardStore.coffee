@@ -89,7 +89,6 @@ class BoardStore extends Store
 
   handlePiece: (piece) ->
     history = React.addons.update(@state.history, {$push: [@state.board]})
-    console.log(history)
     # move piece
     pieces = React.addons.update(@state.board.pieces, {"#{piece.player}": {$set: piece}})
 

@@ -293,11 +293,20 @@ module.exports = Board = (function(superClass) {
     return Board.__super__.constructor.apply(this, arguments);
   }
 
+  Board.propTypes = {
+    viewer: React.PropTypes.bool
+  };
+
+  Board.defaultProps = {
+    viewer: false
+  };
+
   Board.prototype.render = function() {
     return (function (React) {
   var jade_globals_pieces = typeof pieces === "undefined" ? undefined : pieces;
   var jade_globals_FluxComponent = typeof FluxComponent === "undefined" ? undefined : FluxComponent;
   var jade_globals_Piece = typeof Piece === "undefined" ? undefined : Piece;
+  var jade_globals_viewer = typeof viewer === "undefined" ? undefined : viewer;
   var jade_globals_woods = typeof woods === "undefined" ? undefined : woods;
   var jade_globals_Wood = typeof Wood === "undefined" ? undefined : Wood;
   var jade_globals_wood_count = typeof wood_count === "undefined" ? undefined : wood_count;
@@ -307,11 +316,11 @@ module.exports = Board = (function(superClass) {
   var jade_globals_WoodPoint = typeof WoodPoint === "undefined" ? undefined : WoodPoint;
   var jade_globals_grids = typeof grids === "undefined" ? undefined : grids;
   var jade_globals_Grid = typeof Grid === "undefined" ? undefined : Grid;
-  var jade_globals_flux = typeof flux === "undefined" ? undefined : flux;
   var jade_globals_unused_woods = typeof unused_woods === "undefined" ? undefined : unused_woods;
   var fn = function(locals) {  var pieces = "pieces" in locals ? locals.pieces : jade_globals_pieces;
     var FluxComponent = "FluxComponent" in locals ? locals.FluxComponent : jade_globals_FluxComponent;
     var Piece = "Piece" in locals ? locals.Piece : jade_globals_Piece;
+    var viewer = "viewer" in locals ? locals.viewer : jade_globals_viewer;
     var woods = "woods" in locals ? locals.woods : jade_globals_woods;
     var Wood = "Wood" in locals ? locals.Wood : jade_globals_Wood;
     var wood_count = "wood_count" in locals ? locals.wood_count : jade_globals_wood_count;
@@ -321,7 +330,6 @@ module.exports = Board = (function(superClass) {
     var WoodPoint = "WoodPoint" in locals ? locals.WoodPoint : jade_globals_WoodPoint;
     var grids = "grids" in locals ? locals.grids : jade_globals_grids;
     var Grid = "Grid" in locals ? locals.Grid : jade_globals_Grid;
-    var flux = "flux" in locals ? locals.flux : jade_globals_flux;
     var unused_woods = "unused_woods" in locals ? locals.unused_woods : jade_globals_unused_woods;
     return function() {
       var tags = [];
@@ -340,7 +348,8 @@ module.exports = Board = (function(superClass) {
               connectToStores: [ "board" ],
               key: index
             }, React.createElement(Piece, {
-              piece: piece
+              piece: piece,
+              viewer: viewer
             })));
           } else {
             var $$l = 0;
@@ -351,7 +360,8 @@ module.exports = Board = (function(superClass) {
                 connectToStores: [ "board" ],
                 key: index
               }, React.createElement(Piece, {
-                piece: piece
+                piece: piece,
+                viewer: viewer
               })));
             }
           }
@@ -396,7 +406,8 @@ module.exports = Board = (function(superClass) {
               connectToStores: [ "board" ],
               key: index
             }, React.createElement(WoodPoint, {
-              point: point
+              point: point,
+              viewer: viewer
             })));
           } else {
             var $$l = 0;
@@ -407,7 +418,8 @@ module.exports = Board = (function(superClass) {
                 connectToStores: [ "board" ],
                 key: index
               }, React.createElement(WoodPoint, {
-                point: point
+                point: point,
+                viewer: viewer
               })));
             }
           }
@@ -435,7 +447,7 @@ module.exports = Board = (function(superClass) {
                   connectToStores: [ "board" ]
                 }, React.createElement(Grid, {
                   grid: col,
-                  flux: flux
+                  viewer: viewer
                 }))));
               } else {
                 var $$l = 0;
@@ -449,7 +461,7 @@ module.exports = Board = (function(superClass) {
                     connectToStores: [ "board" ]
                   }, React.createElement(Grid, {
                     grid: col,
-                    flux: flux
+                    viewer: viewer
                   }))));
                 }
               }
@@ -475,7 +487,7 @@ module.exports = Board = (function(superClass) {
                     connectToStores: [ "board" ]
                   }, React.createElement(Grid, {
                     grid: col,
-                    flux: flux
+                    viewer: viewer
                   }))));
                 } else {
                   var $$l = 0;
@@ -489,7 +501,7 @@ module.exports = Board = (function(superClass) {
                       connectToStores: [ "board" ]
                     }, React.createElement(Grid, {
                       grid: col,
-                      flux: flux
+                      viewer: viewer
                     }))));
                   }
                 }
@@ -514,7 +526,8 @@ module.exports = Board = (function(superClass) {
             connectToStores: [ "board" ],
             key: index
           }, React.createElement(Wood, {
-            wood: wood
+            wood: wood,
+            viewer: viewer
           })));
         } else {
           var $$l = 0;
@@ -525,7 +538,8 @@ module.exports = Board = (function(superClass) {
               connectToStores: [ "board" ],
               key: index
             }, React.createElement(Wood, {
-              wood: wood
+              wood: wood,
+              viewer: viewer
             })));
           }
         }
@@ -555,7 +569,7 @@ module.exports = Board = (function(superClass) {
   }
   ;
   return fn;
-}(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this.props.board));
+}(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state, this.props.board));
   };
 
   return Board;
@@ -580,8 +594,7 @@ module.exports = Controller = (function(superClass) {
   extend(Controller, superClass);
 
   function Controller() {
-    this.nextHistory = bind(this.nextHistory, this);
-    this.backHistory = bind(this.backHistory, this);
+    this.toggleHistory = bind(this.toggleHistory, this);
     this.unselectWood = bind(this.unselectWood, this);
     this.selectWood = bind(this.selectWood, this);
     this.onChange = bind(this.onChange, this);
@@ -595,7 +608,7 @@ module.exports = Controller = (function(superClass) {
   }
 
   Controller.prototype.render = function() {
-    var cx, end_classes, player_class, playing_classes, select_classes, start_classes, unselect_classes;
+    var cx, end_classes, history_classes, player_class, playing_classes, select_classes, start_classes, unselect_classes;
     cx = React.addons.classSet;
     player_class = {
       1: cx({
@@ -631,6 +644,10 @@ module.exports = Controller = (function(superClass) {
       show: this.props.board.select_wood && this.props.board.play,
       hide: !this.props.board.select_wood || !this.props.board.play
     });
+    history_classes = cx({
+      show: this.props.history && this.props.history.length > 0,
+      hide: !(this.props.history && this.props.history.length > 0)
+    });
     return (function (React) {
   var jade_globals_endGame = typeof endGame === "undefined" ? undefined : endGame;
   var jade_globals_end_classes = typeof end_classes === "undefined" ? undefined : end_classes;
@@ -639,6 +656,8 @@ module.exports = Controller = (function(superClass) {
   var jade_globals_onChange = typeof onChange === "undefined" ? undefined : onChange;
   var jade_globals_giveupGame = typeof giveupGame === "undefined" ? undefined : giveupGame;
   var jade_globals_playing_classes = typeof playing_classes === "undefined" ? undefined : playing_classes;
+  var jade_globals_toggleHistory = typeof toggleHistory === "undefined" ? undefined : toggleHistory;
+  var jade_globals_history_classes = typeof history_classes === "undefined" ? undefined : history_classes;
   var jade_globals_roomId = typeof roomId === "undefined" ? undefined : roomId;
   var jade_globals_board = typeof board === "undefined" ? undefined : board;
   var jade_globals_player_class = typeof player_class === "undefined" ? undefined : player_class;
@@ -660,6 +679,8 @@ module.exports = Controller = (function(superClass) {
     var onChange = "onChange" in locals ? locals.onChange : jade_globals_onChange;
     var giveupGame = "giveupGame" in locals ? locals.giveupGame : jade_globals_giveupGame;
     var playing_classes = "playing_classes" in locals ? locals.playing_classes : jade_globals_playing_classes;
+    var toggleHistory = "toggleHistory" in locals ? locals.toggleHistory : jade_globals_toggleHistory;
+    var history_classes = "history_classes" in locals ? locals.history_classes : jade_globals_history_classes;
     var roomId = "roomId" in locals ? locals.roomId : jade_globals_roomId;
     var board = "board" in locals ? locals.board : jade_globals_board;
     var player_class = "player_class" in locals ? locals.player_class : jade_globals_player_class;
@@ -687,7 +708,10 @@ module.exports = Controller = (function(superClass) {
       }, "Pair")), React.createElement("a", {
         onClick: giveupGame,
         className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
-      }, "Give up")));
+      }, "Give up"), React.createElement("a", {
+        onClick: toggleHistory,
+        className: jade_join_classes([ "control", "btn", "btn-default", history_classes ])
+      }, "History")));
       tags.push(React.createElement("hr", {}));
       tags.push(React.createElement("table", {
         className: "table table-bordered back"
@@ -773,12 +797,8 @@ module.exports = Controller = (function(superClass) {
     return this.props.flux.getActions("game").unselectWood();
   };
 
-  Controller.prototype.backHistory = function() {
-    return this.props.flux.getActions("game").backHistory();
-  };
-
-  Controller.prototype.nextHistory = function() {
-    return this.props.flux.getActions("game").nextHistory();
+  Controller.prototype.toggleHistory = function() {
+    return this.props.flux.getActions("panel").showHistory();
   };
 
   return Controller;
@@ -963,6 +983,9 @@ module.exports = Grid = (function(superClass) {
 
   Grid.prototype.onClick = function() {
     var grid, moves, player;
+    if (this.props.viewer) {
+      return;
+    }
     if (this.props.grid.next) {
       grid = this.props.grid;
       player = this.props.board.player;
@@ -1002,6 +1025,7 @@ module.exports = History = (function(superClass) {
     this.nextHistory = bind(this.nextHistory, this);
     this.backHistory = bind(this.backHistory, this);
     this.shareBoard = bind(this.shareBoard, this);
+    this.hideHistory = bind(this.hideHistory, this);
     this.render = bind(this.render, this);
     this.state = {
       moves: 0
@@ -1027,10 +1051,11 @@ module.exports = History = (function(superClass) {
     };
     return (function (React) {
   var jade_globals_shareBoard = typeof shareBoard === "undefined" ? undefined : shareBoard;
-  var jade_globals_playing_classes = typeof playing_classes === "undefined" ? undefined : playing_classes;
+  var jade_globals_hideHistory = typeof hideHistory === "undefined" ? undefined : hideHistory;
+  var jade_globals_history = typeof history === "undefined" ? undefined : history;
   var jade_globals_moves = typeof moves === "undefined" ? undefined : moves;
   var jade_globals_backHistory = typeof backHistory === "undefined" ? undefined : backHistory;
-  var jade_globals_history = typeof history === "undefined" ? undefined : history;
+  var jade_globals_playing_classes = typeof playing_classes === "undefined" ? undefined : playing_classes;
   var jade_globals_nextHistory = typeof nextHistory === "undefined" ? undefined : nextHistory;
   var jade_globals_Board = typeof Board === "undefined" ? undefined : Board;
   var fn = function(locals) {
@@ -1041,10 +1066,11 @@ module.exports = History = (function(superClass) {
         return null != val && "" !== val;
       }).join(" ");
     }  var shareBoard = "shareBoard" in locals ? locals.shareBoard : jade_globals_shareBoard;
-    var playing_classes = "playing_classes" in locals ? locals.playing_classes : jade_globals_playing_classes;
+    var hideHistory = "hideHistory" in locals ? locals.hideHistory : jade_globals_hideHistory;
+    var history = "history" in locals ? locals.history : jade_globals_history;
     var moves = "moves" in locals ? locals.moves : jade_globals_moves;
     var backHistory = "backHistory" in locals ? locals.backHistory : jade_globals_backHistory;
-    var history = "history" in locals ? locals.history : jade_globals_history;
+    var playing_classes = "playing_classes" in locals ? locals.playing_classes : jade_globals_playing_classes;
     var nextHistory = "nextHistory" in locals ? locals.nextHistory : jade_globals_nextHistory;
     var Board = "Board" in locals ? locals.Board : jade_globals_Board;
     return function() {
@@ -1057,8 +1083,13 @@ module.exports = History = (function(superClass) {
         className: "col-md-2 col-md-offset-2"
       }, React.createElement("a", {
         onClick: shareBoard,
-        className: jade_join_classes([ "control", "btn", "btn-default", playing_classes ])
-      }, "Share Board"), React.createElement("hr", {}), React.createElement("div", {
+        className: "control btn btn-danger show"
+      }, "Share Board"), React.createElement("a", {
+        onClick: hideHistory,
+        className: "control btn btn-default show"
+      }, "Hide"), React.createElement("hr", {}), React.createElement("table", {
+        className: "table table-bordered back"
+      }, React.createElement("tbody", {}, React.createElement("tr", {}, React.createElement("th", {}, "Moves"), React.createElement("td", {}, history[moves].moves)))), React.createElement("div", {
         className: "row"
       }, React.createElement("div", {
         className: "col-sm-6"
@@ -1091,7 +1122,8 @@ module.exports = History = (function(superClass) {
       } ].concat(function() {
         var tags = [];
         history[moves] && tags.push(React.createElement(Board, {
-          board: history[moves]
+          board: history[moves],
+          viewer: !0
         }));
         return tags;
       }.call(this))))));
@@ -1120,6 +1152,10 @@ module.exports = History = (function(superClass) {
   ;
   return fn;
 }(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state));
+  };
+
+  History.prototype.hideHistory = function() {
+    return this.props.flux.getActions("panel").hideHistory();
   };
 
   History.prototype.shareBoard = function() {
@@ -1746,6 +1782,9 @@ module.exports = WoodPoint = (function(superClass) {
 
   WoodPoint.prototype.onClick = function() {
     var moves, player, point;
+    if (this.props.viewer) {
+      return;
+    }
     point = this.props.point;
     player = this.props.board.player;
     moves = this.props.board.moves;
@@ -43565,7 +43604,6 @@ module.exports = BoardStore = (function(superClass) {
     history = React.addons.update(this.state.history, {
       $push: [this.state.board]
     });
-    console.log(history);
     pieces = React.addons.update(this.state.board.pieces, (
       obj = {},
       obj["" + piece.player] = {
@@ -43981,7 +44019,7 @@ module.exports = PanelActions = (function(superClass) {
       showBoard: false,
       showRoom: true,
       showResult: false,
-      showHistory: true
+      showHistory: false
     };
   }
 
@@ -44031,12 +44069,14 @@ module.exports = PanelActions = (function(superClass) {
 
   PanelActions.prototype.showHistory = function() {
     return this.setState({
+      showBoard: false,
       showHistory: true
     });
   };
 
   PanelActions.prototype.hideHistory = function() {
     return this.setState({
+      showBoard: true,
       showHistory: false
     });
   };

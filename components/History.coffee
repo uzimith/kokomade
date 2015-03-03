@@ -20,8 +20,15 @@ class History extends React.Component
       #history
         .row
           .col-md-2.col-md-offset-2
-            a.control.btn.btn-default(class=playing_classes onClick=shareBoard) Share Board
+            a.control.btn.btn-danger.show(onClick=shareBoard) Share Board
+            a.control.btn.btn-default.show(onClick=hideHistory) Hide
             hr
+
+            table.table.table-bordered.back
+              tbody
+                tr
+                  th Moves
+                  td= history[moves].moves
             .row
               .col-sm-6
                 if moves > 0
@@ -39,9 +46,11 @@ class History extends React.Component
                     .glyphicon.glyphicon-menu-right
           .col-md-8
             if history[moves]
-              Board(board=history[moves])
+              Board(board=history[moves] viewer=true)
     """)(_.assign(@, @props, @state))
 
+  hideHistory: =>
+    @props.flux.getActions("panel").hideHistory()
   shareBoard: =>
     socket.emit('action', action: "shareBoard", args: [@props.board])
   backHistory: =>

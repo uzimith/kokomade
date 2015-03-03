@@ -19,7 +19,7 @@ class PanelActions extends Store
       showBoard: false
       showRoom: true
       showResult: false
-      showHistory: true
+      showHistory: false
 
   createBoard: ->
     @setState {
@@ -43,7 +43,11 @@ class PanelActions extends Store
     @setState showResult: false
 
   showHistory: ->
-    @setState showHistory: true
+    @setState
+      showBoard: false
+      showHistory: true
 
   hideHistory: ->
-    @setState showHistory: false
+    @setState
+      showBoard: true
+      showHistory: false
