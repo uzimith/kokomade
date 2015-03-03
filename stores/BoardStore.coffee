@@ -34,7 +34,6 @@ class BoardStore extends Store
         end: false
         select_wood: false
       winner: 0
-      look_back: false
       history: []
 
   handleNewGame: (data) ->
@@ -86,13 +85,11 @@ class BoardStore extends Store
         end: false
         select_wood: false
       winner: 0
-      look_back: false
       history: []
 
   handlePiece: (piece) ->
-    if @state.look_back
-      console.log("warn")
-    history = React.addons.update(@state.history, {$push: [@state]})
+    history = React.addons.update(@state.history, {$push: [@state.board]})
+    console.log(history)
     # move piece
     pieces = React.addons.update(@state.board.pieces, {"#{piece.player}": {$set: piece}})
 
@@ -141,7 +138,7 @@ class BoardStore extends Store
       board: board
 
   handleMoveWood: (wood) ->
-    history = React.addons.update(@state.history, {$push: [@state]})
+    history = React.addons.update(@state.history, {$push: [@state.board]})
     # move wood
     woods = React.addons.update(@state.board.woods, {$push: [wood]})
 

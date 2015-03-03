@@ -8,6 +8,7 @@ Game = require('./Game.coffee')
 Room = require('./Room.coffee')
 Route = require('./Route.coffee')
 ResultModal = require('./ResultModal.coffee')
+History = require('./History.coffee')
 
 module.exports =
 class Application extends React.Component
@@ -26,6 +27,10 @@ class Application extends React.Component
               Route(show="Board")
                 FluxComponent(flux=flux connectToStores=['board', 'panel'])
                   Game
+            FluxComponent(flux=flux connectToStores=['panel'])
+              Route(show="History")
+                FluxComponent(flux=flux connectToStores=['board', 'panel'])
+                  History
             FluxComponent(flux=flux connectToStores=['board', 'panel'])
               ResultModal
     """)(_.assign(@, @props, @state))
