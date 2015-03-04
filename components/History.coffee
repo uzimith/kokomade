@@ -7,7 +7,8 @@ Board = require('./Board.coffee')
 module.exports =
 class History extends React.Component
   constructor: ->
-    @state = moves: 0
+    super
+    @state = moves: @props.history.length - 1
 
   render: =>
     cx = React.addons.classSet
