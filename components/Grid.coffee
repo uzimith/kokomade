@@ -24,7 +24,7 @@ class Grid extends React.Component
         "player2": @props.board.player is 2 and @props.grid.row is 0
       }
     jade.compile("""
-      .grid(class=[classes, player_class] onClick=onClick onTouchTap=onClick)
+      .grid(class=[classes, player_class] onTouchTap=onClick)
     """)(_.assign(@, @props, @state))
   onClick: =>
     if @props.viewer
@@ -33,4 +33,5 @@ class Grid extends React.Component
       grid = @props.grid
       player = @props.board.player
       moves = @props.board.moves
-      socket.emit('action', action: "movePiece", args: [grid, player, moves])
+      socket.push('action', action: "movePiece", args: [grid, player, moves])
+      console.log("movePiece")

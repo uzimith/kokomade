@@ -53,8 +53,7 @@ class Controller extends React.Component
     """)(_.assign(@, @props, @state))
   startGame: =>
     pair = @state.pair
-    socket.emit('action', action: "startGame", args: [1, pair])
-    @props.flux.getActions("game").startGame(1, pair)
+    socket.push('action', action: "startGame", args: [1, pair])
   giveupGame: =>
     player = @props.board.player
     socket.emit('action', action: "giveupGame", args: [player])

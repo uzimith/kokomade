@@ -15,17 +15,16 @@ class WoodPoint extends React.Component
       "#{@props.point.status}": true
     }
     jade.compile("""
-      .wood_point(class=classes onClick=onClick onTouchTap=onClick onMouseOver=onMouseOver onMouseOut=onMouseOut)
+      .wood_point(class=classes onTouchTap=onClick onMouseOver=onMouseOver onMouseOut=onMouseOut)
       .wood.hover(class=classes)
-    """)(_.assign(@, @props, @state))
+    """)(_.assign(@, @props, @stjjate))
   onClick: =>
     if @props.viewer
       return
     point = @props.point
     player = @props.board.player
     moves = @props.board.moves
-    socket.emit('action', action: "moveWood", args: [point, player, moves])
-    @props.flux.getActions("game").moveWood(point, player, moves)
+    socket.push('action', action: "moveWood", args: [point, player, moves])
   onMouseOver: =>
     @setState hover: true
   onMouseOut: =>

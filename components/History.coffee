@@ -68,8 +68,7 @@ class History extends React.Component
   hideHistory: =>
     @props.flux.getActions("panel").hideHistory()
   shareBoard: =>
-    socket.emit('action', action: "shareBoard", args: [@props.history[@state.moves]])
-    @props.flux.getActions("game").shareBoard(@props.history[@state.moves])
+    socket.push('action', action: "shareBoard", args: [@props.history[@state.moves]])
   firstHistory: =>
     @setState moves: 0
   backHistory: =>

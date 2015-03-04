@@ -35,5 +35,4 @@ class Room extends React.Component
   onJoinForm: (e) =>
     e.preventDefault()
     if @state.roomId
-      socket.push("join", @state.roomId)
-      @props.flux.getActions("panel").joinBoard()
+      location.href = @state.roomId
