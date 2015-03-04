@@ -649,8 +649,17 @@ module.exports = Controller = (function(superClass) {
     this.startGame = bind(this.startGame, this);
     this.render = bind(this.render, this);
     this.state = {
-      pair: false
+      pair: false,
+      connected: 0
     };
+    socket.on('count', (function(_this) {
+      return function(count) {
+        console.log(count);
+        return _this.setState({
+          connected: count
+        });
+      };
+    })(this));
   }
 
   Controller.prototype.render = function() {
@@ -705,6 +714,7 @@ module.exports = Controller = (function(superClass) {
   var jade_globals_toggleHistory = typeof toggleHistory === "undefined" ? undefined : toggleHistory;
   var jade_globals_history_classes = typeof history_classes === "undefined" ? undefined : history_classes;
   var jade_globals_roomId = typeof roomId === "undefined" ? undefined : roomId;
+  var jade_globals_connected = typeof connected === "undefined" ? undefined : connected;
   var jade_globals_board = typeof board === "undefined" ? undefined : board;
   var jade_globals_player_class = typeof player_class === "undefined" ? undefined : player_class;
   var jade_globals_selectWood = typeof selectWood === "undefined" ? undefined : selectWood;
@@ -728,6 +738,7 @@ module.exports = Controller = (function(superClass) {
     var toggleHistory = "toggleHistory" in locals ? locals.toggleHistory : jade_globals_toggleHistory;
     var history_classes = "history_classes" in locals ? locals.history_classes : jade_globals_history_classes;
     var roomId = "roomId" in locals ? locals.roomId : jade_globals_roomId;
+    var connected = "connected" in locals ? locals.connected : jade_globals_connected;
     var board = "board" in locals ? locals.board : jade_globals_board;
     var player_class = "player_class" in locals ? locals.player_class : jade_globals_player_class;
     var selectWood = "selectWood" in locals ? locals.selectWood : jade_globals_selectWood;
@@ -761,7 +772,7 @@ module.exports = Controller = (function(superClass) {
       tags.push(React.createElement("hr", {}));
       tags.push(React.createElement("table", {
         className: "table table-bordered back"
-      }, React.createElement("tbody", {}, React.createElement("tr", {}, React.createElement("th", {}, "Room"), React.createElement("td", {}, roomId)), React.createElement("tr", {}, React.createElement("th", {}, "Moves"), React.createElement("td", {}, board.moves)), React.createElement("tr", {
+      }, React.createElement("tbody", {}, React.createElement("tr", {}, React.createElement("th", {}, "Room"), React.createElement("td", {}, roomId)), React.createElement("tr", {}, React.createElement("th", {}, "Connected"), React.createElement("td", {}, connected)), React.createElement("tr", {}, React.createElement("th", {}, "Moves"), React.createElement("td", {}, board.moves)), React.createElement("tr", {
         className: jade_join_classes([ player_class[board.player] ])
       }, React.createElement("th", {}, "Current"), React.createElement("td", {}, board.player)))));
       tags.push(React.createElement("hr", {}));
@@ -1076,8 +1087,9 @@ module.exports = History = (function(superClass) {
     this.shareBoard = bind(this.shareBoard, this);
     this.hideHistory = bind(this.hideHistory, this);
     this.render = bind(this.render, this);
+    History.__super__.constructor.apply(this, arguments);
     this.state = {
-      moves: 0
+      moves: this.props.history.length - 1
     };
   }
 

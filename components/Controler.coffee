@@ -5,7 +5,12 @@ _ = require('lodash')
 module.exports =
 class Controller extends React.Component
   constructor: ->
-    @state = pair: false
+    @state =
+      pair: false
+      connected: 0
+    socket.on 'count', (count) =>
+      console.log(count)
+      @setState connected: count
   render: =>
     cx = React.addons.classSet
     player_class =
@@ -36,6 +41,9 @@ class Controller extends React.Component
         tr
           th Room
           td= roomId
+        tr
+          th Connected
+          td= connected
         tr
           th Moves
           td= board.moves

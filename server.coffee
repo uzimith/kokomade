@@ -18,13 +18,14 @@ io.on 'connection', (socket) ->
     socket.game_room = name
     socket.join(name)
     socket.emit('join', name)
+    socket.emit('count', Object.keys(io.sockets.adapter.rooms[socket.game_room]).length)
 
   socket.on 'join', (name) ->
     console.log("join : " + name)
     socket.game_room = name
     socket.join(name)
-    console.log(io.sockets.adapter.rooms)
     socket.emit('join', name)
+    socket.to(socket.game_room).emit('count', Object.keys(io.sockets.adapter.rooms[socket.game_room]).length)
 
   socket.on 'leave', (name) ->
     socket.leave(name)
@@ -32,6 +33,12 @@ io.on 'connection', (socket) ->
   socket.on 'action', (data) ->
     console.log(data)
     socket.to(socket.game_room).broadcast.emit('action', data)
+
+  socket.on 'disconnect', ->
+    console.log("a user disconnected")
+    if io.sockets.adapter.rooms[socket.game_room]
+      socket.to(socket.game_room).emit('count', Object.keys(io.sockets.adapter.rooms[socket.game_room]).length)
+
 
 http.listen port, ->
   console.log "listening on *:", port
