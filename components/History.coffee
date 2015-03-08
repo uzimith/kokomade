@@ -20,7 +20,7 @@ class History extends React.Component
     jade.compile("""
       #history
         .row
-          .col-md-2.col-md-offset-2
+          .col-md-3.col-md-offset-2
             a.control.btn.btn-danger.show(onClick=shareBoard) Share Board
             a.control.btn.btn-default.show(onClick=hideHistory) Hide
             hr
@@ -60,7 +60,7 @@ class History extends React.Component
                 else
                   btn.control.btn.btn-default.show(class=playing_classes onClick=nextHistory disabled)
                     .glyphicon.glyphicon-chevron-right
-          .col-md-8
+          .col-md-7
             if history[moves]
               Board(board=history[moves] viewer=true)
     """)(_.assign(@, @props, @state))
