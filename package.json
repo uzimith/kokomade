@@ -1,6 +1,6 @@
 {
   "name": "react-reversi",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "reversi with web",
   "repository": "http://github.com/uzimith/react-reversi",
   "main": "app.coffee",
