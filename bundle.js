@@ -44380,9 +44380,9 @@ module.exports = BoardStore = (function(superClass) {
           for (var k = 0, ref1 = _this.num; 0 <= ref1 ? k < ref1 : k > ref1; 0 <= ref1 ? k++ : k--){ results1.push(k); }
           return results1;
         }).apply(this), function(col) {
-          if (row === 0 && col === 0) {
+          if (row === 0 && col === 0 || row === _this.num - 1 && col === _this.num - 1) {
             return [];
-          } else if (row === 0) {
+          } else if (row === 0 || col === _this.num - 1) {
             return [
               {
                 row: row,
@@ -44390,7 +44390,7 @@ module.exports = BoardStore = (function(superClass) {
                 status: "vertical"
               }
             ];
-          } else if (col === 0) {
+          } else if (col === 0 || row === _this.num - 1) {
             return [
               {
                 row: row,

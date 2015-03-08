@@ -66,11 +66,11 @@ class BoardStore extends Store
     wood_points = _.flatten _.flatten(
       _.map [0...@num], (row) =>
         _.map [0...@num], (col) =>
-          if row is 0 and col is 0
+          if row is 0 and col is 0 or row is @num - 1 and col is @num - 1
             []
-          else if row is 0
+          else if row is 0 or col is @num - 1
             [{row: row, col: col, status: "vertical"} ]
-          else if col is 0
+          else if col is 0 or row is @num - 1
             [{row: row, col: col, status: "horizontal"} ]
           else
             [ {row: row, col: col, status: "horizontal"}, {row: row, col: col, status: "vertical"} ]
