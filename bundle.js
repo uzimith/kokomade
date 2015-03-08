@@ -905,11 +905,11 @@ module.exports = Game = (function(superClass) {
       tags.push(React.createElement("div", {
         className: "row"
       }, React.createElement("div", {
-        className: "col-md-2 col-md-offset-2"
+        className: "col-md-3 col-md-offset-2"
       }, React.createElement(FluxComponent, {
         connectToStores: [ "board", "panel" ]
       }, React.createElement(Controller, {}))), React.createElement("div", {
-        className: "col-md-8"
+        className: "col-md-7"
       }, React.createElement(Board, {
         board: board
       }))));
@@ -1145,7 +1145,7 @@ module.exports = History = (function(superClass) {
       }, React.createElement("div", {
         className: "row"
       }, React.createElement("div", {
-        className: "col-md-2 col-md-offset-2"
+        className: "col-md-3 col-md-offset-2"
       }, React.createElement("a", {
         onClick: shareBoard,
         className: "control btn btn-danger show"
@@ -1211,7 +1211,7 @@ module.exports = History = (function(superClass) {
       }, React.createElement("div", {
         className: "glyphicon glyphicon-chevron-right"
       }))))), React.createElement.apply(React, [ "div", {
-        className: "col-md-8"
+        className: "col-md-7"
       } ].concat(function() {
         var tags = [];
         history[moves] && tags.push(React.createElement(Board, {
@@ -1563,32 +1563,84 @@ module.exports = Room = (function(superClass) {
     var handleRoomId = "handleRoomId" in locals ? locals.handleRoomId : jade_globals_handleRoomId;
     return function() {
       var tags = [];
-      tags.push(React.createElement("h3", {}, "Room", React.createElement("div", {
+      tags.push(React.createElement("div", {
         className: "row"
       }, React.createElement("div", {
-        className: "col-md-2"
-      }, React.createElement("hr", {}), React.createElement("form", {
+        className: "col-md-3"
+      }, React.createElement("div", {
+        className: "panel panel-default"
+      }, React.createElement("div", {
+        className: "panel-body"
+      }, React.createElement("h2", {}, "Room"), React.createElement("hr", {}), React.createElement("form", {
         onSubmit: onCreateForm
       }, React.createElement("input", {
         type: "submit",
         value: "Create",
         className: "control btn btn-default"
-      })))), React.createElement("div", {
-        className: "row"
-      }, React.createElement("div", {
-        className: "col-md-2"
-      }, React.createElement("hr", {}), React.createElement("form", {
+      })), React.createElement("hr", {}), React.createElement("form", {
         onSubmit: onJoinForm
       }, React.createElement("input", {
         type: "text",
         value: roomId,
+        placeholder: "room name",
         onChange: handleRoomId,
         className: "control form-control"
       }), React.createElement("input", {
         type: "submit",
         value: "Join",
         className: "control btn btn-default"
-      }))))));
+      }))))), React.createElement("div", {
+        className: "col-md-9"
+      }, React.createElement("div", {
+        className: "panel panel-default"
+      }, React.createElement("div", {
+        className: "panel-body"
+      }, React.createElement("h2", {}, "How to use"), React.createElement("ol", {}, React.createElement("li", {}, "「Create」でゲームルームを作る"), React.createElement("li", {}, "一緒に遊びたい人にルームID（左のメニューの「Room」）を教える"), React.createElement("li", {}, "教わった人はルームIDを入力して「Join」する"), React.createElement("li", {}, "Enjoy Game!")), React.createElement("hr", {}), React.createElement("h2", {}, "Rule"), React.createElement("h3", {}, "勝利条件"), React.createElement("div", {
+        className: "media"
+      }, React.createElement("div", {
+        className: "media-left media-middle"
+      }, React.createElement("img", {
+        src: "images/goal.png",
+        className: "media-object"
+      })), React.createElement("div", {
+        className: "media-body"
+      }, React.createElement("h4", {}, "相手より先に、自分の駒を向かい側まで導く"))), React.createElement("h3", {}, "各ターンの行動"), React.createElement("p", {}, React.createElement("b", {}, "２つのアクション"), "を選択する"), React.createElement("div", {
+        className: "media"
+      }, React.createElement("div", {
+        className: "media-left media-middle"
+      }, React.createElement("img", {
+        src: "images/rule01.png",
+        className: "media-object"
+      })), React.createElement("div", {
+        className: "media-body"
+      }, React.createElement("h4", {}, "1. コマを一マス進める"))), React.createElement("div", {
+        className: "media"
+      }, React.createElement("div", {
+        className: "media-left media-middle"
+      }, React.createElement("img", {
+        src: "images/rule02.png",
+        className: "media-object"
+      })), React.createElement("div", {
+        className: "media-body"
+      }, React.createElement("h4", {}, "2. フェンスで相手の進路を妨害する"))), React.createElement("h3", {}, "補足"), React.createElement("div", {
+        className: "media"
+      }, React.createElement("div", {
+        className: "media-left media-middle"
+      }, React.createElement("img", {
+        src: "images/rule03.png",
+        className: "media-object"
+      })), React.createElement("div", {
+        className: "media-body"
+      }, React.createElement("h4", {}, "完全にゴールまでの道を塞げない"))), React.createElement("div", {
+        className: "media"
+      }, React.createElement("div", {
+        className: "media-left media-middle"
+      }, React.createElement("img", {
+        src: "images/rule04.png",
+        className: "media-object"
+      })), React.createElement("div", {
+        className: "media-body"
+      }, React.createElement("h4", {}, "相手をジャンプすることができる"))))))));
       if (1 === tags.length) return tags.pop();
       tags.unshift("div", null);
       return React.createElement.apply(React, tags);

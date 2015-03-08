@@ -25,6 +25,7 @@ class Controller extends React.Component
     unselect_classes = cx show: @props.board.select_wood and @props.board.play, hide: !@props.board.select_wood or !@props.board.play
     history_classes = cx show: @props.history and @props.history.length > 0, hide: !(@props.history and @props.history.length > 0)
     jade.compile("""
+
     .row
       a.control.btn.btn-danger(class=end_classes onClick=endGame) End
       a.control.btn.btn-default(class=start_classes onClick=startGame) Start
