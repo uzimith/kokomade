@@ -25,6 +25,7 @@ io.on 'connection', (socket) ->
     socket.game_room = name
     socket.join(name)
     socket.emit('join', name)
+    socket.emit('count', Object.keys(io.sockets.adapter.rooms[socket.game_room]).length)
     socket.to(socket.game_room).emit('count', Object.keys(io.sockets.adapter.rooms[socket.game_room]).length)
 
   socket.on 'leave', (name) ->
