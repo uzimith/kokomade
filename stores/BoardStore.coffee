@@ -66,7 +66,14 @@ class BoardStore extends Store
     wood_points = _.flatten _.flatten(
       _.map [0...@num], (row) =>
         _.map [0...@num], (col) =>
-          [ {row: row, col: col, status: "horizontal"}, {row: row, col: col, status: "vertical"} ]
+          if row is 0 and col is 0
+            []
+          else if row is 0
+            [{row: row, col: col, status: "vertical"} ]
+          else if col is 0
+            [{row: row, col: col, status: "horizontal"} ]
+          else
+            [ {row: row, col: col, status: "horizontal"}, {row: row, col: col, status: "vertical"} ]
     )
     grids = @_createGrids()
     grids = @_searchNextPutableGrid(grids, pieces, woods, data.player)

@@ -44380,17 +44380,37 @@ module.exports = BoardStore = (function(superClass) {
           for (var k = 0, ref1 = _this.num; 0 <= ref1 ? k < ref1 : k > ref1; 0 <= ref1 ? k++ : k--){ results1.push(k); }
           return results1;
         }).apply(this), function(col) {
-          return [
-            {
-              row: row,
-              col: col,
-              status: "horizontal"
-            }, {
-              row: row,
-              col: col,
-              status: "vertical"
-            }
-          ];
+          if (row === 0 && col === 0) {
+            return [];
+          } else if (row === 0) {
+            return [
+              {
+                row: row,
+                col: col,
+                status: "vertical"
+              }
+            ];
+          } else if (col === 0) {
+            return [
+              {
+                row: row,
+                col: col,
+                status: "horizontal"
+              }
+            ];
+          } else {
+            return [
+              {
+                row: row,
+                col: col,
+                status: "horizontal"
+              }, {
+                row: row,
+                col: col,
+                status: "vertical"
+              }
+            ];
+          }
         });
       };
     })(this))));
@@ -44845,8 +44865,8 @@ module.exports = PanelActions = (function(superClass) {
     this.register(panelActions.showHistory, this.showHistory);
     this.register(panelActions.hideHistory, this.hideHistory);
     this.state = {
-      showBoard: false,
-      showRoom: true,
+      showBoard: true,
+      showRoom: false,
       showResult: false,
       showHistory: false
     };
