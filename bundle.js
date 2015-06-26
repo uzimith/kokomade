@@ -1,33 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"./app.coffee":[function(require,module,exports){
-var AppFlux, Application, React, _, flux, injectTapEventPlugin, jade;
-
-window.socket = require('socket.io-client')();
-
-React = require('react');
-
-injectTapEventPlugin = require("react-tap-event-plugin");
-
-injectTapEventPlugin();
-
-
-
-_ = require('lodash');
-
-Application = require('./components/Application.coffee');
-
-AppFlux = require('./dispatcher/AppFlux.coffee');
-
-flux = new AppFlux;
-
-require('./socket.coffee')(flux);
-
-React.render(React.createFactory(Application)({
-  flux: flux
-}), document.getElementById("container"));
-
-
-
-},{"./components/Application.coffee":"/Users/uzimith/dev/kokomade/components/Application.coffee","./dispatcher/AppFlux.coffee":"/Users/uzimith/dev/kokomade/dispatcher/AppFlux.coffee","./socket.coffee":"/Users/uzimith/dev/kokomade/socket.coffee","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","react-tap-event-plugin":"/Users/uzimith/dev/kokomade/node_modules/react-tap-event-plugin/src/injectTapEventPlugin.js","socket.io-client":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/index.js"}],"/Users/uzimith/dev/kokomade/actions/GameActions.coffee":[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var Actions, GameActions,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -104,8 +75,7 @@ module.exports = GameActions = (function(superClass) {
 })(Actions);
 
 
-
-},{"flummox":"/Users/uzimith/dev/kokomade/node_modules/flummox/lib/Flux.js"}],"/Users/uzimith/dev/kokomade/actions/PanelActions.coffee":[function(require,module,exports){
+},{"flummox":20}],2:[function(require,module,exports){
 var Actions, PanelActions,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -144,8 +114,35 @@ module.exports = PanelActions = (function(superClass) {
 })(Actions);
 
 
+},{"flummox":20}],3:[function(require,module,exports){
+var AppFlux, Application, React, _, flux, injectTapEventPlugin, jade;
 
-},{"flummox":"/Users/uzimith/dev/kokomade/node_modules/flummox/lib/Flux.js"}],"/Users/uzimith/dev/kokomade/components/Application.coffee":[function(require,module,exports){
+window.socket = require('socket.io-client')();
+
+React = require('react');
+
+injectTapEventPlugin = require("react-tap-event-plugin");
+
+injectTapEventPlugin();
+
+
+
+_ = require('lodash');
+
+Application = require('./components/Application.coffee');
+
+AppFlux = require('./dispatcher/AppFlux.coffee');
+
+flux = new AppFlux;
+
+require('./socket.coffee')(flux);
+
+React.render(React.createFactory(Application)({
+  flux: flux
+}), document.getElementById("container"));
+
+
+},{"./components/Application.coffee":4,"./dispatcher/AppFlux.coffee":16,"./socket.coffee":258,"lodash":30,"react":207,"react-tap-event-plugin":34,"socket.io-client":208}],4:[function(require,module,exports){
 var Application, FluxComponent, Game, History, React, ResultModal, Room, Route, _, jade,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -179,22 +176,10 @@ module.exports = Application = (function(superClass) {
 
   Application.prototype.render = function() {
     return (function (React) {
-  var jade_globals_FluxComponent = typeof FluxComponent === "undefined" ? undefined : FluxComponent;
-  var jade_globals_flux = typeof flux === "undefined" ? undefined : flux;
-  var jade_globals_Route = typeof Route === "undefined" ? undefined : Route;
-  var jade_globals_Room = typeof Room === "undefined" ? undefined : Room;
-  var jade_globals_Game = typeof Game === "undefined" ? undefined : Game;
-  var jade_globals_History = typeof History === "undefined" ? undefined : History;
-  var jade_globals_ResultModal = typeof ResultModal === "undefined" ? undefined : ResultModal;
-  var fn = function(locals) {  var FluxComponent = "FluxComponent" in locals ? locals.FluxComponent : jade_globals_FluxComponent;
-    var flux = "flux" in locals ? locals.flux : jade_globals_flux;
-    var Route = "Route" in locals ? locals.Route : jade_globals_Route;
-    var Room = "Room" in locals ? locals.Room : jade_globals_Room;
-    var Game = "Game" in locals ? locals.Game : jade_globals_Game;
-    var History = "History" in locals ? locals.History : jade_globals_History;
-    var ResultModal = "ResultModal" in locals ? locals.ResultModal : jade_globals_ResultModal;
-    return function() {
-      var tags = [];
+  var fn = function(locals) {
+    var tags = [];
+    var locals_for_with = locals || {};
+    (function(FluxComponent, Game, History, ResultModal, Room, Route, flux) {
       tags.push(React.createElement("header", {
         className: "navbar navbar-default navbar-static-top"
       }, React.createElement("div", {
@@ -234,11 +219,14 @@ module.exports = Application = (function(superClass) {
         flux: flux,
         connectToStores: [ "board", "panel" ]
       }, React.createElement(ResultModal, {}))));
-      if (1 === tags.length) return tags.pop();
-      tags.unshift("div", null);
-      return React.createElement.apply(React, tags);
-    }.call(this);
-  };;
+    }).call(this, "FluxComponent" in locals_for_with ? locals_for_with.FluxComponent : typeof FluxComponent !== "undefined" ? FluxComponent : undefined, "Game" in locals_for_with ? locals_for_with.Game : typeof Game !== "undefined" ? Game : undefined, "History" in locals_for_with ? locals_for_with.History : typeof History !== "undefined" ? History : undefined, "ResultModal" in locals_for_with ? locals_for_with.ResultModal : typeof ResultModal !== "undefined" ? ResultModal : undefined, "Room" in locals_for_with ? locals_for_with.Room : typeof Room !== "undefined" ? Room : undefined, "Route" in locals_for_with ? locals_for_with.Route : typeof Route !== "undefined" ? Route : undefined, "flux" in locals_for_with ? locals_for_with.flux : typeof flux !== "undefined" ? flux : undefined);
+    if (tags.length === 1 && !Array.isArray(tags[0])) {
+      return tags.pop();
+    }
+    tags.unshift("div", null);
+    return React.createElement.apply(React, tags);
+  };
+  
   fn.locals = function setLocals(locals) {
     var render = this;
     function newRender(additionalLocals) {
@@ -255,8 +243,7 @@ module.exports = Application = (function(superClass) {
     }
     newRender.locals = setLocals;
     return newRender;
-  }
-  ;
+  };;
   return fn;
 }(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state));
   };
@@ -266,8 +253,7 @@ module.exports = Application = (function(superClass) {
 })(React.Component);
 
 
-
-},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","./Game.coffee":"/Users/uzimith/dev/kokomade/components/Game.coffee","./History.coffee":"/Users/uzimith/dev/kokomade/components/History.coffee","./ResultModal.coffee":"/Users/uzimith/dev/kokomade/components/ResultModal.coffee","./Room.coffee":"/Users/uzimith/dev/kokomade/components/Room.coffee","./Route.coffee":"/Users/uzimith/dev/kokomade/components/Route.coffee","flummox/component":"/Users/uzimith/dev/kokomade/node_modules/flummox/component.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/Board.coffee":[function(require,module,exports){
+},{"../node_modules/react/react.js":207,"./Game.coffee":7,"./History.coffee":9,"./ResultModal.coffee":11,"./Room.coffee":12,"./Route.coffee":13,"flummox/component":18,"lodash":30,"react":207}],5:[function(require,module,exports){
 var Board, FluxComponent, Grid, Piece, React, Wood, WoodPoint, _, jade,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -317,47 +303,17 @@ module.exports = Board = (function(superClass) {
       obj
     ));
     return (function (React) {
-  var jade_globals_rotate_class = typeof rotate_class === "undefined" ? undefined : rotate_class;
-  var jade_globals_pieces = typeof pieces === "undefined" ? undefined : pieces;
-  var jade_globals_FluxComponent = typeof FluxComponent === "undefined" ? undefined : FluxComponent;
-  var jade_globals_Piece = typeof Piece === "undefined" ? undefined : Piece;
-  var jade_globals_viewer = typeof viewer === "undefined" ? undefined : viewer;
-  var jade_globals_woods = typeof woods === "undefined" ? undefined : woods;
-  var jade_globals_Wood = typeof Wood === "undefined" ? undefined : Wood;
-  var jade_globals_wood_count = typeof wood_count === "undefined" ? undefined : wood_count;
-  var jade_globals_player = typeof player === "undefined" ? undefined : player;
-  var jade_globals_select_wood = typeof select_wood === "undefined" ? undefined : select_wood;
-  var jade_globals_wood_points = typeof wood_points === "undefined" ? undefined : wood_points;
-  var jade_globals_WoodPoint = typeof WoodPoint === "undefined" ? undefined : WoodPoint;
-  var jade_globals_grids = typeof grids === "undefined" ? undefined : grids;
-  var jade_globals_Grid = typeof Grid === "undefined" ? undefined : Grid;
-  var jade_globals_rotateLeft = typeof rotateLeft === "undefined" ? undefined : rotateLeft;
-  var jade_globals_unused_woods = typeof unused_woods === "undefined" ? undefined : unused_woods;
   var fn = function(locals) {
-    function jade_join_classes(val) {
-      return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
-        return val[key];
-      }) : [ val ]).filter(function(val) {
-        return null != val && "" !== val;
-      }).join(" ");
-    }  var rotate_class = "rotate_class" in locals ? locals.rotate_class : jade_globals_rotate_class;
-    var pieces = "pieces" in locals ? locals.pieces : jade_globals_pieces;
-    var FluxComponent = "FluxComponent" in locals ? locals.FluxComponent : jade_globals_FluxComponent;
-    var Piece = "Piece" in locals ? locals.Piece : jade_globals_Piece;
-    var viewer = "viewer" in locals ? locals.viewer : jade_globals_viewer;
-    var woods = "woods" in locals ? locals.woods : jade_globals_woods;
-    var Wood = "Wood" in locals ? locals.Wood : jade_globals_Wood;
-    var wood_count = "wood_count" in locals ? locals.wood_count : jade_globals_wood_count;
-    var player = "player" in locals ? locals.player : jade_globals_player;
-    var select_wood = "select_wood" in locals ? locals.select_wood : jade_globals_select_wood;
-    var wood_points = "wood_points" in locals ? locals.wood_points : jade_globals_wood_points;
-    var WoodPoint = "WoodPoint" in locals ? locals.WoodPoint : jade_globals_WoodPoint;
-    var grids = "grids" in locals ? locals.grids : jade_globals_grids;
-    var Grid = "Grid" in locals ? locals.Grid : jade_globals_Grid;
-    var rotateLeft = "rotateLeft" in locals ? locals.rotateLeft : jade_globals_rotateLeft;
-    var unused_woods = "unused_woods" in locals ? locals.unused_woods : jade_globals_unused_woods;
-    return function() {
-      var tags = [];
+    var tags = [];
+    var locals_for_with = locals || {};
+    (function(FluxComponent, Grid, Object, Piece, Wood, WoodPoint, grids, pieces, player, rotateLeft, rotate_class, select_wood, unused_woods, viewer, wood_count, wood_points, woods) {
+      function jade_join_classes(val) {
+        return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
+          return val[key];
+        }) : [ val ]).filter(function(val) {
+          return null != val && "" !== val;
+        }).join(" ");
+      }
       tags.push(React.createElement.apply(React, [ "div", {
         id: "board",
         className: jade_join_classes([ rotate_class ])
@@ -585,11 +541,14 @@ module.exports = Board = (function(superClass) {
         }
         return tags;
       }.call(this))));
-      if (1 === tags.length) return tags.pop();
-      tags.unshift("div", null);
-      return React.createElement.apply(React, tags);
-    }.call(this);
-  };;
+    }).call(this, "FluxComponent" in locals_for_with ? locals_for_with.FluxComponent : typeof FluxComponent !== "undefined" ? FluxComponent : undefined, "Grid" in locals_for_with ? locals_for_with.Grid : typeof Grid !== "undefined" ? Grid : undefined, "Object" in locals_for_with ? locals_for_with.Object : typeof Object !== "undefined" ? Object : undefined, "Piece" in locals_for_with ? locals_for_with.Piece : typeof Piece !== "undefined" ? Piece : undefined, "Wood" in locals_for_with ? locals_for_with.Wood : typeof Wood !== "undefined" ? Wood : undefined, "WoodPoint" in locals_for_with ? locals_for_with.WoodPoint : typeof WoodPoint !== "undefined" ? WoodPoint : undefined, "grids" in locals_for_with ? locals_for_with.grids : typeof grids !== "undefined" ? grids : undefined, "pieces" in locals_for_with ? locals_for_with.pieces : typeof pieces !== "undefined" ? pieces : undefined, "player" in locals_for_with ? locals_for_with.player : typeof player !== "undefined" ? player : undefined, "rotateLeft" in locals_for_with ? locals_for_with.rotateLeft : typeof rotateLeft !== "undefined" ? rotateLeft : undefined, "rotate_class" in locals_for_with ? locals_for_with.rotate_class : typeof rotate_class !== "undefined" ? rotate_class : undefined, "select_wood" in locals_for_with ? locals_for_with.select_wood : typeof select_wood !== "undefined" ? select_wood : undefined, "unused_woods" in locals_for_with ? locals_for_with.unused_woods : typeof unused_woods !== "undefined" ? unused_woods : undefined, "viewer" in locals_for_with ? locals_for_with.viewer : typeof viewer !== "undefined" ? viewer : undefined, "wood_count" in locals_for_with ? locals_for_with.wood_count : typeof wood_count !== "undefined" ? wood_count : undefined, "wood_points" in locals_for_with ? locals_for_with.wood_points : typeof wood_points !== "undefined" ? wood_points : undefined, "woods" in locals_for_with ? locals_for_with.woods : typeof woods !== "undefined" ? woods : undefined);
+    if (tags.length === 1 && !Array.isArray(tags[0])) {
+      return tags.pop();
+    }
+    tags.unshift("div", null);
+    return React.createElement.apply(React, tags);
+  };
+  
   fn.locals = function setLocals(locals) {
     var render = this;
     function newRender(additionalLocals) {
@@ -606,8 +565,7 @@ module.exports = Board = (function(superClass) {
     }
     newRender.locals = setLocals;
     return newRender;
-  }
-  ;
+  };;
   return fn;
 }(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state, this.props.board));
   };
@@ -623,8 +581,7 @@ module.exports = Board = (function(superClass) {
 })(React.Component);
 
 
-
-},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","./Grid.coffee":"/Users/uzimith/dev/kokomade/components/Grid.coffee","./Piece.coffee":"/Users/uzimith/dev/kokomade/components/Piece.coffee","./Wood.coffee":"/Users/uzimith/dev/kokomade/components/Wood.coffee","./WoodPoint.coffee":"/Users/uzimith/dev/kokomade/components/WoodPoint.coffee","flummox/component":"/Users/uzimith/dev/kokomade/node_modules/flummox/component.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/Controler.coffee":[function(require,module,exports){
+},{"../node_modules/react/react.js":207,"./Grid.coffee":8,"./Piece.coffee":10,"./Wood.coffee":14,"./WoodPoint.coffee":15,"flummox/component":18,"lodash":30,"react":207}],6:[function(require,module,exports){
 var Controller, React, _, jade,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -704,49 +661,17 @@ module.exports = Controller = (function(superClass) {
       hide: !(this.props.history && this.props.history.length > 0)
     });
     return (function (React) {
-  var jade_globals_endGame = typeof endGame === "undefined" ? undefined : endGame;
-  var jade_globals_end_classes = typeof end_classes === "undefined" ? undefined : end_classes;
-  var jade_globals_startGame = typeof startGame === "undefined" ? undefined : startGame;
-  var jade_globals_start_classes = typeof start_classes === "undefined" ? undefined : start_classes;
-  var jade_globals_onChange = typeof onChange === "undefined" ? undefined : onChange;
-  var jade_globals_giveupGame = typeof giveupGame === "undefined" ? undefined : giveupGame;
-  var jade_globals_playing_classes = typeof playing_classes === "undefined" ? undefined : playing_classes;
-  var jade_globals_toggleHistory = typeof toggleHistory === "undefined" ? undefined : toggleHistory;
-  var jade_globals_history_classes = typeof history_classes === "undefined" ? undefined : history_classes;
-  var jade_globals_roomId = typeof roomId === "undefined" ? undefined : roomId;
-  var jade_globals_connected = typeof connected === "undefined" ? undefined : connected;
-  var jade_globals_board = typeof board === "undefined" ? undefined : board;
-  var jade_globals_player_class = typeof player_class === "undefined" ? undefined : player_class;
-  var jade_globals_selectWood = typeof selectWood === "undefined" ? undefined : selectWood;
-  var jade_globals_select_classes = typeof select_classes === "undefined" ? undefined : select_classes;
-  var jade_globals_unselectWood = typeof unselectWood === "undefined" ? undefined : unselectWood;
-  var jade_globals_unselect_classes = typeof unselect_classes === "undefined" ? undefined : unselect_classes;
   var fn = function(locals) {
-    function jade_join_classes(val) {
-      return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
-        return val[key];
-      }) : [ val ]).filter(function(val) {
-        return null != val && "" !== val;
-      }).join(" ");
-    }  var endGame = "endGame" in locals ? locals.endGame : jade_globals_endGame;
-    var end_classes = "end_classes" in locals ? locals.end_classes : jade_globals_end_classes;
-    var startGame = "startGame" in locals ? locals.startGame : jade_globals_startGame;
-    var start_classes = "start_classes" in locals ? locals.start_classes : jade_globals_start_classes;
-    var onChange = "onChange" in locals ? locals.onChange : jade_globals_onChange;
-    var giveupGame = "giveupGame" in locals ? locals.giveupGame : jade_globals_giveupGame;
-    var playing_classes = "playing_classes" in locals ? locals.playing_classes : jade_globals_playing_classes;
-    var toggleHistory = "toggleHistory" in locals ? locals.toggleHistory : jade_globals_toggleHistory;
-    var history_classes = "history_classes" in locals ? locals.history_classes : jade_globals_history_classes;
-    var roomId = "roomId" in locals ? locals.roomId : jade_globals_roomId;
-    var connected = "connected" in locals ? locals.connected : jade_globals_connected;
-    var board = "board" in locals ? locals.board : jade_globals_board;
-    var player_class = "player_class" in locals ? locals.player_class : jade_globals_player_class;
-    var selectWood = "selectWood" in locals ? locals.selectWood : jade_globals_selectWood;
-    var select_classes = "select_classes" in locals ? locals.select_classes : jade_globals_select_classes;
-    var unselectWood = "unselectWood" in locals ? locals.unselectWood : jade_globals_unselectWood;
-    var unselect_classes = "unselect_classes" in locals ? locals.unselect_classes : jade_globals_unselect_classes;
-    return function() {
-      var tags = [];
+    var tags = [];
+    var locals_for_with = locals || {};
+    (function(Object, board, connected, endGame, end_classes, giveupGame, history_classes, onChange, player_class, playing_classes, roomId, selectWood, select_classes, startGame, start_classes, toggleHistory, unselectWood, unselect_classes) {
+      function jade_join_classes(val) {
+        return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
+          return val[key];
+        }) : [ val ]).filter(function(val) {
+          return null != val && "" !== val;
+        }).join(" ");
+      }
       tags.push(React.createElement("div", {
         className: "row"
       }, React.createElement("a", {
@@ -785,11 +710,14 @@ module.exports = Controller = (function(superClass) {
         onClick: unselectWood,
         className: jade_join_classes([ "control", "btn", "btn-default", [ player_class[board.player], unselect_classes ] ])
       }, "Piece")));
-      if (1 === tags.length) return tags.pop();
-      tags.unshift("div", null);
-      return React.createElement.apply(React, tags);
-    }.call(this);
-  };;
+    }).call(this, "Object" in locals_for_with ? locals_for_with.Object : typeof Object !== "undefined" ? Object : undefined, "board" in locals_for_with ? locals_for_with.board : typeof board !== "undefined" ? board : undefined, "connected" in locals_for_with ? locals_for_with.connected : typeof connected !== "undefined" ? connected : undefined, "endGame" in locals_for_with ? locals_for_with.endGame : typeof endGame !== "undefined" ? endGame : undefined, "end_classes" in locals_for_with ? locals_for_with.end_classes : typeof end_classes !== "undefined" ? end_classes : undefined, "giveupGame" in locals_for_with ? locals_for_with.giveupGame : typeof giveupGame !== "undefined" ? giveupGame : undefined, "history_classes" in locals_for_with ? locals_for_with.history_classes : typeof history_classes !== "undefined" ? history_classes : undefined, "onChange" in locals_for_with ? locals_for_with.onChange : typeof onChange !== "undefined" ? onChange : undefined, "player_class" in locals_for_with ? locals_for_with.player_class : typeof player_class !== "undefined" ? player_class : undefined, "playing_classes" in locals_for_with ? locals_for_with.playing_classes : typeof playing_classes !== "undefined" ? playing_classes : undefined, "roomId" in locals_for_with ? locals_for_with.roomId : typeof roomId !== "undefined" ? roomId : undefined, "selectWood" in locals_for_with ? locals_for_with.selectWood : typeof selectWood !== "undefined" ? selectWood : undefined, "select_classes" in locals_for_with ? locals_for_with.select_classes : typeof select_classes !== "undefined" ? select_classes : undefined, "startGame" in locals_for_with ? locals_for_with.startGame : typeof startGame !== "undefined" ? startGame : undefined, "start_classes" in locals_for_with ? locals_for_with.start_classes : typeof start_classes !== "undefined" ? start_classes : undefined, "toggleHistory" in locals_for_with ? locals_for_with.toggleHistory : typeof toggleHistory !== "undefined" ? toggleHistory : undefined, "unselectWood" in locals_for_with ? locals_for_with.unselectWood : typeof unselectWood !== "undefined" ? unselectWood : undefined, "unselect_classes" in locals_for_with ? locals_for_with.unselect_classes : typeof unselect_classes !== "undefined" ? unselect_classes : undefined);
+    if (tags.length === 1 && !Array.isArray(tags[0])) {
+      return tags.pop();
+    }
+    tags.unshift("div", null);
+    return React.createElement.apply(React, tags);
+  };
+  
   fn.locals = function setLocals(locals) {
     var render = this;
     function newRender(additionalLocals) {
@@ -806,8 +734,7 @@ module.exports = Controller = (function(superClass) {
     }
     newRender.locals = setLocals;
     return newRender;
-  }
-  ;
+  };;
   return fn;
 }(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state));
   };
@@ -863,8 +790,7 @@ module.exports = Controller = (function(superClass) {
 })(React.Component);
 
 
-
-},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/Game.coffee":[function(require,module,exports){
+},{"../node_modules/react/react.js":207,"lodash":30,"react":207}],7:[function(require,module,exports){
 var Board, Controller, FluxComponent, Game, React, _, jade,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -892,16 +818,10 @@ module.exports = Game = (function(superClass) {
 
   Game.prototype.render = function() {
     return (function (React) {
-  var jade_globals_FluxComponent = typeof FluxComponent === "undefined" ? undefined : FluxComponent;
-  var jade_globals_Controller = typeof Controller === "undefined" ? undefined : Controller;
-  var jade_globals_Board = typeof Board === "undefined" ? undefined : Board;
-  var jade_globals_board = typeof board === "undefined" ? undefined : board;
-  var fn = function(locals) {  var FluxComponent = "FluxComponent" in locals ? locals.FluxComponent : jade_globals_FluxComponent;
-    var Controller = "Controller" in locals ? locals.Controller : jade_globals_Controller;
-    var Board = "Board" in locals ? locals.Board : jade_globals_Board;
-    var board = "board" in locals ? locals.board : jade_globals_board;
-    return function() {
-      var tags = [];
+  var fn = function(locals) {
+    var tags = [];
+    var locals_for_with = locals || {};
+    (function(Board, Controller, FluxComponent, board) {
       tags.push(React.createElement("div", {
         className: "row"
       }, React.createElement("div", {
@@ -913,11 +833,14 @@ module.exports = Game = (function(superClass) {
       }, React.createElement(Board, {
         board: board
       }))));
-      if (1 === tags.length) return tags.pop();
-      tags.unshift("div", null);
-      return React.createElement.apply(React, tags);
-    }.call(this);
-  };;
+    }).call(this, "Board" in locals_for_with ? locals_for_with.Board : typeof Board !== "undefined" ? Board : undefined, "Controller" in locals_for_with ? locals_for_with.Controller : typeof Controller !== "undefined" ? Controller : undefined, "FluxComponent" in locals_for_with ? locals_for_with.FluxComponent : typeof FluxComponent !== "undefined" ? FluxComponent : undefined, "board" in locals_for_with ? locals_for_with.board : typeof board !== "undefined" ? board : undefined);
+    if (tags.length === 1 && !Array.isArray(tags[0])) {
+      return tags.pop();
+    }
+    tags.unshift("div", null);
+    return React.createElement.apply(React, tags);
+  };
+  
   fn.locals = function setLocals(locals) {
     var render = this;
     function newRender(additionalLocals) {
@@ -934,8 +857,7 @@ module.exports = Game = (function(superClass) {
     }
     newRender.locals = setLocals;
     return newRender;
-  }
-  ;
+  };;
   return fn;
 }(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state));
   };
@@ -945,8 +867,7 @@ module.exports = Game = (function(superClass) {
 })(React.Component);
 
 
-
-},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","./Board.coffee":"/Users/uzimith/dev/kokomade/components/Board.coffee","./Controler.coffee":"/Users/uzimith/dev/kokomade/components/Controler.coffee","flummox/component":"/Users/uzimith/dev/kokomade/node_modules/flummox/component.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/Grid.coffee":[function(require,module,exports){
+},{"../node_modules/react/react.js":207,"./Board.coffee":5,"./Controler.coffee":6,"flummox/component":18,"lodash":30,"react":207}],8:[function(require,module,exports){
 var Grid, React, _, jade,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -992,31 +913,30 @@ module.exports = Grid = (function(superClass) {
       });
     }
     return (function (React) {
-  var jade_globals_onClick = typeof onClick === "undefined" ? undefined : onClick;
-  var jade_globals_classes = typeof classes === "undefined" ? undefined : classes;
-  var jade_globals_player_class = typeof player_class === "undefined" ? undefined : player_class;
   var fn = function(locals) {
-    function jade_join_classes(val) {
-      return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
-        return val[key];
-      }) : [ val ]).filter(function(val) {
-        return null != val && "" !== val;
-      }).join(" ");
-    }  var onClick = "onClick" in locals ? locals.onClick : jade_globals_onClick;
-    var classes = "classes" in locals ? locals.classes : jade_globals_classes;
-    var player_class = "player_class" in locals ? locals.player_class : jade_globals_player_class;
-    return function() {
-      var tags = [];
+    var tags = [];
+    var locals_for_with = locals || {};
+    (function(Object, classes, onClick, player_class) {
+      function jade_join_classes(val) {
+        return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
+          return val[key];
+        }) : [ val ]).filter(function(val) {
+          return null != val && "" !== val;
+        }).join(" ");
+      }
       tags.push(React.createElement("div", {
         onClick: onClick,
         onTouchTap: onClick,
         className: jade_join_classes([ "grid", [ classes, player_class ] ])
       }));
-      if (1 === tags.length) return tags.pop();
-      tags.unshift("div", null);
-      return React.createElement.apply(React, tags);
-    }.call(this);
-  };;
+    }).call(this, "Object" in locals_for_with ? locals_for_with.Object : typeof Object !== "undefined" ? Object : undefined, "classes" in locals_for_with ? locals_for_with.classes : typeof classes !== "undefined" ? classes : undefined, "onClick" in locals_for_with ? locals_for_with.onClick : typeof onClick !== "undefined" ? onClick : undefined, "player_class" in locals_for_with ? locals_for_with.player_class : typeof player_class !== "undefined" ? player_class : undefined);
+    if (tags.length === 1 && !Array.isArray(tags[0])) {
+      return tags.pop();
+    }
+    tags.unshift("div", null);
+    return React.createElement.apply(React, tags);
+  };
+  
   fn.locals = function setLocals(locals) {
     var render = this;
     function newRender(additionalLocals) {
@@ -1033,8 +953,7 @@ module.exports = Grid = (function(superClass) {
     }
     newRender.locals = setLocals;
     return newRender;
-  }
-  ;
+  };;
   return fn;
 }(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state));
   };
@@ -1061,8 +980,7 @@ module.exports = Grid = (function(superClass) {
 })(React.Component);
 
 
-
-},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/History.coffee":[function(require,module,exports){
+},{"../node_modules/react/react.js":207,"lodash":30,"react":207}],9:[function(require,module,exports){
 var Board, History, React, _, jade,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -1111,35 +1029,17 @@ module.exports = History = (function(superClass) {
       })
     };
     return (function (React) {
-  var jade_globals_shareBoard = typeof shareBoard === "undefined" ? undefined : shareBoard;
-  var jade_globals_hideHistory = typeof hideHistory === "undefined" ? undefined : hideHistory;
-  var jade_globals_history = typeof history === "undefined" ? undefined : history;
-  var jade_globals_moves = typeof moves === "undefined" ? undefined : moves;
-  var jade_globals_firstHistory = typeof firstHistory === "undefined" ? undefined : firstHistory;
-  var jade_globals_playing_classes = typeof playing_classes === "undefined" ? undefined : playing_classes;
-  var jade_globals_lastHistory = typeof lastHistory === "undefined" ? undefined : lastHistory;
-  var jade_globals_backHistory = typeof backHistory === "undefined" ? undefined : backHistory;
-  var jade_globals_nextHistory = typeof nextHistory === "undefined" ? undefined : nextHistory;
-  var jade_globals_Board = typeof Board === "undefined" ? undefined : Board;
   var fn = function(locals) {
-    function jade_join_classes(val) {
-      return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
-        return val[key];
-      }) : [ val ]).filter(function(val) {
-        return null != val && "" !== val;
-      }).join(" ");
-    }  var shareBoard = "shareBoard" in locals ? locals.shareBoard : jade_globals_shareBoard;
-    var hideHistory = "hideHistory" in locals ? locals.hideHistory : jade_globals_hideHistory;
-    var history = "history" in locals ? locals.history : jade_globals_history;
-    var moves = "moves" in locals ? locals.moves : jade_globals_moves;
-    var firstHistory = "firstHistory" in locals ? locals.firstHistory : jade_globals_firstHistory;
-    var playing_classes = "playing_classes" in locals ? locals.playing_classes : jade_globals_playing_classes;
-    var lastHistory = "lastHistory" in locals ? locals.lastHistory : jade_globals_lastHistory;
-    var backHistory = "backHistory" in locals ? locals.backHistory : jade_globals_backHistory;
-    var nextHistory = "nextHistory" in locals ? locals.nextHistory : jade_globals_nextHistory;
-    var Board = "Board" in locals ? locals.Board : jade_globals_Board;
-    return function() {
-      var tags = [];
+    var tags = [];
+    var locals_for_with = locals || {};
+    (function(Board, Object, backHistory, firstHistory, hideHistory, history, lastHistory, moves, nextHistory, playing_classes, shareBoard) {
+      function jade_join_classes(val) {
+        return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
+          return val[key];
+        }) : [ val ]).filter(function(val) {
+          return null != val && "" !== val;
+        }).join(" ");
+      }
       tags.push(React.createElement("div", {
         id: "history"
       }, React.createElement("div", {
@@ -1156,61 +1056,77 @@ module.exports = History = (function(superClass) {
         className: "table table-bordered back"
       }, React.createElement("tbody", {}, React.createElement("tr", {}, React.createElement("th", {}, "Moves"), React.createElement("td", {}, history[moves].moves)))), React.createElement("div", {
         className: "row"
-      }, React.createElement("div", {
+      }, React.createElement.apply(React, [ "div", {
         className: "col-sm-6"
-      }, moves > 0 ? React.createElement("btn", {
-        onClick: firstHistory,
-        className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
-      }, React.createElement("div", {
-        className: "glyphicon glyphicon-step-backward"
-      })) : React.createElement("btn", {
-        onClick: firstHistory,
-        disabled: !0,
-        className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
-      }, React.createElement("div", {
-        className: "glyphicon glyphicon-step-backward"
-      }))), React.createElement("div", {
+      } ].concat(function() {
+        var tags = [];
+        moves > 0 ? tags.push(React.createElement("btn", {
+          onClick: firstHistory,
+          className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
+        }, React.createElement("div", {
+          className: "glyphicon glyphicon-step-backward"
+        }))) : tags.push(React.createElement("btn", {
+          onClick: firstHistory,
+          disabled: !0,
+          className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
+        }, React.createElement("div", {
+          className: "glyphicon glyphicon-step-backward"
+        })));
+        return tags;
+      }.call(this))), React.createElement.apply(React, [ "div", {
         className: "col-sm-6"
-      }, moves < history.length - 1 ? React.createElement("btn", {
-        onClick: lastHistory,
-        className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
-      }, React.createElement("div", {
-        className: "glyphicon glyphicon-step-forward"
-      })) : React.createElement("btn", {
-        onClick: lastHistory,
-        disabled: !0,
-        className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
-      }, React.createElement("div", {
-        className: "glyphicon glyphicon-step-forward"
-      })))), React.createElement("div", {
+      } ].concat(function() {
+        var tags = [];
+        moves < history.length - 1 ? tags.push(React.createElement("btn", {
+          onClick: lastHistory,
+          className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
+        }, React.createElement("div", {
+          className: "glyphicon glyphicon-step-forward"
+        }))) : tags.push(React.createElement("btn", {
+          onClick: lastHistory,
+          disabled: !0,
+          className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
+        }, React.createElement("div", {
+          className: "glyphicon glyphicon-step-forward"
+        })));
+        return tags;
+      }.call(this)))), React.createElement("div", {
         className: "row"
-      }, React.createElement("div", {
+      }, React.createElement.apply(React, [ "div", {
         className: "col-sm-6"
-      }, moves > 0 ? React.createElement("btn", {
-        onClick: backHistory,
-        className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
-      }, React.createElement("div", {
-        className: "glyphicon glyphicon-chevron-left"
-      })) : React.createElement("btn", {
-        onClick: backHistory,
-        disabled: !0,
-        className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
-      }, React.createElement("div", {
-        className: "glyphicon glyphicon-chevron-left"
-      }))), React.createElement("div", {
+      } ].concat(function() {
+        var tags = [];
+        moves > 0 ? tags.push(React.createElement("btn", {
+          onClick: backHistory,
+          className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
+        }, React.createElement("div", {
+          className: "glyphicon glyphicon-chevron-left"
+        }))) : tags.push(React.createElement("btn", {
+          onClick: backHistory,
+          disabled: !0,
+          className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
+        }, React.createElement("div", {
+          className: "glyphicon glyphicon-chevron-left"
+        })));
+        return tags;
+      }.call(this))), React.createElement.apply(React, [ "div", {
         className: "col-sm-6"
-      }, moves < history.length - 1 ? React.createElement("btn", {
-        onClick: nextHistory,
-        className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
-      }, React.createElement("div", {
-        className: "glyphicon glyphicon-chevron-right"
-      })) : React.createElement("btn", {
-        onClick: nextHistory,
-        disabled: !0,
-        className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
-      }, React.createElement("div", {
-        className: "glyphicon glyphicon-chevron-right"
-      }))))), React.createElement.apply(React, [ "div", {
+      } ].concat(function() {
+        var tags = [];
+        moves < history.length - 1 ? tags.push(React.createElement("btn", {
+          onClick: nextHistory,
+          className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
+        }, React.createElement("div", {
+          className: "glyphicon glyphicon-chevron-right"
+        }))) : tags.push(React.createElement("btn", {
+          onClick: nextHistory,
+          disabled: !0,
+          className: jade_join_classes([ "control", "btn", "btn-default", "show", playing_classes ])
+        }, React.createElement("div", {
+          className: "glyphicon glyphicon-chevron-right"
+        })));
+        return tags;
+      }.call(this))))), React.createElement.apply(React, [ "div", {
         className: "col-md-7"
       } ].concat(function() {
         var tags = [];
@@ -1220,11 +1136,14 @@ module.exports = History = (function(superClass) {
         }));
         return tags;
       }.call(this))))));
-      if (1 === tags.length) return tags.pop();
-      tags.unshift("div", null);
-      return React.createElement.apply(React, tags);
-    }.call(this);
-  };;
+    }).call(this, "Board" in locals_for_with ? locals_for_with.Board : typeof Board !== "undefined" ? Board : undefined, "Object" in locals_for_with ? locals_for_with.Object : typeof Object !== "undefined" ? Object : undefined, "backHistory" in locals_for_with ? locals_for_with.backHistory : typeof backHistory !== "undefined" ? backHistory : undefined, "firstHistory" in locals_for_with ? locals_for_with.firstHistory : typeof firstHistory !== "undefined" ? firstHistory : undefined, "hideHistory" in locals_for_with ? locals_for_with.hideHistory : typeof hideHistory !== "undefined" ? hideHistory : undefined, "history" in locals_for_with ? locals_for_with.history : typeof history !== "undefined" ? history : undefined, "lastHistory" in locals_for_with ? locals_for_with.lastHistory : typeof lastHistory !== "undefined" ? lastHistory : undefined, "moves" in locals_for_with ? locals_for_with.moves : typeof moves !== "undefined" ? moves : undefined, "nextHistory" in locals_for_with ? locals_for_with.nextHistory : typeof nextHistory !== "undefined" ? nextHistory : undefined, "playing_classes" in locals_for_with ? locals_for_with.playing_classes : typeof playing_classes !== "undefined" ? playing_classes : undefined, "shareBoard" in locals_for_with ? locals_for_with.shareBoard : typeof shareBoard !== "undefined" ? shareBoard : undefined);
+    if (tags.length === 1 && !Array.isArray(tags[0])) {
+      return tags.pop();
+    }
+    tags.unshift("div", null);
+    return React.createElement.apply(React, tags);
+  };
+  
   fn.locals = function setLocals(locals) {
     var render = this;
     function newRender(additionalLocals) {
@@ -1241,8 +1160,7 @@ module.exports = History = (function(superClass) {
     }
     newRender.locals = setLocals;
     return newRender;
-  }
-  ;
+  };;
   return fn;
 }(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state));
   };
@@ -1292,8 +1210,7 @@ module.exports = History = (function(superClass) {
 })(React.Component);
 
 
-
-},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","./Board.coffee":"/Users/uzimith/dev/kokomade/components/Board.coffee","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/Piece.coffee":[function(require,module,exports){
+},{"../node_modules/react/react.js":207,"./Board.coffee":5,"lodash":30,"react":207}],10:[function(require,module,exports){
 var Piece, React, _, jade,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -1325,21 +1242,17 @@ module.exports = Piece = (function(superClass) {
       obj
     ));
     return (function (React) {
-  var jade_globals_classes = typeof classes === "undefined" ? undefined : classes;
-  var jade_globals_board = typeof board === "undefined" ? undefined : board;
-  var jade_globals_piece = typeof piece === "undefined" ? undefined : piece;
   var fn = function(locals) {
-    function jade_join_classes(val) {
-      return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
-        return val[key];
-      }) : [ val ]).filter(function(val) {
-        return null != val && "" !== val;
-      }).join(" ");
-    }  var classes = "classes" in locals ? locals.classes : jade_globals_classes;
-    var board = "board" in locals ? locals.board : jade_globals_board;
-    var piece = "piece" in locals ? locals.piece : jade_globals_piece;
-    return function() {
-      var tags = [];
+    var tags = [];
+    var locals_for_with = locals || {};
+    (function(Object, board, classes, piece) {
+      function jade_join_classes(val) {
+        return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
+          return val[key];
+        }) : [ val ]).filter(function(val) {
+          return null != val && "" !== val;
+        }).join(" ");
+      }
       tags.push(React.createElement.apply(React, [ "div", {
         className: jade_join_classes([ "piece", classes ])
       } ].concat(function() {
@@ -1367,11 +1280,14 @@ module.exports = Piece = (function(superClass) {
         }
         return tags;
       }.call(this))));
-      if (1 === tags.length) return tags.pop();
-      tags.unshift("div", null);
-      return React.createElement.apply(React, tags);
-    }.call(this);
-  };;
+    }).call(this, "Object" in locals_for_with ? locals_for_with.Object : typeof Object !== "undefined" ? Object : undefined, "board" in locals_for_with ? locals_for_with.board : typeof board !== "undefined" ? board : undefined, "classes" in locals_for_with ? locals_for_with.classes : typeof classes !== "undefined" ? classes : undefined, "piece" in locals_for_with ? locals_for_with.piece : typeof piece !== "undefined" ? piece : undefined);
+    if (tags.length === 1 && !Array.isArray(tags[0])) {
+      return tags.pop();
+    }
+    tags.unshift("div", null);
+    return React.createElement.apply(React, tags);
+  };
+  
   fn.locals = function setLocals(locals) {
     var render = this;
     function newRender(additionalLocals) {
@@ -1388,8 +1304,7 @@ module.exports = Piece = (function(superClass) {
     }
     newRender.locals = setLocals;
     return newRender;
-  }
-  ;
+  };;
   return fn;
 }(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state));
   };
@@ -1399,8 +1314,7 @@ module.exports = Piece = (function(superClass) {
 })(React.Component);
 
 
-
-},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/ResultModal.coffee":[function(require,module,exports){
+},{"../node_modules/react/react.js":207,"lodash":30,"react":207}],11:[function(require,module,exports){
 var React, ResultModal, _, jade,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -1443,23 +1357,17 @@ module.exports = ResultModal = (function(superClass) {
       })
     };
     return (function (React) {
-  var jade_globals_classes = typeof classes === "undefined" ? undefined : classes;
-  var jade_globals_onClick = typeof onClick === "undefined" ? undefined : onClick;
-  var jade_globals_winner = typeof winner === "undefined" ? undefined : winner;
-  var jade_globals_player_class = typeof player_class === "undefined" ? undefined : player_class;
   var fn = function(locals) {
-    function jade_join_classes(val) {
-      return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
-        return val[key];
-      }) : [ val ]).filter(function(val) {
-        return null != val && "" !== val;
-      }).join(" ");
-    }  var classes = "classes" in locals ? locals.classes : jade_globals_classes;
-    var onClick = "onClick" in locals ? locals.onClick : jade_globals_onClick;
-    var winner = "winner" in locals ? locals.winner : jade_globals_winner;
-    var player_class = "player_class" in locals ? locals.player_class : jade_globals_player_class;
-    return function() {
-      var tags = [];
+    var tags = [];
+    var locals_for_with = locals || {};
+    (function(Object, classes, onClick, player_class, winner) {
+      function jade_join_classes(val) {
+        return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
+          return val[key];
+        }) : [ val ]).filter(function(val) {
+          return null != val && "" !== val;
+        }).join(" ");
+      }
       tags.push(React.createElement("div", {
         className: jade_join_classes([ "modal", "fade", classes ])
       }, React.createElement("div", {
@@ -1489,11 +1397,14 @@ module.exports = ResultModal = (function(superClass) {
         }
         return tags;
       }.call(this))))))));
-      if (1 === tags.length) return tags.pop();
-      tags.unshift("div", null);
-      return React.createElement.apply(React, tags);
-    }.call(this);
-  };;
+    }).call(this, "Object" in locals_for_with ? locals_for_with.Object : typeof Object !== "undefined" ? Object : undefined, "classes" in locals_for_with ? locals_for_with.classes : typeof classes !== "undefined" ? classes : undefined, "onClick" in locals_for_with ? locals_for_with.onClick : typeof onClick !== "undefined" ? onClick : undefined, "player_class" in locals_for_with ? locals_for_with.player_class : typeof player_class !== "undefined" ? player_class : undefined, "winner" in locals_for_with ? locals_for_with.winner : typeof winner !== "undefined" ? winner : undefined);
+    if (tags.length === 1 && !Array.isArray(tags[0])) {
+      return tags.pop();
+    }
+    tags.unshift("div", null);
+    return React.createElement.apply(React, tags);
+  };
+  
   fn.locals = function setLocals(locals) {
     var render = this;
     function newRender(additionalLocals) {
@@ -1510,8 +1421,7 @@ module.exports = ResultModal = (function(superClass) {
     }
     newRender.locals = setLocals;
     return newRender;
-  }
-  ;
+  };;
   return fn;
 }(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state));
   };
@@ -1525,8 +1435,7 @@ module.exports = ResultModal = (function(superClass) {
 })(React.Component);
 
 
-
-},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/Room.coffee":[function(require,module,exports){
+},{"../node_modules/react/react.js":207,"lodash":30,"react":207}],12:[function(require,module,exports){
 var React, Room, _, jade,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -1553,16 +1462,10 @@ module.exports = Room = (function(superClass) {
 
   Room.prototype.render = function() {
     return (function (React) {
-  var jade_globals_onCreateForm = typeof onCreateForm === "undefined" ? undefined : onCreateForm;
-  var jade_globals_onJoinForm = typeof onJoinForm === "undefined" ? undefined : onJoinForm;
-  var jade_globals_roomId = typeof roomId === "undefined" ? undefined : roomId;
-  var jade_globals_handleRoomId = typeof handleRoomId === "undefined" ? undefined : handleRoomId;
-  var fn = function(locals) {  var onCreateForm = "onCreateForm" in locals ? locals.onCreateForm : jade_globals_onCreateForm;
-    var onJoinForm = "onJoinForm" in locals ? locals.onJoinForm : jade_globals_onJoinForm;
-    var roomId = "roomId" in locals ? locals.roomId : jade_globals_roomId;
-    var handleRoomId = "handleRoomId" in locals ? locals.handleRoomId : jade_globals_handleRoomId;
-    return function() {
-      var tags = [];
+  var fn = function(locals) {
+    var tags = [];
+    var locals_for_with = locals || {};
+    (function(handleRoomId, onCreateForm, onJoinForm, roomId) {
       tags.push(React.createElement("div", {
         className: "row"
       }, React.createElement("div", {
@@ -1641,11 +1544,14 @@ module.exports = Room = (function(superClass) {
       })), React.createElement("div", {
         className: "media-body"
       }, React.createElement("h4", {}, "相手をジャンプすることができる"))))))));
-      if (1 === tags.length) return tags.pop();
-      tags.unshift("div", null);
-      return React.createElement.apply(React, tags);
-    }.call(this);
-  };;
+    }).call(this, "handleRoomId" in locals_for_with ? locals_for_with.handleRoomId : typeof handleRoomId !== "undefined" ? handleRoomId : undefined, "onCreateForm" in locals_for_with ? locals_for_with.onCreateForm : typeof onCreateForm !== "undefined" ? onCreateForm : undefined, "onJoinForm" in locals_for_with ? locals_for_with.onJoinForm : typeof onJoinForm !== "undefined" ? onJoinForm : undefined, "roomId" in locals_for_with ? locals_for_with.roomId : typeof roomId !== "undefined" ? roomId : undefined);
+    if (tags.length === 1 && !Array.isArray(tags[0])) {
+      return tags.pop();
+    }
+    tags.unshift("div", null);
+    return React.createElement.apply(React, tags);
+  };
+  
   fn.locals = function setLocals(locals) {
     var render = this;
     function newRender(additionalLocals) {
@@ -1662,8 +1568,7 @@ module.exports = Room = (function(superClass) {
     }
     newRender.locals = setLocals;
     return newRender;
-  }
-  ;
+  };;
   return fn;
 }(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state));
   };
@@ -1693,8 +1598,7 @@ module.exports = Room = (function(superClass) {
 })(React.Component);
 
 
-
-},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/Route.coffee":[function(require,module,exports){
+},{"../node_modules/react/react.js":207,"lodash":30,"react":207}],13:[function(require,module,exports){
 var FluxComponent, React, Route, _, jade,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -1719,18 +1623,19 @@ module.exports = Route = (function(superClass) {
   Route.prototype.render = function() {
     this.isShow = this.props["show" + this.props.show];
     return (function (React) {
-  var jade_globals_isShow = typeof isShow === "undefined" ? undefined : isShow;
-  var jade_globals_children = typeof children === "undefined" ? undefined : children;
-  var fn = function(locals) {  var isShow = "isShow" in locals ? locals.isShow : jade_globals_isShow;
-    var children = "children" in locals ? locals.children : jade_globals_children;
-    return function() {
-      var tags = [];
+  var fn = function(locals) {
+    var tags = [];
+    var locals_for_with = locals || {};
+    (function(children, isShow) {
       isShow && tags.push(React.createElement("div", {}, children));
-      if (1 === tags.length) return tags.pop();
-      tags.unshift("div", null);
-      return React.createElement.apply(React, tags);
-    }.call(this);
-  };;
+    }).call(this, "children" in locals_for_with ? locals_for_with.children : typeof children !== "undefined" ? children : undefined, "isShow" in locals_for_with ? locals_for_with.isShow : typeof isShow !== "undefined" ? isShow : undefined);
+    if (tags.length === 1 && !Array.isArray(tags[0])) {
+      return tags.pop();
+    }
+    tags.unshift("div", null);
+    return React.createElement.apply(React, tags);
+  };
+  
   fn.locals = function setLocals(locals) {
     var render = this;
     function newRender(additionalLocals) {
@@ -1747,8 +1652,7 @@ module.exports = Route = (function(superClass) {
     }
     newRender.locals = setLocals;
     return newRender;
-  }
-  ;
+  };;
   return fn;
 }(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state));
   };
@@ -1758,8 +1662,7 @@ module.exports = Route = (function(superClass) {
 })(React.Component);
 
 
-
-},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","flummox/component":"/Users/uzimith/dev/kokomade/node_modules/flummox/component.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/Wood.coffee":[function(require,module,exports){
+},{"../node_modules/react/react.js":207,"flummox/component":18,"lodash":30,"react":207}],14:[function(require,module,exports){
 var React, Wood, _, jade,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -1794,28 +1697,29 @@ module.exports = Wood = (function(superClass) {
       obj
     ));
     return (function (React) {
-  var jade_globals_onClick = typeof onClick === "undefined" ? undefined : onClick;
-  var jade_globals_classes = typeof classes === "undefined" ? undefined : classes;
   var fn = function(locals) {
-    function jade_join_classes(val) {
-      return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
-        return val[key];
-      }) : [ val ]).filter(function(val) {
-        return null != val && "" !== val;
-      }).join(" ");
-    }  var onClick = "onClick" in locals ? locals.onClick : jade_globals_onClick;
-    var classes = "classes" in locals ? locals.classes : jade_globals_classes;
-    return function() {
-      var tags = [];
+    var tags = [];
+    var locals_for_with = locals || {};
+    (function(Object, classes, onClick) {
+      function jade_join_classes(val) {
+        return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
+          return val[key];
+        }) : [ val ]).filter(function(val) {
+          return null != val && "" !== val;
+        }).join(" ");
+      }
       tags.push(React.createElement("div", {
         onClick: onClick,
         className: jade_join_classes([ "wood", classes ])
       }));
-      if (1 === tags.length) return tags.pop();
-      tags.unshift("div", null);
-      return React.createElement.apply(React, tags);
-    }.call(this);
-  };;
+    }).call(this, "Object" in locals_for_with ? locals_for_with.Object : typeof Object !== "undefined" ? Object : undefined, "classes" in locals_for_with ? locals_for_with.classes : typeof classes !== "undefined" ? classes : undefined, "onClick" in locals_for_with ? locals_for_with.onClick : typeof onClick !== "undefined" ? onClick : undefined);
+    if (tags.length === 1 && !Array.isArray(tags[0])) {
+      return tags.pop();
+    }
+    tags.unshift("div", null);
+    return React.createElement.apply(React, tags);
+  };
+  
   fn.locals = function setLocals(locals) {
     var render = this;
     function newRender(additionalLocals) {
@@ -1832,8 +1736,7 @@ module.exports = Wood = (function(superClass) {
     }
     newRender.locals = setLocals;
     return newRender;
-  }
-  ;
+  };;
   return fn;
 }(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state));
   };
@@ -1847,8 +1750,7 @@ module.exports = Wood = (function(superClass) {
 })(React.Component);
 
 
-
-},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/components/WoodPoint.coffee":[function(require,module,exports){
+},{"../node_modules/react/react.js":207,"lodash":30,"react":207}],15:[function(require,module,exports){
 var React, WoodPoint, _, jade,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -1884,23 +1786,17 @@ module.exports = WoodPoint = (function(superClass) {
       obj
     ));
     return (function (React) {
-  var jade_globals_onClick = typeof onClick === "undefined" ? undefined : onClick;
-  var jade_globals_onMouseOver = typeof onMouseOver === "undefined" ? undefined : onMouseOver;
-  var jade_globals_onMouseOut = typeof onMouseOut === "undefined" ? undefined : onMouseOut;
-  var jade_globals_classes = typeof classes === "undefined" ? undefined : classes;
   var fn = function(locals) {
-    function jade_join_classes(val) {
-      return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
-        return val[key];
-      }) : [ val ]).filter(function(val) {
-        return null != val && "" !== val;
-      }).join(" ");
-    }  var onClick = "onClick" in locals ? locals.onClick : jade_globals_onClick;
-    var onMouseOver = "onMouseOver" in locals ? locals.onMouseOver : jade_globals_onMouseOver;
-    var onMouseOut = "onMouseOut" in locals ? locals.onMouseOut : jade_globals_onMouseOut;
-    var classes = "classes" in locals ? locals.classes : jade_globals_classes;
-    return function() {
-      var tags = [];
+    var tags = [];
+    var locals_for_with = locals || {};
+    (function(Object, classes, onClick, onMouseOut, onMouseOver) {
+      function jade_join_classes(val) {
+        return (Array.isArray(val) ? val.map(jade_join_classes) : val && "object" == typeof val ? Object.keys(val).filter(function(key) {
+          return val[key];
+        }) : [ val ]).filter(function(val) {
+          return null != val && "" !== val;
+        }).join(" ");
+      }
       tags.push(React.createElement("div", {
         onClick: onClick,
         onTouchTap: onClick,
@@ -1911,11 +1807,14 @@ module.exports = WoodPoint = (function(superClass) {
       tags.push(React.createElement("div", {
         className: jade_join_classes([ "wood", "hover", classes ])
       }));
-      if (1 === tags.length) return tags.pop();
-      tags.unshift("div", null);
-      return React.createElement.apply(React, tags);
-    }.call(this);
-  };;
+    }).call(this, "Object" in locals_for_with ? locals_for_with.Object : typeof Object !== "undefined" ? Object : undefined, "classes" in locals_for_with ? locals_for_with.classes : typeof classes !== "undefined" ? classes : undefined, "onClick" in locals_for_with ? locals_for_with.onClick : typeof onClick !== "undefined" ? onClick : undefined, "onMouseOut" in locals_for_with ? locals_for_with.onMouseOut : typeof onMouseOut !== "undefined" ? onMouseOut : undefined, "onMouseOver" in locals_for_with ? locals_for_with.onMouseOver : typeof onMouseOver !== "undefined" ? onMouseOver : undefined);
+    if (tags.length === 1 && !Array.isArray(tags[0])) {
+      return tags.pop();
+    }
+    tags.unshift("div", null);
+    return React.createElement.apply(React, tags);
+  };
+  
   fn.locals = function setLocals(locals) {
     var render = this;
     function newRender(additionalLocals) {
@@ -1932,8 +1831,7 @@ module.exports = WoodPoint = (function(superClass) {
     }
     newRender.locals = setLocals;
     return newRender;
-  }
-  ;
+  };;
   return fn;
 }(typeof React !== "undefined" ? React : require("../node_modules/react/react.js")))(_.assign(this, this.props, this.state));
   };
@@ -1970,8 +1868,7 @@ module.exports = WoodPoint = (function(superClass) {
 })(React.Component);
 
 
-
-},{"../node_modules/react/react.js":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/dispatcher/AppFlux.coffee":[function(require,module,exports){
+},{"../node_modules/react/react.js":207,"lodash":30,"react":207}],16:[function(require,module,exports){
 var AppFlux, BoardStore, Flux, GameActions, PanelActions, PanelStore,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -2004,44 +1901,76 @@ AppFlux = (function(superClass) {
 module.exports = AppFlux;
 
 
-
-},{"../actions/GameActions.coffee":"/Users/uzimith/dev/kokomade/actions/GameActions.coffee","../actions/PanelActions.coffee":"/Users/uzimith/dev/kokomade/actions/PanelActions.coffee","../stores/BoardStore.coffee":"/Users/uzimith/dev/kokomade/stores/BoardStore.coffee","../stores/PanelStore.coffee":"/Users/uzimith/dev/kokomade/stores/PanelStore.coffee","flummox":"/Users/uzimith/dev/kokomade/node_modules/flummox/lib/Flux.js"}],"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js":[function(require,module,exports){
+},{"../actions/GameActions.coffee":1,"../actions/PanelActions.coffee":2,"../stores/BoardStore.coffee":259,"../stores/PanelStore.coffee":260,"flummox":20}],17:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
 var queue = [];
 var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
 
 function drainQueue() {
     if (draining) {
         return;
     }
+    var timeout = setTimeout(cleanUpNextTick);
     draining = true;
-    var currentQueue;
+
     var len = queue.length;
     while(len) {
         currentQueue = queue;
         queue = [];
-        var i = -1;
-        while (++i < len) {
-            currentQueue[i]();
+        while (++queueIndex < len) {
+            currentQueue[queueIndex].run();
         }
+        queueIndex = -1;
         len = queue.length;
     }
+    currentQueue = null;
     draining = false;
+    clearTimeout(timeout);
 }
+
 process.nextTick = function (fun) {
-    queue.push(fun);
-    if (!draining) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
         setTimeout(drainQueue, 0);
     }
 };
 
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
 process.title = 'browser';
 process.browser = true;
 process.env = {};
 process.argv = [];
 process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
 
 function noop() {}
 
@@ -2064,10 +1993,17 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/flummox/component.js":[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 module.exports = require('./lib/addons/FluxComponent');
 
-},{"./lib/addons/FluxComponent":"/Users/uzimith/dev/kokomade/node_modules/flummox/lib/addons/FluxComponent.js"}],"/Users/uzimith/dev/kokomade/node_modules/flummox/lib/Actions.js":[function(require,module,exports){
+},{"./lib/addons/FluxComponent":22}],19:[function(require,module,exports){
+(function (process){
+'use strict';
+
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj['default'] : obj; };
+
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
+
 /**
  * Actions
  *
@@ -2082,15 +2018,9 @@ module.exports = require('./lib/addons/FluxComponent');
  * of the payload sent to the dispatcher.
  */
 
-"use strict";
+var _uniqueId = require('uniqueid');
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-
-var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
-
-var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
-
-var uniqueId = _interopRequire(require("uniqueid"));
+var uniqueId = _interopRequire(_uniqueId);
 
 var Actions = (function () {
   function Actions() {
@@ -2107,358 +2037,426 @@ var Actions = (function () {
     this.getConstants = this.getActionIds;
   }
 
-  _prototypeProperties(Actions, null, {
-    getActionIds: {
-      value: function getActionIds() {
-        var _this = this;
-        return this._getActionMethodNames().reduce(function (result, actionName) {
-          result[actionName] = _this[actionName]._id;
-          return result;
-        }, {});
-      },
-      writable: true,
-      configurable: true
-    },
-    _getActionMethodNames: {
-      value: function _getActionMethodNames(instance) {
-        var _this = this;
-        return Object.getOwnPropertyNames(this.constructor.prototype).filter(function (name) {
-          return name !== "constructor" && typeof _this[name] === "function";
-        });
-      },
-      writable: true,
-      configurable: true
-    },
-    _wrapAction: {
-      value: function _wrapAction(methodName) {
-        var _this = this;
-        var originalMethod = this[methodName];
-        var actionId = this._createActionId(methodName);
+  Actions.prototype.getActionIds = function getActionIds() {
+    var _this = this;
 
-        var action = function () {
-          for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-          }
+    return this._getActionMethodNames().reduce(function (result, actionName) {
+      result[actionName] = _this[actionName]._id;
+      return result;
+    }, {});
+  };
 
-          var body = originalMethod.apply(_this, args);
+  Actions.prototype._getActionMethodNames = function _getActionMethodNames(instance) {
+    var _this2 = this;
 
-          if (isPromise(body)) {
-            var promise = body;
-            return _this._dispatchAsync(actionId, promise, args, methodName);
-          } else {
-            return _this._dispatch(actionId, body, args, methodName);
-          }
-        };
+    return Object.getOwnPropertyNames(this.constructor.prototype).filter(function (name) {
+      return name !== 'constructor' && typeof _this2[name] === 'function';
+    });
+  };
 
-        action._id = actionId;
+  Actions.prototype._wrapAction = function _wrapAction(methodName) {
+    var _this3 = this;
 
-        this[methodName] = action;
-      },
-      writable: true,
-      configurable: true
-    },
-    _createActionId: {
+    var originalMethod = this[methodName];
+    var actionId = this._createActionId(methodName);
 
-      /**
-       * Create unique string constant for an action method, using
-       * @param {string} methodName - Name of the action method
-       */
-      value: function _createActionId(methodName) {
-        return "" + this._baseId + "-" + methodName;
-      },
-      writable: true,
-      configurable: true
-    },
-    _dispatch: {
-      value: function _dispatch(actionId, body, args, methodName) {
-        if (!this.dispatch) throw new ReferenceError("You've attempted to perform the action " + ("" + this.constructor.name + "#" + methodName + ", but it hasn't been added ") + "to a Flux instance.");
+    var action = function action() {
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
 
-        if (typeof body === "undefined") {
-          return;
-        }this.dispatch(actionId, body, args);
-      },
-      writable: true,
-      configurable: true
-    },
-    _dispatchAsync: {
-      value: function _dispatchAsync(actionId, promise, args, methodName) {
-        if (!this.dispatchAsync) throw new ReferenceError("You've attempted to perform the asynchronous action " + ("" + this.constructor.name + "#" + methodName + ", but it hasn't been added ") + "to a Flux instance.");
+      var body = originalMethod.apply(_this3, args);
 
-        return this.dispatchAsync(actionId, promise, args);
-      },
-      writable: true,
-      configurable: true
+      if (isPromise(body)) {
+        var promise = body;
+        _this3._dispatchAsync(actionId, promise, args, methodName);
+      } else {
+        _this3._dispatch(actionId, body, args, methodName);
+      }
+
+      // Return original method's return value to caller
+      return body;
+    };
+
+    action._id = actionId;
+
+    this[methodName] = action;
+  };
+
+  /**
+   * Create unique string constant for an action method, using
+   * @param {string} methodName - Name of the action method
+   */
+
+  Actions.prototype._createActionId = function _createActionId(methodName) {
+    return '' + this._baseId + '-' + methodName;
+  };
+
+  Actions.prototype._dispatch = function _dispatch(actionId, body, args, methodName) {
+    if (typeof this.dispatch === 'function') {
+      if (typeof body !== 'undefined') {
+        this.dispatch(actionId, body, args);
+      }
+    } else {
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn('You\'ve attempted to perform the action ' + ('' + this.constructor.name + '#' + methodName + ', but it hasn\'t been added ') + 'to a Flux instance.');
+      }
     }
-  });
+
+    return body;
+  };
+
+  Actions.prototype._dispatchAsync = function _dispatchAsync(actionId, promise, args, methodName) {
+    if (typeof this.dispatchAsync === 'function') {
+      this.dispatchAsync(actionId, promise, args);
+    } else {
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn('You\'ve attempted to perform the asynchronous action ' + ('' + this.constructor.name + '#' + methodName + ', but it hasn\'t been added ') + 'to a Flux instance.');
+      }
+    }
+  };
 
   return Actions;
 })();
 
 module.exports = Actions;
 
-
 function isPromise(value) {
-  return value && typeof value.then === "function";
+  return value && typeof value.then === 'function';
 }
+}).call(this,require('_process'))
 
-},{"uniqueid":"/Users/uzimith/dev/kokomade/node_modules/flummox/node_modules/uniqueid/index.js"}],"/Users/uzimith/dev/kokomade/node_modules/flummox/lib/Flux.js":[function(require,module,exports){
+},{"_process":17,"uniqueid":29}],20:[function(require,module,exports){
+(function (process){
+'use strict';
+
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj['default'] : obj; };
+
+var _bind = Function.prototype.bind;
+
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
+
+var _inherits = function (subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+
+exports.__esModule = true;
 /**
  * Flux
  *
  * The main Flux class.
  */
 
-"use strict";
+var _Store = require('./Store');
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var Store = _interopRequire(_Store);
 
-var _applyConstructor = function (Constructor, args) { var instance = Object.create(Constructor.prototype); var result = Constructor.apply(instance, args); return result != null && (typeof result == "object" || typeof result == "function") ? result : instance; };
+var _Actions = require('./Actions');
 
-var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
+var Actions = _interopRequire(_Actions);
 
-var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+var _Dispatcher = require('flux');
 
-var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+var _EventEmitter2 = require('eventemitter3');
 
-var Store = _interopRequire(require("./Store"));
+var EventEmitter = _interopRequire(_EventEmitter2);
 
-var Actions = _interopRequire(require("./Actions"));
+var _assign = require('object-assign');
 
-var Dispatcher = require("flux").Dispatcher;
-var EventEmitter = _interopRequire(require("eventemitter3"));
+var assign = _interopRequire(_assign);
 
-var Flux = (function (EventEmitter) {
+var Flux = (function (_EventEmitter) {
   function Flux() {
     _classCallCheck(this, Flux);
 
-    this.dispatcher = new Dispatcher();
+    _EventEmitter.call(this);
+
+    this.dispatcher = new _Dispatcher.Dispatcher();
 
     this._stores = {};
     this._actions = {};
-
-    this.getConstants = this.getActionIds;
-
-    // Aliases
-    this.dehydrate = this.serialize;
-    this.hydrate = this.deserialize;
   }
 
-  _inherits(Flux, EventEmitter);
+  _inherits(Flux, _EventEmitter);
 
-  _prototypeProperties(Flux, null, {
-    createStore: {
-      value: function createStore(key, _Store) {
-        for (var _len = arguments.length, constructorArgs = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-          constructorArgs[_key - 2] = arguments[_key];
-        }
-
-        if (!(_Store.prototype instanceof Store)) {
-          var className = getClassName(_Store);
-
-          throw new Error("You've attempted to create a store from the class " + className + ", which " + "does not have the base Store class in its prototype chain. Make sure " + ("you're using the `extends` keyword: `class " + className + " extends ") + "Store { ... }`");
-        }
-
-        if (this._stores.hasOwnProperty(key) && this._stores[key]) {
-          throw new Error("You've attempted to create multiple stores with key " + key + ". Keys must " + "be unique.");
-        }
-
-        var store = _applyConstructor(_Store, constructorArgs);
-        var token = this.dispatcher.register(store.handler.bind(store));
-
-        store._waitFor = this.waitFor.bind(this);
-        store._token = token;
-
-        this._stores[key] = store;
-
-        return store;
-      },
-      writable: true,
-      configurable: true
-    },
-    getStore: {
-      value: function getStore(key) {
-        return this._stores.hasOwnProperty(key) ? this._stores[key] : undefined;
-      },
-      writable: true,
-      configurable: true
-    },
-    createActions: {
-      value: function createActions(key, _Actions) {
-        for (var _len = arguments.length, constructorArgs = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-          constructorArgs[_key - 2] = arguments[_key];
-        }
-
-        if (!(_Actions.prototype instanceof Actions) && _Actions !== Actions) {
-          var className = getClassName(_Actions);
-
-          throw new Error("You've attempted to create actions from the class " + className + ", which " + "does not have the base Actions class in its prototype chain. Make " + ("sure you're using the `extends` keyword: `class " + className + " ") + "extends Actions { ... }`");
-        }
-
-        if (this._actions.hasOwnProperty(key) && this._actions[key]) {
-          throw new Error("You've attempted to create multiple actions with key " + key + ". Keys " + "must be unique.");
-        }
-
-        var actions = _applyConstructor(_Actions, constructorArgs);
-        actions.dispatch = this.dispatch.bind(this);
-        actions.dispatchAsync = this.dispatchAsync.bind(this);
-
-        this._actions[key] = actions;
-
-        return actions;
-      },
-      writable: true,
-      configurable: true
-    },
-    getActions: {
-      value: function getActions(key) {
-        return this._actions.hasOwnProperty(key) ? this._actions[key] : undefined;
-      },
-      writable: true,
-      configurable: true
-    },
-    getActionIds: {
-      value: function getActionIds(key) {
-        var actions = this.getActions(key);
-
-        if (!actions) {
-          return;
-        }return actions.getConstants();
-      },
-      writable: true,
-      configurable: true
-    },
-    dispatch: {
-      value: function dispatch(actionId, body, actionArgs) {
-        this.dispatcher.dispatch({ actionId: actionId, body: body });
-      },
-      writable: true,
-      configurable: true
-    },
-    dispatchAsync: {
-      value: function dispatchAsync(actionId, promise, actionArgs) {
-        var _this = this;
-        var payload = {
-          actionId: actionId,
-          async: "begin" };
-
-        if (actionArgs) payload.actionArgs = actionArgs;
-
-        this.dispatcher.dispatch(payload);
-
-        return promise.then(function (body) {
-          _this.dispatcher.dispatch({
-            actionId: actionId,
-            body: body,
-            async: "success"
-          });
-        }, function (error) {
-          _this.dispatcher.dispatch({
-            actionId: actionId,
-            error: error,
-            async: "failure" });
-
-          return Promise.reject(error);
-        });
-      },
-      writable: true,
-      configurable: true
-    },
-    waitFor: {
-      value: function waitFor(tokensOrStores) {
-        if (!Array.isArray(tokensOrStores)) tokensOrStores = [tokensOrStores];
-
-        var ensureIsToken = function (tokenOrStore) {
-          return tokenOrStore instanceof Store ? tokenOrStore._token : tokenOrStore;
-        };
-
-        var tokens = tokensOrStores.map(ensureIsToken);
-
-        this.dispatcher.waitFor(tokens);
-      },
-      writable: true,
-      configurable: true
-    },
-    serialize: {
-      value: function serialize() {
-        var stateTree = {};
-
-        for (var key in this._stores) {
-          if (!this._stores.hasOwnProperty(key)) continue;
-
-          var store = this._stores[key];
-
-          var serialize = store.constructor.serialize;
-
-          if (typeof serialize !== "function") continue;
-
-          var serializedStoreState = serialize(store.state);
-
-          if (typeof serializedStoreState !== "string") {
-            var className = store.constructor.name;
-
-            console.warn("The store with key '" + key + "' was not serialized because the static " + ("method `" + className + ".serialize()` returned a non-string with type ") + ("'" + typeof serializedStoreState + "'."));
-          }
-
-          stateTree[key] = serializedStoreState;
-
-          if (typeof store.constructor.deserialize !== "function") {
-            var className = store.constructor.name;
-
-            console.warn("The class `" + className + "` has a `serialize()` method, but no " + "corresponding `deserialize()` method.");
-          }
-        }
-
-        return JSON.stringify(stateTree);
-      },
-      writable: true,
-      configurable: true
-    },
-    deserialize: {
-      value: function deserialize(serializedState) {
-        var stateMap = undefined;
-
-        try {
-          stateMap = JSON.parse(serializedState);
-        } catch (error) {
-          var className = this.constructor.name;
-
-          throw new Error("Invalid value passed to `" + className + "#deserialize()`: " + ("" + serializedState));
-        }
-
-        for (var key in this._stores) {
-          if (!this._stores.hasOwnProperty(key)) continue;
-
-          var store = this._stores[key];
-
-          var deserialize = store.constructor.deserialize;
-
-          if (typeof deserialize !== "function") continue;
-
-          var storeStateString = stateMap[key];
-          var storeState = deserialize(storeStateString);
-
-          store.replaceState(storeState);
-
-          if (typeof store.constructor.serialize !== "function") {
-            var className = store.constructor.name;
-
-            console.warn("The class `" + className + "` has a `deserialize()` method, but no " + "corresponding `serialize()` method.");
-          }
-        }
-      },
-      writable: true,
-      configurable: true
+  Flux.prototype.createStore = function createStore(key, _Store) {
+    for (var _len = arguments.length, constructorArgs = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+      constructorArgs[_key - 2] = arguments[_key];
     }
-  });
+
+    if (!(_Store.prototype instanceof Store)) {
+      var className = getClassName(_Store);
+
+      throw new Error('You\'ve attempted to create a store from the class ' + className + ', which ' + 'does not have the base Store class in its prototype chain. Make sure ' + ('you\'re using the `extends` keyword: `class ' + className + ' extends ') + 'Store { ... }`');
+    }
+
+    if (this._stores.hasOwnProperty(key) && this._stores[key]) {
+      throw new Error('You\'ve attempted to create multiple stores with key ' + key + '. Keys must ' + 'be unique.');
+    }
+
+    var store = new (_bind.apply(_Store, [null].concat(constructorArgs)))();
+    var token = this.dispatcher.register(store.handler.bind(store));
+
+    store._waitFor = this.waitFor.bind(this);
+    store._token = token;
+    store._getAllActionIds = this.getAllActionIds.bind(this);
+
+    this._stores[key] = store;
+
+    return store;
+  };
+
+  Flux.prototype.getStore = function getStore(key) {
+    return this._stores.hasOwnProperty(key) ? this._stores[key] : undefined;
+  };
+
+  Flux.prototype.removeStore = function removeStore(key) {
+    if (this._stores.hasOwnProperty(key)) {
+      this._stores[key].removeAllListeners();
+      this.dispatcher.unregister(this._stores[key]._token);
+      delete this._stores[key];
+    } else {
+      throw new Error('You\'ve attempted to remove store with key ' + key + ' which does not exist.');
+    }
+  };
+
+  Flux.prototype.createActions = function createActions(key, _Actions) {
+    for (var _len2 = arguments.length, constructorArgs = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+      constructorArgs[_key2 - 2] = arguments[_key2];
+    }
+
+    if (!(_Actions.prototype instanceof Actions) && _Actions !== Actions) {
+      if (typeof _Actions === 'function') {
+        var className = getClassName(_Actions);
+
+        throw new Error('You\'ve attempted to create actions from the class ' + className + ', which ' + 'does not have the base Actions class in its prototype chain. Make ' + ('sure you\'re using the `extends` keyword: `class ' + className + ' ') + 'extends Actions { ... }`');
+      } else {
+        var properties = _Actions;
+        _Actions = (function (_Actions2) {
+          var _class = function () {
+            _classCallCheck(this, _class);
+
+            if (_Actions2 != null) {
+              _Actions2.apply(this, arguments);
+            }
+          };
+
+          _inherits(_class, _Actions2);
+
+          return _class;
+        })(Actions);
+        assign(_Actions.prototype, properties);
+      }
+    }
+
+    if (this._actions.hasOwnProperty(key) && this._actions[key]) {
+      throw new Error('You\'ve attempted to create multiple actions with key ' + key + '. Keys ' + 'must be unique.');
+    }
+
+    var actions = new (_bind.apply(_Actions, [null].concat(constructorArgs)))();
+    actions.dispatch = this.dispatch.bind(this);
+    actions.dispatchAsync = this.dispatchAsync.bind(this);
+
+    this._actions[key] = actions;
+
+    return actions;
+  };
+
+  Flux.prototype.getActions = function getActions(key) {
+    return this._actions.hasOwnProperty(key) ? this._actions[key] : undefined;
+  };
+
+  Flux.prototype.getActionIds = function getActionIds(key) {
+    var actions = this.getActions(key);
+
+    if (!actions) {
+      return;
+    }return actions.getConstants();
+  };
+
+  Flux.prototype.removeActions = function removeActions(key) {
+    if (this._actions.hasOwnProperty(key)) {
+      delete this._actions[key];
+    } else {
+      throw new Error('You\'ve attempted to remove actions with key ' + key + ' which does not exist.');
+    }
+  };
+
+  Flux.prototype.getAllActionIds = function getAllActionIds() {
+    var actionIds = [];
+
+    for (var key in this._actions) {
+      if (!this._actions.hasOwnProperty(key)) continue;
+
+      var actionConstants = this._actions[key].getConstants();
+
+      actionIds = actionIds.concat(getValues(actionConstants));
+    }
+
+    return actionIds;
+  };
+
+  Flux.prototype.dispatch = function dispatch(actionId, body) {
+    this._dispatch({ actionId: actionId, body: body });
+  };
+
+  Flux.prototype.dispatchAsync = function dispatchAsync(actionId, promise, actionArgs) {
+    var _this = this;
+
+    var payload = {
+      actionId: actionId,
+      async: 'begin'
+    };
+
+    if (actionArgs) payload.actionArgs = actionArgs;
+
+    this._dispatch(payload);
+
+    return promise.then(function (body) {
+      _this._dispatch({
+        actionId: actionId,
+        body: body,
+        async: 'success'
+      });
+
+      return body;
+    }, function (error) {
+      _this._dispatch({
+        actionId: actionId,
+        error: error,
+        async: 'failure'
+      });
+    })['catch'](function (error) {
+      _this.emit('error', error);
+
+      throw error;
+    });
+  };
+
+  Flux.prototype._dispatch = function _dispatch(payload) {
+    this.dispatcher.dispatch(payload);
+    this.emit('dispatch', payload);
+  };
+
+  Flux.prototype.waitFor = function waitFor(tokensOrStores) {
+
+    if (!Array.isArray(tokensOrStores)) tokensOrStores = [tokensOrStores];
+
+    var ensureIsToken = function ensureIsToken(tokenOrStore) {
+      return tokenOrStore instanceof Store ? tokenOrStore._token : tokenOrStore;
+    };
+
+    var tokens = tokensOrStores.map(ensureIsToken);
+
+    this.dispatcher.waitFor(tokens);
+  };
+
+  Flux.prototype.removeAllStoreListeners = function removeAllStoreListeners(event) {
+    for (var key in this._stores) {
+      if (!this._stores.hasOwnProperty(key)) continue;
+
+      var store = this._stores[key];
+
+      store.removeAllListeners(event);
+    }
+  };
+
+  Flux.prototype.serialize = function serialize() {
+    var stateTree = {};
+
+    for (var key in this._stores) {
+      if (!this._stores.hasOwnProperty(key)) continue;
+
+      var store = this._stores[key];
+
+      var serialize = store.constructor.serialize;
+
+      if (typeof serialize !== 'function') continue;
+
+      var serializedStoreState = serialize(store.state);
+
+      if (typeof serializedStoreState !== 'string') {
+        var className = store.constructor.name;
+
+        if (process.env.NODE_ENV !== 'production') {
+          console.warn('The store with key \'' + key + '\' was not serialized because the static ' + ('method `' + className + '.serialize()` returned a non-string with type ') + ('\'' + typeof serializedStoreState + '\'.'));
+        }
+      }
+
+      stateTree[key] = serializedStoreState;
+
+      if (typeof store.constructor.deserialize !== 'function') {
+        var className = store.constructor.name;
+
+        if (process.env.NODE_ENV !== 'production') {
+          console.warn('The class `' + className + '` has a `serialize()` method, but no ' + 'corresponding `deserialize()` method.');
+        }
+      }
+    }
+
+    return JSON.stringify(stateTree);
+  };
+
+  Flux.prototype.deserialize = function deserialize(serializedState) {
+    var stateMap = undefined;
+
+    try {
+      stateMap = JSON.parse(serializedState);
+    } catch (error) {
+      var className = this.constructor.name;
+
+      if (process.env.NODE_ENV !== 'production') {
+        throw new Error('Invalid value passed to `' + className + '#deserialize()`: ' + ('' + serializedState));
+      }
+    }
+
+    for (var key in this._stores) {
+      if (!this._stores.hasOwnProperty(key)) continue;
+
+      var store = this._stores[key];
+
+      var deserialize = store.constructor.deserialize;
+
+      if (typeof deserialize !== 'function') continue;
+
+      var storeStateString = stateMap[key];
+      var storeState = deserialize(storeStateString);
+
+      store.replaceState(storeState);
+
+      if (typeof store.constructor.serialize !== 'function') {
+        var className = store.constructor.name;
+
+        if (process.env.NODE_ENV !== 'production') {
+          console.warn('The class `' + className + '` has a `deserialize()` method, but no ' + 'corresponding `serialize()` method.');
+        }
+      }
+    }
+  };
 
   return Flux;
 })(EventEmitter);
 
-exports["default"] = Flux;
+exports['default'] = Flux;
 
+// Aliases
+Flux.prototype.getConstants = Flux.prototype.getActionIds;
+Flux.prototype.getAllConstants = Flux.prototype.getAllActionIds;
+Flux.prototype.dehydrate = Flux.prototype.serialize;
+Flux.prototype.hydrate = Flux.prototype.deserialize;
 
 function getClassName(Class) {
   return Class.prototype.constructor.name;
+}
+
+function getValues(object) {
+  var values = [];
+
+  for (var key in object) {
+    if (!object.hasOwnProperty(key)) continue;
+
+    values.push(object[key]);
+  }
+
+  return values;
 }
 
 var Flummox = Flux;
@@ -2467,11 +2465,17 @@ exports.Flux = Flux;
 exports.Flummox = Flummox;
 exports.Store = Store;
 exports.Actions = Actions;
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+}).call(this,require('_process'))
 
-},{"./Actions":"/Users/uzimith/dev/kokomade/node_modules/flummox/lib/Actions.js","./Store":"/Users/uzimith/dev/kokomade/node_modules/flummox/lib/Store.js","eventemitter3":"/Users/uzimith/dev/kokomade/node_modules/flummox/node_modules/eventemitter3/index.js","flux":"/Users/uzimith/dev/kokomade/node_modules/flummox/node_modules/flux/index.js"}],"/Users/uzimith/dev/kokomade/node_modules/flummox/lib/Store.js":[function(require,module,exports){
+},{"./Actions":19,"./Store":21,"_process":17,"eventemitter3":24,"flux":25,"object-assign":28}],21:[function(require,module,exports){
+'use strict';
+
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj['default'] : obj; };
+
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
+
+var _inherits = function (subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+
 /**
  * Store
  *
@@ -2481,213 +2485,234 @@ Object.defineProperty(exports, "__esModule", {
  * from the outside world is via the dispatcher.
  */
 
-"use strict";
+var _EventEmitter2 = require('eventemitter3');
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var EventEmitter = _interopRequire(_EventEmitter2);
 
-var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
+var _assign = require('object-assign');
 
-var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+var assign = _interopRequire(_assign);
 
-var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+var Store = (function (_EventEmitter) {
 
-var EventEmitter = _interopRequire(require("eventemitter3"));
-
-var assign = _interopRequire(require("object-assign"));
-
-var Store = (function (EventEmitter) {
   /**
    * Stores are initialized with a reference
    * @type {Object}
    */
+
   function Store() {
     _classCallCheck(this, Store);
 
-    this.state = undefined;
+    _EventEmitter.call(this);
+
+    this.state = null;
 
     this._handlers = {};
     this._asyncHandlers = {};
+    this._catchAllHandlers = [];
+    this._catchAllAsyncHandlers = {
+      begin: [],
+      success: [],
+      failure: [] };
   }
 
-  _inherits(Store, EventEmitter);
+  _inherits(Store, _EventEmitter);
 
-  _prototypeProperties(Store, null, {
-    getState: {
+  Store.prototype.setState = function setState(newState) {
+    // Do a transactional state update if a function is passed
+    if (typeof newState === 'function') {
+      var prevState = this._isHandlingDispatch ? this._pendingState : this.state;
 
-      /**
-       * Return a (shallow) copy of the store's internal state, so that it is
-       * protected from mutation by the consumer.
-       * @returns {object}
-       */
-      value: function getState() {
-        return assign({}, this.state);
-      },
-      writable: true,
-      configurable: true
-    },
-    setState: {
-      value: function setState(newState) {
-        if (typeof this.state === "undefined") this.state = {};
-
-        if (this._isHandlingDispatch) {
-          this._pendingState = assign(this._pendingState, newState);
-          this._emitChangeAfterHandlingDispatch = true;
-        } else {
-          console.warn("Store#setState() called from outside an action handler. This is likely " + "a mistake. Flux stores should manage their own state.");
-
-          this.state = assign({}, this.state, newState);
-          this.emit("change");
-        }
-      },
-      writable: true,
-      configurable: true
-    },
-    replaceState: {
-      value: function replaceState(newState) {
-        if (typeof this.state === "undefined") this.state = {};
-
-        if (this._isHandlingDispatch) {
-          this._pendingState = assign({}, newState);
-          this._emitChangeAfterHandlingDispatch = true;
-        } else {
-          this.state = assign({}, newState);
-          this.emit("change");
-        }
-      },
-      writable: true,
-      configurable: true
-    },
-    register: {
-      value: function register(actionId, handler) {
-        actionId = ensureActionId(actionId);
-
-        if (typeof handler !== "function") {
-          return;
-        }this._handlers[actionId] = handler.bind(this);
-      },
-      writable: true,
-      configurable: true
-    },
-    registerAsync: {
-      value: function registerAsync(actionId, beginHandler, successHandler, failureHandler) {
-        actionId = ensureActionId(actionId);
-
-        var asyncHandlers = {
-          begin: beginHandler,
-          success: successHandler,
-          failure: failureHandler };
-
-        for (var key in asyncHandlers) {
-          if (!asyncHandlers.hasOwnProperty(key)) continue;
-
-          var handler = asyncHandlers[key];
-
-          if (typeof handler === "function") {
-            asyncHandlers[key] = handler.bind(this);
-          } else {
-            delete asyncHandlers[key];
-          }
-        }
-
-        this._asyncHandlers[actionId] = asyncHandlers;
-      },
-      writable: true,
-      configurable: true
-    },
-    waitFor: {
-      value: function waitFor(tokensOrStores) {
-        this._waitFor(tokensOrStores);
-      },
-      writable: true,
-      configurable: true
-    },
-    handler: {
-      value: function handler(payload) {
-        var body = payload.body;
-        var actionId = payload.actionId;
-        var _async = payload.async;
-        var actionArgs = payload.actionArgs;
-        var error = payload.error;
-
-
-        var _handler = this._handlers[actionId];
-        var _asyncHandler = this._asyncHandlers[actionId] && this._asyncHandlers[actionId][_async];
-
-        if (_async) {
-          switch (_async) {
-            case "begin":
-              if (typeof _asyncHandler === "function") {
-                this._performHandler.apply(this, [_asyncHandler].concat(actionArgs));
-              }
-              return;
-            case "failure":
-              if (typeof _asyncHandler === "function") {
-                this._performHandler(_asyncHandler, error);
-              }
-              return;
-            case "success":
-              if (typeof _asyncHandler === "function") {
-                _handler = _asyncHandler;
-              }
-              break;
-            default:
-              return;
-          }
-        }
-
-        if (typeof _handler !== "function") {
-          return;
-        }this._performHandler(_handler, body);
-      },
-      writable: true,
-      configurable: true
-    },
-    _performHandler: {
-      value: function _performHandler(_handler) {
-        for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-          args[_key - 1] = arguments[_key];
-        }
-
-        this._isHandlingDispatch = true;
-        this._pendingState = assign({}, this.state);
-        this._emitChangeAfterHandlingDispatch = false;
-
-        try {
-          _handler.apply(this, args);
-        } finally {
-          if (this._emitChangeAfterHandlingDispatch) {
-            this.state = this._pendingState;
-            this.emit("change");
-          }
-
-          this._isHandlingDispatch = false;
-          this._pendingState = {};
-          this._emitChangeAfterHandlingDispatch = false;
-        }
-      },
-      writable: true,
-      configurable: true
+      newState = newState(prevState);
     }
-  });
+
+    if (this._isHandlingDispatch) {
+      this._pendingState = this._assignState(this._pendingState, newState);
+      this._emitChangeAfterHandlingDispatch = true;
+    } else {
+      this.state = this._assignState(this.state, newState);
+      this.emit('change');
+    }
+  };
+
+  Store.prototype.replaceState = function replaceState(newState) {
+    if (this._isHandlingDispatch) {
+      this._pendingState = this._assignState(undefined, newState);
+      this._emitChangeAfterHandlingDispatch = true;
+    } else {
+      this.state = this._assignState(undefined, newState);
+      this.emit('change');
+    }
+  };
+
+  Store.prototype.getStateAsObject = function getStateAsObject() {
+    return this.state;
+  };
+
+  Store.assignState = function assignState(oldState, newState) {
+    return assign({}, oldState, newState);
+  };
+
+  Store.prototype._assignState = function _assignState() {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return (this.constructor.assignState || Store.assignState).apply(undefined, args);
+  };
+
+  Store.prototype.forceUpdate = function forceUpdate() {
+    if (this._isHandlingDispatch) {
+      this._emitChangeAfterHandlingDispatch = true;
+    } else {
+      this.emit('change');
+    }
+  };
+
+  Store.prototype.register = function register(actionId, handler) {
+    actionId = ensureActionId(actionId);
+
+    if (typeof handler !== 'function') {
+      return;
+    }this._handlers[actionId] = handler.bind(this);
+  };
+
+  Store.prototype.registerAsync = function registerAsync(actionId, beginHandler, successHandler, failureHandler) {
+    actionId = ensureActionId(actionId);
+
+    var asyncHandlers = this._bindAsyncHandlers({
+      begin: beginHandler,
+      success: successHandler,
+      failure: failureHandler });
+
+    this._asyncHandlers[actionId] = asyncHandlers;
+  };
+
+  Store.prototype.registerAll = function registerAll(handler) {
+    if (typeof handler !== 'function') {
+      return;
+    }this._catchAllHandlers.push(handler.bind(this));
+  };
+
+  Store.prototype.registerAllAsync = function registerAllAsync(beginHandler, successHandler, failureHandler) {
+    var _this = this;
+
+    var asyncHandlers = this._bindAsyncHandlers({
+      begin: beginHandler,
+      success: successHandler,
+      failure: failureHandler });
+
+    Object.keys(asyncHandlers).forEach(function (key) {
+      _this._catchAllAsyncHandlers[key].push(asyncHandlers[key]);
+    });
+  };
+
+  Store.prototype._bindAsyncHandlers = function _bindAsyncHandlers(asyncHandlers) {
+    for (var key in asyncHandlers) {
+      if (!asyncHandlers.hasOwnProperty(key)) continue;
+
+      var handler = asyncHandlers[key];
+
+      if (typeof handler === 'function') {
+        asyncHandlers[key] = handler.bind(this);
+      } else {
+        delete asyncHandlers[key];
+      }
+    }
+
+    return asyncHandlers;
+  };
+
+  Store.prototype.waitFor = function waitFor(tokensOrStores) {
+    this._waitFor(tokensOrStores);
+  };
+
+  Store.prototype.handler = function handler(payload) {
+    var body = payload.body;
+    var actionId = payload.actionId;
+    var _async = payload.async;
+    var actionArgs = payload.actionArgs;
+    var error = payload.error;
+
+    var _allHandlers = this._catchAllHandlers;
+    var _handler = this._handlers[actionId];
+
+    var _allAsyncHandlers = this._catchAllAsyncHandlers[_async];
+    var _asyncHandler = this._asyncHandlers[actionId] && this._asyncHandlers[actionId][_async];
+
+    if (_async) {
+      var beginOrFailureHandlers = _allAsyncHandlers.concat([_asyncHandler]);
+
+      switch (_async) {
+        case 'begin':
+          this._performHandler(beginOrFailureHandlers, actionArgs);
+          return;
+        case 'failure':
+          this._performHandler(beginOrFailureHandlers, [error]);
+          return;
+        case 'success':
+          this._performHandler(_allAsyncHandlers.concat([_asyncHandler || _handler].concat(_asyncHandler && [] || _allHandlers)), [body]);
+          return;
+        default:
+          return;
+      }
+    }
+
+    this._performHandler(_allHandlers.concat([_handler]), [body]);
+  };
+
+  Store.prototype._performHandler = function _performHandler(_handlers, args) {
+    this._isHandlingDispatch = true;
+    this._pendingState = this._assignState(undefined, this.state);
+    this._emitChangeAfterHandlingDispatch = false;
+
+    try {
+      this._performHandlers(_handlers, args);
+    } finally {
+      if (this._emitChangeAfterHandlingDispatch) {
+        this.state = this._pendingState;
+        this.emit('change');
+      }
+
+      this._isHandlingDispatch = false;
+      this._pendingState = undefined;
+      this._emitChangeAfterHandlingDispatch = false;
+    }
+  };
+
+  Store.prototype._performHandlers = function _performHandlers(_handlers, args) {
+    var _this2 = this;
+
+    _handlers.forEach(function (_handler) {
+      return typeof _handler === 'function' && _handler.apply(_this2, args);
+    });
+  };
 
   return Store;
 })(EventEmitter);
 
 module.exports = Store;
 
-
 function ensureActionId(actionOrActionId) {
-  return typeof actionOrActionId === "function" ? actionOrActionId._id : actionOrActionId;
+  return typeof actionOrActionId === 'function' ? actionOrActionId._id : actionOrActionId;
 }
+},{"eventemitter3":24,"object-assign":28}],22:[function(require,module,exports){
+'use strict';
 
-},{"eventemitter3":"/Users/uzimith/dev/kokomade/node_modules/flummox/node_modules/eventemitter3/index.js","object-assign":"/Users/uzimith/dev/kokomade/node_modules/flummox/node_modules/object-assign/index.js"}],"/Users/uzimith/dev/kokomade/node_modules/flummox/lib/addons/FluxComponent.js":[function(require,module,exports){
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj['default'] : obj; };
+
+var _objectWithoutProperties = function (obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; };
+
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
+
+var _inherits = function (subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+
 /**
  * Flux Component
  *
- * Component form of FluxMixin. Uses FluxMixin as part of its implementation,
- * so requires a flux instance to be provided as either context or a prop.
+ * Component interface to reactComponentMethods module.
  *
- * Like FluxMixin, children are given access to the flux instance via
+ * Children of FluxComponent are given access to the flux instance via
  * `context.flux`. Use this near the top of your app hierarchy and all children
  * will have easy access to the flux instance (including, of course, other
  * Flux components!):
@@ -2707,19 +2732,18 @@ function ensureActionId(actionOrActionId) {
  *
  * Additionally, immediate children are given a `flux` prop.
  *
- * The component has an optional prop `connectToStores`, which is -- you guessed
- * it -- passed directly to FluxMixin's `connectToStores()` function and
- * set as the initial state. The component's state is injected as props to
- * child components.
+ * The component has an optional prop `connectToStores`, which is passed to
+ * `this.connectToStores` and used to set the initial state. The component's
+ * state is injected as props to the child components.
  *
- * The practical upshot of all this is that FluxMixin, state changes, and
+ * The practical upshot of all this is that fluxMixin, state changes, and
  * context are now simply implementation details. Among other things, this means
  * you can write your components as plain ES6 classes. Here's an example:
  *
  * class ParentComponent extends React.Component {
  *
  *   render() {
- *     <FluxComponent connectToStore="fooStore">
+ *     <FluxComponent connectToStores="fooStore">
  *       <ChildComponent />
  *     </FluxComponent>
  *   }
@@ -2730,259 +2754,301 @@ function ensureActionId(actionOrActionId) {
  * and props that sync with each of the state keys of fooStore.
  */
 
-"use strict";
+var _React = require('react/addons');
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var React = _interopRequire(_React);
 
-var _objectWithoutProperties = function (obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; };
+var _instanceMethods$staticProperties = require('./reactComponentMethods');
 
-var React = _interopRequire(require("react/addons"));
+var _assign = require('object-assign');
 
-var FluxMixin = _interopRequire(require("./FluxMixin"));
+var assign = _interopRequire(_assign);
 
-var assign = _interopRequire(require("object-assign"));
+var FluxComponent = (function (_React$Component) {
+  function FluxComponent(props, context) {
+    _classCallCheck(this, FluxComponent);
 
-var FluxComponent = React.createClass({
-  displayName: "FluxComponent",
+    _React$Component.call(this, props, context);
 
+    this.initialize();
 
-  mixins: [FluxMixin()],
+    this.state = this.connectToStores(props.connectToStores, props.stateGetter);
 
-  getInitialState: function getInitialState() {
-    return this.connectToStores(this.props.connectToStores);
-  },
+    this.wrapChild = this.wrapChild.bind(this);
+  }
 
-  wrapChild: function wrapChild(child) {
+  _inherits(FluxComponent, _React$Component);
+
+  FluxComponent.prototype.wrapChild = function wrapChild(child) {
+    return React.addons.cloneWithProps(child, this.getChildProps());
+  };
+
+  FluxComponent.prototype.getChildProps = function getChildProps() {
     var _props = this.props;
     var children = _props.children;
+    var render = _props.render;
     var connectToStores = _props.connectToStores;
-    var props = _objectWithoutProperties(_props, ["children", "connectToStores"]);
+    var stateGetter = _props.stateGetter;
+    var flux = _props.flux;
 
-    return React.addons.cloneWithProps(child, assign({
-      flux: this.flux }, this.state, props));
-  },
+    var extraProps = _objectWithoutProperties(_props, ['children', 'render', 'connectToStores', 'stateGetter', 'flux']);
 
-  render: function render() {
-    var children = this.props.children;
+    return assign({ flux: this.getFlux() }, // TODO: remove in next major version
+    this.state, extraProps);
+  };
 
+  FluxComponent.prototype.render = (function (_render) {
+    function render() {
+      return _render.apply(this, arguments);
+    }
 
-    if (!this.props.children) {
-      return null;
-    }if (React.Children.count(children) === 1) {
+    render.toString = function () {
+      return render.toString();
+    };
+
+    return render;
+  })(function () {
+    var _props2 = this.props;
+    var children = _props2.children;
+    var render = _props2.render;
+
+    if (typeof render === 'function') {
+      return render(this.getChildProps(), this.getFlux());
+    }
+
+    if (!children) return null;
+
+    if (!Array.isArray(children)) {
       var child = children;
       return this.wrapChild(child);
     } else {
       return React.createElement(
-        "span",
+        'span',
         null,
-        "React.Children.map(children, this.wrapChild)"
+        React.Children.map(children, this.wrapChild)
       );
     }
-  }
+  });
 
-});
+  return FluxComponent;
+})(React.Component);
+
+assign(FluxComponent.prototype, _instanceMethods$staticProperties.instanceMethods);
+
+assign(FluxComponent, _instanceMethods$staticProperties.staticProperties);
 
 module.exports = FluxComponent;
+},{"./reactComponentMethods":23,"object-assign":28,"react/addons":35}],23:[function(require,module,exports){
+'use strict';
 
-},{"./FluxMixin":"/Users/uzimith/dev/kokomade/node_modules/flummox/lib/addons/FluxMixin.js","object-assign":"/Users/uzimith/dev/kokomade/node_modules/flummox/node_modules/object-assign/index.js","react/addons":"/Users/uzimith/dev/kokomade/node_modules/react/addons.js"}],"/Users/uzimith/dev/kokomade/node_modules/flummox/lib/addons/FluxMixin.js":[function(require,module,exports){
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj['default'] : obj; };
+
+exports.__esModule = true;
 /**
- * Flux Mixin
+ * React Component methods. These are the primitives used to implement
+ * fluxMixin and FluxComponent.
  *
- * Exports a function that creates a React component mixin. The mixin exposes
- * a Flux instance as `this.flux`. This requires that flux be passed as either
- * context or as a prop (prop takes precedence). Children also are given access
- * to flux instance as `context.flux`.
+ * Exposes a Flux instance as `this.flux`. This requires that flux be passed as
+ * either context or as a prop (prop takes precedence). Children also are given
+ * access to flux instance as `context.flux`.
  *
  * It also adds the method `connectToStores()`, which ensures that the component
  * state stays in sync with the specified Flux stores. See the inline docs
  * of `connectToStores` for details.
- *
- * Any arguments passed to the mixin creator are passed to `connectToStores()`
- * and used as the return value of `getInitialState()`. This lets you handle
- * all of the state initialization and updates in a single place, while removing
- * the burden of manually adding and removing store listeners.
- *
- * @example
- * let Component = React.createClass({
- *   mixins: [FluxMixin({
- *     storeA: store => ({
- *       foo: store.state.a,
- *     }),
- *     storeB: store => ({
- *       bar: store.state.b,
- *     })
- *   }]
- * });
  */
 
-"use strict";
+var _React$PropTypes = require('react');
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var React = _interopRequire(_React$PropTypes);
 
-var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
+var _Flux = require('../Flux');
 
-module.exports = FluxMixin;
-var PropTypes = require("react").PropTypes;
-var Flux = require("../Flux").Flux;
-var assign = _interopRequire(require("object-assign"));
+var _assign = require('object-assign');
 
-var shallowEqual = _interopRequire(require("react/lib/shallowEqual"));
+var assign = _interopRequire(_assign);
 
-function FluxMixin() {
-  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
+var instanceMethods = {
 
-  return {
+  getChildContext: function getChildContext() {
+    var flux = this.getFlux();
 
-    contextTypes: {
-      flux: PropTypes.instanceOf(Flux) },
+    if (!flux) {
+      return {};
+    }return { flux: flux };
+  },
 
-    childContextTypes: {
-      flux: PropTypes.instanceOf(Flux) },
+  getFlux: function getFlux() {
+    return this.props.flux || this.context.flux;
+  },
 
-    getChildContext: function getChildContext() {
-      return {
-        flux: this.flux
-      };
-    },
+  initialize: function initialize() {
+    this._fluxStateGetters = [];
+    this._fluxListeners = {};
+    this.flux = this.getFlux();
 
-    getInitialState: function getInitialState() {
-      var _ref;
-      this._flux_stateGetters = {};
-      this._flux_listeners = {};
-      this._flux_didSyncStoreState = false;
-      this.flux = this.props.flux || this.context.flux;
+    if (!(this.flux instanceof _Flux.Flux)) {
+      // TODO: print the actual class name here
+      throw new Error('fluxMixin: Could not find Flux instance. Ensure that your component ' + 'has either `this.context.flux` or `this.props.flux`.');
+    }
+  },
 
-      if (!(this.flux instanceof Flux)) {
-        // TODO: print the actual class name here
-        throw new Error("FluxMixin: Could not find Flux instance. Ensure that your component " + "has either `this.context.flux` or `this.props.flux`.");
+  componentWillUnmount: function componentWillUnmount() {
+    var flux = this.getFlux();
+
+    for (var key in this._fluxListeners) {
+      if (!this._fluxListeners.hasOwnProperty(key)) continue;
+
+      var store = flux.getStore(key);
+      if (typeof store === 'undefined') continue;
+
+      var listener = this._fluxListeners[key];
+
+      store.removeListener('change', listener);
+    }
+  },
+
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+    this.updateStores(nextProps);
+  },
+
+  updateStores: function updateStores() {
+    var props = arguments[0] === undefined ? this.props : arguments[0];
+
+    var state = this.getStoreState(props);
+    this.setState(state);
+  },
+
+  getStoreState: function getStoreState() {
+    var props = arguments[0] === undefined ? this.props : arguments[0];
+
+    return this._fluxStateGetters.reduce(function (result, stateGetter) {
+      var getter = stateGetter.getter;
+      var stores = stateGetter.stores;
+
+      var stateFromStores = getter(stores, props);
+      return assign(result, stateFromStores);
+    }, {});
+  },
+
+  /**
+   * Connect component to stores, get the combined initial state, and
+   * subscribe to future changes. There are three ways to call it. The
+   * simplest is to pass a single store key and, optionally, a state getter.
+   * The state getter is a function that takes the store as a parameter and
+   * returns the state that should be passed to the component's `setState()`.
+   * If no state getter is specified, the default getter is used, which simply
+   * returns the entire store state.
+   *
+   * The second form accepts an array of store keys. With this form, the state
+   * getter is called once with an array of store instances (in the same order
+   * as the store keys). the default getter performance a reduce on the entire
+   * state for each store.
+   *
+   * The last form accepts an object of store keys mapped to state getters. As
+   * a shortcut, you can pass `null` as a state getter to use the default
+   * state getter.
+   *
+   * Returns the combined initial state of all specified stores.
+   *
+   * This way you can write all the initialization and update logic in a single
+   * location, without having to mess with adding/removing listeners.
+   *
+   * @type {string|array|object} stateGetterMap - map of keys to getters
+   * @returns {object} Combined initial state of stores
+   */
+  connectToStores: function connectToStores() {
+    var _this = this;
+
+    var stateGetterMap = arguments[0] === undefined ? {} : arguments[0];
+    var stateGetter = arguments[1] === undefined ? null : arguments[1];
+
+    var flux = this.getFlux();
+
+    var getStore = function getStore(key) {
+      var store = flux.getStore(key);
+
+      if (typeof store === 'undefined') {
+        throw new Error('connectToStores(): Store with key \'' + key + '\' does not exist.');
       }
 
-      return (_ref = this).connectToStores.apply(_ref, args);
-    },
+      return store;
+    };
 
-    componentWillUnmount: function componentWillUnmount() {
-      for (var key in this._flux_listeners) {
-        if (!this._flux_listeners.hasOwnProperty(key)) continue;
+    if (typeof stateGetterMap === 'string') {
+      var key = stateGetterMap;
+      var store = getStore(key);
+      var getter = stateGetter || defaultStateGetter;
 
-        var store = this.flux.getStore(key);
-        if (typeof store === "undefined") continue;
+      this._fluxStateGetters.push({ stores: store, getter: getter });
+      var listener = createStoreListener(this, store, getter);
 
-        var listener = this._flux_listeners[key];
+      store.addListener('change', listener);
+      this._fluxListeners[key] = listener;
+    } else if (Array.isArray(stateGetterMap)) {
+      (function () {
+        var stores = stateGetterMap.map(getStore);
+        var getter = stateGetter || defaultReduceStateGetter;
 
-        store.removeListener("change", listener);
-      }
-    },
+        _this._fluxStateGetters.push({ stores: stores, getter: getter });
+        var listener = createStoreListener(_this, stores, getter);
 
-    componentDidUpdate: function componentDidUpdate(prevProps) {
-      if (!shallowEqual(prevProps, this.props)) {
-        this.updateStores();
-      }
-    },
-
-    updateStores: function updateStores() {
-      var state = this.getStoreState();
-      this.setState(state);
-    },
-
-    getStoreState: function getStoreState() {
-      var state = {};
-
-      for (var key in this._flux_stateGetters) {
-        var storeStateGetter = this._flux_stateGetters[key];
-        var store = this.flux.getStore(key);
-
-        var storeState = storeStateGetter(store);
-
-        assign(state, storeState);
-      }
-
-      return state;
-    },
-
-    /**
-     * Connect component to stores, get the combined initial state, and
-     * subscribe to future changes. There are three ways to call it. The
-     * simplest is to pass a single store key and, optionally, a state getter.
-     * The state getter is a function that takes the store as a parameter and
-     * returns the state that should be passed to the component's `setState()`.
-     * If no state getter is specified, the default getter is used, which simply
-     * returns the entire store state.
-     *
-     * The second form accepts an array of store keys. With this form, every
-     * store uses the default state getter.
-     *
-     * The last form accepts an object of store keys mapped to state getters. As
-     * a shortcut, you can pass `null` as a state getter to use the default
-     * state getter.
-     *
-     * Returns the combined initial state of all specified stores.
-     *
-     * This way you can write all the initialization and update logic in a single
-     * location, without having to mess with adding/removing listeners.
-     *
-     * @type {string|array|object} stateGetterMap - map of keys to getters
-     * @returns {object} Combined initial state of stores
-     */
-    connectToStores: function connectToStores() {
-      var _this = this;
-      var stateGetterMap = arguments[0] === undefined ? {} : arguments[0];
-      var stateGetter = arguments[1] === undefined ? defaultStateGetter : arguments[1];
-      var initialState = {};
-
-      // Ensure that stateGetterMap is an object
-      if (typeof stateGetterMap === "string") {
-        var key = stateGetterMap;
-
-        stateGetterMap = _defineProperty({}, key, stateGetter);
-      } else if (Array.isArray(stateGetterMap)) {
-        stateGetterMap = stateGetterMap.reduce(function (result, key) {
-          result[key] = stateGetter;
-          return result;
-        }, {});
-      }
-
+        stateGetterMap.forEach(function (key, index) {
+          var store = stores[index];
+          store.addListener('change', listener);
+          _this._fluxListeners[key] = listener;
+        });
+      })();
+    } else {
       for (var key in stateGetterMap) {
-        (function (key) {
-          var store = _this.flux.getStore(key);
+        var store = getStore(key);
+        var getter = stateGetterMap[key] || defaultStateGetter;
 
-          if (typeof store === "undefined") throw new Error("connectToStores(): Store with key '" + key + "' does not exist.");
+        this._fluxStateGetters.push({ stores: store, getter: getter });
+        var listener = createStoreListener(this, store, getter);
 
-          var storeStateGetter = stateGetterMap[key];
-
-          if (storeStateGetter === null) storeStateGetter = defaultStateGetter;
-
-          storeStateGetter = storeStateGetter.bind(_this);
-          _this._flux_stateGetters[key] = storeStateGetter;
-
-          var initialStoreState = storeStateGetter(store);
-
-          var listener = function () {
-            if (_this.isMounted()) {
-              var state = storeStateGetter(store);
-              _this.setState(state);
-            }
-          };
-
-          store.addListener("change", listener);
-          _this._flux_listeners[key] = listener;
-
-          assign(initialState, initialStoreState);
-        })(key);
+        store.addListener('change', listener);
+        this._fluxListeners[key] = listener;
       }
-
-      return initialState;
     }
 
-  };
+    return this.getStoreState();
+  }
+
+};
+
+var staticProperties = {
+  contextTypes: {
+    flux: _React$PropTypes.PropTypes.instanceOf(_Flux.Flux) },
+
+  childContextTypes: {
+    flux: _React$PropTypes.PropTypes.instanceOf(_Flux.Flux) },
+
+  propTypes: {
+    connectToStores: _React$PropTypes.PropTypes.oneOfType([_React$PropTypes.PropTypes.string, _React$PropTypes.PropTypes.arrayOf(_React$PropTypes.PropTypes.string), _React$PropTypes.PropTypes.object]),
+    flux: _React$PropTypes.PropTypes.instanceOf(_Flux.Flux),
+    render: React.PropTypes.func,
+    stateGetter: React.PropTypes.func } };
+
+exports.instanceMethods = instanceMethods;
+exports.staticProperties = staticProperties;
+
+function createStoreListener(component, store, storeStateGetter) {
+  return (function () {
+    var state = storeStateGetter(store, this.props);
+    this.setState(state);
+  }).bind(component);
 }
 
 function defaultStateGetter(store) {
-  return store.state;
+  return store.getStateAsObject();
 }
 
-},{"../Flux":"/Users/uzimith/dev/kokomade/node_modules/flummox/lib/Flux.js","object-assign":"/Users/uzimith/dev/kokomade/node_modules/flummox/node_modules/object-assign/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","react/lib/shallowEqual":"/Users/uzimith/dev/kokomade/node_modules/react/lib/shallowEqual.js"}],"/Users/uzimith/dev/kokomade/node_modules/flummox/node_modules/eventemitter3/index.js":[function(require,module,exports){
+function defaultReduceStateGetter(stores) {
+  return stores.reduce(function (result, store) {
+    return assign(result, store.getStateAsObject());
+  }, {});
+}
+},{"../Flux":20,"object-assign":28,"react":207}],24:[function(require,module,exports){
 'use strict';
 
 /**
@@ -3213,9 +3279,9 @@ EventEmitter.EventEmitter3 = EventEmitter;
 //
 module.exports = EventEmitter;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/flummox/node_modules/flux/index.js":[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /**
- * Copyright (c) 2014, Facebook, Inc.
+ * Copyright (c) 2014-2015, Facebook, Inc.
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
@@ -3225,7 +3291,7 @@ module.exports = EventEmitter;
 
 module.exports.Dispatcher = require('./lib/Dispatcher')
 
-},{"./lib/Dispatcher":"/Users/uzimith/dev/kokomade/node_modules/flummox/node_modules/flux/lib/Dispatcher.js"}],"/Users/uzimith/dev/kokomade/node_modules/flummox/node_modules/flux/lib/Dispatcher.js":[function(require,module,exports){
+},{"./lib/Dispatcher":26}],26:[function(require,module,exports){
 /*
  * Copyright (c) 2014, Facebook, Inc.
  * All rights reserved.
@@ -3477,7 +3543,7 @@ var _prefix = 'ID_';
 
 module.exports = Dispatcher;
 
-},{"./invariant":"/Users/uzimith/dev/kokomade/node_modules/flummox/node_modules/flux/lib/invariant.js"}],"/Users/uzimith/dev/kokomade/node_modules/flummox/node_modules/flux/lib/invariant.js":[function(require,module,exports){
+},{"./invariant":27}],27:[function(require,module,exports){
 /**
  * Copyright (c) 2014, Facebook, Inc.
  * All rights reserved.
@@ -3532,7 +3598,7 @@ var invariant = function(condition, format, a, b, c, d, e, f) {
 
 module.exports = invariant;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/flummox/node_modules/object-assign/index.js":[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 'use strict';
 
 function ToObject(val) {
@@ -3560,7 +3626,7 @@ module.exports = Object.assign || function (target, source) {
 	return to;
 };
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/flummox/node_modules/uniqueid/index.js":[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 'use strict';
 
 
@@ -3615,14 +3681,14 @@ var id = module.exports = function (options) {
 id.reset = function() {
   return count = 0;
 };
-},{}],"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js":[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 (function (global){
 /**
  * @license
- * lodash 3.3.0 (Custom Build) <https://lodash.com/>
+ * lodash 3.9.3 (Custom Build) <https://lodash.com/>
  * Build: `lodash modern -d -o ./index.js`
  * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.7.0 <http://underscorejs.org/LICENSE>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
  * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <https://lodash.com/license>
  */
@@ -3632,7 +3698,7 @@ id.reset = function() {
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '3.3.0';
+  var VERSION = '3.9.3';
 
   /** Used to compose bitmasks for wrapper metadata. */
   var BIND_FLAG = 1,
@@ -3642,8 +3708,8 @@ id.reset = function() {
       CURRY_RIGHT_FLAG = 16,
       PARTIAL_FLAG = 32,
       PARTIAL_RIGHT_FLAG = 64,
-      REARG_FLAG = 128,
-      ARY_FLAG = 256;
+      ARY_FLAG = 128,
+      REARG_FLAG = 256;
 
   /** Used as default options for `_.trunc`. */
   var DEFAULT_TRUNC_LENGTH = 30,
@@ -3654,9 +3720,9 @@ id.reset = function() {
       HOT_SPAN = 16;
 
   /** Used to indicate the type of lazy iteratees. */
-  var LAZY_FILTER_FLAG = 0,
-      LAZY_MAP_FLAG = 1,
-      LAZY_WHILE_FLAG = 2;
+  var LAZY_DROP_WHILE_FLAG = 0,
+      LAZY_FILTER_FLAG = 1,
+      LAZY_MAP_FLAG = 2;
 
   /** Used as the `TypeError` message for "Functions" methods. */
   var FUNC_ERROR_TEXT = 'Expected a function';
@@ -3706,41 +3772,45 @@ id.reset = function() {
       reEvaluate = /<%([\s\S]+?)%>/g,
       reInterpolate = /<%=([\s\S]+?)%>/g;
 
+  /** Used to match property names within property paths. */
+  var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\n\\]|\\.)*?\1)\]/,
+      reIsPlainProp = /^\w*$/,
+      rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\n\\]|\\.)*?)\2)\]/g;
+
   /**
-   * Used to match ES template delimiters.
-   * See the [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-template-literal-lexical-components)
-   * for more details.
+   * Used to match `RegExp` [special characters](http://www.regular-expressions.info/characters.html#special).
+   * In addition to special characters the forward slash is escaped to allow for
+   * easier `eval` use and `Function` compilation.
    */
+  var reRegExpChars = /[.*+?^${}()|[\]\/\\]/g,
+      reHasRegExpChars = RegExp(reRegExpChars.source);
+
+  /** Used to match [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks). */
+  var reComboMark = /[\u0300-\u036f\ufe20-\ufe23]/g;
+
+  /** Used to match backslashes in property paths. */
+  var reEscapeChar = /\\(\\)?/g;
+
+  /** Used to match [ES template delimiters](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-template-literal-lexical-components). */
   var reEsTemplate = /\$\{([^\\}]*(?:\\.[^\\}]*)*)\}/g;
 
   /** Used to match `RegExp` flags from their coerced string values. */
   var reFlags = /\w*$/;
 
-  /** Used to detect named functions. */
-  var reFuncName = /^\s*function[ \n\r\t]+\w/;
-
   /** Used to detect hexadecimal string values. */
-  var reHexPrefix = /^0[xX]/;
+  var reHasHexPrefix = /^0[xX]/;
 
   /** Used to detect host constructors (Safari > 5). */
-  var reHostCtor = /^\[object .+?Constructor\]$/;
+  var reIsHostCtor = /^\[object .+?Constructor\]$/;
+
+  /** Used to detect unsigned integer values. */
+  var reIsUint = /^\d+$/;
 
   /** Used to match latin-1 supplementary letters (excluding mathematical operators). */
   var reLatin1 = /[\xc0-\xd6\xd8-\xde\xdf-\xf6\xf8-\xff]/g;
 
   /** Used to ensure capturing order of template delimiters. */
   var reNoMatch = /($^)/;
-
-  /**
-   * Used to match `RegExp` special characters.
-   * See this [article on `RegExp` characters](http://www.regular-expressions.info/characters.html#special)
-   * for more details.
-   */
-  var reRegExpChars = /[.*+?^${}()|[\]\/\\]/g,
-      reHasRegExpChars = RegExp(reRegExpChars.source);
-
-  /** Used to detect functions containing a `this` reference. */
-  var reThis = /\bthis\b/;
 
   /** Used to match unescaped characters in compiled string literals. */
   var reUnescapedString = /['\n\r\u2028\u2029\\]/g;
@@ -3750,7 +3820,7 @@ id.reset = function() {
     var upper = '[A-Z\\xc0-\\xd6\\xd8-\\xde]',
         lower = '[a-z\\xdf-\\xf6\\xf8-\\xff]+';
 
-    return RegExp(upper + '{2,}(?=' + upper + lower + ')|' + upper + '?' + lower + '|' + upper + '+|[0-9]+', 'g');
+    return RegExp(upper + '+(?=' + upper + lower + ')|' + upper + '?' + lower + '|' + upper + '+|[0-9]+', 'g');
   }());
 
   /** Used to detect and test for whitespace. */
@@ -3770,9 +3840,8 @@ id.reset = function() {
     'Array', 'ArrayBuffer', 'Date', 'Error', 'Float32Array', 'Float64Array',
     'Function', 'Int8Array', 'Int16Array', 'Int32Array', 'Math', 'Number',
     'Object', 'RegExp', 'Set', 'String', '_', 'clearTimeout', 'document',
-    'isFinite', 'parseInt', 'setTimeout', 'TypeError', 'Uint8Array',
-    'Uint8ClampedArray', 'Uint16Array', 'Uint32Array', 'WeakMap',
-    'window', 'WinRTError'
+    'isFinite', 'parseFloat', 'parseInt', 'setTimeout', 'TypeError', 'Uint8Array',
+    'Uint8ClampedArray', 'Uint16Array', 'Uint32Array', 'WeakMap', 'window'
   ];
 
   /** Used to make template sourceURLs easier to identify. */
@@ -3872,28 +3941,31 @@ id.reset = function() {
     '\u2029': 'u2029'
   };
 
-  /**
-   * Used as a reference to the global object.
-   *
-   * The `this` value is used if it is the global object to avoid Greasemonkey's
-   * restricted `window` object, otherwise the `window` object is used.
-   */
-  var root = (objectTypes[typeof window] && window !== (this && this.window)) ? window : this;
-
   /** Detect free variable `exports`. */
   var freeExports = objectTypes[typeof exports] && exports && !exports.nodeType && exports;
 
   /** Detect free variable `module`. */
   var freeModule = objectTypes[typeof module] && module && !module.nodeType && module;
 
-  /** Detect free variable `global` from Node.js or Browserified code and use it as `root`. */
-  var freeGlobal = freeExports && freeModule && typeof global == 'object' && global;
-  if (freeGlobal && (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal || freeGlobal.self === freeGlobal)) {
-    root = freeGlobal;
-  }
+  /** Detect free variable `global` from Node.js. */
+  var freeGlobal = freeExports && freeModule && typeof global == 'object' && global && global.Object && global;
+
+  /** Detect free variable `self`. */
+  var freeSelf = objectTypes[typeof self] && self && self.Object && self;
+
+  /** Detect free variable `window`. */
+  var freeWindow = objectTypes[typeof window] && window && window.Object && window;
 
   /** Detect the popular CommonJS extension `module.exports`. */
   var moduleExports = freeModule && freeModule.exports === freeExports && freeExports;
+
+  /**
+   * Used as a reference to the global object.
+   *
+   * The `this` value is used if it's the global object to avoid Greasemonkey's
+   * restricted `window` object, otherwise the `window` object is used.
+   */
+  var root = freeGlobal || ((freeWindow !== (this && this.window)) && freeWindow) || freeSelf || this;
 
   /*--------------------------------------------------------------------------*/
 
@@ -3902,23 +3974,54 @@ id.reset = function() {
    * sorts them in ascending order without guaranteeing a stable sort.
    *
    * @private
-   * @param {*} value The value to compare to `other`.
-   * @param {*} other The value to compare to `value`.
+   * @param {*} value The value to compare.
+   * @param {*} other The other value to compare.
    * @returns {number} Returns the sort order indicator for `value`.
    */
   function baseCompareAscending(value, other) {
     if (value !== other) {
-      var valIsReflexive = value === value,
+      var valIsNull = value === null,
+          valIsUndef = value === undefined,
+          valIsReflexive = value === value;
+
+      var othIsNull = other === null,
+          othIsUndef = other === undefined,
           othIsReflexive = other === other;
 
-      if (value > other || !valIsReflexive || (typeof value == 'undefined' && othIsReflexive)) {
+      if ((value > other && !othIsNull) || !valIsReflexive ||
+          (valIsNull && !othIsUndef && othIsReflexive) ||
+          (valIsUndef && othIsReflexive)) {
         return 1;
       }
-      if (value < other || !othIsReflexive || (typeof other == 'undefined' && valIsReflexive)) {
+      if ((value < other && !valIsNull) || !othIsReflexive ||
+          (othIsNull && !valIsUndef && valIsReflexive) ||
+          (othIsUndef && valIsReflexive)) {
         return -1;
       }
     }
     return 0;
+  }
+
+  /**
+   * The base implementation of `_.findIndex` and `_.findLastIndex` without
+   * support for callback shorthands and `this` binding.
+   *
+   * @private
+   * @param {Array} array The array to search.
+   * @param {Function} predicate The function invoked per iteration.
+   * @param {boolean} [fromRight] Specify iterating from right to left.
+   * @returns {number} Returns the index of the matched value, else `-1`.
+   */
+  function baseFindIndex(array, predicate, fromRight) {
+    var length = array.length,
+        index = fromRight ? length : -1;
+
+    while ((fromRight ? index-- : ++index < length)) {
+      if (predicate(array[index], index, array)) {
+        return index;
+      }
+    }
+    return -1;
   }
 
   /**
@@ -3927,14 +4030,14 @@ id.reset = function() {
    * @private
    * @param {Array} array The array to search.
    * @param {*} value The value to search for.
-   * @param {number} [fromIndex=0] The index to search from.
+   * @param {number} fromIndex The index to search from.
    * @returns {number} Returns the index of the matched value, else `-1`.
    */
   function baseIndexOf(array, value, fromIndex) {
     if (value !== value) {
       return indexOfNaN(array, fromIndex);
     }
-    var index = (fromIndex || 0) - 1,
+    var index = fromIndex - 1,
         length = array.length;
 
     while (++index < length) {
@@ -3960,27 +4063,7 @@ id.reset = function() {
   }
 
   /**
-   * The base implementation of `_.sortBy` and `_.sortByAll` which uses `comparer`
-   * to define the sort order of `array` and replaces criteria objects with their
-   * corresponding values.
-   *
-   * @private
-   * @param {Array} array The array to sort.
-   * @param {Function} comparer The function to define sort order.
-   * @returns {Array} Returns `array`.
-   */
-  function baseSortBy(array, comparer) {
-    var length = array.length;
-
-    array.sort(comparer);
-    while (length--) {
-      array[length] = array[length].value;
-    }
-    return array;
-  }
-
-  /**
-   * Converts `value` to a string if it is not one. An empty string is returned
+   * Converts `value` to a string if it's not one. An empty string is returned
    * for `null` or `undefined` values.
    *
    * @private
@@ -3992,17 +4075,6 @@ id.reset = function() {
       return value;
     }
     return value == null ? '' : (value + '');
-  }
-
-  /**
-   * Used by `_.max` and `_.min` as the default callback for string values.
-   *
-   * @private
-   * @param {string} string The string to inspect.
-   * @returns {number} Returns the code unit of the first character of the string.
-   */
-  function charAtCallback(string) {
-    return string.charCodeAt(0);
   }
 
   /**
@@ -4052,24 +4124,33 @@ id.reset = function() {
   }
 
   /**
-   * Used by `_.sortByAll` to compare multiple properties of each element
-   * in a collection and stable sort them in ascending order.
+   * Used by `_.sortByOrder` to compare multiple properties of each element
+   * in a collection and stable sort them in the following order:
+   *
+   * If `orders` is unspecified, sort in ascending order for all properties.
+   * Otherwise, for each property, sort in ascending order if its corresponding value in
+   * orders is true, and descending order if false.
    *
    * @private
    * @param {Object} object The object to compare to `other`.
    * @param {Object} other The object to compare to `object`.
+   * @param {boolean[]} orders The order to sort by for each property.
    * @returns {number} Returns the sort order indicator for `object`.
    */
-  function compareMultipleAscending(object, other) {
+  function compareMultiple(object, other, orders) {
     var index = -1,
         objCriteria = object.criteria,
         othCriteria = other.criteria,
-        length = objCriteria.length;
+        length = objCriteria.length,
+        ordersLength = orders.length;
 
     while (++index < length) {
       var result = baseCompareAscending(objCriteria[index], othCriteria[index]);
       if (result) {
-        return result;
+        if (index >= ordersLength) {
+          return result;
+        }
+        return result * (orders[index] ? 1 : -1);
       }
     }
     // Fixes an `Array#sort` bug in the JS engine embedded in Adobe applications
@@ -4118,17 +4199,16 @@ id.reset = function() {
 
   /**
    * Gets the index at which the first occurrence of `NaN` is found in `array`.
-   * If `fromRight` is provided elements of `array` are iterated from right to left.
    *
    * @private
    * @param {Array} array The array to search.
-   * @param {number} [fromIndex] The index to search from.
+   * @param {number} fromIndex The index to search from.
    * @param {boolean} [fromRight] Specify iterating from right to left.
    * @returns {number} Returns the index of the matched `NaN`, else `-1`.
    */
   function indexOfNaN(array, fromIndex, fromRight) {
     var length = array.length,
-        index = fromRight ? (fromIndex || length) : ((fromIndex || 0) - 1);
+        index = fromIndex + (fromRight ? 0 : -1);
 
     while ((fromRight ? index-- : ++index < length)) {
       var other = array[index];
@@ -4147,7 +4227,7 @@ id.reset = function() {
    * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
    */
   function isObjectLike(value) {
-    return (value && typeof value == 'object') || false;
+    return !!value && typeof value == 'object';
   }
 
   /**
@@ -4269,19 +4349,19 @@ id.reset = function() {
    * @returns {Function} Returns a new `lodash` function.
    * @example
    *
-   * _.mixin({ 'add': function(a, b) { return a + b; } });
+   * _.mixin({ 'foo': _.constant('foo') });
    *
    * var lodash = _.runInContext();
-   * lodash.mixin({ 'sub': function(a, b) { return a - b; } });
+   * lodash.mixin({ 'bar': lodash.constant('bar') });
    *
-   * _.isFunction(_.add);
+   * _.isFunction(_.foo);
    * // => true
-   * _.isFunction(_.sub);
+   * _.isFunction(_.bar);
    * // => false
    *
-   * lodash.isFunction(lodash.add);
+   * lodash.isFunction(lodash.foo);
    * // => false
-   * lodash.isFunction(lodash.sub);
+   * lodash.isFunction(lodash.bar);
    * // => true
    *
    * // using `context` to mock `Date#getTime` use in `_.now`
@@ -4315,16 +4395,14 @@ id.reset = function() {
 
     /** Used for native method references. */
     var arrayProto = Array.prototype,
-        objectProto = Object.prototype;
+        objectProto = Object.prototype,
+        stringProto = String.prototype;
 
     /** Used to detect DOM support. */
-    var document = (document = context.window) && document.document;
+    var document = (document = context.window) ? document.document : null;
 
     /** Used to resolve the decompiled source of functions. */
     var fnToString = Function.prototype.toString;
-
-    /** Used to the length of n-tuples for `_.unzip`. */
-    var getLength = baseProperty('length');
 
     /** Used to check objects for own properties. */
     var hasOwnProperty = objectProto.hasOwnProperty;
@@ -4333,9 +4411,8 @@ id.reset = function() {
     var idCounter = 0;
 
     /**
-     * Used to resolve the `toStringTag` of values.
-     * See the [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.prototype.tostring)
-     * for more details.
+     * Used to resolve the [`toStringTag`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.prototype.tostring)
+     * of values.
      */
     var objToString = objectProto.toString;
 
@@ -4343,25 +4420,25 @@ id.reset = function() {
     var oldDash = context._;
 
     /** Used to detect if a method is native. */
-    var reNative = RegExp('^' +
-      escapeRegExp(objToString)
-      .replace(/toString|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+    var reIsNative = RegExp('^' +
+      escapeRegExp(fnToString.call(hasOwnProperty))
+      .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
     );
 
     /** Native method references. */
-    var ArrayBuffer = isNative(ArrayBuffer = context.ArrayBuffer) && ArrayBuffer,
-        bufferSlice = isNative(bufferSlice = ArrayBuffer && new ArrayBuffer(0).slice) && bufferSlice,
+    var ArrayBuffer = getNative(context, 'ArrayBuffer'),
+        bufferSlice = getNative(ArrayBuffer && new ArrayBuffer(0), 'slice'),
         ceil = Math.ceil,
         clearTimeout = context.clearTimeout,
         floor = Math.floor,
-        getPrototypeOf = isNative(getPrototypeOf = Object.getPrototypeOf) && getPrototypeOf,
+        getPrototypeOf = getNative(Object, 'getPrototypeOf'),
+        parseFloat = context.parseFloat,
         push = arrayProto.push,
-        propertyIsEnumerable = objectProto.propertyIsEnumerable,
-        Set = isNative(Set = context.Set) && Set,
+        Set = getNative(context, 'Set'),
         setTimeout = context.setTimeout,
         splice = arrayProto.splice,
-        Uint8Array = isNative(Uint8Array = context.Uint8Array) && Uint8Array,
-        WeakMap = isNative(WeakMap = context.WeakMap) && WeakMap;
+        Uint8Array = getNative(context, 'Uint8Array'),
+        WeakMap = getNative(context, 'WeakMap');
 
     /** Used to clone array buffers. */
     var Float64Array = (function() {
@@ -4369,21 +4446,21 @@ id.reset = function() {
       // where the array buffer's `byteLength` is not a multiple of the typed
       // array's `BYTES_PER_ELEMENT`.
       try {
-        var func = isNative(func = context.Float64Array) && func,
+        var func = getNative(context, 'Float64Array'),
             result = new func(new ArrayBuffer(10), 0, 1) && func;
       } catch(e) {}
-      return result;
+      return result || null;
     }());
 
     /* Native method references for those with the same name as other `lodash` methods. */
-    var nativeIsArray = isNative(nativeIsArray = Array.isArray) && nativeIsArray,
-        nativeCreate = isNative(nativeCreate = Object.create) && nativeCreate,
+    var nativeCreate = getNative(Object, 'create'),
+        nativeIsArray = getNative(Array, 'isArray'),
         nativeIsFinite = context.isFinite,
-        nativeKeys = isNative(nativeKeys = Object.keys) && nativeKeys,
+        nativeKeys = getNative(Object, 'keys'),
         nativeMax = Math.max,
         nativeMin = Math.min,
-        nativeNow = isNative(nativeNow = Date.now) && nativeNow,
-        nativeNumIsFinite = isNative(nativeNumIsFinite = Number.isFinite) && nativeNumIsFinite,
+        nativeNow = getNative(Date, 'now'),
+        nativeNumIsFinite = getNative(Number, 'isFinite'),
         nativeParseInt = context.parseInt,
         nativeRandom = Math.random;
 
@@ -4392,22 +4469,24 @@ id.reset = function() {
         POSITIVE_INFINITY = Number.POSITIVE_INFINITY;
 
     /** Used as references for the maximum length and index of an array. */
-    var MAX_ARRAY_LENGTH = Math.pow(2, 32) - 1,
-        MAX_ARRAY_INDEX =  MAX_ARRAY_LENGTH - 1,
+    var MAX_ARRAY_LENGTH = 4294967295,
+        MAX_ARRAY_INDEX = MAX_ARRAY_LENGTH - 1,
         HALF_MAX_ARRAY_LENGTH = MAX_ARRAY_LENGTH >>> 1;
 
     /** Used as the size, in bytes, of each `Float64Array` element. */
     var FLOAT64_BYTES_PER_ELEMENT = Float64Array ? Float64Array.BYTES_PER_ELEMENT : 0;
 
     /**
-     * Used as the maximum length of an array-like value.
-     * See the [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.max_safe_integer)
-     * for more details.
+     * Used as the [maximum length](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.max_safe_integer)
+     * of an array-like value.
      */
-    var MAX_SAFE_INTEGER = Math.pow(2, 53) - 1;
+    var MAX_SAFE_INTEGER = 9007199254740991;
 
     /** Used to store function metadata. */
     var metaMap = WeakMap && new WeakMap;
+
+    /** Used to lookup unminified function names. */
+    var realNames = {};
 
     /*------------------------------------------------------------------------*/
 
@@ -4427,9 +4506,14 @@ id.reset = function() {
      * Chaining is supported in custom builds as long as the `_#value` method is
      * directly or indirectly included in the build.
      *
-     * In addition to lodash methods, wrappers also have the following `Array` methods:
-     * `concat`, `join`, `pop`, `push`, `reverse`, `shift`, `slice`, `sort`, `splice`,
-     * and `unshift`
+     * In addition to lodash methods, wrappers have `Array` and `String` methods.
+     *
+     * The wrapper `Array` methods are:
+     * `concat`, `join`, `pop`, `push`, `reverse`, `shift`, `slice`, `sort`,
+     * `splice`, and `unshift`
+     *
+     * The wrapper `String` methods are:
+     * `replace` and `split`
      *
      * The wrapper methods that support shortcut fusion are:
      * `compact`, `drop`, `dropRight`, `dropRightWhile`, `dropWhile`, `filter`,
@@ -4445,30 +4529,31 @@ id.reset = function() {
      * `filter`, `flatten`, `flattenDeep`, `flow`, `flowRight`, `forEach`,
      * `forEachRight`, `forIn`, `forInRight`, `forOwn`, `forOwnRight`, `functions`,
      * `groupBy`, `indexBy`, `initial`, `intersection`, `invert`, `invoke`, `keys`,
-     * `keysIn`, `map`, `mapValues`, `matches`, `matchesProperty`, `memoize`, `merge`,
-     * `mixin`, `negate`, `noop`, `omit`, `once`, `pairs`, `partial`, `partialRight`,
-     * `partition`, `pick`, `plant`, `pluck`, `property`, `propertyOf`, `pull`,
-     * `pullAt`, `push`, `range`, `rearg`, `reject`, `remove`, `rest`, `reverse`,
-     * `shuffle`, `slice`, `sort`, `sortBy`, `sortByAll`, `splice`, `spread`,
+     * `keysIn`, `map`, `mapKeys`, `mapValues`, `matches`, `matchesProperty`,
+     * `memoize`, `merge`, `method`, `methodOf`, `mixin`, `negate`, `omit`, `once`,
+     * `pairs`, `partial`, `partialRight`, `partition`, `pick`, `plant`, `pluck`,
+     * `property`, `propertyOf`, `pull`, `pullAt`, `push`, `range`, `rearg`,
+     * `reject`, `remove`, `rest`, `restParam`, `reverse`, `set`, `shuffle`,
+     * `slice`, `sort`, `sortBy`, `sortByAll`, `sortByOrder`, `splice`, `spread`,
      * `take`, `takeRight`, `takeRightWhile`, `takeWhile`, `tap`, `throttle`,
      * `thru`, `times`, `toArray`, `toPlainObject`, `transform`, `union`, `uniq`,
-     * `unshift`, `unzip`, `values`, `valuesIn`, `where`, `without`, `wrap`, `xor`,
-     * `zip`, and `zipObject`
+     * `unshift`, `unzip`, `unzipWith`, `values`, `valuesIn`, `where`, `without`,
+     * `wrap`, `xor`, `zip`, `zipObject`, `zipWith`
      *
      * The wrapper methods that are **not** chainable by default are:
-     * `attempt`, `camelCase`, `capitalize`, `clone`, `cloneDeep`, `deburr`,
+     * `add`, `attempt`, `camelCase`, `capitalize`, `clone`, `cloneDeep`, `deburr`,
      * `endsWith`, `escape`, `escapeRegExp`, `every`, `find`, `findIndex`, `findKey`,
-     * `findLast`, `findLastIndex`, `findLastKey`, `findWhere`, `first`, `has`,
-     * `identity`, `includes`, `indexOf`, `isArguments`, `isArray`, `isBoolean`,
-     * `isDate`, `isElement`, `isEmpty`, `isEqual`, `isError`, `isFinite`,
-     * `isFunction`, `isMatch`, `isNative`, `isNaN`, `isNull`, `isNumber`,
+     * `findLast`, `findLastIndex`, `findLastKey`, `findWhere`, `first`, `get`,
+     * `gt`, `gte`, `has`, `identity`, `includes`, `indexOf`, `inRange`, `isArguments`,
+     * `isArray`, `isBoolean`, `isDate`, `isElement`, `isEmpty`, `isEqual`, `isError`,
+     * `isFinite` `isFunction`, `isMatch`, `isNative`, `isNaN`, `isNull`, `isNumber`,
      * `isObject`, `isPlainObject`, `isRegExp`, `isString`, `isUndefined`,
-     * `isTypedArray`, `join`, `kebabCase`, `last`, `lastIndexOf`, `max`, `min`,
-     * `noConflict`, `now`, `pad`, `padLeft`, `padRight`, `parseInt`, `pop`,
-     * `random`, `reduce`, `reduceRight`, `repeat`, `result`, `runInContext`,
-     * `shift`, `size`, `snakeCase`, `some`, `sortedIndex`, `sortedLastIndex`,
-     * `startCase`, `startsWith`, `template`, `trim`, `trimLeft`, `trimRight`,
-     * `trunc`, `unescape`, `uniqueId`, `value`, and `words`
+     * `isTypedArray`, `join`, `kebabCase`, `last`, `lastIndexOf`, `lt`, `lte`,
+     * `max`, `min`, `noConflict`, `noop`, `now`, `pad`, `padLeft`, `padRight`,
+     * `parseInt`, `pop`, `random`, `reduce`, `reduceRight`, `repeat`, `result`,
+     * `runInContext`, `shift`, `size`, `snakeCase`, `some`, `sortedIndex`,
+     * `sortedLastIndex`, `startCase`, `startsWith`, `sum`, `template`, `trim`,
+     * `trimLeft`, `trimRight`, `trunc`, `unescape`, `uniqueId`, `value`, and `words`
      *
      * The wrapper method `sample` will return a wrapped value when `n` is provided,
      * otherwise an unwrapped value is returned.
@@ -4483,8 +4568,8 @@ id.reset = function() {
      * var wrapped = _([1, 2, 3]);
      *
      * // returns an unwrapped value
-     * wrapped.reduce(function(sum, n) {
-     *   return sum + n;
+     * wrapped.reduce(function(total, n) {
+     *   return total + n;
      * });
      * // => 6
      *
@@ -4544,24 +4629,12 @@ id.reset = function() {
     var support = lodash.support = {};
 
     (function(x) {
+      var Ctor = function() { this.x = x; },
+          object = { '0': x, 'length': x },
+          props = [];
 
-      /**
-       * Detect if functions can be decompiled by `Function#toString`
-       * (all but Firefox OS certified apps, older Opera mobile browsers, and
-       * the PlayStation 3; forced `false` for Windows 8 apps).
-       *
-       * @memberOf _.support
-       * @type boolean
-       */
-      support.funcDecomp = !isNative(context.WinRTError) && reThis.test(runInContext);
-
-      /**
-       * Detect if `Function#name` is supported (all but IE).
-       *
-       * @memberOf _.support
-       * @type boolean
-       */
-      support.funcNames = typeof Function.name == 'string';
+      Ctor.prototype = { 'valueOf': x, 'y': x };
+      for (var key in new Ctor) { props.push(key); }
 
       /**
        * Detect if the DOM is supported.
@@ -4574,25 +4647,7 @@ id.reset = function() {
       } catch(e) {
         support.dom = false;
       }
-
-      /**
-       * Detect if `arguments` object indexes are non-enumerable.
-       *
-       * In Firefox < 4, IE < 9, PhantomJS, and Safari < 5.1 `arguments` object
-       * indexes are non-enumerable. Chrome < 25 and Node.js < 0.11.0 treat
-       * `arguments` object indexes as non-enumerable and fail `hasOwnProperty`
-       * checks for indexes that exceed their function's formal parameters with
-       * associated values of `0`.
-       *
-       * @memberOf _.support
-       * @type boolean
-       */
-      try {
-        support.nonEnumArgs = !propertyIsEnumerable.call(arguments, 1);
-      } catch(e) {
-        support.nonEnumArgs = true;
-      }
-    }(0, 0));
+    }(1, 0));
 
     /**
      * By default, the template delimiters used by lodash are like those in
@@ -4690,7 +4745,6 @@ id.reset = function() {
 
       result.__actions__ = actions ? arrayCopy(actions) : null;
       result.__dir__ = this.__dir__;
-      result.__dropCount__ = this.__dropCount__;
       result.__filtered__ = this.__filtered__;
       result.__iteratees__ = iteratees ? arrayCopy(iteratees) : null;
       result.__takeCount__ = this.__takeCount__;
@@ -4737,9 +4791,8 @@ id.reset = function() {
           start = view.start,
           end = view.end,
           length = end - start,
-          dropCount = this.__dropCount__,
+          index = isRight ? end : (start - 1),
           takeCount = nativeMin(length, this.__takeCount__),
-          index = isRight ? end : start - 1,
           iteratees = this.__iteratees__,
           iterLength = iteratees ? iteratees.length : 0,
           resIndex = 0,
@@ -4755,24 +4808,34 @@ id.reset = function() {
         while (++iterIndex < iterLength) {
           var data = iteratees[iterIndex],
               iteratee = data.iteratee,
-              computed = iteratee(value, index, array),
               type = data.type;
 
-          if (type == LAZY_MAP_FLAG) {
-            value = computed;
-          } else if (!computed) {
-            if (type == LAZY_FILTER_FLAG) {
-              continue outer;
-            } else {
-              break outer;
+          if (type == LAZY_DROP_WHILE_FLAG) {
+            if (data.done && (isRight ? (index > data.index) : (index < data.index))) {
+              data.count = 0;
+              data.done = false;
+            }
+            data.index = index;
+            if (!data.done) {
+              var limit = data.limit;
+              if (!(data.done = limit > -1 ? (data.count++ >= limit) : !iteratee(value))) {
+                continue outer;
+              }
+            }
+          } else {
+            var computed = iteratee(value);
+            if (type == LAZY_MAP_FLAG) {
+              value = computed;
+            } else if (!computed) {
+              if (type == LAZY_FILTER_FLAG) {
+                continue outer;
+              } else {
+                break outer;
+              }
             }
           }
         }
-        if (dropCount) {
-          dropCount--;
-        } else {
-          result[resIndex++] = value;
-        }
+        result[resIndex++] = value;
       }
       return result;
     }
@@ -4831,7 +4894,7 @@ id.reset = function() {
     }
 
     /**
-     * Adds `value` to `key` of the cache.
+     * Sets `value` to `key` of the cache.
      *
      * @private
      * @name set
@@ -4921,7 +4984,7 @@ id.reset = function() {
 
     /**
      * A specialized version of `_.forEach` for arrays without support for callback
-     * shorthands or `this` binding.
+     * shorthands and `this` binding.
      *
      * @private
      * @param {Array} array The array to iterate over.
@@ -4942,7 +5005,7 @@ id.reset = function() {
 
     /**
      * A specialized version of `_.forEachRight` for arrays without support for
-     * callback shorthands or `this` binding.
+     * callback shorthands and `this` binding.
      *
      * @private
      * @param {Array} array The array to iterate over.
@@ -4962,7 +5025,7 @@ id.reset = function() {
 
     /**
      * A specialized version of `_.every` for arrays without support for callback
-     * shorthands or `this` binding.
+     * shorthands and `this` binding.
      *
      * @private
      * @param {Array} array The array to iterate over.
@@ -4983,8 +5046,37 @@ id.reset = function() {
     }
 
     /**
+     * A specialized version of `baseExtremum` for arrays which invokes `iteratee`
+     * with one argument: (value).
+     *
+     * @private
+     * @param {Array} array The array to iterate over.
+     * @param {Function} iteratee The function invoked per iteration.
+     * @param {Function} comparator The function used to compare values.
+     * @param {*} exValue The initial extremum value.
+     * @returns {*} Returns the extremum value.
+     */
+    function arrayExtremum(array, iteratee, comparator, exValue) {
+      var index = -1,
+          length = array.length,
+          computed = exValue,
+          result = computed;
+
+      while (++index < length) {
+        var value = array[index],
+            current = +iteratee(value);
+
+        if (comparator(current, computed)) {
+          computed = current;
+          result = value;
+        }
+      }
+      return result;
+    }
+
+    /**
      * A specialized version of `_.filter` for arrays without support for callback
-     * shorthands or `this` binding.
+     * shorthands and `this` binding.
      *
      * @private
      * @param {Array} array The array to iterate over.
@@ -5008,7 +5100,7 @@ id.reset = function() {
 
     /**
      * A specialized version of `_.map` for arrays without support for callback
-     * shorthands or `this` binding.
+     * shorthands and `this` binding.
      *
      * @private
      * @param {Array} array The array to iterate over.
@@ -5027,50 +5119,8 @@ id.reset = function() {
     }
 
     /**
-     * A specialized version of `_.max` for arrays without support for iteratees.
-     *
-     * @private
-     * @param {Array} array The array to iterate over.
-     * @returns {*} Returns the maximum value.
-     */
-    function arrayMax(array) {
-      var index = -1,
-          length = array.length,
-          result = NEGATIVE_INFINITY;
-
-      while (++index < length) {
-        var value = array[index];
-        if (value > result) {
-          result = value;
-        }
-      }
-      return result;
-    }
-
-    /**
-     * A specialized version of `_.min` for arrays without support for iteratees.
-     *
-     * @private
-     * @param {Array} array The array to iterate over.
-     * @returns {*} Returns the minimum value.
-     */
-    function arrayMin(array) {
-      var index = -1,
-          length = array.length,
-          result = POSITIVE_INFINITY;
-
-      while (++index < length) {
-        var value = array[index];
-        if (value < result) {
-          result = value;
-        }
-      }
-      return result;
-    }
-
-    /**
      * A specialized version of `_.reduce` for arrays without support for callback
-     * shorthands or `this` binding.
+     * shorthands and `this` binding.
      *
      * @private
      * @param {Array} array The array to iterate over.
@@ -5095,7 +5145,7 @@ id.reset = function() {
 
     /**
      * A specialized version of `_.reduceRight` for arrays without support for
-     * callback shorthands or `this` binding.
+     * callback shorthands and `this` binding.
      *
      * @private
      * @param {Array} array The array to iterate over.
@@ -5118,7 +5168,7 @@ id.reset = function() {
 
     /**
      * A specialized version of `_.some` for arrays without support for callback
-     * shorthands or `this` binding.
+     * shorthands and `this` binding.
      *
      * @private
      * @param {Array} array The array to iterate over.
@@ -5139,6 +5189,23 @@ id.reset = function() {
     }
 
     /**
+     * A specialized version of `_.sum` for arrays without support for iteratees.
+     *
+     * @private
+     * @param {Array} array The array to iterate over.
+     * @returns {number} Returns the sum.
+     */
+    function arraySum(array) {
+      var length = array.length,
+          result = 0;
+
+      while (length--) {
+        result += +array[length] || 0;
+      }
+      return result;
+    }
+
+    /**
      * Used by `_.defaults` to customize its `_.assign` use.
      *
      * @private
@@ -5147,13 +5214,13 @@ id.reset = function() {
      * @returns {*} Returns the value to assign to the destination object.
      */
     function assignDefaults(objectValue, sourceValue) {
-      return typeof objectValue == 'undefined' ? sourceValue : objectValue;
+      return objectValue === undefined ? sourceValue : objectValue;
     }
 
     /**
      * Used by `_.template` to customize its `_.assign` use.
      *
-     * **Note:** This method is like `assignDefaults` except that it ignores
+     * **Note:** This function is like `assignDefaults` except that it ignores
      * inherited property values when checking if a property is `undefined`.
      *
      * @private
@@ -5164,27 +5231,25 @@ id.reset = function() {
      * @returns {*} Returns the value to assign to the destination object.
      */
     function assignOwnDefaults(objectValue, sourceValue, key, object) {
-      return (typeof objectValue == 'undefined' || !hasOwnProperty.call(object, key))
+      return (objectValue === undefined || !hasOwnProperty.call(object, key))
         ? sourceValue
         : objectValue;
     }
 
     /**
-     * The base implementation of `_.assign` without support for argument juggling,
-     * multiple sources, and `this` binding `customizer` functions.
+     * A specialized version of `_.assign` for customizing assigned values without
+     * support for argument juggling, multiple sources, and `this` binding `customizer`
+     * functions.
      *
      * @private
      * @param {Object} object The destination object.
      * @param {Object} source The source object.
-     * @param {Function} [customizer] The function to customize assigning values.
-     * @returns {Object} Returns the destination object.
+     * @param {Function} customizer The function to customize assigned values.
+     * @returns {Object} Returns `object`.
      */
-    function baseAssign(object, source, customizer) {
-      var props = keys(source);
-      if (!customizer) {
-        return baseCopy(source, object, props);
-      }
+    function assignWith(object, source, customizer) {
       var index = -1,
+          props = keys(source),
           length = props.length;
 
       while (++index < length) {
@@ -5192,8 +5257,8 @@ id.reset = function() {
             value = object[key],
             result = customizer(value, source[key], key, object, source);
 
-        if ((result === result ? result !== value : value === value) ||
-            (typeof value == 'undefined' && !(key in object))) {
+        if ((result === result ? (result !== value) : (value === value)) ||
+            (value === undefined && !(key in object))) {
           object[key] = result;
         }
       }
@@ -5201,73 +5266,66 @@ id.reset = function() {
     }
 
     /**
-     * The base implementation of `_.at` without support for strings and individual
-     * key arguments.
+     * The base implementation of `_.assign` without support for argument juggling,
+     * multiple sources, and `customizer` functions.
+     *
+     * @private
+     * @param {Object} object The destination object.
+     * @param {Object} source The source object.
+     * @returns {Object} Returns `object`.
+     */
+    function baseAssign(object, source) {
+      return source == null
+        ? object
+        : baseCopy(source, keys(source), object);
+    }
+
+    /**
+     * The base implementation of `_.at` without support for string collections
+     * and individual key arguments.
      *
      * @private
      * @param {Array|Object} collection The collection to iterate over.
-     * @param {number[]|string[]} [props] The property names or indexes of elements to pick.
+     * @param {number[]|string[]} props The property names or indexes of elements to pick.
      * @returns {Array} Returns the new array of picked elements.
      */
     function baseAt(collection, props) {
       var index = -1,
-          length = collection.length,
-          isArr = isLength(length),
+          isNil = collection == null,
+          isArr = !isNil && isArrayLike(collection),
+          length = isArr ? collection.length : 0,
           propsLength = props.length,
           result = Array(propsLength);
 
       while(++index < propsLength) {
         var key = props[index];
         if (isArr) {
-          key = parseFloat(key);
           result[index] = isIndex(key, length) ? collection[key] : undefined;
         } else {
-          result[index] = collection[key];
+          result[index] = isNil ? undefined : collection[key];
         }
       }
       return result;
     }
 
     /**
-     * Copies the properties of `source` to `object`.
+     * Copies properties of `source` to `object`.
      *
      * @private
      * @param {Object} source The object to copy properties from.
-     * @param {Object} [object={}] The object to copy properties to.
      * @param {Array} props The property names to copy.
+     * @param {Object} [object={}] The object to copy properties to.
      * @returns {Object} Returns `object`.
      */
-    function baseCopy(source, object, props) {
-      if (!props) {
-        props = object;
-        object = {};
-      }
+    function baseCopy(source, props, object) {
+      object || (object = {});
+
       var index = -1,
           length = props.length;
 
       while (++index < length) {
         var key = props[index];
         object[key] = source[key];
-      }
-      return object;
-    }
-
-    /**
-     * The base implementation of `_.bindAll` without support for individual
-     * method name arguments.
-     *
-     * @private
-     * @param {Object} object The object to bind and assign the bound methods to.
-     * @param {string[]} methodNames The object method names to bind.
-     * @returns {Object} Returns `object`.
-     */
-    function baseBindAll(object, methodNames) {
-      var index = -1,
-          length = methodNames.length;
-
-      while (++index < length) {
-        var key = methodNames[index];
-        object[key] = createWrapper(object[key], BIND_FLAG, object);
       }
       return object;
     }
@@ -5285,9 +5343,9 @@ id.reset = function() {
     function baseCallback(func, thisArg, argCount) {
       var type = typeof func;
       if (type == 'function') {
-        return (typeof thisArg != 'undefined' && isBindable(func))
-          ? bindCallback(func, thisArg, argCount)
-          : func;
+        return thisArg === undefined
+          ? func
+          : bindCallback(func, thisArg, argCount);
       }
       if (func == null) {
         return identity;
@@ -5295,9 +5353,9 @@ id.reset = function() {
       if (type == 'object') {
         return baseMatches(func);
       }
-      return typeof thisArg == 'undefined'
-        ? baseProperty(func + '')
-        : baseMatchesProperty(func + '', thisArg);
+      return thisArg === undefined
+        ? property(func)
+        : baseMatchesProperty(func, thisArg);
     }
 
     /**
@@ -5319,7 +5377,7 @@ id.reset = function() {
       if (customizer) {
         result = object ? customizer(value, key, object) : customizer(value);
       }
-      if (typeof result != 'undefined') {
+      if (result !== undefined) {
         return result;
       }
       if (!isObject(value)) {
@@ -5338,7 +5396,7 @@ id.reset = function() {
         if (tag == objectTag || tag == argsTag || (isFunc && !object)) {
           result = initCloneObject(isFunc ? {} : value);
           if (!isDeep) {
-            return baseCopy(value, result, keys(value));
+            return baseAssign(result, value);
           }
         } else {
           return cloneableTags[tag]
@@ -5376,14 +5434,14 @@ id.reset = function() {
      * @returns {Object} Returns the new object.
      */
     var baseCreate = (function() {
-      function Object() {}
+      function object() {}
       return function(prototype) {
         if (isObject(prototype)) {
-          Object.prototype = prototype;
-          var result = new Object;
-          Object.prototype = null;
+          object.prototype = prototype;
+          var result = new object;
+          object.prototype = null;
         }
-        return result || context.Object();
+        return result || {};
       };
     }());
 
@@ -5394,14 +5452,14 @@ id.reset = function() {
      * @private
      * @param {Function} func The function to delay.
      * @param {number} wait The number of milliseconds to delay invocation.
-     * @param {Object} args The `arguments` object to slice and provide to `func`.
+     * @param {Object} args The arguments provide to `func`.
      * @returns {number} Returns the timer id.
      */
-    function baseDelay(func, wait, args, fromIndex) {
+    function baseDelay(func, wait, args) {
       if (typeof func != 'function') {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
-      return setTimeout(function() { func.apply(undefined, baseSlice(args, fromIndex)); }, wait);
+      return setTimeout(function() { func.apply(undefined, args); }, wait);
     }
 
     /**
@@ -5423,7 +5481,7 @@ id.reset = function() {
       var index = -1,
           indexOf = getIndexOf(),
           isCommon = indexOf == baseIndexOf,
-          cache = isCommon && values.length >= 200 && createCache(values),
+          cache = (isCommon && values.length >= 200) ? createCache(values) : null,
           valuesLength = values.length;
 
       if (cache) {
@@ -5444,7 +5502,7 @@ id.reset = function() {
           }
           result.push(value);
         }
-        else if (indexOf(values, value) < 0) {
+        else if (indexOf(values, value, 0) < 0) {
           result.push(value);
         }
       }
@@ -5460,21 +5518,7 @@ id.reset = function() {
      * @param {Function} iteratee The function invoked per iteration.
      * @returns {Array|Object|string} Returns `collection`.
      */
-    function baseEach(collection, iteratee) {
-      var length = collection ? collection.length : 0;
-      if (!isLength(length)) {
-        return baseForOwn(collection, iteratee);
-      }
-      var index = -1,
-          iterable = toObject(collection);
-
-      while (++index < length) {
-        if (iteratee(iterable[index], index, iterable) === false) {
-          break;
-        }
-      }
-      return collection;
-    }
+    var baseEach = createBaseEach(baseForOwn);
 
     /**
      * The base implementation of `_.forEachRight` without support for callback
@@ -5485,23 +5529,11 @@ id.reset = function() {
      * @param {Function} iteratee The function invoked per iteration.
      * @returns {Array|Object|string} Returns `collection`.
      */
-    function baseEachRight(collection, iteratee) {
-      var length = collection ? collection.length : 0;
-      if (!isLength(length)) {
-        return baseForOwnRight(collection, iteratee);
-      }
-      var iterable = toObject(collection);
-      while (length--) {
-        if (iteratee(iterable[length], length, iterable) === false) {
-          break;
-        }
-      }
-      return collection;
-    }
+    var baseEachRight = createBaseEach(baseForOwnRight, true);
 
     /**
      * The base implementation of `_.every` without support for callback
-     * shorthands or `this` binding.
+     * shorthands and `this` binding.
      *
      * @private
      * @param {Array|Object|string} collection The collection to iterate over.
@@ -5514,6 +5546,32 @@ id.reset = function() {
       baseEach(collection, function(value, index, collection) {
         result = !!predicate(value, index, collection);
         return result;
+      });
+      return result;
+    }
+
+    /**
+     * Gets the extremum value of `collection` invoking `iteratee` for each value
+     * in `collection` to generate the criterion by which the value is ranked.
+     * The `iteratee` is invoked with three arguments: (value, index|key, collection).
+     *
+     * @private
+     * @param {Array|Object|string} collection The collection to iterate over.
+     * @param {Function} iteratee The function invoked per iteration.
+     * @param {Function} comparator The function used to compare values.
+     * @param {*} exValue The initial extremum value.
+     * @returns {*} Returns the extremum value.
+     */
+    function baseExtremum(collection, iteratee, comparator, exValue) {
+      var computed = exValue,
+          result = computed;
+
+      baseEach(collection, function(value, index, collection) {
+        var current = +iteratee(value, index, collection);
+        if (comparator(current, computed) || (current === exValue && current === result)) {
+          computed = current;
+          result = value;
+        }
       });
       return result;
     }
@@ -5535,11 +5593,11 @@ id.reset = function() {
       if (start < 0) {
         start = -start > length ? 0 : (length + start);
       }
-      end = (typeof end == 'undefined' || end > length) ? length : (+end || 0);
+      end = (end === undefined || end > length) ? length : (+end || 0);
       if (end < 0) {
         end += length;
       }
-      length = start > end ? 0 : end >>> 0;
+      length = start > end ? 0 : (end >>> 0);
       start >>>= 0;
 
       while (start < length) {
@@ -5550,7 +5608,7 @@ id.reset = function() {
 
     /**
      * The base implementation of `_.filter` without support for callback
-     * shorthands or `this` binding.
+     * shorthands and `this` binding.
      *
      * @private
      * @param {Array|Object|string} collection The collection to iterate over.
@@ -5598,20 +5656,19 @@ id.reset = function() {
      * @private
      * @param {Array} array The array to flatten.
      * @param {boolean} [isDeep] Specify a deep flatten.
-     * @param {boolean} [isStrict] Restrict flattening to arrays and `arguments` objects.
-     * @param {number} [fromIndex=0] The index to start from.
+     * @param {boolean} [isStrict] Restrict flattening to arrays-like objects.
      * @returns {Array} Returns the new flattened array.
      */
-    function baseFlatten(array, isDeep, isStrict, fromIndex) {
-      var index = (fromIndex || 0) - 1,
+    function baseFlatten(array, isDeep, isStrict) {
+      var index = -1,
           length = array.length,
           resIndex = -1,
           result = [];
 
       while (++index < length) {
         var value = array[index];
-
-        if (isObjectLike(value) && isLength(value.length) && (isArray(value) || isArguments(value))) {
+        if (isObjectLike(value) && isArrayLike(value) &&
+            (isStrict || isArray(value) || isArguments(value))) {
           if (isDeep) {
             // Recursively flatten arrays (susceptible to call stack limits).
             value = baseFlatten(value, isDeep, isStrict);
@@ -5619,7 +5676,6 @@ id.reset = function() {
           var valIndex = -1,
               valLength = value.length;
 
-          result.length += valLength;
           while (++valIndex < valLength) {
             result[++resIndex] = value[valIndex];
           }
@@ -5633,7 +5689,7 @@ id.reset = function() {
     /**
      * The base implementation of `baseForIn` and `baseForOwn` which iterates
      * over `object` properties returned by `keysFunc` invoking `iteratee` for
-     * each property. Iterator functions may exit iteration early by explicitly
+     * each property. Iteratee functions may exit iteration early by explicitly
      * returning `false`.
      *
      * @private
@@ -5642,20 +5698,7 @@ id.reset = function() {
      * @param {Function} keysFunc The function to get the keys of `object`.
      * @returns {Object} Returns `object`.
      */
-    function baseFor(object, iteratee, keysFunc) {
-      var index = -1,
-          iterable = toObject(object),
-          props = keysFunc(object),
-          length = props.length;
-
-      while (++index < length) {
-        var key = props[index];
-        if (iteratee(iterable[key], key, iterable) === false) {
-          break;
-        }
-      }
-      return object;
-    }
+    var baseFor = createBaseFor();
 
     /**
      * This function is like `baseFor` except that it iterates over properties
@@ -5667,19 +5710,7 @@ id.reset = function() {
      * @param {Function} keysFunc The function to get the keys of `object`.
      * @returns {Object} Returns `object`.
      */
-    function baseForRight(object, iteratee, keysFunc) {
-      var iterable = toObject(object),
-          props = keysFunc(object),
-          length = props.length;
-
-      while (length--) {
-        var key = props[length];
-        if (iteratee(iterable[key], key, iterable) === false) {
-          break;
-        }
-      }
-      return object;
-    }
+    var baseForRight = createBaseFor(true);
 
     /**
      * The base implementation of `_.forIn` without support for callback
@@ -5745,27 +5776,29 @@ id.reset = function() {
     }
 
     /**
-     * The base implementation of `_.invoke` which requires additional arguments
-     * to be provided as an array of arguments rather than individually.
+     * The base implementation of `get` without support for string paths
+     * and default values.
      *
      * @private
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|string} methodName The name of the method to invoke or
-     *  the function invoked per iteration.
-     * @param {Array} [args] The arguments to invoke the method with.
-     * @returns {Array} Returns the array of results.
+     * @param {Object} object The object to query.
+     * @param {Array} path The path of the property to get.
+     * @param {string} [pathKey] The key representation of path.
+     * @returns {*} Returns the resolved value.
      */
-    function baseInvoke(collection, methodName, args) {
-      var index = -1,
-          isFunc = typeof methodName == 'function',
-          length = collection ? collection.length : 0,
-          result = isLength(length) ? Array(length) : [];
+    function baseGet(object, path, pathKey) {
+      if (object == null) {
+        return;
+      }
+      if (pathKey !== undefined && pathKey in toObject(object)) {
+        path = [pathKey];
+      }
+      var index = 0,
+          length = path.length;
 
-      baseEach(collection, function(value) {
-        var func = isFunc ? methodName : (value != null && value[methodName]);
-        result[++index] = func ? func.apply(value, args) : undefined;
-      });
-      return result;
+      while (object != null && index < length) {
+        object = object[path[index++]];
+      }
+      return (index && index == length) ? object : undefined;
     }
 
     /**
@@ -5776,27 +5809,19 @@ id.reset = function() {
      * @param {*} value The value to compare.
      * @param {*} other The other value to compare.
      * @param {Function} [customizer] The function to customize comparing values.
-     * @param {boolean} [isWhere] Specify performing partial comparisons.
+     * @param {boolean} [isLoose] Specify performing partial comparisons.
      * @param {Array} [stackA] Tracks traversed `value` objects.
      * @param {Array} [stackB] Tracks traversed `other` objects.
      * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
      */
-    function baseIsEqual(value, other, customizer, isWhere, stackA, stackB) {
-      // Exit early for identical values.
+    function baseIsEqual(value, other, customizer, isLoose, stackA, stackB) {
       if (value === other) {
-        // Treat `+0` vs. `-0` as not equal.
-        return value !== 0 || (1 / value == 1 / other);
+        return true;
       }
-      var valType = typeof value,
-          othType = typeof other;
-
-      // Exit early for unlike primitive values.
-      if ((valType != 'function' && valType != 'object' && othType != 'function' && othType != 'object') ||
-          value == null || other == null) {
-        // Return `false` unless both values are `NaN`.
+      if (value == null || other == null || (!isObject(value) && !isObjectLike(other))) {
         return value !== value && other !== other;
       }
-      return baseIsEqualDeep(value, other, baseIsEqual, customizer, isWhere, stackA, stackB);
+      return baseIsEqualDeep(value, other, baseIsEqual, customizer, isLoose, stackA, stackB);
     }
 
     /**
@@ -5809,12 +5834,12 @@ id.reset = function() {
      * @param {Object} other The other object to compare.
      * @param {Function} equalFunc The function to determine equivalents of values.
      * @param {Function} [customizer] The function to customize comparing objects.
-     * @param {boolean} [isWhere] Specify performing partial comparisons.
+     * @param {boolean} [isLoose] Specify performing partial comparisons.
      * @param {Array} [stackA=[]] Tracks traversed `value` objects.
      * @param {Array} [stackB=[]] Tracks traversed `other` objects.
      * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
      */
-    function baseIsEqualDeep(object, other, equalFunc, customizer, isWhere, stackA, stackB) {
+    function baseIsEqualDeep(object, other, equalFunc, customizer, isLoose, stackA, stackB) {
       var objIsArr = isArray(object),
           othIsArr = isArray(other),
           objTag = arrayTag,
@@ -5843,11 +5868,13 @@ id.reset = function() {
       if (isSameTag && !(objIsArr || objIsObj)) {
         return equalByTag(object, other, objTag);
       }
-      var valWrapped = objIsObj && hasOwnProperty.call(object, '__wrapped__'),
-          othWrapped = othIsObj && hasOwnProperty.call(other, '__wrapped__');
+      if (!isLoose) {
+        var objIsWrapped = objIsObj && hasOwnProperty.call(object, '__wrapped__'),
+            othIsWrapped = othIsObj && hasOwnProperty.call(other, '__wrapped__');
 
-      if (valWrapped || othWrapped) {
-        return equalFunc(valWrapped ? object.value() : object, othWrapped ? other.value() : other, customizer, isWhere, stackA, stackB);
+        if (objIsWrapped || othIsWrapped) {
+          return equalFunc(objIsWrapped ? object.value() : object, othIsWrapped ? other.value() : other, customizer, isLoose, stackA, stackB);
+        }
       }
       if (!isSameTag) {
         return false;
@@ -5867,7 +5894,7 @@ id.reset = function() {
       stackA.push(object);
       stackB.push(other);
 
-      var result = (objIsArr ? equalArrays : equalObjects)(object, other, equalFunc, customizer, isWhere, stackA, stackB);
+      var result = (objIsArr ? equalArrays : equalObjects)(object, other, equalFunc, customizer, isLoose, stackA, stackB);
 
       stackA.pop();
       stackB.pop();
@@ -5877,48 +5904,47 @@ id.reset = function() {
 
     /**
      * The base implementation of `_.isMatch` without support for callback
-     * shorthands or `this` binding.
+     * shorthands and `this` binding.
      *
      * @private
      * @param {Object} object The object to inspect.
-     * @param {Array} props The source property names to match.
-     * @param {Array} values The source values to match.
-     * @param {Array} strictCompareFlags Strict comparison flags for source values.
+     * @param {Array} matchData The propery names, values, and compare flags to match.
      * @param {Function} [customizer] The function to customize comparing objects.
      * @returns {boolean} Returns `true` if `object` is a match, else `false`.
      */
-    function baseIsMatch(object, props, values, strictCompareFlags, customizer) {
-      var length = props.length;
+    function baseIsMatch(object, matchData, customizer) {
+      var index = matchData.length,
+          length = index,
+          noCustomizer = !customizer;
+
       if (object == null) {
         return !length;
       }
-      var index = -1,
-          noCustomizer = !customizer;
-
-      while (++index < length) {
-        if ((noCustomizer && strictCompareFlags[index])
-              ? values[index] !== object[props[index]]
-              : !hasOwnProperty.call(object, props[index])
+      object = toObject(object);
+      while (index--) {
+        var data = matchData[index];
+        if ((noCustomizer && data[2])
+              ? data[1] !== object[data[0]]
+              : !(data[0] in object)
             ) {
           return false;
         }
       }
-      index = -1;
       while (++index < length) {
-        var key = props[index];
-        if (noCustomizer && strictCompareFlags[index]) {
-          var result = hasOwnProperty.call(object, key);
-        } else {
-          var objValue = object[key],
-              srcValue = values[index];
+        data = matchData[index];
+        var key = data[0],
+            objValue = object[key],
+            srcValue = data[1];
 
-          result = customizer ? customizer(objValue, srcValue, key) : undefined;
-          if (typeof result == 'undefined') {
-            result = baseIsEqual(srcValue, objValue, customizer, true);
+        if (noCustomizer && data[2]) {
+          if (objValue === undefined && !(key in object)) {
+            return false;
           }
-        }
-        if (!result) {
-          return false;
+        } else {
+          var result = customizer ? customizer(objValue, srcValue, key) : undefined;
+          if (!(result === undefined ? baseIsEqual(srcValue, objValue, customizer, true) : result)) {
+            return false;
+          }
         }
       }
       return true;
@@ -5926,7 +5952,7 @@ id.reset = function() {
 
     /**
      * The base implementation of `_.map` without support for callback shorthands
-     * or `this` binding.
+     * and `this` binding.
      *
      * @private
      * @param {Array|Object|string} collection The collection to iterate over.
@@ -5934,9 +5960,11 @@ id.reset = function() {
      * @returns {Array} Returns the new mapped array.
      */
     function baseMap(collection, iteratee) {
-      var result = [];
+      var index = -1,
+          result = isArrayLike(collection) ? Array(collection.length) : [];
+
       baseEach(collection, function(value, key, collection) {
-        result.push(iteratee(value, key, collection));
+        result[++index] = iteratee(value, key, collection);
       });
       return result;
     }
@@ -5949,49 +5977,54 @@ id.reset = function() {
      * @returns {Function} Returns the new function.
      */
     function baseMatches(source) {
-      var props = keys(source),
-          length = props.length;
+      var matchData = getMatchData(source);
+      if (matchData.length == 1 && matchData[0][2]) {
+        var key = matchData[0][0],
+            value = matchData[0][1];
 
-      if (length == 1) {
-        var key = props[0],
-            value = source[key];
-
-        if (isStrictComparable(value)) {
-          return function(object) {
-            return object != null && object[key] === value && hasOwnProperty.call(object, key);
-          };
-        }
-      }
-      var values = Array(length),
-          strictCompareFlags = Array(length);
-
-      while (length--) {
-        value = source[props[length]];
-        values[length] = value;
-        strictCompareFlags[length] = isStrictComparable(value);
+        return function(object) {
+          if (object == null) {
+            return false;
+          }
+          return object[key] === value && (value !== undefined || (key in toObject(object)));
+        };
       }
       return function(object) {
-        return baseIsMatch(object, props, values, strictCompareFlags);
+        return baseIsMatch(object, matchData);
       };
     }
 
     /**
-     * The base implementation of `_.matchesProperty` which does not coerce `key`
-     * to a string.
+     * The base implementation of `_.matchesProperty` which does not clone `srcValue`.
      *
      * @private
-     * @param {string} key The key of the property to get.
-     * @param {*} value The value to compare.
+     * @param {string} path The path of the property to get.
+     * @param {*} srcValue The value to compare.
      * @returns {Function} Returns the new function.
      */
-    function baseMatchesProperty(key, value) {
-      if (isStrictComparable(value)) {
-        return function(object) {
-          return object != null && object[key] === value;
-        };
-      }
+    function baseMatchesProperty(path, srcValue) {
+      var isArr = isArray(path),
+          isCommon = isKey(path) && isStrictComparable(srcValue),
+          pathKey = (path + '');
+
+      path = toPath(path);
       return function(object) {
-        return object != null && baseIsEqual(value, object[key], null, true);
+        if (object == null) {
+          return false;
+        }
+        var key = pathKey;
+        object = toObject(object);
+        if ((isArr || !isCommon) && !(key in object)) {
+          object = path.length == 1 ? object : baseGet(object, baseSlice(path, 0, -1));
+          if (object == null) {
+            return false;
+          }
+          key = last(path);
+          object = toObject(object);
+        }
+        return object[key] === srcValue
+          ? (srcValue !== undefined || (key in object))
+          : baseIsEqual(srcValue, object[key], undefined, true);
       };
     }
 
@@ -6005,29 +6038,37 @@ id.reset = function() {
      * @param {Function} [customizer] The function to customize merging properties.
      * @param {Array} [stackA=[]] Tracks traversed source objects.
      * @param {Array} [stackB=[]] Associates values with source counterparts.
-     * @returns {Object} Returns the destination object.
+     * @returns {Object} Returns `object`.
      */
     function baseMerge(object, source, customizer, stackA, stackB) {
       if (!isObject(object)) {
         return object;
       }
-      var isSrcArr = isLength(source.length) && (isArray(source) || isTypedArray(source));
-      (isSrcArr ? arrayEach : baseForOwn)(source, function(srcValue, key, source) {
+      var isSrcArr = isArrayLike(source) && (isArray(source) || isTypedArray(source)),
+          props = isSrcArr ? null : keys(source);
+
+      arrayEach(props || source, function(srcValue, key) {
+        if (props) {
+          key = srcValue;
+          srcValue = source[key];
+        }
         if (isObjectLike(srcValue)) {
           stackA || (stackA = []);
           stackB || (stackB = []);
-          return baseMergeDeep(object, source, key, baseMerge, customizer, stackA, stackB);
+          baseMergeDeep(object, source, key, baseMerge, customizer, stackA, stackB);
         }
-        var value = object[key],
-            result = customizer ? customizer(value, srcValue, key, object, source) : undefined,
-            isCommon = typeof result == 'undefined';
+        else {
+          var value = object[key],
+              result = customizer ? customizer(value, srcValue, key, object, source) : undefined,
+              isCommon = result === undefined;
 
-        if (isCommon) {
-          result = srcValue;
-        }
-        if ((isSrcArr || typeof result != 'undefined') &&
-            (isCommon || (result === result ? result !== value : value === value))) {
-          object[key] = result;
+          if (isCommon) {
+            result = srcValue;
+          }
+          if ((result !== undefined || (isSrcArr && !(key in object))) &&
+              (isCommon || (result === result ? (result !== value) : (value === value)))) {
+            object[key] = result;
+          }
         }
       });
       return object;
@@ -6060,14 +6101,14 @@ id.reset = function() {
       }
       var value = object[key],
           result = customizer ? customizer(value, srcValue, key, object, source) : undefined,
-          isCommon = typeof result == 'undefined';
+          isCommon = result === undefined;
 
       if (isCommon) {
         result = srcValue;
-        if (isLength(srcValue.length) && (isArray(srcValue) || isTypedArray(srcValue))) {
+        if (isArrayLike(srcValue) && (isArray(srcValue) || isTypedArray(srcValue))) {
           result = isArray(value)
             ? value
-            : (value ? arrayCopy(value) : []);
+            : (isArrayLike(value) ? arrayCopy(value) : []);
         }
         else if (isPlainObject(srcValue) || isArguments(srcValue)) {
           result = isArguments(value)
@@ -6086,13 +6127,13 @@ id.reset = function() {
       if (isCommon) {
         // Recursively merge objects and arrays (susceptible to call stack limits).
         object[key] = mergeFunc(result, srcValue, customizer, stackA, stackB);
-      } else if (result === result ? result !== value : value === value) {
+      } else if (result === result ? (result !== value) : (value === value)) {
         object[key] = result;
       }
     }
 
     /**
-     * The base implementation of `_.property` which does not coerce `key` to a string.
+     * The base implementation of `_.property` without support for deep paths.
      *
      * @private
      * @param {string} key The key of the property to get.
@@ -6105,27 +6146,39 @@ id.reset = function() {
     }
 
     /**
+     * A specialized version of `baseProperty` which supports deep paths.
+     *
+     * @private
+     * @param {Array|string} path The path of the property to get.
+     * @returns {Function} Returns the new function.
+     */
+    function basePropertyDeep(path) {
+      var pathKey = (path + '');
+      path = toPath(path);
+      return function(object) {
+        return baseGet(object, path, pathKey);
+      };
+    }
+
+    /**
      * The base implementation of `_.pullAt` without support for individual
-     * index arguments.
+     * index arguments and capturing the removed elements.
      *
      * @private
      * @param {Array} array The array to modify.
      * @param {number[]} indexes The indexes of elements to remove.
-     * @returns {Array} Returns the new array of removed elements.
+     * @returns {Array} Returns `array`.
      */
     function basePullAt(array, indexes) {
-      var length = indexes.length,
-          result = baseAt(array, indexes);
-
-      indexes.sort(baseCompareAscending);
+      var length = array ? indexes.length : 0;
       while (length--) {
-        var index = parseFloat(indexes[length]);
+        var index = indexes[length];
         if (index != previous && isIndex(index)) {
           var previous = index;
           splice.call(array, index, 1);
         }
       }
-      return result;
+      return array;
     }
 
     /**
@@ -6143,7 +6196,7 @@ id.reset = function() {
 
     /**
      * The base implementation of `_.reduce` and `_.reduceRight` without support
-     * for callback shorthands or `this` binding, which iterates over `collection`
+     * for callback shorthands and `this` binding, which iterates over `collection`
      * using the provided `eachFunc`.
      *
      * @private
@@ -6194,11 +6247,11 @@ id.reset = function() {
       if (start < 0) {
         start = -start > length ? 0 : (length + start);
       }
-      end = (typeof end == 'undefined' || end > length) ? length : (+end || 0);
+      end = (end === undefined || end > length) ? length : (+end || 0);
       if (end < 0) {
         end += length;
       }
-      length = start > end ? 0 : (end - start) >>> 0;
+      length = start > end ? 0 : ((end - start) >>> 0);
       start >>>= 0;
 
       var result = Array(length);
@@ -6210,7 +6263,7 @@ id.reset = function() {
 
     /**
      * The base implementation of `_.some` without support for callback shorthands
-     * or `this` binding.
+     * and `this` binding.
      *
      * @private
      * @param {Array|Object|string} collection The collection to iterate over.
@@ -6229,6 +6282,68 @@ id.reset = function() {
     }
 
     /**
+     * The base implementation of `_.sortBy` which uses `comparer` to define
+     * the sort order of `array` and replaces criteria objects with their
+     * corresponding values.
+     *
+     * @private
+     * @param {Array} array The array to sort.
+     * @param {Function} comparer The function to define sort order.
+     * @returns {Array} Returns `array`.
+     */
+    function baseSortBy(array, comparer) {
+      var length = array.length;
+
+      array.sort(comparer);
+      while (length--) {
+        array[length] = array[length].value;
+      }
+      return array;
+    }
+
+    /**
+     * The base implementation of `_.sortByOrder` without param guards.
+     *
+     * @private
+     * @param {Array|Object|string} collection The collection to iterate over.
+     * @param {Function[]|Object[]|string[]} iteratees The iteratees to sort by.
+     * @param {boolean[]} orders The sort orders of `iteratees`.
+     * @returns {Array} Returns the new sorted array.
+     */
+    function baseSortByOrder(collection, iteratees, orders) {
+      var callback = getCallback(),
+          index = -1;
+
+      iteratees = arrayMap(iteratees, function(iteratee) { return callback(iteratee); });
+
+      var result = baseMap(collection, function(value) {
+        var criteria = arrayMap(iteratees, function(iteratee) { return iteratee(value); });
+        return { 'criteria': criteria, 'index': ++index, 'value': value };
+      });
+
+      return baseSortBy(result, function(object, other) {
+        return compareMultiple(object, other, orders);
+      });
+    }
+
+    /**
+     * The base implementation of `_.sum` without support for callback shorthands
+     * and `this` binding.
+     *
+     * @private
+     * @param {Array|Object|string} collection The collection to iterate over.
+     * @param {Function} iteratee The function invoked per iteration.
+     * @returns {number} Returns the sum.
+     */
+    function baseSum(collection, iteratee) {
+      var result = 0;
+      baseEach(collection, function(value, index, collection) {
+        result += +iteratee(value, index, collection) || 0;
+      });
+      return result;
+    }
+
+    /**
      * The base implementation of `_.uniq` without support for callback shorthands
      * and `this` binding.
      *
@@ -6243,7 +6358,7 @@ id.reset = function() {
           length = array.length,
           isCommon = indexOf == baseIndexOf,
           isLarge = isCommon && length >= 200,
-          seen = isLarge && createCache(),
+          seen = isLarge ? createCache() : null,
           result = [];
 
       if (seen) {
@@ -6270,7 +6385,7 @@ id.reset = function() {
           }
           result.push(value);
         }
-        else if (indexOf(seen, computed) < 0) {
+        else if (indexOf(seen, computed, 0) < 0) {
           if (iteratee || isLarge) {
             seen.push(computed);
           }
@@ -6283,7 +6398,7 @@ id.reset = function() {
     /**
      * The base implementation of `_.values` and `_.valuesIn` which creates an
      * array of `object` property values corresponding to the property names
-     * returned by `keysFunc`.
+     * of `props`.
      *
      * @private
      * @param {Object} object The object to query.
@@ -6302,6 +6417,27 @@ id.reset = function() {
     }
 
     /**
+     * The base implementation of `_.dropRightWhile`, `_.dropWhile`, `_.takeRightWhile`,
+     * and `_.takeWhile` without support for callback shorthands and `this` binding.
+     *
+     * @private
+     * @param {Array} array The array to query.
+     * @param {Function} predicate The function invoked per iteration.
+     * @param {boolean} [isDrop] Specify dropping elements instead of taking them.
+     * @param {boolean} [fromRight] Specify iterating from right to left.
+     * @returns {Array} Returns the slice of `array`.
+     */
+    function baseWhile(array, predicate, isDrop, fromRight) {
+      var length = array.length,
+          index = fromRight ? length : -1;
+
+      while ((fromRight ? index-- : ++index < length) && predicate(array[index], index, array)) {}
+      return isDrop
+        ? baseSlice(array, (fromRight ? 0 : index), (fromRight ? index + 1 : length))
+        : baseSlice(array, (fromRight ? index + 1 : 0), (fromRight ? length : index));
+    }
+
+    /**
      * The base implementation of `wrapperValue` which returns the result of
      * performing a sequence of actions on the unwrapped `value`, where each
      * successive action is supplied the return value of the previous.
@@ -6309,7 +6445,7 @@ id.reset = function() {
      * @private
      * @param {*} value The unwrapped value.
      * @param {Array} actions Actions to peform to resolve the unwrapped value.
-     * @returns {*} Returns the resolved unwrapped value.
+     * @returns {*} Returns the resolved value.
      */
     function baseWrapperValue(value, actions) {
       var result = value;
@@ -6336,8 +6472,7 @@ id.reset = function() {
      * @private
      * @param {Array} array The sorted array to inspect.
      * @param {*} value The value to evaluate.
-     * @param {boolean} [retHighest] Specify returning the highest, instead
-     *  of the lowest, index at which a value should be inserted into `array`.
+     * @param {boolean} [retHighest] Specify returning the highest qualified index.
      * @returns {number} Returns the index at which `value` should be inserted
      *  into `array`.
      */
@@ -6350,7 +6485,7 @@ id.reset = function() {
           var mid = (low + high) >>> 1,
               computed = array[mid];
 
-          if (retHighest ? (computed <= value) : (computed < value)) {
+          if ((retHighest ? (computed <= value) : (computed < value)) && computed !== null) {
             low = mid + 1;
           } else {
             high = mid;
@@ -6370,8 +6505,7 @@ id.reset = function() {
      * @param {Array} array The sorted array to inspect.
      * @param {*} value The value to evaluate.
      * @param {Function} iteratee The function invoked per iteration.
-     * @param {boolean} [retHighest] Specify returning the highest, instead
-     *  of the lowest, index at which a value should be inserted into `array`.
+     * @param {boolean} [retHighest] Specify returning the highest qualified index.
      * @returns {number} Returns the index at which `value` should be inserted
      *  into `array`.
      */
@@ -6381,17 +6515,23 @@ id.reset = function() {
       var low = 0,
           high = array ? array.length : 0,
           valIsNaN = value !== value,
-          valIsUndef = typeof value == 'undefined';
+          valIsNull = value === null,
+          valIsUndef = value === undefined;
 
       while (low < high) {
         var mid = floor((low + high) / 2),
             computed = iteratee(array[mid]),
+            isDef = computed !== undefined,
             isReflexive = computed === computed;
 
         if (valIsNaN) {
           var setLow = isReflexive || retHighest;
+        } else if (valIsNull) {
+          setLow = isReflexive && isDef && (retHighest || computed != null);
         } else if (valIsUndef) {
-          setLow = isReflexive && (retHighest || typeof computed != 'undefined');
+          setLow = isReflexive && (retHighest || isDef);
+        } else if (computed == null) {
+          setLow = false;
         } else {
           setLow = retHighest ? (computed <= value) : (computed < value);
         }
@@ -6418,7 +6558,7 @@ id.reset = function() {
       if (typeof func != 'function') {
         return identity;
       }
-      if (typeof thisArg == 'undefined') {
+      if (thisArg === undefined) {
         return func;
       }
       switch (argCount) {
@@ -6522,12 +6662,12 @@ id.reset = function() {
       while (++argsIndex < argsLength) {
         result[argsIndex] = args[argsIndex];
       }
-      var pad = argsIndex;
+      var offset = argsIndex;
       while (++rightIndex < rightLength) {
-        result[pad + rightIndex] = partials[rightIndex];
+        result[offset + rightIndex] = partials[rightIndex];
       }
       while (++holdersIndex < holdersLength) {
-        result[pad + holders[holdersIndex]] = args[argsIndex++];
+        result[offset + holders[holdersIndex]] = args[argsIndex++];
       }
       return result;
     }
@@ -6536,6 +6676,9 @@ id.reset = function() {
      * Creates a function that aggregates a collection, creating an accumulator
      * object composed from the results of running each element in the collection
      * through an iteratee.
+     *
+     * **Note:** This function is used to create `_.countBy`, `_.groupBy`, `_.indexBy`,
+     * and `_.partition`.
      *
      * @private
      * @param {Function} setter The function to set keys and values of the accumulator object.
@@ -6568,32 +6711,85 @@ id.reset = function() {
      * Creates a function that assigns properties of source object(s) to a given
      * destination object.
      *
+     * **Note:** This function is used to create `_.assign`, `_.defaults`, and `_.merge`.
+     *
      * @private
      * @param {Function} assigner The function to assign values.
      * @returns {Function} Returns the new assigner function.
      */
     function createAssigner(assigner) {
-      return function() {
-        var length = arguments.length,
-            object = arguments[0];
+      return restParam(function(object, sources) {
+        var index = -1,
+            length = object == null ? 0 : sources.length,
+            customizer = length > 2 ? sources[length - 2] : undefined,
+            guard = length > 2 ? sources[2] : undefined,
+            thisArg = length > 1 ? sources[length - 1] : undefined;
 
-        if (length < 2 || object == null) {
-          return object;
+        if (typeof customizer == 'function') {
+          customizer = bindCallback(customizer, thisArg, 5);
+          length -= 2;
+        } else {
+          customizer = typeof thisArg == 'function' ? thisArg : undefined;
+          length -= (customizer ? 1 : 0);
         }
-        if (length > 3 && isIterateeCall(arguments[1], arguments[2], arguments[3])) {
-          length = 2;
+        if (guard && isIterateeCall(sources[0], sources[1], guard)) {
+          customizer = length < 3 ? undefined : customizer;
+          length = 1;
         }
-        // Juggle arguments.
-        if (length > 3 && typeof arguments[length - 2] == 'function') {
-          var customizer = bindCallback(arguments[--length - 1], arguments[length--], 5);
-        } else if (length > 2 && typeof arguments[length - 1] == 'function') {
-          customizer = arguments[--length];
-        }
-        var index = 0;
         while (++index < length) {
-          var source = arguments[index];
+          var source = sources[index];
           if (source) {
             assigner(object, source, customizer);
+          }
+        }
+        return object;
+      });
+    }
+
+    /**
+     * Creates a `baseEach` or `baseEachRight` function.
+     *
+     * @private
+     * @param {Function} eachFunc The function to iterate over a collection.
+     * @param {boolean} [fromRight] Specify iterating from right to left.
+     * @returns {Function} Returns the new base function.
+     */
+    function createBaseEach(eachFunc, fromRight) {
+      return function(collection, iteratee) {
+        var length = collection ? getLength(collection) : 0;
+        if (!isLength(length)) {
+          return eachFunc(collection, iteratee);
+        }
+        var index = fromRight ? length : -1,
+            iterable = toObject(collection);
+
+        while ((fromRight ? index-- : ++index < length)) {
+          if (iteratee(iterable[index], index, iterable) === false) {
+            break;
+          }
+        }
+        return collection;
+      };
+    }
+
+    /**
+     * Creates a base function for `_.forIn` or `_.forInRight`.
+     *
+     * @private
+     * @param {boolean} [fromRight] Specify iterating from right to left.
+     * @returns {Function} Returns the new base function.
+     */
+    function createBaseFor(fromRight) {
+      return function(object, iteratee, keysFunc) {
+        var iterable = toObject(object),
+            props = keysFunc(object),
+            length = props.length,
+            index = fromRight ? length : -1;
+
+        while ((fromRight ? index-- : ++index < length)) {
+          var key = props[index];
+          if (iteratee(iterable[key], key, iterable) === false) {
+            break;
           }
         }
         return object;
@@ -6613,7 +6809,8 @@ id.reset = function() {
       var Ctor = createCtorWrapper(func);
 
       function wrapper() {
-        return (this instanceof wrapper ? Ctor : func).apply(thisArg, arguments);
+        var fn = (this && this !== root && this instanceof wrapper) ? Ctor : func;
+        return fn.apply(thisArg, arguments);
       }
       return wrapper;
     }
@@ -6661,8 +6858,20 @@ id.reset = function() {
      */
     function createCtorWrapper(Ctor) {
       return function() {
+        // Use a `switch` statement to work with class constructors.
+        // See https://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-function-objects-call-thisargument-argumentslist
+        // for more details.
+        var args = arguments;
+        switch (args.length) {
+          case 0: return new Ctor;
+          case 1: return new Ctor(args[0]);
+          case 2: return new Ctor(args[0], args[1]);
+          case 3: return new Ctor(args[0], args[1], args[2]);
+          case 4: return new Ctor(args[0], args[1], args[2], args[3]);
+          case 5: return new Ctor(args[0], args[1], args[2], args[3], args[4]);
+        }
         var thisBinding = baseCreate(Ctor.prototype),
-            result = Ctor.apply(thisBinding, arguments);
+            result = Ctor.apply(thisBinding, args);
 
         // Mimic the constructor's `return` behavior.
         // See https://es5.github.io/#x13.2.2 for more details.
@@ -6671,35 +6880,265 @@ id.reset = function() {
     }
 
     /**
-     * Creates a function that gets the extremum value of a collection.
+     * Creates a `_.curry` or `_.curryRight` function.
      *
      * @private
-     * @param {Function} arrayFunc The function to get the extremum value from an array.
-     * @param {boolean} [isMin] Specify returning the minimum, instead of the maximum,
-     *  extremum value.
+     * @param {boolean} flag The curry bit flag.
+     * @returns {Function} Returns the new curry function.
+     */
+    function createCurry(flag) {
+      function curryFunc(func, arity, guard) {
+        if (guard && isIterateeCall(func, arity, guard)) {
+          arity = null;
+        }
+        var result = createWrapper(func, flag, null, null, null, null, null, arity);
+        result.placeholder = curryFunc.placeholder;
+        return result;
+      }
+      return curryFunc;
+    }
+
+    /**
+     * Creates a `_.max` or `_.min` function.
+     *
+     * @private
+     * @param {Function} comparator The function used to compare values.
+     * @param {*} exValue The initial extremum value.
      * @returns {Function} Returns the new extremum function.
      */
-    function createExtremum(arrayFunc, isMin) {
+    function createExtremum(comparator, exValue) {
       return function(collection, iteratee, thisArg) {
         if (thisArg && isIterateeCall(collection, iteratee, thisArg)) {
           iteratee = null;
         }
-        var func = getCallback(),
-            noIteratee = iteratee == null;
-
-        if (!(func === baseCallback && noIteratee)) {
-          noIteratee = false;
-          iteratee = func(iteratee, thisArg, 3);
-        }
-        if (noIteratee) {
-          var isArr = isArray(collection);
-          if (!isArr && isString(collection)) {
-            iteratee = charAtCallback;
-          } else {
-            return arrayFunc(isArr ? collection : toIterable(collection));
+        iteratee = getCallback(iteratee, thisArg, 3);
+        if (iteratee.length == 1) {
+          collection = toIterable(collection);
+          var result = arrayExtremum(collection, iteratee, comparator, exValue);
+          if (!(collection.length && result === exValue)) {
+            return result;
           }
         }
-        return extremumBy(collection, iteratee, isMin);
+        return baseExtremum(collection, iteratee, comparator, exValue);
+      };
+    }
+
+    /**
+     * Creates a `_.find` or `_.findLast` function.
+     *
+     * @private
+     * @param {Function} eachFunc The function to iterate over a collection.
+     * @param {boolean} [fromRight] Specify iterating from right to left.
+     * @returns {Function} Returns the new find function.
+     */
+    function createFind(eachFunc, fromRight) {
+      return function(collection, predicate, thisArg) {
+        predicate = getCallback(predicate, thisArg, 3);
+        if (isArray(collection)) {
+          var index = baseFindIndex(collection, predicate, fromRight);
+          return index > -1 ? collection[index] : undefined;
+        }
+        return baseFind(collection, predicate, eachFunc);
+      };
+    }
+
+    /**
+     * Creates a `_.findIndex` or `_.findLastIndex` function.
+     *
+     * @private
+     * @param {boolean} [fromRight] Specify iterating from right to left.
+     * @returns {Function} Returns the new find function.
+     */
+    function createFindIndex(fromRight) {
+      return function(array, predicate, thisArg) {
+        if (!(array && array.length)) {
+          return -1;
+        }
+        predicate = getCallback(predicate, thisArg, 3);
+        return baseFindIndex(array, predicate, fromRight);
+      };
+    }
+
+    /**
+     * Creates a `_.findKey` or `_.findLastKey` function.
+     *
+     * @private
+     * @param {Function} objectFunc The function to iterate over an object.
+     * @returns {Function} Returns the new find function.
+     */
+    function createFindKey(objectFunc) {
+      return function(object, predicate, thisArg) {
+        predicate = getCallback(predicate, thisArg, 3);
+        return baseFind(object, predicate, objectFunc, true);
+      };
+    }
+
+    /**
+     * Creates a `_.flow` or `_.flowRight` function.
+     *
+     * @private
+     * @param {boolean} [fromRight] Specify iterating from right to left.
+     * @returns {Function} Returns the new flow function.
+     */
+    function createFlow(fromRight) {
+      return function() {
+        var wrapper,
+            length = arguments.length,
+            index = fromRight ? length : -1,
+            leftIndex = 0,
+            funcs = Array(length);
+
+        while ((fromRight ? index-- : ++index < length)) {
+          var func = funcs[leftIndex++] = arguments[index];
+          if (typeof func != 'function') {
+            throw new TypeError(FUNC_ERROR_TEXT);
+          }
+          if (!wrapper && LodashWrapper.prototype.thru && getFuncName(func) == 'wrapper') {
+            wrapper = new LodashWrapper([]);
+          }
+        }
+        index = wrapper ? -1 : length;
+        while (++index < length) {
+          func = funcs[index];
+
+          var funcName = getFuncName(func),
+              data = funcName == 'wrapper' ? getData(func) : null;
+
+          if (data && isLaziable(data[0]) && data[1] == (ARY_FLAG | CURRY_FLAG | PARTIAL_FLAG | REARG_FLAG) && !data[4].length && data[9] == 1) {
+            wrapper = wrapper[getFuncName(data[0])].apply(wrapper, data[3]);
+          } else {
+            wrapper = (func.length == 1 && isLaziable(func)) ? wrapper[funcName]() : wrapper.thru(func);
+          }
+        }
+        return function() {
+          var args = arguments;
+          if (wrapper && args.length == 1 && isArray(args[0])) {
+            return wrapper.plant(args[0]).value();
+          }
+          var index = 0,
+              result = length ? funcs[index].apply(this, args) : args[0];
+
+          while (++index < length) {
+            result = funcs[index].call(this, result);
+          }
+          return result;
+        };
+      };
+    }
+
+    /**
+     * Creates a function for `_.forEach` or `_.forEachRight`.
+     *
+     * @private
+     * @param {Function} arrayFunc The function to iterate over an array.
+     * @param {Function} eachFunc The function to iterate over a collection.
+     * @returns {Function} Returns the new each function.
+     */
+    function createForEach(arrayFunc, eachFunc) {
+      return function(collection, iteratee, thisArg) {
+        return (typeof iteratee == 'function' && thisArg === undefined && isArray(collection))
+          ? arrayFunc(collection, iteratee)
+          : eachFunc(collection, bindCallback(iteratee, thisArg, 3));
+      };
+    }
+
+    /**
+     * Creates a function for `_.forIn` or `_.forInRight`.
+     *
+     * @private
+     * @param {Function} objectFunc The function to iterate over an object.
+     * @returns {Function} Returns the new each function.
+     */
+    function createForIn(objectFunc) {
+      return function(object, iteratee, thisArg) {
+        if (typeof iteratee != 'function' || thisArg !== undefined) {
+          iteratee = bindCallback(iteratee, thisArg, 3);
+        }
+        return objectFunc(object, iteratee, keysIn);
+      };
+    }
+
+    /**
+     * Creates a function for `_.forOwn` or `_.forOwnRight`.
+     *
+     * @private
+     * @param {Function} objectFunc The function to iterate over an object.
+     * @returns {Function} Returns the new each function.
+     */
+    function createForOwn(objectFunc) {
+      return function(object, iteratee, thisArg) {
+        if (typeof iteratee != 'function' || thisArg !== undefined) {
+          iteratee = bindCallback(iteratee, thisArg, 3);
+        }
+        return objectFunc(object, iteratee);
+      };
+    }
+
+    /**
+     * Creates a function for `_.mapKeys` or `_.mapValues`.
+     *
+     * @private
+     * @param {boolean} [isMapKeys] Specify mapping keys instead of values.
+     * @returns {Function} Returns the new map function.
+     */
+    function createObjectMapper(isMapKeys) {
+      return function(object, iteratee, thisArg) {
+        var result = {};
+        iteratee = getCallback(iteratee, thisArg, 3);
+
+        baseForOwn(object, function(value, key, object) {
+          var mapped = iteratee(value, key, object);
+          key = isMapKeys ? mapped : key;
+          value = isMapKeys ? value : mapped;
+          result[key] = value;
+        });
+        return result;
+      };
+    }
+
+    /**
+     * Creates a function for `_.padLeft` or `_.padRight`.
+     *
+     * @private
+     * @param {boolean} [fromRight] Specify padding from the right.
+     * @returns {Function} Returns the new pad function.
+     */
+    function createPadDir(fromRight) {
+      return function(string, length, chars) {
+        string = baseToString(string);
+        return (fromRight ? string : '') + createPadding(string, length, chars) + (fromRight ? '' : string);
+      };
+    }
+
+    /**
+     * Creates a `_.partial` or `_.partialRight` function.
+     *
+     * @private
+     * @param {boolean} flag The partial bit flag.
+     * @returns {Function} Returns the new partial function.
+     */
+    function createPartial(flag) {
+      var partialFunc = restParam(function(func, partials) {
+        var holders = replaceHolders(partials, partialFunc.placeholder);
+        return createWrapper(func, flag, null, partials, holders);
+      });
+      return partialFunc;
+    }
+
+    /**
+     * Creates a function for `_.reduce` or `_.reduceRight`.
+     *
+     * @private
+     * @param {Function} arrayFunc The function to iterate over an array.
+     * @param {Function} eachFunc The function to iterate over a collection.
+     * @returns {Function} Returns the new each function.
+     */
+    function createReduce(arrayFunc, eachFunc) {
+      return function(collection, iteratee, accumulator, thisArg) {
+        var initFromArray = arguments.length < 3;
+        return (typeof iteratee == 'function' && thisArg === undefined && isArray(collection))
+          ? arrayFunc(collection, iteratee, accumulator, initFromArray)
+          : baseReduce(collection, getCallback(iteratee, thisArg, 4), accumulator, initFromArray, eachFunc);
       };
     }
 
@@ -6726,10 +7165,8 @@ id.reset = function() {
           isBindKey = bitmask & BIND_KEY_FLAG,
           isCurry = bitmask & CURRY_FLAG,
           isCurryBound = bitmask & CURRY_BOUND_FLAG,
-          isCurryRight = bitmask & CURRY_RIGHT_FLAG;
-
-      var Ctor = !isBindKey && createCtorWrapper(func),
-          key = func;
+          isCurryRight = bitmask & CURRY_RIGHT_FLAG,
+          Ctor = isBindKey ? null : createCtorWrapper(func);
 
       function wrapper() {
         // Avoid `arguments` object use disqualifying optimizations by
@@ -6766,30 +7203,36 @@ id.reset = function() {
             if (!isCurryBound) {
               bitmask &= ~(BIND_FLAG | BIND_KEY_FLAG);
             }
-            var result = createHybridWrapper(func, bitmask, thisArg, newPartials, newsHolders, newPartialsRight, newHoldersRight, newArgPos, ary, newArity);
+            var newData = [func, bitmask, thisArg, newPartials, newsHolders, newPartialsRight, newHoldersRight, newArgPos, ary, newArity],
+                result = createHybridWrapper.apply(undefined, newData);
+
+            if (isLaziable(func)) {
+              setData(result, newData);
+            }
             result.placeholder = placeholder;
             return result;
           }
         }
-        var thisBinding = isBind ? thisArg : this;
-        if (isBindKey) {
-          func = thisBinding[key];
-        }
+        var thisBinding = isBind ? thisArg : this,
+            fn = isBindKey ? thisBinding[func] : func;
+
         if (argPos) {
           args = reorder(args, argPos);
         }
         if (isAry && ary < args.length) {
           args.length = ary;
         }
-        return (this instanceof wrapper ? (Ctor || createCtorWrapper(func)) : func).apply(thisBinding, args);
+        if (this && this !== root && this instanceof wrapper) {
+          fn = Ctor || createCtorWrapper(func);
+        }
+        return fn.apply(thisBinding, args);
       }
       return wrapper;
     }
 
     /**
-     * Creates the pad required for `string` based on the given padding length.
-     * The `chars` string may be truncated if the number of padding characters
-     * exceeds the padding length.
+     * Creates the padding required for `string` based on the given `length`.
+     * The `chars` string is truncated if the number of characters exceeds `length`.
      *
      * @private
      * @param {string} string The string to create padding for.
@@ -6797,7 +7240,7 @@ id.reset = function() {
      * @param {string} [chars=' '] The string used as padding.
      * @returns {string} Returns the pad for `string`.
      */
-    function createPad(string, length, chars) {
+    function createPadding(string, length, chars) {
       var strLength = string.length;
       length = +length;
 
@@ -6840,9 +7283,26 @@ id.reset = function() {
         while (argsLength--) {
           args[leftIndex++] = arguments[++argsIndex];
         }
-        return (this instanceof wrapper ? Ctor : func).apply(isBind ? thisArg : this, args);
+        var fn = (this && this !== root && this instanceof wrapper) ? Ctor : func;
+        return fn.apply(isBind ? thisArg : this, args);
       }
       return wrapper;
+    }
+
+    /**
+     * Creates a `_.sortedIndex` or `_.sortedLastIndex` function.
+     *
+     * @private
+     * @param {boolean} [retHighest] Specify returning the highest qualified index.
+     * @returns {Function} Returns the new index function.
+     */
+    function createSortedIndex(retHighest) {
+      return function(array, value, iteratee, thisArg) {
+        var callback = getCallback(iteratee);
+        return (iteratee == null && callback === baseCallback)
+          ? binaryIndex(array, value, retHighest)
+          : binaryIndexBy(array, value, callback(iteratee, thisArg, 1), retHighest);
+      };
     }
 
     /**
@@ -6887,10 +7347,10 @@ id.reset = function() {
 
         partials = holders = null;
       }
-      var data = !isBindKey && getData(func),
+      var data = isBindKey ? null : getData(func),
           newData = [func, bitmask, thisArg, partials, holders, partialsRight, holdersRight, argPos, ary, arity];
 
-      if (data && data !== true) {
+      if (data) {
         mergeData(newData, data);
         bitmask = newData[1];
         arity = newData[9];
@@ -6919,48 +7379,43 @@ id.reset = function() {
      * @param {Array} other The other array to compare.
      * @param {Function} equalFunc The function to determine equivalents of values.
      * @param {Function} [customizer] The function to customize comparing arrays.
-     * @param {boolean} [isWhere] Specify performing partial comparisons.
+     * @param {boolean} [isLoose] Specify performing partial comparisons.
      * @param {Array} [stackA] Tracks traversed `value` objects.
      * @param {Array} [stackB] Tracks traversed `other` objects.
      * @returns {boolean} Returns `true` if the arrays are equivalent, else `false`.
      */
-    function equalArrays(array, other, equalFunc, customizer, isWhere, stackA, stackB) {
+    function equalArrays(array, other, equalFunc, customizer, isLoose, stackA, stackB) {
       var index = -1,
           arrLength = array.length,
-          othLength = other.length,
-          result = true;
+          othLength = other.length;
 
-      if (arrLength != othLength && !(isWhere && othLength > arrLength)) {
+      if (arrLength != othLength && !(isLoose && othLength > arrLength)) {
         return false;
       }
-      // Deep compare the contents, ignoring non-numeric properties.
-      while (result && ++index < arrLength) {
+      // Ignore non-index properties.
+      while (++index < arrLength) {
         var arrValue = array[index],
-            othValue = other[index];
+            othValue = other[index],
+            result = customizer ? customizer(isLoose ? othValue : arrValue, isLoose ? arrValue : othValue, index) : undefined;
 
-        result = undefined;
-        if (customizer) {
-          result = isWhere
-            ? customizer(othValue, arrValue, index)
-            : customizer(arrValue, othValue, index);
-        }
-        if (typeof result == 'undefined') {
-          // Recursively compare arrays (susceptible to call stack limits).
-          if (isWhere) {
-            var othIndex = othLength;
-            while (othIndex--) {
-              othValue = other[othIndex];
-              result = (arrValue && arrValue === othValue) || equalFunc(arrValue, othValue, customizer, isWhere, stackA, stackB);
-              if (result) {
-                break;
-              }
-            }
-          } else {
-            result = (arrValue && arrValue === othValue) || equalFunc(arrValue, othValue, customizer, isWhere, stackA, stackB);
+        if (result !== undefined) {
+          if (result) {
+            continue;
           }
+          return false;
+        }
+        // Recursively compare arrays (susceptible to call stack limits).
+        if (isLoose) {
+          if (!arraySome(other, function(othValue) {
+                return arrValue === othValue || equalFunc(arrValue, othValue, customizer, isLoose, stackA, stackB);
+              })) {
+            return false;
+          }
+        } else if (!(arrValue === othValue || equalFunc(arrValue, othValue, customizer, isLoose, stackA, stackB))) {
+          return false;
         }
       }
-      return !!result;
+      return true;
     }
 
     /**
@@ -6991,8 +7446,7 @@ id.reset = function() {
           // Treat `NaN` vs. `NaN` as equal.
           return (object != +object)
             ? other != +other
-            // But, treat `-0` vs. `+0` as not equal.
-            : (object == 0 ? ((1 / object) == (1 / other)) : object == +other);
+            : object == +other;
 
         case regexpTag:
         case stringTag:
@@ -7012,85 +7466,53 @@ id.reset = function() {
      * @param {Object} other The other object to compare.
      * @param {Function} equalFunc The function to determine equivalents of values.
      * @param {Function} [customizer] The function to customize comparing values.
-     * @param {boolean} [isWhere] Specify performing partial comparisons.
+     * @param {boolean} [isLoose] Specify performing partial comparisons.
      * @param {Array} [stackA] Tracks traversed `value` objects.
      * @param {Array} [stackB] Tracks traversed `other` objects.
      * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
      */
-    function equalObjects(object, other, equalFunc, customizer, isWhere, stackA, stackB) {
+    function equalObjects(object, other, equalFunc, customizer, isLoose, stackA, stackB) {
       var objProps = keys(object),
           objLength = objProps.length,
           othProps = keys(other),
           othLength = othProps.length;
 
-      if (objLength != othLength && !isWhere) {
+      if (objLength != othLength && !isLoose) {
         return false;
       }
-      var hasCtor,
-          index = -1;
-
-      while (++index < objLength) {
-        var key = objProps[index],
-            result = hasOwnProperty.call(other, key);
-
-        if (result) {
-          var objValue = object[key],
-              othValue = other[key];
-
-          result = undefined;
-          if (customizer) {
-            result = isWhere
-              ? customizer(othValue, objValue, key)
-              : customizer(objValue, othValue, key);
-          }
-          if (typeof result == 'undefined') {
-            // Recursively compare objects (susceptible to call stack limits).
-            result = (objValue && objValue === othValue) || equalFunc(objValue, othValue, customizer, isWhere, stackA, stackB);
-          }
-        }
-        if (!result) {
+      var index = objLength;
+      while (index--) {
+        var key = objProps[index];
+        if (!(isLoose ? key in other : hasOwnProperty.call(other, key))) {
           return false;
         }
-        hasCtor || (hasCtor = key == 'constructor');
       }
-      if (!hasCtor) {
+      var skipCtor = isLoose;
+      while (++index < objLength) {
+        key = objProps[index];
+        var objValue = object[key],
+            othValue = other[key],
+            result = customizer ? customizer(isLoose ? othValue : objValue, isLoose? objValue : othValue, key) : undefined;
+
+        // Recursively compare objects (susceptible to call stack limits).
+        if (!(result === undefined ? equalFunc(objValue, othValue, customizer, isLoose, stackA, stackB) : result)) {
+          return false;
+        }
+        skipCtor || (skipCtor = key == 'constructor');
+      }
+      if (!skipCtor) {
         var objCtor = object.constructor,
             othCtor = other.constructor;
 
         // Non `Object` object instances with different constructors are not equal.
-        if (objCtor != othCtor && ('constructor' in object && 'constructor' in other) &&
-            !(typeof objCtor == 'function' && objCtor instanceof objCtor && typeof othCtor == 'function' && othCtor instanceof othCtor)) {
+        if (objCtor != othCtor &&
+            ('constructor' in object && 'constructor' in other) &&
+            !(typeof objCtor == 'function' && objCtor instanceof objCtor &&
+              typeof othCtor == 'function' && othCtor instanceof othCtor)) {
           return false;
         }
       }
       return true;
-    }
-
-    /**
-     * Gets the extremum value of `collection` invoking `iteratee` for each value
-     * in `collection` to generate the criterion by which the value is ranked.
-     * The `iteratee` is invoked with three arguments; (value, index, collection).
-     *
-     * @private
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function} iteratee The function invoked per iteration.
-     * @param {boolean} [isMin] Specify returning the minimum, instead of the
-     *  maximum, extremum value.
-     * @returns {*} Returns the extremum value.
-     */
-    function extremumBy(collection, iteratee, isMin) {
-      var exValue = isMin ? POSITIVE_INFINITY : NEGATIVE_INFINITY,
-          computed = exValue,
-          result = computed;
-
-      baseEach(collection, function(value, index, collection) {
-        var current = iteratee(value, index, collection);
-        if ((isMin ? current < computed : current > computed) || (current === exValue && current === result)) {
-          computed = current;
-          result = value;
-        }
-      });
-      return result;
     }
 
     /**
@@ -7120,6 +7542,28 @@ id.reset = function() {
     };
 
     /**
+     * Gets the name of `func`.
+     *
+     * @private
+     * @param {Function} func The function to query.
+     * @returns {string} Returns the function name.
+     */
+    function getFuncName(func) {
+      var result = func.name,
+          array = realNames[result],
+          length = array ? array.length : 0;
+
+      while (length--) {
+        var data = array[length],
+            otherFunc = data.func;
+        if (otherFunc == null || otherFunc == func) {
+          return data.name;
+        }
+      }
+      return result;
+    }
+
+    /**
      * Gets the appropriate "indexOf" function. If the `_.indexOf` method is
      * customized this function returns the custom method, otherwise it returns
      * the `baseIndexOf` function. If arguments are provided the chosen function
@@ -7132,6 +7576,48 @@ id.reset = function() {
       var result = lodash.indexOf || indexOf;
       result = result === indexOf ? baseIndexOf : result;
       return collection ? result(collection, target, fromIndex) : result;
+    }
+
+    /**
+     * Gets the "length" property value of `object`.
+     *
+     * **Note:** This function is used to avoid a [JIT bug](https://bugs.webkit.org/show_bug.cgi?id=142792)
+     * that affects Safari on at least iOS 8.1-8.3 ARM64.
+     *
+     * @private
+     * @param {Object} object The object to query.
+     * @returns {*} Returns the "length" value.
+     */
+    var getLength = baseProperty('length');
+
+    /**
+     * Gets the propery names, values, and compare flags of `object`.
+     *
+     * @private
+     * @param {Object} object The object to query.
+     * @returns {Array} Returns the match data of `object`.
+     */
+    function getMatchData(object) {
+      var result = pairs(object),
+          length = result.length;
+
+      while (length--) {
+        result[length][2] = isStrictComparable(result[length][1]);
+      }
+      return result;
+    }
+
+    /**
+     * Gets the native function at `key` of `object`.
+     *
+     * @private
+     * @param {Object} object The object to query.
+     * @param {string} key The key of the method to get.
+     * @returns {*} Returns the function if it's native, else `undefined`.
+     */
+    function getNative(object, key) {
+      var value = object == null ? undefined : object[key];
+      return isNative(value) ? value : undefined;
     }
 
     /**
@@ -7202,7 +7688,6 @@ id.reset = function() {
      * **Note:** This function only supports cloning values with tags of
      * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
      *
-     *
      * @private
      * @param {Object} object The object to clone.
      * @param {string} tag The `toStringTag` of the object to clone.
@@ -7237,28 +7722,33 @@ id.reset = function() {
     }
 
     /**
-     * Checks if `func` is eligible for `this` binding.
+     * Invokes the method at `path` on `object`.
      *
      * @private
-     * @param {Function} func The function to check.
-     * @returns {boolean} Returns `true` if `func` is eligible, else `false`.
+     * @param {Object} object The object to query.
+     * @param {Array|string} path The path of the method to invoke.
+     * @param {Array} args The arguments to invoke the method with.
+     * @returns {*} Returns the result of the invoked method.
      */
-    function isBindable(func) {
-      var support = lodash.support,
-          result = !(support.funcNames ? func.name : support.funcDecomp);
-
-      if (!result) {
-        var source = fnToString.call(func);
-        if (!support.funcNames) {
-          result = !reFuncName.test(source);
-        }
-        if (!result) {
-          // Check if `func` references the `this` keyword and store the result.
-          result = reThis.test(source) || isNative(func);
-          baseSetData(func, result);
-        }
+    function invokePath(object, path, args) {
+      if (object != null && !isKey(path, object)) {
+        path = toPath(path);
+        object = path.length == 1 ? object : baseGet(object, baseSlice(path, 0, -1));
+        path = last(path);
       }
-      return result;
+      var func = object == null ? object : object[path];
+      return func == null ? undefined : func.apply(object, args);
+    }
+
+    /**
+     * Checks if `value` is array-like.
+     *
+     * @private
+     * @param {*} value The value to check.
+     * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+     */
+    function isArrayLike(value) {
+      return value != null && isLength(getLength(value));
     }
 
     /**
@@ -7270,7 +7760,7 @@ id.reset = function() {
      * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
      */
     function isIndex(value, length) {
-      value = +value;
+      value = (typeof value == 'number' || reIsUint.test(value)) ? +value : -1;
       length = length == null ? MAX_SAFE_INTEGER : length;
       return value > -1 && value % 1 == 0 && value < length;
     }
@@ -7289,22 +7779,59 @@ id.reset = function() {
         return false;
       }
       var type = typeof index;
-      if (type == 'number') {
-        var length = object.length,
-            prereq = isLength(length) && isIndex(index, length);
-      } else {
-        prereq = type == 'string' && index in object;
+      if (type == 'number'
+          ? (isArrayLike(object) && isIndex(index, object.length))
+          : (type == 'string' && index in object)) {
+        var other = object[index];
+        return value === value ? (value === other) : (other !== other);
       }
-      var other = object[index];
-      return prereq && (value === value ? value === other : other !== other);
+      return false;
+    }
+
+    /**
+     * Checks if `value` is a property name and not a property path.
+     *
+     * @private
+     * @param {*} value The value to check.
+     * @param {Object} [object] The object to query keys on.
+     * @returns {boolean} Returns `true` if `value` is a property name, else `false`.
+     */
+    function isKey(value, object) {
+      var type = typeof value;
+      if ((type == 'string' && reIsPlainProp.test(value)) || type == 'number') {
+        return true;
+      }
+      if (isArray(value)) {
+        return false;
+      }
+      var result = !reIsDeepProp.test(value);
+      return result || (object != null && value in toObject(object));
+    }
+
+    /**
+     * Checks if `func` has a lazy counterpart.
+     *
+     * @private
+     * @param {Function} func The function to check.
+     * @returns {boolean} Returns `true` if `func` has a lazy counterpart, else `false`.
+     */
+    function isLaziable(func) {
+      var funcName = getFuncName(func);
+      if (!(funcName in LazyWrapper.prototype)) {
+        return false;
+      }
+      var other = lodash[funcName];
+      if (func === other) {
+        return true;
+      }
+      var data = getData(other);
+      return !!data && func === data[0];
     }
 
     /**
      * Checks if `value` is a valid array-like length.
      *
-     * **Note:** This function is based on ES `ToLength`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength)
-     * for more details.
+     * **Note:** This function is based on [`ToLength`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength).
      *
      * @private
      * @param {*} value The value to check.
@@ -7323,7 +7850,7 @@ id.reset = function() {
      *  equality comparisons, else `false`.
      */
     function isStrictComparable(value) {
-      return value === value && (value === 0 ? ((1 / value) > 0) : !isObject(value));
+      return value === value && !isObject(value);
     }
 
     /**
@@ -7344,22 +7871,13 @@ id.reset = function() {
     function mergeData(data, source) {
       var bitmask = data[1],
           srcBitmask = source[1],
-          newBitmask = bitmask | srcBitmask;
+          newBitmask = bitmask | srcBitmask,
+          isCommon = newBitmask < ARY_FLAG;
 
-      var arityFlags = ARY_FLAG | REARG_FLAG,
-          bindFlags = BIND_FLAG | BIND_KEY_FLAG,
-          comboFlags = arityFlags | bindFlags | CURRY_BOUND_FLAG | CURRY_RIGHT_FLAG;
-
-      var isAry = bitmask & ARY_FLAG && !(srcBitmask & ARY_FLAG),
-          isRearg = bitmask & REARG_FLAG && !(srcBitmask & REARG_FLAG),
-          argPos = (isRearg ? data : source)[7],
-          ary = (isAry ? data : source)[8];
-
-      var isCommon = !(bitmask >= REARG_FLAG && srcBitmask > bindFlags) &&
-        !(bitmask > bindFlags && srcBitmask >= REARG_FLAG);
-
-      var isCombo = (newBitmask >= arityFlags && newBitmask <= comboFlags) &&
-        (bitmask < REARG_FLAG || ((isRearg || isAry) && argPos.length <= ary));
+      var isCombo =
+        (srcBitmask == ARY_FLAG && bitmask == CURRY_FLAG) ||
+        (srcBitmask == ARY_FLAG && bitmask == REARG_FLAG && data[7].length <= source[8]) ||
+        (srcBitmask == (ARY_FLAG | REARG_FLAG) && bitmask == CURRY_FLAG);
 
       // Exit early if metadata can't be merged.
       if (!(isCommon || isCombo)) {
@@ -7406,8 +7924,8 @@ id.reset = function() {
     }
 
     /**
-     * A specialized version of `_.pick` that picks `object` properties specified
-     * by the `props` array.
+     * A specialized version of `_.pick` which picks `object` properties specified
+     * by `props`.
      *
      * @private
      * @param {Object} object The source object.
@@ -7431,7 +7949,7 @@ id.reset = function() {
     }
 
     /**
-     * A specialized version of `_.pick` that picks `object` properties `predicate`
+     * A specialized version of `_.pick` which picks `object` properties `predicate`
      * returns truthy for.
      *
      * @private
@@ -7533,7 +8051,7 @@ id.reset = function() {
       baseForIn(value, function(subValue, key) {
         result = key;
       });
-      return typeof result == 'undefined' || hasOwnProperty.call(value, result);
+      return result === undefined || hasOwnProperty.call(value, result);
     }
 
     /**
@@ -7541,17 +8059,16 @@ id.reset = function() {
      * own enumerable property names of `object`.
      *
      * @private
-     * @param {Object} object The object to inspect.
+     * @param {Object} object The object to query.
      * @returns {Array} Returns the array of property names.
      */
     function shimKeys(object) {
       var props = keysIn(object),
           propsLength = props.length,
-          length = propsLength && object.length,
-          support = lodash.support;
+          length = propsLength && object.length;
 
-      var allowIndexes = length && isLength(length) &&
-        (isArray(object) || (support.nonEnumArgs && isArguments(object)));
+      var allowIndexes = !!length && isLength(length) &&
+        (isArray(object) || isArguments(object));
 
       var index = -1,
           result = [];
@@ -7566,7 +8083,7 @@ id.reset = function() {
     }
 
     /**
-     * Converts `value` to an array-like object if it is not one.
+     * Converts `value` to an array-like object if it's not one.
      *
      * @private
      * @param {*} value The value to process.
@@ -7576,14 +8093,14 @@ id.reset = function() {
       if (value == null) {
         return [];
       }
-      if (!isLength(value.length)) {
+      if (!isArrayLike(value)) {
         return values(value);
       }
       return isObject(value) ? value : Object(value);
     }
 
     /**
-     * Converts `value` to an object if it is not one.
+     * Converts `value` to an object if it's not one.
      *
      * @private
      * @param {*} value The value to process.
@@ -7591,6 +8108,24 @@ id.reset = function() {
      */
     function toObject(value) {
       return isObject(value) ? value : Object(value);
+    }
+
+    /**
+     * Converts `value` to property path array if it's not one.
+     *
+     * @private
+     * @param {*} value The value to process.
+     * @returns {Array} Returns the property path array.
+     */
+    function toPath(value) {
+      if (isArray(value)) {
+        return value;
+      }
+      var result = [];
+      baseToString(value).replace(rePropName, function(match, number, quote, string) {
+        result.push(quote ? string.replace(reEscapeChar, '$1') : (number || match));
+      });
+      return result;
     }
 
     /**
@@ -7675,13 +8210,9 @@ id.reset = function() {
     }
 
     /**
-     * Creates an array excluding all values of the provided arrays using
-     * `SameValueZero` for equality comparisons.
-     *
-     * **Note:** `SameValueZero` comparisons are like strict equality comparisons,
-     * e.g. `===`, except that `NaN` matches `NaN`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
-     * for more details.
+     * Creates an array of unique `array` values not included in the other
+     * provided arrays using [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * for equality comparisons.
      *
      * @static
      * @memberOf _
@@ -7694,18 +8225,11 @@ id.reset = function() {
      * _.difference([1, 2, 3], [4, 2]);
      * // => [1, 3]
      */
-    function difference() {
-      var index = -1,
-          length = arguments.length;
-
-      while (++index < length) {
-        var value = arguments[index];
-        if (isArray(value) || isArguments(value)) {
-          break;
-        }
-      }
-      return baseDifference(value, baseFlatten(arguments, false, true, ++index));
-    }
+    var difference = restParam(function(array, values) {
+      return isArrayLike(array)
+        ? baseDifference(array, baseFlatten(values, false, true))
+        : [];
+    });
 
     /**
      * Creates a slice of `array` with `n` elements dropped from the beginning.
@@ -7781,7 +8305,7 @@ id.reset = function() {
     /**
      * Creates a slice of `array` excluding elements dropped from the end.
      * Elements are dropped until `predicate` returns falsey. The predicate is
-     * bound to `thisArg` and invoked with three arguments; (value, index, array).
+     * bound to `thisArg` and invoked with three arguments: (value, index, array).
      *
      * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
@@ -7816,7 +8340,7 @@ id.reset = function() {
      * ];
      *
      * // using the `_.matches` callback shorthand
-     * _.pluck(_.dropRightWhile(users, { 'user': pebbles, 'active': false }), 'user');
+     * _.pluck(_.dropRightWhile(users, { 'user': 'pebbles', 'active': false }), 'user');
      * // => ['barney', 'fred']
      *
      * // using the `_.matchesProperty` callback shorthand
@@ -7828,19 +8352,15 @@ id.reset = function() {
      * // => ['barney', 'fred', 'pebbles']
      */
     function dropRightWhile(array, predicate, thisArg) {
-      var length = array ? array.length : 0;
-      if (!length) {
-        return [];
-      }
-      predicate = getCallback(predicate, thisArg, 3);
-      while (length-- && predicate(array[length], length, array)) {}
-      return baseSlice(array, 0, length + 1);
+      return (array && array.length)
+        ? baseWhile(array, getCallback(predicate, thisArg, 3), true, true)
+        : [];
     }
 
     /**
      * Creates a slice of `array` excluding elements dropped from the beginning.
      * Elements are dropped until `predicate` returns falsey. The predicate is
-     * bound to `thisArg` and invoked with three arguments; (value, index, array).
+     * bound to `thisArg` and invoked with three arguments: (value, index, array).
      *
      * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
@@ -7887,14 +8407,9 @@ id.reset = function() {
      * // => ['barney', 'fred', 'pebbles']
      */
     function dropWhile(array, predicate, thisArg) {
-      var length = array ? array.length : 0;
-      if (!length) {
-        return [];
-      }
-      var index = -1;
-      predicate = getCallback(predicate, thisArg, 3);
-      while (++index < length && predicate(array[index], index, array)) {}
-      return baseSlice(array, index);
+      return (array && array.length)
+        ? baseWhile(array, getCallback(predicate, thisArg, 3), true)
+        : [];
     }
 
     /**
@@ -7911,6 +8426,19 @@ id.reset = function() {
      * @param {number} [start=0] The start position.
      * @param {number} [end=array.length] The end position.
      * @returns {Array} Returns `array`.
+     * @example
+     *
+     * var array = [1, 2, 3];
+     *
+     * _.fill(array, 'a');
+     * console.log(array);
+     * // => ['a', 'a', 'a']
+     *
+     * _.fill(Array(3), 2);
+     * // => [2, 2, 2]
+     *
+     * _.fill([4, 6, 8], '*', 1, 2);
+     * // => [4, '*', 8]
      */
     function fill(array, value, start, end) {
       var length = array ? array.length : 0;
@@ -7926,7 +8454,7 @@ id.reset = function() {
 
     /**
      * This method is like `_.find` except that it returns the index of the first
-     * element `predicate` returns truthy for, instead of the element itself.
+     * element `predicate` returns truthy for instead of the element itself.
      *
      * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
@@ -7972,18 +8500,7 @@ id.reset = function() {
      * _.findIndex(users, 'active');
      * // => 2
      */
-    function findIndex(array, predicate, thisArg) {
-      var index = -1,
-          length = array ? array.length : 0;
-
-      predicate = getCallback(predicate, thisArg, 3);
-      while (++index < length) {
-        if (predicate(array[index], index, array)) {
-          return index;
-        }
-      }
-      return -1;
-    }
+    var findIndex = createFindIndex();
 
     /**
      * This method is like `_.findIndex` except that it iterates over elements
@@ -8022,27 +8539,18 @@ id.reset = function() {
      * // => 2
      *
      * // using the `_.matches` callback shorthand
-     * _.findLastIndex(users, { user': 'barney', 'active': true });
+     * _.findLastIndex(users, { 'user': 'barney', 'active': true });
      * // => 0
      *
      * // using the `_.matchesProperty` callback shorthand
      * _.findLastIndex(users, 'active', false);
-     * // => 1
+     * // => 2
      *
      * // using the `_.property` callback shorthand
      * _.findLastIndex(users, 'active');
      * // => 0
      */
-    function findLastIndex(array, predicate, thisArg) {
-      var length = array ? array.length : 0;
-      predicate = getCallback(predicate, thisArg, 3);
-      while (length--) {
-        if (predicate(array[length], length, array)) {
-          return length;
-        }
-      }
-      return -1;
-    }
+    var findLastIndex = createFindIndex(true);
 
     /**
      * Gets the first element of `array`.
@@ -8079,11 +8587,11 @@ id.reset = function() {
      * @example
      *
      * _.flatten([1, [2, 3, [4]]]);
-     * // => [1, 2, 3, [4]];
+     * // => [1, 2, 3, [4]]
      *
      * // using `isDeep`
      * _.flatten([1, [2, 3, [4]]], true);
-     * // => [1, 2, 3, 4];
+     * // => [1, 2, 3, 4]
      */
     function flatten(array, isDeep, guard) {
       var length = array ? array.length : 0;
@@ -8104,7 +8612,7 @@ id.reset = function() {
      * @example
      *
      * _.flattenDeep([1, [2, 3, [4]]]);
-     * // => [1, 2, 3, 4];
+     * // => [1, 2, 3, 4]
      */
     function flattenDeep(array) {
       var length = array ? array.length : 0;
@@ -8113,14 +8621,10 @@ id.reset = function() {
 
     /**
      * Gets the index at which the first occurrence of `value` is found in `array`
-     * using `SameValueZero` for equality comparisons. If `fromIndex` is negative,
-     * it is used as the offset from the end of `array`. If `array` is sorted
-     * providing `true` for `fromIndex` performs a faster binary search.
-     *
-     * **Note:** `SameValueZero` comparisons are like strict equality comparisons,
-     * e.g. `===`, except that `NaN` matches `NaN`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
-     * for more details.
+     * using [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * for equality comparisons. If `fromIndex` is negative, it is used as the offset
+     * from the end of `array`. If `array` is sorted providing `true` for `fromIndex`
+     * performs a faster binary search.
      *
      * @static
      * @memberOf _
@@ -8133,7 +8637,7 @@ id.reset = function() {
      * @example
      *
      * _.indexOf([1, 2, 1, 2], 2);
-     * // => 2
+     * // => 1
      *
      * // using `fromIndex`
      * _.indexOf([1, 2, 1, 2], 2, 2);
@@ -8149,14 +8653,17 @@ id.reset = function() {
         return -1;
       }
       if (typeof fromIndex == 'number') {
-        fromIndex = fromIndex < 0 ? nativeMax(length + fromIndex, 0) : (fromIndex || 0);
+        fromIndex = fromIndex < 0 ? nativeMax(length + fromIndex, 0) : fromIndex;
       } else if (fromIndex) {
         var index = binaryIndex(array, value),
             other = array[index];
 
-        return (value === value ? value === other : other !== other) ? index : -1;
+        if (value === value ? (value === other) : (other !== other)) {
+          return index;
+        }
+        return -1;
       }
-      return baseIndexOf(array, value, fromIndex);
+      return baseIndexOf(array, value, fromIndex || 0);
     }
 
     /**
@@ -8177,13 +8684,9 @@ id.reset = function() {
     }
 
     /**
-     * Creates an array of unique values in all provided arrays using `SameValueZero`
+     * Creates an array of unique values that are included in all of the provided
+     * arrays using [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
      * for equality comparisons.
-     *
-     * **Note:** `SameValueZero` comparisons are like strict equality comparisons,
-     * e.g. `===`, except that `NaN` matches `NaN`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
-     * for more details.
      *
      * @static
      * @memberOf _
@@ -8194,36 +8697,31 @@ id.reset = function() {
      * _.intersection([1, 2], [4, 2], [2, 1]);
      * // => [2]
      */
-    function intersection() {
-      var args = [],
-          argsIndex = -1,
-          argsLength = arguments.length,
-          caches = [],
+    var intersection = restParam(function(arrays) {
+      var othLength = arrays.length,
+          othIndex = othLength,
+          caches = Array(length),
           indexOf = getIndexOf(),
-          isCommon = indexOf == baseIndexOf;
+          isCommon = indexOf == baseIndexOf,
+          result = [];
 
-      while (++argsIndex < argsLength) {
-        var value = arguments[argsIndex];
-        if (isArray(value) || isArguments(value)) {
-          args.push(value);
-          caches.push(isCommon && value.length >= 120 && createCache(argsIndex && value));
-        }
+      while (othIndex--) {
+        var value = arrays[othIndex] = isArrayLike(value = arrays[othIndex]) ? value : [];
+        caches[othIndex] = (isCommon && value.length >= 120) ? createCache(othIndex && value) : null;
       }
-      argsLength = args.length;
-      var array = args[0],
+      var array = arrays[0],
           index = -1,
           length = array ? array.length : 0,
-          result = [],
           seen = caches[0];
 
       outer:
       while (++index < length) {
         value = array[index];
-        if ((seen ? cacheIndexOf(seen, value) : indexOf(result, value)) < 0) {
-          argsIndex = argsLength;
-          while (--argsIndex) {
-            var cache = caches[argsIndex];
-            if ((cache ? cacheIndexOf(cache, value) : indexOf(args[argsIndex], value)) < 0) {
+        if ((seen ? cacheIndexOf(seen, value) : indexOf(result, value, 0)) < 0) {
+          var othIndex = othLength;
+          while (--othIndex) {
+            var cache = caches[othIndex];
+            if ((cache ? cacheIndexOf(cache, value) : indexOf(arrays[othIndex], value, 0)) < 0) {
               continue outer;
             }
           }
@@ -8234,7 +8732,7 @@ id.reset = function() {
         }
       }
       return result;
-    }
+    });
 
     /**
      * Gets the last element of `array`.
@@ -8290,7 +8788,10 @@ id.reset = function() {
       } else if (fromIndex) {
         index = binaryIndex(array, value, true) - 1;
         var other = array[index];
-        return (value === value ? value === other : other !== other) ? index : -1;
+        if (value === value ? (value === other) : (other !== other)) {
+          return index;
+        }
+        return -1;
       }
       if (value !== value) {
         return indexOfNaN(array, index, true);
@@ -8304,14 +8805,11 @@ id.reset = function() {
     }
 
     /**
-     * Removes all provided values from `array` using `SameValueZero` for equality
-     * comparisons.
+     * Removes all provided values from `array` using
+     * [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * for equality comparisons.
      *
-     * **Notes:**
-     *  - Unlike `_.without`, this method mutates `array`.
-     *  - `SameValueZero` comparisons are like strict equality comparisons, e.g. `===`,
-     *    except that `NaN` matches `NaN`. See the [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
-     *    for more details.
+     * **Note:** Unlike `_.without`, this method mutates `array`.
      *
      * @static
      * @memberOf _
@@ -8328,17 +8826,19 @@ id.reset = function() {
      * // => [1, 1]
      */
     function pull() {
-      var array = arguments[0];
+      var args = arguments,
+          array = args[0];
+
       if (!(array && array.length)) {
         return array;
       }
       var index = 0,
           indexOf = getIndexOf(),
-          length = arguments.length;
+          length = args.length;
 
       while (++index < length) {
         var fromIndex = 0,
-            value = arguments[index];
+            value = args[index];
 
         while ((fromIndex = indexOf(array, value, fromIndex)) > -1) {
           splice.call(array, fromIndex, 1);
@@ -8372,14 +8872,18 @@ id.reset = function() {
      * console.log(evens);
      * // => [10, 20]
      */
-    function pullAt(array) {
-      return basePullAt(array || [], baseFlatten(arguments, false, false, 1));
-    }
+    var pullAt = restParam(function(array, indexes) {
+      indexes = baseFlatten(indexes);
+
+      var result = baseAt(array, indexes);
+      basePullAt(array, indexes.sort(baseCompareAscending));
+      return result;
+    });
 
     /**
      * Removes all elements from `array` that `predicate` returns truthy for
      * and returns an array of the removed elements. The predicate is bound to
-     * `thisArg` and invoked with three arguments; (value, index, array).
+     * `thisArg` and invoked with three arguments: (value, index, array).
      *
      * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
@@ -8416,19 +8920,23 @@ id.reset = function() {
      * // => [2, 4]
      */
     function remove(array, predicate, thisArg) {
+      var result = [];
+      if (!(array && array.length)) {
+        return result;
+      }
       var index = -1,
-          length = array ? array.length : 0,
-          result = [];
+          indexes = [],
+          length = array.length;
 
       predicate = getCallback(predicate, thisArg, 3);
       while (++index < length) {
         var value = array[index];
         if (predicate(value, index, array)) {
           result.push(value);
-          splice.call(array, index--, 1);
-          length--;
+          indexes.push(index);
         }
       }
+      basePullAt(array, indexes);
       return result;
     }
 
@@ -8453,7 +8961,7 @@ id.reset = function() {
     /**
      * Creates a slice of `array` from `start` up to, but not including, `end`.
      *
-     * **Note:** This function is used instead of `Array#slice` to support node
+     * **Note:** This method is used instead of `Array#slice` to support node
      * lists in IE < 9 and to ensure dense arrays are returned.
      *
      * @static
@@ -8483,14 +8991,14 @@ id.reset = function() {
      * to compute their sort ranking. The iteratee is bound to `thisArg` and
      * invoked with one argument; (value).
      *
-     * If a property name is provided for `predicate` the created `_.property`
+     * If a property name is provided for `iteratee` the created `_.property`
      * style callback returns the property value of the given element.
      *
      * If a value is also provided for `thisArg` the created `_.matchesProperty`
      * style callback returns `true` for elements that have a matching property
      * value, else `false`.
      *
-     * If an object is provided for `predicate` the created `_.matches` style
+     * If an object is provided for `iteratee` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -8524,12 +9032,7 @@ id.reset = function() {
      * _.sortedIndex([{ 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
      * // => 1
      */
-    function sortedIndex(array, value, iteratee, thisArg) {
-      var func = getCallback(iteratee);
-      return (func === baseCallback && iteratee == null)
-        ? binaryIndex(array, value)
-        : binaryIndexBy(array, value, func(iteratee, thisArg, 1));
-    }
+    var sortedIndex = createSortedIndex();
 
     /**
      * This method is like `_.sortedIndex` except that it returns the highest
@@ -8551,12 +9054,7 @@ id.reset = function() {
      * _.sortedLastIndex([4, 4, 5, 5], 5);
      * // => 4
      */
-    function sortedLastIndex(array, value, iteratee, thisArg) {
-      var func = getCallback(iteratee);
-      return (func === baseCallback && iteratee == null)
-        ? binaryIndex(array, value, true)
-        : binaryIndexBy(array, value, func(iteratee, thisArg, 1), true);
-    }
+    var sortedLastIndex = createSortedIndex(true);
 
     /**
      * Creates a slice of `array` with `n` elements taken from the beginning.
@@ -8632,7 +9130,7 @@ id.reset = function() {
     /**
      * Creates a slice of `array` with elements taken from the end. Elements are
      * taken until `predicate` returns falsey. The predicate is bound to `thisArg`
-     * and invoked with three arguments; (value, index, array).
+     * and invoked with three arguments: (value, index, array).
      *
      * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
@@ -8679,19 +9177,15 @@ id.reset = function() {
      * // => []
      */
     function takeRightWhile(array, predicate, thisArg) {
-      var length = array ? array.length : 0;
-      if (!length) {
-        return [];
-      }
-      predicate = getCallback(predicate, thisArg, 3);
-      while (length-- && predicate(array[length], length, array)) {}
-      return baseSlice(array, length + 1);
+      return (array && array.length)
+        ? baseWhile(array, getCallback(predicate, thisArg, 3), false, true)
+        : [];
     }
 
     /**
      * Creates a slice of `array` with elements taken from the beginning. Elements
      * are taken until `predicate` returns falsey. The predicate is bound to
-     * `thisArg` and invoked with three arguments; (value, index, array).
+     * `thisArg` and invoked with three arguments: (value, index, array).
      *
      * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
@@ -8738,24 +9232,15 @@ id.reset = function() {
      * // => []
      */
     function takeWhile(array, predicate, thisArg) {
-      var length = array ? array.length : 0;
-      if (!length) {
-        return [];
-      }
-      var index = -1;
-      predicate = getCallback(predicate, thisArg, 3);
-      while (++index < length && predicate(array[index], index, array)) {}
-      return baseSlice(array, 0, index);
+      return (array && array.length)
+        ? baseWhile(array, getCallback(predicate, thisArg, 3))
+        : [];
     }
 
     /**
-     * Creates an array of unique values, in order, of the provided arrays using
-     * `SameValueZero` for equality comparisons.
-     *
-     * **Note:** `SameValueZero` comparisons are like strict equality comparisons,
-     * e.g. `===`, except that `NaN` matches `NaN`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
-     * for more details.
+     * Creates an array of unique values, in order, from all of the provided arrays
+     * using [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * for equality comparisons.
      *
      * @static
      * @memberOf _
@@ -8767,33 +9252,30 @@ id.reset = function() {
      * _.union([1, 2], [4, 2], [2, 1]);
      * // => [1, 2, 4]
      */
-    function union() {
-      return baseUniq(baseFlatten(arguments, false, true));
-    }
+    var union = restParam(function(arrays) {
+      return baseUniq(baseFlatten(arrays, false, true));
+    });
 
     /**
-     * Creates a duplicate-value-free version of an array using `SameValueZero`
-     * for equality comparisons. Providing `true` for `isSorted` performs a faster
-     * search algorithm for sorted arrays. If an iteratee function is provided it
-     * is invoked for each value in the array to generate the criterion by which
-     * uniqueness is computed. The `iteratee` is bound to `thisArg` and invoked
-     * with three arguments; (value, index, array).
+     * Creates a duplicate-free version of an array, using
+     * [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * for equality comparisons, in which only the first occurence of each element
+     * is kept. Providing `true` for `isSorted` performs a faster search algorithm
+     * for sorted arrays. If an iteratee function is provided it is invoked for
+     * each element in the array to generate the criterion by which uniqueness
+     * is computed. The `iteratee` is bound to `thisArg` and invoked with three
+     * arguments: (value, index, array).
      *
-     * If a property name is provided for `predicate` the created `_.property`
+     * If a property name is provided for `iteratee` the created `_.property`
      * style callback returns the property value of the given element.
      *
      * If a value is also provided for `thisArg` the created `_.matchesProperty`
      * style callback returns `true` for elements that have a matching property
      * value, else `false`.
      *
-     * If an object is provided for `predicate` the created `_.matches` style
+     * If an object is provided for `iteratee` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
-     *
-     * **Note:** `SameValueZero` comparisons are like strict equality comparisons,
-     * e.g. `===`, except that `NaN` matches `NaN`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
-     * for more details.
      *
      * @static
      * @memberOf _
@@ -8806,8 +9288,8 @@ id.reset = function() {
      * @returns {Array} Returns the new duplicate-value-free array.
      * @example
      *
-     * _.uniq([1, 2, 1]);
-     * // => [1, 2]
+     * _.uniq([2, 1, 2]);
+     * // => [2, 1]
      *
      * // using `isSorted`
      * _.uniq([1, 1, 2], true);
@@ -8833,9 +9315,9 @@ id.reset = function() {
         iteratee = isIterateeCall(array, isSorted, thisArg) ? null : isSorted;
         isSorted = false;
       }
-      var func = getCallback();
-      if (!(func === baseCallback && iteratee == null)) {
-        iteratee = func(iteratee, thisArg, 3);
+      var callback = getCallback();
+      if (!(iteratee == null && callback === baseCallback)) {
+        iteratee = callback(iteratee, thisArg, 3);
       }
       return (isSorted && getIndexOf() == baseIndexOf)
         ? sortedUniq(array, iteratee)
@@ -8844,7 +9326,7 @@ id.reset = function() {
 
     /**
      * This method is like `_.zip` except that it accepts an array of grouped
-     * elements and creates an array regrouping the elements to their pre-`_.zip`
+     * elements and creates an array regrouping the elements to their pre-zip
      * configuration.
      *
      * @static
@@ -8861,10 +9343,19 @@ id.reset = function() {
      * // => [['fred', 'barney'], [30, 40], [true, false]]
      */
     function unzip(array) {
+      if (!(array && array.length)) {
+        return [];
+      }
       var index = -1,
-          length = (array && array.length && arrayMax(arrayMap(array, getLength))) >>> 0,
-          result = Array(length);
+          length = 0;
 
+      array = arrayFilter(array, function(group) {
+        if (isArrayLike(group)) {
+          length = nativeMax(group.length, length);
+          return true;
+        }
+      });
+      var result = Array(length);
       while (++index < length) {
         result[index] = arrayMap(array, baseProperty(index));
       }
@@ -8872,13 +9363,44 @@ id.reset = function() {
     }
 
     /**
-     * Creates an array excluding all provided values using `SameValueZero` for
-     * equality comparisons.
+     * This method is like `_.unzip` except that it accepts an iteratee to specify
+     * how regrouped values should be combined. The `iteratee` is bound to `thisArg`
+     * and invoked with four arguments: (accumulator, value, index, group).
      *
-     * **Note:** `SameValueZero` comparisons are like strict equality comparisons,
-     * e.g. `===`, except that `NaN` matches `NaN`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
-     * for more details.
+     * @static
+     * @memberOf _
+     * @category Array
+     * @param {Array} array The array of grouped elements to process.
+     * @param {Function} [iteratee] The function to combine regrouped values.
+     * @param {*} [thisArg] The `this` binding of `iteratee`.
+     * @returns {Array} Returns the new array of regrouped elements.
+     * @example
+     *
+     * var zipped = _.zip([1, 2], [10, 20], [100, 200]);
+     * // => [[1, 10, 100], [2, 20, 200]]
+     *
+     * _.unzipWith(zipped, _.add);
+     * // => [3, 30, 300]
+     */
+    function unzipWith(array, iteratee, thisArg) {
+      var length = array ? array.length : 0;
+      if (!length) {
+        return [];
+      }
+      var result = unzip(array);
+      if (iteratee == null) {
+        return result;
+      }
+      iteratee = bindCallback(iteratee, thisArg, 4);
+      return arrayMap(result, function(group) {
+        return arrayReduce(group, iteratee, undefined, true);
+      });
+    }
+
+    /**
+     * Creates an array excluding all provided values using
+     * [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * for equality comparisons.
      *
      * @static
      * @memberOf _
@@ -8891,14 +9413,15 @@ id.reset = function() {
      * _.without([1, 2, 1, 3], 1, 2);
      * // => [3]
      */
-    function without(array) {
-      return baseDifference(array, baseSlice(arguments, 1));
-    }
+    var without = restParam(function(array, values) {
+      return isArrayLike(array)
+        ? baseDifference(array, values)
+        : [];
+    });
 
     /**
-     * Creates an array that is the symmetric difference of the provided arrays.
-     * See [Wikipedia](https://en.wikipedia.org/wiki/Symmetric_difference) for
-     * more details.
+     * Creates an array of unique values that is the [symmetric difference](https://en.wikipedia.org/wiki/Symmetric_difference)
+     * of the provided arrays.
      *
      * @static
      * @memberOf _
@@ -8916,7 +9439,7 @@ id.reset = function() {
 
       while (++index < length) {
         var array = arguments[index];
-        if (isArray(array) || isArguments(array)) {
+        if (isArrayLike(array)) {
           var result = result
             ? baseDifference(result, array).concat(baseDifference(array, result))
             : array;
@@ -8940,20 +9463,13 @@ id.reset = function() {
      * _.zip(['fred', 'barney'], [30, 40], [true, false]);
      * // => [['fred', 30, true], ['barney', 40, false]]
      */
-    function zip() {
-      var length = arguments.length,
-          array = Array(length);
-
-      while (length--) {
-        array[length] = arguments[length];
-      }
-      return unzip(array);
-    }
+    var zip = restParam(unzip);
 
     /**
-     * Creates an object composed from arrays of property names and values. Provide
-     * either a single two dimensional array, e.g. `[[key1, value1], [key2, value2]]`
-     * or two arrays, one of property names and one of corresponding values.
+     * The inverse of `_.pairs`; this method returns an object composed from arrays
+     * of property names and values. Provide either a single two dimensional array,
+     * e.g. `[[key1, value1], [key2, value2]]` or two arrays, one of property names
+     * and one of corresponding values.
      *
      * @static
      * @memberOf _
@@ -8963,6 +9479,9 @@ id.reset = function() {
      * @param {Array} [values=[]] The property values.
      * @returns {Object} Returns the new object.
      * @example
+     *
+     * _.zipObject([['fred', 30], ['barney', 40]]);
+     * // => { 'fred': 30, 'barney': 40 }
      *
      * _.zipObject(['fred', 'barney'], [30, 40]);
      * // => { 'fred': 30, 'barney': 40 }
@@ -8985,6 +9504,38 @@ id.reset = function() {
       }
       return result;
     }
+
+    /**
+     * This method is like `_.zip` except that it accepts an iteratee to specify
+     * how grouped values should be combined. The `iteratee` is bound to `thisArg`
+     * and invoked with four arguments: (accumulator, value, index, group).
+     *
+     * @static
+     * @memberOf _
+     * @category Array
+     * @param {...Array} [arrays] The arrays to process.
+     * @param {Function} [iteratee] The function to combine grouped values.
+     * @param {*} [thisArg] The `this` binding of `iteratee`.
+     * @returns {Array} Returns the new array of grouped elements.
+     * @example
+     *
+     * _.zipWith([1, 2], [10, 20], [100, 200], _.add);
+     * // => [111, 222]
+     */
+    var zipWith = restParam(function(arrays) {
+      var length = arrays.length,
+          iteratee = length > 2 ? arrays[length - 2] : undefined,
+          thisArg = length > 1 ? arrays[length - 1] : undefined;
+
+      if (length > 2 && typeof iteratee == 'function') {
+        length -= 2;
+      } else {
+        iteratee = (length > 1 && typeof thisArg == 'function') ? (--length, thisArg) : undefined;
+        thisArg = undefined;
+      }
+      arrays.length = length;
+      return unzipWith(arrays, iteratee, thisArg);
+    });
 
     /*------------------------------------------------------------------------*/
 
@@ -9060,13 +9611,14 @@ id.reset = function() {
      * @returns {*} Returns the result of `interceptor`.
      * @example
      *
-     * _([1, 2, 3])
-     *  .last()
+     * _('  abc  ')
+     *  .chain()
+     *  .trim()
      *  .thru(function(value) {
      *    return [value];
      *  })
      *  .value();
-     * // => [3]
+     * // => ['abc']
      */
     function thru(value, interceptor, thisArg) {
       return interceptor.call(thisArg, value);
@@ -9256,32 +9808,28 @@ id.reset = function() {
      * _.at(['a', 'b', 'c'], [0, 2]);
      * // => ['a', 'c']
      *
-     * _.at(['fred', 'barney', 'pebbles'], 0, 2);
-     * // => ['fred', 'pebbles']
+     * _.at(['barney', 'fred', 'pebbles'], 0, 2);
+     * // => ['barney', 'pebbles']
      */
-    function at(collection) {
-      var length = collection ? collection.length : 0;
-      if (isLength(length)) {
-        collection = toIterable(collection);
-      }
-      return baseAt(collection, baseFlatten(arguments, false, false, 1));
-    }
+    var at = restParam(function(collection, props) {
+      return baseAt(collection, baseFlatten(props));
+    });
 
     /**
      * Creates an object composed of keys generated from the results of running
      * each element of `collection` through `iteratee`. The corresponding value
      * of each key is the number of times the key was returned by `iteratee`.
-     * The `iteratee` is bound to `thisArg` and invoked with three arguments;
+     * The `iteratee` is bound to `thisArg` and invoked with three arguments:
      * (value, index|key, collection).
      *
-     * If a property name is provided for `predicate` the created `_.property`
+     * If a property name is provided for `iteratee` the created `_.property`
      * style callback returns the property value of the given element.
      *
      * If a value is also provided for `thisArg` the created `_.matchesProperty`
      * style callback returns `true` for elements that have a matching property
      * value, else `false`.
      *
-     * If an object is provided for `predicate` the created `_.matches` style
+     * If an object is provided for `iteratee` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -9314,7 +9862,7 @@ id.reset = function() {
 
     /**
      * Checks if `predicate` returns truthy for **all** elements of `collection`.
-     * The predicate is bound to `thisArg` and invoked with three arguments;
+     * The predicate is bound to `thisArg` and invoked with three arguments:
      * (value, index|key, collection).
      *
      * If a property name is provided for `predicate` the created `_.property`
@@ -9362,7 +9910,10 @@ id.reset = function() {
      */
     function every(collection, predicate, thisArg) {
       var func = isArray(collection) ? arrayEvery : baseEvery;
-      if (typeof predicate != 'function' || typeof thisArg != 'undefined') {
+      if (thisArg && isIterateeCall(collection, predicate, thisArg)) {
+        predicate = null;
+      }
+      if (typeof predicate != 'function' || thisArg !== undefined) {
         predicate = getCallback(predicate, thisArg, 3);
       }
       return func(collection, predicate);
@@ -9371,7 +9922,7 @@ id.reset = function() {
     /**
      * Iterates over elements of `collection`, returning an array of all elements
      * `predicate` returns truthy for. The predicate is bound to `thisArg` and
-     * invoked with three arguments; (value, index|key, collection).
+     * invoked with three arguments: (value, index|key, collection).
      *
      * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
@@ -9426,7 +9977,7 @@ id.reset = function() {
     /**
      * Iterates over elements of `collection`, returning the first element
      * `predicate` returns truthy for. The predicate is bound to `thisArg` and
-     * invoked with three arguments; (value, index|key, collection).
+     * invoked with three arguments: (value, index|key, collection).
      *
      * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
@@ -9473,14 +10024,7 @@ id.reset = function() {
      * _.result(_.find(users, 'active'), 'user');
      * // => 'barney'
      */
-    function find(collection, predicate, thisArg) {
-      if (isArray(collection)) {
-        var index = findIndex(collection, predicate, thisArg);
-        return index > -1 ? collection[index] : undefined;
-      }
-      predicate = getCallback(predicate, thisArg, 3);
-      return baseFind(collection, predicate, baseEach);
-    }
+    var find = createFind(baseEach);
 
     /**
      * This method is like `_.find` except that it iterates over elements of
@@ -9501,10 +10045,7 @@ id.reset = function() {
      * });
      * // => 3
      */
-    function findLast(collection, predicate, thisArg) {
-      predicate = getCallback(predicate, thisArg, 3);
-      return baseFind(collection, predicate, baseEachRight);
-    }
+    var findLast = createFind(baseEachRight, true);
 
     /**
      * Performs a deep comparison between each element in `collection` and the
@@ -9541,11 +10082,11 @@ id.reset = function() {
 
     /**
      * Iterates over elements of `collection` invoking `iteratee` for each element.
-     * The `iteratee` is bound to `thisArg` and invoked with three arguments;
-     * (value, index|key, collection). Iterator functions may exit iteration early
+     * The `iteratee` is bound to `thisArg` and invoked with three arguments:
+     * (value, index|key, collection). Iteratee functions may exit iteration early
      * by explicitly returning `false`.
      *
-     * **Note:** As with other "Collections" methods, objects with a `length` property
+     * **Note:** As with other "Collections" methods, objects with a "length" property
      * are iterated like arrays. To avoid this behavior `_.forIn` or `_.forOwn`
      * may be used for object iteration.
      *
@@ -9569,11 +10110,7 @@ id.reset = function() {
      * });
      * // => logs each value-key pair and returns the object (iteration order is not guaranteed)
      */
-    function forEach(collection, iteratee, thisArg) {
-      return (typeof iteratee == 'function' && typeof thisArg == 'undefined' && isArray(collection))
-        ? arrayEach(collection, iteratee)
-        : baseEach(collection, bindCallback(iteratee, thisArg, 3));
-    }
+    var forEach = createForEach(arrayEach, baseEach);
 
     /**
      * This method is like `_.forEach` except that it iterates over elements of
@@ -9591,30 +10128,26 @@ id.reset = function() {
      *
      * _([1, 2]).forEachRight(function(n) {
      *   console.log(n);
-     * }).join(',');
+     * }).value();
      * // => logs each value from right to left and returns the array
      */
-    function forEachRight(collection, iteratee, thisArg) {
-      return (typeof iteratee == 'function' && typeof thisArg == 'undefined' && isArray(collection))
-        ? arrayEachRight(collection, iteratee)
-        : baseEachRight(collection, bindCallback(iteratee, thisArg, 3));
-    }
+    var forEachRight = createForEach(arrayEachRight, baseEachRight);
 
     /**
      * Creates an object composed of keys generated from the results of running
      * each element of `collection` through `iteratee`. The corresponding value
      * of each key is an array of the elements responsible for generating the key.
-     * The `iteratee` is bound to `thisArg` and invoked with three arguments;
+     * The `iteratee` is bound to `thisArg` and invoked with three arguments:
      * (value, index|key, collection).
      *
-     * If a property name is provided for `predicate` the created `_.property`
+     * If a property name is provided for `iteratee` the created `_.property`
      * style callback returns the property value of the given element.
      *
      * If a value is also provided for `thisArg` the created `_.matchesProperty`
      * style callback returns `true` for elements that have a matching property
      * value, else `false`.
      *
-     * If an object is provided for `predicate` the created `_.matches` style
+     * If an object is provided for `iteratee` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -9651,14 +10184,10 @@ id.reset = function() {
     });
 
     /**
-     * Checks if `value` is in `collection` using `SameValueZero` for equality
-     * comparisons. If `fromIndex` is negative, it is used as the offset from
-     * the end of `collection`.
-     *
-     * **Note:** `SameValueZero` comparisons are like strict equality comparisons,
-     * e.g. `===`, except that `NaN` matches `NaN`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
-     * for more details.
+     * Checks if `value` is in `collection` using
+     * [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * for equality comparisons. If `fromIndex` is negative, it is used as the offset
+     * from the end of `collection`.
      *
      * @static
      * @memberOf _
@@ -9667,6 +10196,7 @@ id.reset = function() {
      * @param {Array|Object|string} collection The collection to search.
      * @param {*} target The value to search for.
      * @param {number} [fromIndex=0] The index to search from.
+     * @param- {Object} [guard] Enables use as a callback for functions like `_.reduce`.
      * @returns {boolean} Returns `true` if a matching element is found, else `false`.
      * @example
      *
@@ -9682,8 +10212,8 @@ id.reset = function() {
      * _.includes('pebbles', 'eb');
      * // => true
      */
-    function includes(collection, target, fromIndex) {
-      var length = collection ? collection.length : 0;
+    function includes(collection, target, fromIndex, guard) {
+      var length = collection ? getLength(collection) : 0;
       if (!isLength(length)) {
         collection = values(collection);
         length = collection.length;
@@ -9691,10 +10221,10 @@ id.reset = function() {
       if (!length) {
         return false;
       }
-      if (typeof fromIndex == 'number') {
-        fromIndex = fromIndex < 0 ? nativeMax(length + fromIndex, 0) : (fromIndex || 0);
-      } else {
+      if (typeof fromIndex != 'number' || (guard && isIterateeCall(target, fromIndex, guard))) {
         fromIndex = 0;
+      } else {
+        fromIndex = fromIndex < 0 ? nativeMax(length + fromIndex, 0) : (fromIndex || 0);
       }
       return (typeof collection == 'string' || !isArray(collection) && isString(collection))
         ? (fromIndex < length && collection.indexOf(target, fromIndex) > -1)
@@ -9705,17 +10235,17 @@ id.reset = function() {
      * Creates an object composed of keys generated from the results of running
      * each element of `collection` through `iteratee`. The corresponding value
      * of each key is the last element responsible for generating the key. The
-     * iteratee function is bound to `thisArg` and invoked with three arguments;
+     * iteratee function is bound to `thisArg` and invoked with three arguments:
      * (value, index|key, collection).
      *
-     * If a property name is provided for `predicate` the created `_.property`
+     * If a property name is provided for `iteratee` the created `_.property`
      * style callback returns the property value of the given element.
      *
      * If a value is also provided for `thisArg` the created `_.matchesProperty`
      * style callback returns `true` for elements that have a matching property
      * value, else `false`.
      *
-     * If an object is provided for `predicate` the created `_.matches` style
+     * If an object is provided for `iteratee` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -9752,16 +10282,16 @@ id.reset = function() {
     });
 
     /**
-     * Invokes the method named by `methodName` on each element in `collection`,
-     * returning an array of the results of each invoked method. Any additional
-     * arguments are provided to each invoked method. If `methodName` is a function
-     * it is invoked for, and `this` bound to, each element in `collection`.
+     * Invokes the method at `path` of each element in `collection`, returning
+     * an array of the results of each invoked method. Any additional arguments
+     * are provided to each invoked method. If `methodName` is a function it is
+     * invoked for, and `this` bound to, each element in `collection`.
      *
      * @static
      * @memberOf _
      * @category Collection
      * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|string} methodName The name of the method to invoke or
+     * @param {Array|Function|string} path The path of the method to invoke or
      *  the function invoked per iteration.
      * @param {...*} [args] The arguments to invoke the method with.
      * @returns {Array} Returns the array of results.
@@ -9773,34 +10303,44 @@ id.reset = function() {
      * _.invoke([123, 456], String.prototype.split, '');
      * // => [['1', '2', '3'], ['4', '5', '6']]
      */
-    function invoke(collection, methodName) {
-      return baseInvoke(collection, methodName, baseSlice(arguments, 2));
-    }
+    var invoke = restParam(function(collection, path, args) {
+      var index = -1,
+          isFunc = typeof path == 'function',
+          isProp = isKey(path),
+          result = isArrayLike(collection) ? Array(collection.length) : [];
+
+      baseEach(collection, function(value) {
+        var func = isFunc ? path : ((isProp && value != null) ? value[path] : null);
+        result[++index] = func ? func.apply(value, args) : invokePath(value, path, args);
+      });
+      return result;
+    });
 
     /**
      * Creates an array of values by running each element in `collection` through
      * `iteratee`. The `iteratee` is bound to `thisArg` and invoked with three
-     * arguments; (value, index|key, collection).
+     * arguments: (value, index|key, collection).
      *
-     * If a property name is provided for `predicate` the created `_.property`
+     * If a property name is provided for `iteratee` the created `_.property`
      * style callback returns the property value of the given element.
      *
      * If a value is also provided for `thisArg` the created `_.matchesProperty`
      * style callback returns `true` for elements that have a matching property
      * value, else `false`.
      *
-     * If an object is provided for `predicate` the created `_.matches` style
+     * If an object is provided for `iteratee` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
-     * Many lodash methods are guarded to work as interatees for methods like
+     * Many lodash methods are guarded to work as iteratees for methods like
      * `_.every`, `_.filter`, `_.map`, `_.mapValues`, `_.reject`, and `_.some`.
      *
      * The guarded methods are:
-     * `ary`, `callback`, `chunk`, `clone`, `create`, `curry`, `curryRight`, `drop`,
-     * `dropRight`, `fill`, `flatten`, `invert`, `max`, `min`, `parseInt`, `slice`,
-     * `sortBy`, `take`, `takeRight`, `template`, `trim`, `trimLeft`, `trimRight`,
-     * `trunc`, `random`, `range`, `sample`, `uniq`, and `words`
+     * `ary`, `callback`, `chunk`, `clone`, `create`, `curry`, `curryRight`,
+     * `drop`, `dropRight`, `every`, `fill`, `flatten`, `invert`, `max`, `min`,
+     * `parseInt`, `slice`, `sortBy`, `take`, `takeRight`, `template`, `trim`,
+     * `trimLeft`, `trimRight`, `trunc`, `random`, `range`, `sample`, `some`,
+     * `sum`, `uniq`, and `words`
      *
      * @static
      * @memberOf _
@@ -9809,7 +10349,6 @@ id.reset = function() {
      * @param {Array|Object|string} collection The collection to iterate over.
      * @param {Function|Object|string} [iteratee=_.identity] The function invoked
      *  per iteration.
-     *  create a `_.property` or `_.matches` style callback respectively.
      * @param {*} [thisArg] The `this` binding of `iteratee`.
      * @returns {Array} Returns the new mapped array.
      * @example
@@ -9840,108 +10379,10 @@ id.reset = function() {
     }
 
     /**
-     * Gets the maximum value of `collection`. If `collection` is empty or falsey
-     * `-Infinity` is returned. If an iteratee function is provided it is invoked
-     * for each value in `collection` to generate the criterion by which the value
-     * is ranked. The `iteratee` is bound to `thisArg` and invoked with three
-     * arguments; (value, index, collection).
-     *
-     * If a property name is provided for `predicate` the created `_.property`
-     * style callback returns the property value of the given element.
-     *
-     * If a value is also provided for `thisArg` the created `_.matchesProperty`
-     * style callback returns `true` for elements that have a matching property
-     * value, else `false`.
-     *
-     * If an object is provided for `predicate` the created `_.matches` style
-     * callback returns `true` for elements that have the properties of the given
-     * object, else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Collection
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|Object|string} [iteratee] The function invoked per iteration.
-     * @param {*} [thisArg] The `this` binding of `iteratee`.
-     * @returns {*} Returns the maximum value.
-     * @example
-     *
-     * _.max([4, 2, 8, 6]);
-     * // => 8
-     *
-     * _.max([]);
-     * // => -Infinity
-     *
-     * var users = [
-     *   { 'user': 'barney', 'age': 36 },
-     *   { 'user': 'fred',   'age': 40 }
-     * ];
-     *
-     * _.max(users, function(chr) {
-     *   return chr.age;
-     * });
-     * // => { 'user': 'fred', 'age': 40 };
-     *
-     * // using the `_.property` callback shorthand
-     * _.max(users, 'age');
-     * // => { 'user': 'fred', 'age': 40 };
-     */
-    var max = createExtremum(arrayMax);
-
-    /**
-     * Gets the minimum value of `collection`. If `collection` is empty or falsey
-     * `Infinity` is returned. If an iteratee function is provided it is invoked
-     * for each value in `collection` to generate the criterion by which the value
-     * is ranked. The `iteratee` is bound to `thisArg` and invoked with three
-     * arguments; (value, index, collection).
-     *
-     * If a property name is provided for `predicate` the created `_.property`
-     * style callback returns the property value of the given element.
-     *
-     * If a value is also provided for `thisArg` the created `_.matchesProperty`
-     * style callback returns `true` for elements that have a matching property
-     * value, else `false`.
-     *
-     * If an object is provided for `predicate` the created `_.matches` style
-     * callback returns `true` for elements that have the properties of the given
-     * object, else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Collection
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|Object|string} [iteratee] The function invoked per iteration.
-     * @param {*} [thisArg] The `this` binding of `iteratee`.
-     * @returns {*} Returns the minimum value.
-     * @example
-     *
-     * _.min([4, 2, 8, 6]);
-     * // => 2
-     *
-     * _.min([]);
-     * // => Infinity
-     *
-     * var users = [
-     *   { 'user': 'barney', 'age': 36 },
-     *   { 'user': 'fred',   'age': 40 }
-     * ];
-     *
-     * _.min(users, function(chr) {
-     *   return chr.age;
-     * });
-     * // => { 'user': 'barney', 'age': 36 };
-     *
-     * // using the `_.property` callback shorthand
-     * _.min(users, 'age');
-     * // => { 'user': 'barney', 'age': 36 };
-     */
-    var min = createExtremum(arrayMin, true);
-
-    /**
      * Creates an array of elements split into two groups, the first of which
      * contains elements `predicate` returns truthy for, while the second of which
      * contains elements `predicate` returns falsey for. The predicate is bound
-     * to `thisArg` and invoked with three arguments; (value, index|key, collection).
+     * to `thisArg` and invoked with three arguments: (value, index|key, collection).
      *
      * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
@@ -9972,7 +10413,7 @@ id.reset = function() {
      * _.partition([1.2, 2.3, 3.4], function(n) {
      *   return this.floor(n) % 2;
      * }, Math);
-     * // => [[1, 3], [2]]
+     * // => [[1.2, 3.4], [2.3]]
      *
      * var users = [
      *   { 'user': 'barney',  'age': 36, 'active': false },
@@ -10001,13 +10442,13 @@ id.reset = function() {
     }, function() { return [[], []]; });
 
     /**
-     * Gets the value of `key` from all elements in `collection`.
+     * Gets the property value of `path` from all elements in `collection`.
      *
      * @static
      * @memberOf _
      * @category Collection
      * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {string} key The key of the property to pluck.
+     * @param {Array|string} path The path of the property to pluck.
      * @returns {Array} Returns the property values.
      * @example
      *
@@ -10023,8 +10464,8 @@ id.reset = function() {
      * _.pluck(userIndex, 'age');
      * // => [36, 40] (iteration order is not guaranteed)
      */
-    function pluck(collection, key) {
-      return map(collection, baseProperty(key));
+    function pluck(collection, path) {
+      return map(collection, property(path));
     }
 
     /**
@@ -10032,14 +10473,14 @@ id.reset = function() {
      * each element in `collection` through `iteratee`, where each successive
      * invocation is supplied the return value of the previous. If `accumulator`
      * is not provided the first element of `collection` is used as the initial
-     * value. The `iteratee` is bound to `thisArg`and invoked with four arguments;
+     * value. The `iteratee` is bound to `thisArg` and invoked with four arguments:
      * (accumulator, value, index|key, collection).
      *
-     * Many lodash methods are guarded to work as interatees for methods like
+     * Many lodash methods are guarded to work as iteratees for methods like
      * `_.reduce`, `_.reduceRight`, and `_.transform`.
      *
      * The guarded methods are:
-     * `assign`, `defaults`, `merge`, and `sortAllBy`
+     * `assign`, `defaults`, `includes`, `merge`, `sortByAll`, and `sortByOrder`
      *
      * @static
      * @memberOf _
@@ -10052,8 +10493,8 @@ id.reset = function() {
      * @returns {*} Returns the accumulated value.
      * @example
      *
-     * _.reduce([1, 2], function(sum, n) {
-     *   return sum + n;
+     * _.reduce([1, 2], function(total, n) {
+     *   return total + n;
      * });
      * // => 3
      *
@@ -10063,10 +10504,7 @@ id.reset = function() {
      * }, {});
      * // => { 'a': 3, 'b': 6 } (iteration order is not guaranteed)
      */
-    function reduce(collection, iteratee, accumulator, thisArg) {
-      var func = isArray(collection) ? arrayReduce : baseReduce;
-      return func(collection, getCallback(iteratee, thisArg, 4), accumulator, arguments.length < 3, baseEach);
-    }
+    var reduce = createReduce(arrayReduce, baseEach);
 
     /**
      * This method is like `_.reduce` except that it iterates over elements of
@@ -10090,25 +10528,11 @@ id.reset = function() {
      * }, []);
      * // => [4, 5, 2, 3, 0, 1]
      */
-    function reduceRight(collection, iteratee, accumulator, thisArg) {
-      var func = isArray(collection) ? arrayReduceRight : baseReduce;
-      return func(collection, getCallback(iteratee, thisArg, 4), accumulator, arguments.length < 3, baseEachRight);
-    }
+    var reduceRight = createReduce(arrayReduceRight, baseEachRight);
 
     /**
      * The opposite of `_.filter`; this method returns the elements of `collection`
      * that `predicate` does **not** return truthy for.
-     *
-     * If a property name is provided for `predicate` the created `_.property`
-     * style callback returns the property value of the given element.
-     *
-     * If a value is also provided for `thisArg` the created `_.matchesProperty`
-     * style callback returns `true` for elements that have a matching property
-     * value, else `false`.
-     *
-     * If an object is provided for `predicate` the created `_.matches` style
-     * callback returns `true` for elements that have the properties of the given
-     * object, else `false`.
      *
      * @static
      * @memberOf _
@@ -10174,15 +10598,26 @@ id.reset = function() {
         var length = collection.length;
         return length > 0 ? collection[baseRandom(0, length - 1)] : undefined;
       }
-      var result = shuffle(collection);
-      result.length = nativeMin(n < 0 ? 0 : (+n || 0), result.length);
+      var index = -1,
+          result = toArray(collection),
+          length = result.length,
+          lastIndex = length - 1;
+
+      n = nativeMin(n < 0 ? 0 : (+n || 0), length);
+      while (++index < n) {
+        var rand = baseRandom(index, lastIndex),
+            value = result[rand];
+
+        result[rand] = result[index];
+        result[index] = value;
+      }
+      result.length = n;
       return result;
     }
 
     /**
-     * Creates an array of shuffled values, using a version of the Fisher-Yates
-     * shuffle. See [Wikipedia](https://en.wikipedia.org/wiki/Fisher-Yates_shuffle)
-     * for more details.
+     * Creates an array of shuffled values, using a version of the
+     * [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher-Yates_shuffle).
      *
      * @static
      * @memberOf _
@@ -10195,25 +10630,12 @@ id.reset = function() {
      * // => [4, 1, 3, 2]
      */
     function shuffle(collection) {
-      collection = toIterable(collection);
-
-      var index = -1,
-          length = collection.length,
-          result = Array(length);
-
-      while (++index < length) {
-        var rand = baseRandom(0, index);
-        if (index != rand) {
-          result[index] = result[rand];
-        }
-        result[rand] = collection[index];
-      }
-      return result;
+      return sample(collection, POSITIVE_INFINITY);
     }
 
     /**
-     * Gets the size of `collection` by returning `collection.length` for
-     * array-like values or the number of own enumerable properties for objects.
+     * Gets the size of `collection` by returning its length for array-like
+     * values or the number of own enumerable properties for objects.
      *
      * @static
      * @memberOf _
@@ -10232,7 +10654,7 @@ id.reset = function() {
      * // => 7
      */
     function size(collection) {
-      var length = collection ? collection.length : 0;
+      var length = collection ? getLength(collection) : 0;
       return isLength(length) ? length : keys(collection).length;
     }
 
@@ -10240,7 +10662,7 @@ id.reset = function() {
      * Checks if `predicate` returns truthy for **any** element of `collection`.
      * The function returns as soon as it finds a passing value and does not iterate
      * over the entire collection. The predicate is bound to `thisArg` and invoked
-     * with three arguments; (value, index|key, collection).
+     * with three arguments: (value, index|key, collection).
      *
      * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
@@ -10274,7 +10696,7 @@ id.reset = function() {
      * ];
      *
      * // using the `_.matches` callback shorthand
-     * _.some(users, { user': 'barney', 'active': false });
+     * _.some(users, { 'user': 'barney', 'active': false });
      * // => false
      *
      * // using the `_.matchesProperty` callback shorthand
@@ -10287,7 +10709,10 @@ id.reset = function() {
      */
     function some(collection, predicate, thisArg) {
       var func = isArray(collection) ? arraySome : baseSome;
-      if (typeof predicate != 'function' || typeof thisArg != 'undefined') {
+      if (thisArg && isIterateeCall(collection, predicate, thisArg)) {
+        predicate = null;
+      }
+      if (typeof predicate != 'function' || thisArg !== undefined) {
         predicate = getCallback(predicate, thisArg, 3);
       }
       return func(collection, predicate);
@@ -10297,17 +10722,17 @@ id.reset = function() {
      * Creates an array of elements, sorted in ascending order by the results of
      * running each element in a collection through `iteratee`. This method performs
      * a stable sort, that is, it preserves the original sort order of equal elements.
-     * The `iteratee` is bound to `thisArg` and invoked with three arguments;
+     * The `iteratee` is bound to `thisArg` and invoked with three arguments:
      * (value, index|key, collection).
      *
-     * If a property name is provided for `predicate` the created `_.property`
+     * If a property name is provided for `iteratee` the created `_.property`
      * style callback returns the property value of the given element.
      *
      * If a value is also provided for `thisArg` the created `_.matchesProperty`
      * style callback returns `true` for elements that have a matching property
      * value, else `false`.
      *
-     * If an object is provided for `predicate` the created `_.matches` style
+     * If an object is provided for `iteratee` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -10315,9 +10740,8 @@ id.reset = function() {
      * @memberOf _
      * @category Collection
      * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Array|Function|Object|string} [iteratee=_.identity] The function
-     *  invoked per iteration. If a property name or an object is provided it is
-     *  used to create a `_.property` or `_.matches` style callback respectively.
+     * @param {Function|Object|string} [iteratee=_.identity] The function invoked
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `iteratee`.
      * @returns {Array} Returns the new sorted array.
      * @example
@@ -10343,63 +10767,115 @@ id.reset = function() {
      * // => ['barney', 'fred', 'pebbles']
      */
     function sortBy(collection, iteratee, thisArg) {
-      var index = -1,
-          length = collection ? collection.length : 0,
-          result = isLength(length) ? Array(length) : [];
-
+      if (collection == null) {
+        return [];
+      }
       if (thisArg && isIterateeCall(collection, iteratee, thisArg)) {
         iteratee = null;
       }
+      var index = -1;
       iteratee = getCallback(iteratee, thisArg, 3);
-      baseEach(collection, function(value, key, collection) {
-        result[++index] = { 'criteria': iteratee(value, key, collection), 'index': index, 'value': value };
+
+      var result = baseMap(collection, function(value, key, collection) {
+        return { 'criteria': iteratee(value, key, collection), 'index': ++index, 'value': value };
       });
       return baseSortBy(result, compareAscending);
     }
 
     /**
-     * This method is like `_.sortBy` except that it sorts by property names
-     * instead of an iteratee function.
+     * This method is like `_.sortBy` except that it can sort by multiple iteratees
+     * or property names.
+     *
+     * If a property name is provided for an iteratee the created `_.property`
+     * style callback returns the property value of the given element.
+     *
+     * If an object is provided for an iteratee the created `_.matches` style
+     * callback returns `true` for elements that have the properties of the given
+     * object, else `false`.
      *
      * @static
      * @memberOf _
      * @category Collection
      * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {...(string|string[])} props The property names to sort by,
-     *  specified as individual property names or arrays of property names.
+     * @param {...(Function|Function[]|Object|Object[]|string|string[])} iteratees
+     *  The iteratees to sort by, specified as individual values or arrays of values.
      * @returns {Array} Returns the new sorted array.
      * @example
      *
      * var users = [
+     *   { 'user': 'fred',   'age': 48 },
      *   { 'user': 'barney', 'age': 36 },
-     *   { 'user': 'fred',   'age': 40 },
-     *   { 'user': 'barney', 'age': 26 },
-     *   { 'user': 'fred',   'age': 30 }
+     *   { 'user': 'fred',   'age': 42 },
+     *   { 'user': 'barney', 'age': 34 }
      * ];
      *
      * _.map(_.sortByAll(users, ['user', 'age']), _.values);
-     * // => [['barney', 26], ['barney', 36], ['fred', 30], ['fred', 40]]
+     * // => [['barney', 34], ['barney', 36], ['fred', 42], ['fred', 48]]
+     *
+     * _.map(_.sortByAll(users, 'user', function(chr) {
+     *   return Math.floor(chr.age / 10);
+     * }), _.values);
+     * // => [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    function sortByAll(collection) {
-      var args = arguments;
-      if (args.length > 3 && isIterateeCall(args[1], args[2], args[3])) {
-        args = [collection, args[1]];
+    var sortByAll = restParam(function(collection, iteratees) {
+      if (collection == null) {
+        return [];
       }
-      var index = -1,
-          length = collection ? collection.length : 0,
-          props = baseFlatten(args, false, false, 1),
-          result = isLength(length) ? Array(length) : [];
+      var guard = iteratees[2];
+      if (guard && isIterateeCall(iteratees[0], iteratees[1], guard)) {
+        iteratees.length = 1;
+      }
+      return baseSortByOrder(collection, baseFlatten(iteratees), []);
+    });
 
-      baseEach(collection, function(value) {
-        var length = props.length,
-            criteria = Array(length);
-
-        while (length--) {
-          criteria[length] = value == null ? undefined : value[props[length]];
-        }
-        result[++index] = { 'criteria': criteria, 'index': index, 'value': value };
-      });
-      return baseSortBy(result, compareMultipleAscending);
+    /**
+     * This method is like `_.sortByAll` except that it allows specifying the
+     * sort orders of the iteratees to sort by. A truthy value in `orders` will
+     * sort the corresponding property name in ascending order while a falsey
+     * value will sort it in descending order.
+     *
+     * If a property name is provided for an iteratee the created `_.property`
+     * style callback returns the property value of the given element.
+     *
+     * If an object is provided for an iteratee the created `_.matches` style
+     * callback returns `true` for elements that have the properties of the given
+     * object, else `false`.
+     *
+     * @static
+     * @memberOf _
+     * @category Collection
+     * @param {Array|Object|string} collection The collection to iterate over.
+     * @param {Function[]|Object[]|string[]} iteratees The iteratees to sort by.
+     * @param {boolean[]} orders The sort orders of `iteratees`.
+     * @param- {Object} [guard] Enables use as a callback for functions like `_.reduce`.
+     * @returns {Array} Returns the new sorted array.
+     * @example
+     *
+     * var users = [
+     *   { 'user': 'fred',   'age': 48 },
+     *   { 'user': 'barney', 'age': 34 },
+     *   { 'user': 'fred',   'age': 42 },
+     *   { 'user': 'barney', 'age': 36 }
+     * ];
+     *
+     * // sort by `user` in ascending order and by `age` in descending order
+     * _.map(_.sortByOrder(users, ['user', 'age'], [true, false]), _.values);
+     * // => [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
+     */
+    function sortByOrder(collection, iteratees, orders, guard) {
+      if (collection == null) {
+        return [];
+      }
+      if (guard && isIterateeCall(iteratees, orders, guard)) {
+        orders = null;
+      }
+      if (!isArray(iteratees)) {
+        iteratees = iteratees == null ? [] : [iteratees];
+      }
+      if (!isArray(orders)) {
+        orders = orders == null ? [] : [orders];
+      }
+      return baseSortByOrder(collection, iteratees, orders);
     }
 
     /**
@@ -10552,7 +11028,8 @@ id.reset = function() {
       return function() {
         if (--n > 0) {
           result = func.apply(this, arguments);
-        } else {
+        }
+        if (n <= 1) {
           func = null;
         }
         return result;
@@ -10567,7 +11044,7 @@ id.reset = function() {
      * The `_.bind.placeholder` value, which defaults to `_` in monolithic builds,
      * may be used as a placeholder for partially applied arguments.
      *
-     * **Note:** Unlike native `Function#bind` this method does not set the `length`
+     * **Note:** Unlike native `Function#bind` this method does not set the "length"
      * property of bound functions.
      *
      * @static
@@ -10575,7 +11052,7 @@ id.reset = function() {
      * @category Function
      * @param {Function} func The function to bind.
      * @param {*} thisArg The `this` binding of `func`.
-     * @param {...*} [args] The arguments to be partially applied.
+     * @param {...*} [partials] The arguments to be partially applied.
      * @returns {Function} Returns the new bound function.
      * @example
      *
@@ -10594,16 +11071,14 @@ id.reset = function() {
      * bound('hi');
      * // => 'hi fred!'
      */
-    function bind(func, thisArg) {
+    var bind = restParam(function(func, thisArg, partials) {
       var bitmask = BIND_FLAG;
-      if (arguments.length > 2) {
-        var partials = baseSlice(arguments, 2),
-            holders = replaceHolders(partials, bind.placeholder);
-
+      if (partials.length) {
+        var holders = replaceHolders(partials, bind.placeholder);
         bitmask |= PARTIAL_FLAG;
       }
       return createWrapper(func, bitmask, thisArg, partials, holders);
-    }
+    });
 
     /**
      * Binds methods of an object to the object itself, overwriting the existing
@@ -10611,7 +11086,7 @@ id.reset = function() {
      * of method names. If no method names are provided all enumerable function
      * properties, own and inherited, of `object` are bound.
      *
-     * **Note:** This method does not set the `length` property of bound functions.
+     * **Note:** This method does not set the "length" property of bound functions.
      *
      * @static
      * @memberOf _
@@ -10633,13 +11108,18 @@ id.reset = function() {
      * jQuery('#docs').on('click', view.onClick);
      * // => logs 'clicked docs' when the element is clicked
      */
-    function bindAll(object) {
-      return baseBindAll(object,
-        arguments.length > 1
-          ? baseFlatten(arguments, false, false, 1)
-          : functions(object)
-      );
-    }
+    var bindAll = restParam(function(object, methodNames) {
+      methodNames = methodNames.length ? baseFlatten(methodNames) : functions(object);
+
+      var index = -1,
+          length = methodNames.length;
+
+      while (++index < length) {
+        var key = methodNames[index];
+        object[key] = createWrapper(object[key], BIND_FLAG, object);
+      }
+      return object;
+    });
 
     /**
      * Creates a function that invokes the method at `object[key]` and prepends
@@ -10647,7 +11127,7 @@ id.reset = function() {
      *
      * This method differs from `_.bind` by allowing bound functions to reference
      * methods that may be redefined or don't yet exist.
-     * See [Peter Michaux's article](http://michaux.ca/articles/lazy-function-definition-pattern)
+     * See [Peter Michaux's article](http://peter.michaux.ca/articles/lazy-function-definition-pattern)
      * for more details.
      *
      * The `_.bindKey.placeholder` value, which defaults to `_` in monolithic
@@ -10658,7 +11138,7 @@ id.reset = function() {
      * @category Function
      * @param {Object} object The object the method belongs to.
      * @param {string} key The key of the method.
-     * @param {...*} [args] The arguments to be partially applied.
+     * @param {...*} [partials] The arguments to be partially applied.
      * @returns {Function} Returns the new bound function.
      * @example
      *
@@ -10685,16 +11165,14 @@ id.reset = function() {
      * bound('hi');
      * // => 'hiya fred!'
      */
-    function bindKey(object, key) {
+    var bindKey = restParam(function(object, key, partials) {
       var bitmask = BIND_FLAG | BIND_KEY_FLAG;
-      if (arguments.length > 2) {
-        var partials = baseSlice(arguments, 2),
-            holders = replaceHolders(partials, bindKey.placeholder);
-
+      if (partials.length) {
+        var holders = replaceHolders(partials, bindKey.placeholder);
         bitmask |= PARTIAL_FLAG;
       }
       return createWrapper(key, bitmask, object, partials, holders);
-    }
+    });
 
     /**
      * Creates a function that accepts one or more arguments of `func` that when
@@ -10706,7 +11184,7 @@ id.reset = function() {
      * The `_.curry.placeholder` value, which defaults to `_` in monolithic builds,
      * may be used as a placeholder for provided arguments.
      *
-     * **Note:** This method does not set the `length` property of curried functions.
+     * **Note:** This method does not set the "length" property of curried functions.
      *
      * @static
      * @memberOf _
@@ -10736,14 +11214,7 @@ id.reset = function() {
      * curried(1)(_, 3)(2);
      * // => [1, 2, 3]
      */
-    function curry(func, arity, guard) {
-      if (guard && isIterateeCall(func, arity, guard)) {
-        arity = null;
-      }
-      var result = createWrapper(func, CURRY_FLAG, null, null, null, null, null, arity);
-      result.placeholder = curry.placeholder;
-      return result;
-    }
+    var curry = createCurry(CURRY_FLAG);
 
     /**
      * This method is like `_.curry` except that arguments are applied to `func`
@@ -10752,7 +11223,7 @@ id.reset = function() {
      * The `_.curryRight.placeholder` value, which defaults to `_` in monolithic
      * builds, may be used as a placeholder for provided arguments.
      *
-     * **Note:** This method does not set the `length` property of curried functions.
+     * **Note:** This method does not set the "length" property of curried functions.
      *
      * @static
      * @memberOf _
@@ -10782,22 +11253,16 @@ id.reset = function() {
      * curried(3)(1, _)(2);
      * // => [1, 2, 3]
      */
-    function curryRight(func, arity, guard) {
-      if (guard && isIterateeCall(func, arity, guard)) {
-        arity = null;
-      }
-      var result = createWrapper(func, CURRY_RIGHT_FLAG, null, null, null, null, null, arity);
-      result.placeholder = curryRight.placeholder;
-      return result;
-    }
+    var curryRight = createCurry(CURRY_RIGHT_FLAG);
 
     /**
-     * Creates a function that delays invoking `func` until after `wait` milliseconds
-     * have elapsed since the last time it was invoked. The created function comes
-     * with a `cancel` method to cancel delayed invocations. Provide an options
-     * object to indicate that `func` should be invoked on the leading and/or
-     * trailing edge of the `wait` timeout. Subsequent calls to the debounced
-     * function return the result of the last `func` invocation.
+     * Creates a debounced function that delays invoking `func` until after `wait`
+     * milliseconds have elapsed since the last time the debounced function was
+     * invoked. The debounced function comes with a `cancel` method to cancel
+     * delayed invocations. Provide an options object to indicate that `func`
+     * should be invoked on the leading and/or trailing edge of the `wait` timeout.
+     * Subsequent calls to the debounced function return the result of the last
+     * `func` invocation.
      *
      * **Note:** If `leading` and `trailing` options are `true`, `func` is invoked
      * on the trailing edge of the timeout only if the the debounced function is
@@ -10810,7 +11275,7 @@ id.reset = function() {
      * @memberOf _
      * @category Function
      * @param {Function} func The function to debounce.
-     * @param {number} wait The number of milliseconds to delay.
+     * @param {number} [wait=0] The number of milliseconds to delay.
      * @param {Object} [options] The options object.
      * @param {boolean} [options.leading=false] Specify invoking on the leading
      *  edge of the timeout.
@@ -10868,7 +11333,7 @@ id.reset = function() {
       if (typeof func != 'function') {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
-      wait = wait < 0 ? 0 : wait;
+      wait = wait < 0 ? 0 : (+wait || 0);
       if (options === true) {
         var leading = true;
         trailing = false;
@@ -10984,9 +11449,9 @@ id.reset = function() {
      * }, 'deferred');
      * // logs 'deferred' after one or more milliseconds
      */
-    function defer(func) {
-      return baseDelay(func, 1, arguments, 1);
-    }
+    var defer = restParam(function(func, args) {
+      return baseDelay(func, 1, args);
+    });
 
     /**
      * Invokes `func` after `wait` milliseconds. Any additional arguments are
@@ -11006,9 +11471,9 @@ id.reset = function() {
      * }, 1000, 'later');
      * // => logs 'later' after one second
      */
-    function delay(func, wait) {
-      return baseDelay(func, wait, arguments, 2);
-    }
+    var delay = restParam(function(func, wait, args) {
+      return baseDelay(func, wait, args);
+    });
 
     /**
      * Creates a function that returns the result of invoking the provided
@@ -11022,38 +11487,15 @@ id.reset = function() {
      * @returns {Function} Returns the new function.
      * @example
      *
-     * function add(x, y) {
-     *   return x + y;
-     * }
-     *
      * function square(n) {
      *   return n * n;
      * }
      *
-     * var addSquare = _.flow(add, square);
+     * var addSquare = _.flow(_.add, square);
      * addSquare(1, 2);
      * // => 9
      */
-    function flow() {
-      var funcs = arguments,
-          length = funcs.length;
-
-      if (!length) {
-        return function() { return arguments[0]; };
-      }
-      if (!arrayEvery(funcs, baseIsFunction)) {
-        throw new TypeError(FUNC_ERROR_TEXT);
-      }
-      return function() {
-        var index = 0,
-            result = funcs[index].apply(this, arguments);
-
-        while (++index < length) {
-          result = funcs[index].call(this, result);
-        }
-        return result;
-      };
-    }
+    var flow = createFlow();
 
     /**
      * This method is like `_.flow` except that it creates a function that
@@ -11067,38 +11509,15 @@ id.reset = function() {
      * @returns {Function} Returns the new function.
      * @example
      *
-     * function add(x, y) {
-     *   return x + y;
-     * }
-     *
      * function square(n) {
      *   return n * n;
      * }
      *
-     * var addSquare = _.flowRight(square, add);
+     * var addSquare = _.flowRight(square, _.add);
      * addSquare(1, 2);
      * // => 9
      */
-    function flowRight() {
-      var funcs = arguments,
-          fromIndex = funcs.length - 1;
-
-      if (fromIndex < 0) {
-        return function() { return arguments[0]; };
-      }
-      if (!arrayEvery(funcs, baseIsFunction)) {
-        throw new TypeError(FUNC_ERROR_TEXT);
-      }
-      return function() {
-        var index = fromIndex,
-            result = funcs[index].apply(this, arguments);
-
-        while (index--) {
-          result = funcs[index].call(this, result);
-        }
-        return result;
-      };
-    }
+    var flowRight = createFlow(true);
 
     /**
      * Creates a function that memoizes the result of `func`. If `resolver` is
@@ -11110,10 +11529,8 @@ id.reset = function() {
      *
      * **Note:** The cache is exposed as the `cache` property on the memoized
      * function. Its creation may be customized by replacing the `_.memoize.Cache`
-     * constructor with one whose instances implement the ES `Map` method interface
-     * of `get`, `has`, and `set`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-properties-of-the-map-prototype-object)
-     * for more details.
+     * constructor with one whose instances implement the [`Map`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-properties-of-the-map-prototype-object)
+     * method interface of `get`, `has`, and `set`.
      *
      * @static
      * @memberOf _
@@ -11158,14 +11575,15 @@ id.reset = function() {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
       var memoized = function() {
-        var cache = memoized.cache,
-            key = resolver ? resolver.apply(this, arguments) : arguments[0];
+        var args = arguments,
+            key = resolver ? resolver.apply(this, args) : args[0],
+            cache = memoized.cache;
 
         if (cache.has(key)) {
           return cache.get(key);
         }
-        var result = func.apply(this, arguments);
-        cache.set(key, result);
+        var result = func.apply(this, args);
+        memoized.cache = cache.set(key, result);
         return result;
       };
       memoized.cache = new memoize.Cache;
@@ -11203,7 +11621,7 @@ id.reset = function() {
     /**
      * Creates a function that is restricted to invoking `func` once. Repeat calls
      * to the function return the value of the first call. The `func` is invoked
-     * with the `this` binding of the created function.
+     * with the `this` binding and arguments of the created function.
      *
      * @static
      * @memberOf _
@@ -11218,7 +11636,7 @@ id.reset = function() {
      * // `initialize` invokes `createApplication` once
      */
     function once(func) {
-      return before(func, 2);
+      return before(2, func);
     }
 
     /**
@@ -11229,14 +11647,14 @@ id.reset = function() {
      * The `_.partial.placeholder` value, which defaults to `_` in monolithic
      * builds, may be used as a placeholder for partially applied arguments.
      *
-     * **Note:** This method does not set the `length` property of partially
+     * **Note:** This method does not set the "length" property of partially
      * applied functions.
      *
      * @static
      * @memberOf _
      * @category Function
      * @param {Function} func The function to partially apply arguments to.
-     * @param {...*} [args] The arguments to be partially applied.
+     * @param {...*} [partials] The arguments to be partially applied.
      * @returns {Function} Returns the new partially applied function.
      * @example
      *
@@ -11253,12 +11671,7 @@ id.reset = function() {
      * greetFred('hi');
      * // => 'hi fred'
      */
-    function partial(func) {
-      var partials = baseSlice(arguments, 1),
-          holders = replaceHolders(partials, partial.placeholder);
-
-      return createWrapper(func, PARTIAL_FLAG, null, partials, holders);
-    }
+    var partial = createPartial(PARTIAL_FLAG);
 
     /**
      * This method is like `_.partial` except that partially applied arguments
@@ -11267,14 +11680,14 @@ id.reset = function() {
      * The `_.partialRight.placeholder` value, which defaults to `_` in monolithic
      * builds, may be used as a placeholder for partially applied arguments.
      *
-     * **Note:** This method does not set the `length` property of partially
+     * **Note:** This method does not set the "length" property of partially
      * applied functions.
      *
      * @static
      * @memberOf _
      * @category Function
      * @param {Function} func The function to partially apply arguments to.
-     * @param {...*} [args] The arguments to be partially applied.
+     * @param {...*} [partials] The arguments to be partially applied.
      * @returns {Function} Returns the new partially applied function.
      * @example
      *
@@ -11291,12 +11704,7 @@ id.reset = function() {
      * sayHelloTo('fred');
      * // => 'hello fred'
      */
-    function partialRight(func) {
-      var partials = baseSlice(arguments, 1),
-          holders = replaceHolders(partials, partialRight.placeholder);
-
-      return createWrapper(func, PARTIAL_RIGHT_FLAG, null, partials, holders);
-    }
+    var partialRight = createPartial(PARTIAL_RIGHT_FLAG);
 
     /**
      * Creates a function that invokes `func` with arguments arranged according
@@ -11326,29 +11734,80 @@ id.reset = function() {
      * }, [1, 2, 3]);
      * // => [3, 6, 9]
      */
-    function rearg(func) {
-      var indexes = baseFlatten(arguments, false, false, 1);
-      return createWrapper(func, REARG_FLAG, null, null, null, indexes);
-    }
+    var rearg = restParam(function(func, indexes) {
+      return createWrapper(func, REARG_FLAG, null, null, null, baseFlatten(indexes));
+    });
 
     /**
      * Creates a function that invokes `func` with the `this` binding of the
-     * created function and the array of arguments provided to the created
-     * function much like [Function#apply](http://es5.github.io/#x15.3.4.3).
+     * created function and arguments from `start` and beyond provided as an array.
+     *
+     * **Note:** This method is based on the [rest parameter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters).
+     *
+     * @static
+     * @memberOf _
+     * @category Function
+     * @param {Function} func The function to apply a rest parameter to.
+     * @param {number} [start=func.length-1] The start position of the rest parameter.
+     * @returns {Function} Returns the new function.
+     * @example
+     *
+     * var say = _.restParam(function(what, names) {
+     *   return what + ' ' + _.initial(names).join(', ') +
+     *     (_.size(names) > 1 ? ', & ' : '') + _.last(names);
+     * });
+     *
+     * say('hello', 'fred', 'barney', 'pebbles');
+     * // => 'hello fred, barney, & pebbles'
+     */
+    function restParam(func, start) {
+      if (typeof func != 'function') {
+        throw new TypeError(FUNC_ERROR_TEXT);
+      }
+      start = nativeMax(start === undefined ? (func.length - 1) : (+start || 0), 0);
+      return function() {
+        var args = arguments,
+            index = -1,
+            length = nativeMax(args.length - start, 0),
+            rest = Array(length);
+
+        while (++index < length) {
+          rest[index] = args[start + index];
+        }
+        switch (start) {
+          case 0: return func.call(this, rest);
+          case 1: return func.call(this, args[0], rest);
+          case 2: return func.call(this, args[0], args[1], rest);
+        }
+        var otherArgs = Array(start + 1);
+        index = -1;
+        while (++index < start) {
+          otherArgs[index] = args[index];
+        }
+        otherArgs[start] = rest;
+        return func.apply(this, otherArgs);
+      };
+    }
+
+    /**
+     * Creates a function that invokes `func` with the `this` binding of the created
+     * function and an array of arguments much like [`Function#apply`](https://es5.github.io/#x15.3.4.3).
+     *
+     * **Note:** This method is based on the [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator).
      *
      * @static
      * @memberOf _
      * @category Function
      * @param {Function} func The function to spread arguments over.
-     * @returns {*} Returns the new function.
+     * @returns {Function} Returns the new function.
      * @example
      *
-     * var spread = _.spread(function(who, what) {
+     * var say = _.spread(function(who, what) {
      *   return who + ' says ' + what;
      * });
      *
-     * spread(['Fred', 'hello']);
-     * // => 'Fred says hello'
+     * say(['fred', 'hello']);
+     * // => 'fred says hello'
      *
      * // with a Promise
      * var numbers = Promise.all([
@@ -11371,12 +11830,12 @@ id.reset = function() {
     }
 
     /**
-     * Creates a function that only invokes `func` at most once per every `wait`
-     * milliseconds. The created function comes with a `cancel` method to cancel
-     * delayed invocations. Provide an options object to indicate that `func`
-     * should be invoked on the leading and/or trailing edge of the `wait` timeout.
-     * Subsequent calls to the throttled function return the result of the last
-     * `func` call.
+     * Creates a throttled function that only invokes `func` at most once per
+     * every `wait` milliseconds. The throttled function comes with a `cancel`
+     * method to cancel delayed invocations. Provide an options object to indicate
+     * that `func` should be invoked on the leading and/or trailing edge of the
+     * `wait` timeout. Subsequent calls to the throttled function return the
+     * result of the last `func` call.
      *
      * **Note:** If `leading` and `trailing` options are `true`, `func` is invoked
      * on the trailing edge of the timeout only if the the throttled function is
@@ -11389,7 +11848,7 @@ id.reset = function() {
      * @memberOf _
      * @category Function
      * @param {Function} func The function to throttle.
-     * @param {number} wait The number of milliseconds to throttle invocations to.
+     * @param {number} [wait=0] The number of milliseconds to throttle invocations to.
      * @param {Object} [options] The options object.
      * @param {boolean} [options.leading=true] Specify invoking on the leading
      *  edge of the timeout.
@@ -11463,12 +11922,12 @@ id.reset = function() {
      * cloning is handled by the method instead. The `customizer` is bound to
      * `thisArg` and invoked with two argument; (value [, index|key, object]).
      *
-     * **Note:** This method is loosely based on the structured clone algorithm.
+     * **Note:** This method is loosely based on the
+     * [structured clone algorithm](http://www.w3.org/TR/html5/infrastructure.html#internal-structured-cloning-algorithm).
      * The enumerable properties of `arguments` objects and objects created by
      * constructors other than `Object` are cloned to plain `Object` objects. An
      * empty object is returned for uncloneable values such as functions, DOM nodes,
-     * Maps, Sets, and WeakMaps. See the [HTML5 specification](http://www.w3.org/TR/html5/infrastructure.html#internal-structured-cloning-algorithm)
-     * for more details.
+     * Maps, Sets, and WeakMaps.
      *
      * @static
      * @memberOf _
@@ -11516,8 +11975,9 @@ id.reset = function() {
         customizer = isDeep;
         isDeep = false;
       }
-      customizer = typeof customizer == 'function' && bindCallback(customizer, thisArg, 1);
-      return baseClone(value, isDeep, customizer);
+      return typeof customizer == 'function'
+        ? baseClone(value, isDeep, bindCallback(customizer, thisArg, 1))
+        : baseClone(value, isDeep);
     }
 
     /**
@@ -11526,12 +11986,12 @@ id.reset = function() {
      * is handled by the method instead. The `customizer` is bound to `thisArg`
      * and invoked with two argument; (value [, index|key, object]).
      *
-     * **Note:** This method is loosely based on the structured clone algorithm.
+     * **Note:** This method is loosely based on the
+     * [structured clone algorithm](http://www.w3.org/TR/html5/infrastructure.html#internal-structured-cloning-algorithm).
      * The enumerable properties of `arguments` objects and objects created by
      * constructors other than `Object` are cloned to plain `Object` objects. An
      * empty object is returned for uncloneable values such as functions, DOM nodes,
-     * Maps, Sets, and WeakMaps. See the [HTML5 specification](http://www.w3.org/TR/html5/infrastructure.html#internal-structured-cloning-algorithm)
-     * for more details.
+     * Maps, Sets, and WeakMaps.
      *
      * @static
      * @memberOf _
@@ -11566,8 +12026,57 @@ id.reset = function() {
      * // => 20
      */
     function cloneDeep(value, customizer, thisArg) {
-      customizer = typeof customizer == 'function' && bindCallback(customizer, thisArg, 1);
-      return baseClone(value, true, customizer);
+      return typeof customizer == 'function'
+        ? baseClone(value, true, bindCallback(customizer, thisArg, 1))
+        : baseClone(value, true);
+    }
+
+    /**
+     * Checks if `value` is greater than `other`.
+     *
+     * @static
+     * @memberOf _
+     * @category Lang
+     * @param {*} value The value to compare.
+     * @param {*} other The other value to compare.
+     * @returns {boolean} Returns `true` if `value` is greater than `other`, else `false`.
+     * @example
+     *
+     * _.gt(3, 1);
+     * // => true
+     *
+     * _.gt(3, 3);
+     * // => false
+     *
+     * _.gt(1, 3);
+     * // => false
+     */
+    function gt(value, other) {
+      return value > other;
+    }
+
+    /**
+     * Checks if `value` is greater than or equal to `other`.
+     *
+     * @static
+     * @memberOf _
+     * @category Lang
+     * @param {*} value The value to compare.
+     * @param {*} other The other value to compare.
+     * @returns {boolean} Returns `true` if `value` is greater than or equal to `other`, else `false`.
+     * @example
+     *
+     * _.gte(3, 1);
+     * // => true
+     *
+     * _.gte(3, 3);
+     * // => true
+     *
+     * _.gte(1, 3);
+     * // => false
+     */
+    function gte(value, other) {
+      return value >= other;
     }
 
     /**
@@ -11587,8 +12096,7 @@ id.reset = function() {
      * // => false
      */
     function isArguments(value) {
-      var length = isObjectLike(value) ? value.length : undefined;
-      return (isLength(length) && objToString.call(value) == argsTag) || false;
+      return isObjectLike(value) && isArrayLike(value) && objToString.call(value) == argsTag;
     }
 
     /**
@@ -11608,7 +12116,7 @@ id.reset = function() {
      * // => false
      */
     var isArray = nativeIsArray || function(value) {
-      return (isObjectLike(value) && isLength(value.length) && objToString.call(value) == arrayTag) || false;
+      return isObjectLike(value) && isLength(value.length) && objToString.call(value) == arrayTag;
     };
 
     /**
@@ -11628,7 +12136,7 @@ id.reset = function() {
      * // => false
      */
     function isBoolean(value) {
-      return (value === true || value === false || isObjectLike(value) && objToString.call(value) == boolTag) || false;
+      return value === true || value === false || (isObjectLike(value) && objToString.call(value) == boolTag);
     }
 
     /**
@@ -11648,7 +12156,7 @@ id.reset = function() {
      * // => false
      */
     function isDate(value) {
-      return (isObjectLike(value) && objToString.call(value) == dateTag) || false;
+      return isObjectLike(value) && objToString.call(value) == dateTag;
     }
 
     /**
@@ -11668,18 +12176,18 @@ id.reset = function() {
      * // => false
      */
     function isElement(value) {
-      return (value && value.nodeType === 1 && isObjectLike(value) &&
-        objToString.call(value).indexOf('Element') > -1) || false;
+      return !!value && value.nodeType === 1 && isObjectLike(value) &&
+        (objToString.call(value).indexOf('Element') > -1);
     }
     // Fallback for environments without DOM support.
     if (!support.dom) {
       isElement = function(value) {
-        return (value && value.nodeType === 1 && isObjectLike(value) && !isPlainObject(value)) || false;
+        return !!value && value.nodeType === 1 && isObjectLike(value) && !isPlainObject(value);
       };
     }
 
     /**
-     * Checks if a value is empty. A value is considered empty unless it is an
+     * Checks if `value` is empty. A value is considered empty unless it is an
      * `arguments` object, array, string, or jQuery-like collection with a length
      * greater than `0` or an object with own enumerable properties.
      *
@@ -11709,10 +12217,9 @@ id.reset = function() {
       if (value == null) {
         return true;
       }
-      var length = value.length;
-      if (isLength(length) && (isArray(value) || isString(value) || isArguments(value) ||
+      if (isArrayLike(value) && (isArray(value) || isString(value) || isArguments(value) ||
           (isObjectLike(value) && isFunction(value.splice)))) {
-        return !length;
+        return !value.length;
       }
       return !keys(value).length;
     }
@@ -11722,7 +12229,7 @@ id.reset = function() {
      * equivalent. If `customizer` is provided it is invoked to compare values.
      * If `customizer` returns `undefined` comparisons are handled by the method
      * instead. The `customizer` is bound to `thisArg` and invoked with three
-     * arguments; (value, other [, index|key]).
+     * arguments: (value, other [, index|key]).
      *
      * **Note:** This method supports comparing arrays, booleans, `Date` objects,
      * numbers, `Object` objects, regexes, and strings. Objects are compared by
@@ -11732,10 +12239,11 @@ id.reset = function() {
      *
      * @static
      * @memberOf _
+     * @alias eq
      * @category Lang
      * @param {*} value The value to compare.
      * @param {*} other The other value to compare.
-     * @param {Function} [customizer] The function to customize comparing values.
+     * @param {Function} [customizer] The function to customize value comparisons.
      * @param {*} [thisArg] The `this` binding of `customizer`.
      * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
      * @example
@@ -11761,12 +12269,9 @@ id.reset = function() {
      * // => true
      */
     function isEqual(value, other, customizer, thisArg) {
-      customizer = typeof customizer == 'function' && bindCallback(customizer, thisArg, 3);
-      if (!customizer && isStrictComparable(value) && isStrictComparable(other)) {
-        return value === other;
-      }
+      customizer = typeof customizer == 'function' ? bindCallback(customizer, thisArg, 3) : undefined;
       var result = customizer ? customizer(value, other) : undefined;
-      return typeof result == 'undefined' ? baseIsEqual(value, other, customizer) : !!result;
+      return  result === undefined ? baseIsEqual(value, other, customizer) : !!result;
     }
 
     /**
@@ -11787,15 +12292,13 @@ id.reset = function() {
      * // => false
      */
     function isError(value) {
-      return (isObjectLike(value) && typeof value.message == 'string' && objToString.call(value) == errorTag) || false;
+      return isObjectLike(value) && typeof value.message == 'string' && objToString.call(value) == errorTag;
     }
 
     /**
      * Checks if `value` is a finite primitive number.
      *
-     * **Note:** This method is based on ES `Number.isFinite`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.isfinite)
-     * for more details.
+     * **Note:** This method is based on [`Number.isFinite`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.isfinite).
      *
      * @static
      * @memberOf _
@@ -11847,10 +12350,8 @@ id.reset = function() {
     };
 
     /**
-     * Checks if `value` is the language type of `Object`.
+     * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
      * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-     *
-     * **Note:** See the [ES5 spec](https://es5.github.io/#x8) for more details.
      *
      * @static
      * @memberOf _
@@ -11872,7 +12373,7 @@ id.reset = function() {
       // Avoid a V8 JIT bug in Chrome 19-20.
       // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
       var type = typeof value;
-      return type == 'function' || (value && type == 'object') || false;
+      return !!value && (type == 'object' || type == 'function');
     }
 
     /**
@@ -11880,7 +12381,7 @@ id.reset = function() {
      * `object` contains equivalent property values. If `customizer` is provided
      * it is invoked to compare values. If `customizer` returns `undefined`
      * comparisons are handled by the method instead. The `customizer` is bound
-     * to `thisArg` and invoked with three arguments; (value, other, index|key).
+     * to `thisArg` and invoked with three arguments: (value, other, index|key).
      *
      * **Note:** This method supports comparing properties of arrays, booleans,
      * `Date` objects, numbers, `Object` objects, regexes, and strings. Functions
@@ -11892,7 +12393,7 @@ id.reset = function() {
      * @category Lang
      * @param {Object} object The object to inspect.
      * @param {Object} source The object of property values to match.
-     * @param {Function} [customizer] The function to customize comparing values.
+     * @param {Function} [customizer] The function to customize value comparisons.
      * @param {*} [thisArg] The `this` binding of `customizer`.
      * @returns {boolean} Returns `true` if `object` is a match, else `false`.
      * @example
@@ -11915,34 +12416,15 @@ id.reset = function() {
      * // => true
      */
     function isMatch(object, source, customizer, thisArg) {
-      var props = keys(source),
-          length = props.length;
-
-      customizer = typeof customizer == 'function' && bindCallback(customizer, thisArg, 3);
-      if (!customizer && length == 1) {
-        var key = props[0],
-            value = source[key];
-
-        if (isStrictComparable(value)) {
-          return object != null && value === object[key] && hasOwnProperty.call(object, key);
-        }
-      }
-      var values = Array(length),
-          strictCompareFlags = Array(length);
-
-      while (length--) {
-        value = values[length] = source[props[length]];
-        strictCompareFlags[length] = isStrictComparable(value);
-      }
-      return baseIsMatch(object, props, values, strictCompareFlags, customizer);
+      customizer = typeof customizer == 'function' ? bindCallback(customizer, thisArg, 3) : undefined;
+      return baseIsMatch(object, getMatchData(source), customizer);
     }
 
     /**
      * Checks if `value` is `NaN`.
      *
-     * **Note:** This method is not the same as native `isNaN` which returns `true`
-     * for `undefined` and other non-numeric values. See the [ES5 spec](https://es5.github.io/#x15.1.2.4)
-     * for more details.
+     * **Note:** This method is not the same as [`isNaN`](https://es5.github.io/#x15.1.2.4)
+     * which returns `true` for `undefined` and other non-numeric values.
      *
      * @static
      * @memberOf _
@@ -11990,9 +12472,9 @@ id.reset = function() {
         return false;
       }
       if (objToString.call(value) == funcTag) {
-        return reNative.test(fnToString.call(value));
+        return reIsNative.test(fnToString.call(value));
       }
-      return (isObjectLike(value) && reHostCtor.test(value)) || false;
+      return isObjectLike(value) && reIsHostCtor.test(value);
     }
 
     /**
@@ -12038,7 +12520,7 @@ id.reset = function() {
      * // => false
      */
     function isNumber(value) {
-      return typeof value == 'number' || (isObjectLike(value) && objToString.call(value) == numberTag) || false;
+      return typeof value == 'number' || (isObjectLike(value) && objToString.call(value) == numberTag);
     }
 
     /**
@@ -12075,8 +12557,8 @@ id.reset = function() {
       if (!(value && objToString.call(value) == objectTag)) {
         return false;
       }
-      var valueOf = value.valueOf,
-          objProto = isNative(valueOf) && (objProto = getPrototypeOf(valueOf)) && getPrototypeOf(objProto);
+      var valueOf = getNative(value, 'valueOf'),
+          objProto = valueOf && (objProto = getPrototypeOf(valueOf)) && getPrototypeOf(objProto);
 
       return objProto
         ? (value == objProto || getPrototypeOf(value) == objProto)
@@ -12100,7 +12582,7 @@ id.reset = function() {
      * // => false
      */
     function isRegExp(value) {
-      return (isObjectLike(value) && objToString.call(value) == regexpTag) || false;
+      return isObjectLike(value) && objToString.call(value) == regexpTag;
     }
 
     /**
@@ -12120,7 +12602,7 @@ id.reset = function() {
      * // => false
      */
     function isString(value) {
-      return typeof value == 'string' || (isObjectLike(value) && objToString.call(value) == stringTag) || false;
+      return typeof value == 'string' || (isObjectLike(value) && objToString.call(value) == stringTag);
     }
 
     /**
@@ -12140,7 +12622,7 @@ id.reset = function() {
      * // => false
      */
     function isTypedArray(value) {
-      return (isObjectLike(value) && isLength(value.length) && typedArrayTags[objToString.call(value)]) || false;
+      return isObjectLike(value) && isLength(value.length) && !!typedArrayTags[objToString.call(value)];
     }
 
     /**
@@ -12160,7 +12642,55 @@ id.reset = function() {
      * // => false
      */
     function isUndefined(value) {
-      return typeof value == 'undefined';
+      return value === undefined;
+    }
+
+    /**
+     * Checks if `value` is less than `other`.
+     *
+     * @static
+     * @memberOf _
+     * @category Lang
+     * @param {*} value The value to compare.
+     * @param {*} other The other value to compare.
+     * @returns {boolean} Returns `true` if `value` is less than `other`, else `false`.
+     * @example
+     *
+     * _.lt(1, 3);
+     * // => true
+     *
+     * _.lt(3, 3);
+     * // => false
+     *
+     * _.lt(3, 1);
+     * // => false
+     */
+    function lt(value, other) {
+      return value < other;
+    }
+
+    /**
+     * Checks if `value` is less than or equal to `other`.
+     *
+     * @static
+     * @memberOf _
+     * @category Lang
+     * @param {*} value The value to compare.
+     * @param {*} other The other value to compare.
+     * @returns {boolean} Returns `true` if `value` is less than or equal to `other`, else `false`.
+     * @example
+     *
+     * _.lte(1, 3);
+     * // => true
+     *
+     * _.lte(3, 3);
+     * // => true
+     *
+     * _.lte(3, 1);
+     * // => false
+     */
+    function lte(value, other) {
+      return value <= other;
     }
 
     /**
@@ -12179,7 +12709,7 @@ id.reset = function() {
      * // => [2, 3]
      */
     function toArray(value) {
-      var length = value ? value.length : 0;
+      var length = value ? getLength(value) : 0;
       if (!isLength(length)) {
         return values(value);
       }
@@ -12222,8 +12752,11 @@ id.reset = function() {
      * Assigns own enumerable properties of source object(s) to the destination
      * object. Subsequent sources overwrite property assignments of previous sources.
      * If `customizer` is provided it is invoked to produce the assigned values.
-     * The `customizer` is bound to `thisArg` and invoked with five arguments;
+     * The `customizer` is bound to `thisArg` and invoked with five arguments:
      * (objectValue, sourceValue, key, object, source).
+     *
+     * **Note:** This method mutates `object` and is based on
+     * [`Object.assign`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.assign).
      *
      * @static
      * @memberOf _
@@ -12231,7 +12764,7 @@ id.reset = function() {
      * @category Object
      * @param {Object} object The destination object.
      * @param {...Object} [sources] The source objects.
-     * @param {Function} [customizer] The function to customize assigning values.
+     * @param {Function} [customizer] The function to customize assigned values.
      * @param {*} [thisArg] The `this` binding of `customizer`.
      * @returns {Object} Returns `object`.
      * @example
@@ -12241,13 +12774,17 @@ id.reset = function() {
      *
      * // using a customizer callback
      * var defaults = _.partialRight(_.assign, function(value, other) {
-     *   return typeof value == 'undefined' ? other : value;
+     *   return _.isUndefined(value) ? other : value;
      * });
      *
      * defaults({ 'user': 'barney' }, { 'age': 36 }, { 'user': 'fred' });
      * // => { 'user': 'barney', 'age': 36 }
      */
-    var assign = createAssigner(baseAssign);
+    var assign = createAssigner(function(object, source, customizer) {
+      return customizer
+        ? assignWith(object, source, customizer)
+        : baseAssign(object, source);
+    });
 
     /**
      * Creates an object that inherits from the given `prototype` object. If a
@@ -12288,13 +12825,15 @@ id.reset = function() {
       if (guard && isIterateeCall(prototype, properties, guard)) {
         properties = null;
       }
-      return properties ? baseCopy(properties, result, keys(properties)) : result;
+      return properties ? baseAssign(result, properties) : result;
     }
 
     /**
      * Assigns own enumerable properties of source object(s) to the destination
      * object for all destination properties that resolve to `undefined`. Once a
-     * property is set, additional defaults of the same property are ignored.
+     * property is set, additional values of the same property are ignored.
+     *
+     * **Note:** This method mutates `object`.
      *
      * @static
      * @memberOf _
@@ -12307,18 +12846,18 @@ id.reset = function() {
      * _.defaults({ 'user': 'barney' }, { 'age': 36 }, { 'user': 'fred' });
      * // => { 'user': 'barney', 'age': 36 }
      */
-    function defaults(object) {
+    var defaults = restParam(function(args) {
+      var object = args[0];
       if (object == null) {
         return object;
       }
-      var args = arrayCopy(arguments);
       args.push(assignDefaults);
       return assign.apply(undefined, args);
-    }
+    });
 
     /**
-     * This method is like `_.findIndex` except that it returns the key of the
-     * first element `predicate` returns truthy for, instead of the element itself.
+     * This method is like `_.find` except that it returns the key of the first
+     * element `predicate` returns truthy for instead of the element itself.
      *
      * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
@@ -12364,10 +12903,7 @@ id.reset = function() {
      * _.findKey(users, 'active');
      * // => 'barney'
      */
-    function findKey(object, predicate, thisArg) {
-      predicate = getCallback(predicate, thisArg, 3);
-      return baseFind(object, predicate, baseForOwn, true);
-    }
+    var findKey = createFindKey(baseForOwn);
 
     /**
      * This method is like `_.findKey` except that it iterates over elements of
@@ -12417,15 +12953,12 @@ id.reset = function() {
      * _.findLastKey(users, 'active');
      * // => 'pebbles'
      */
-    function findLastKey(object, predicate, thisArg) {
-      predicate = getCallback(predicate, thisArg, 3);
-      return baseFind(object, predicate, baseForOwnRight, true);
-    }
+    var findLastKey = createFindKey(baseForOwnRight);
 
     /**
      * Iterates over own and inherited enumerable properties of an object invoking
      * `iteratee` for each property. The `iteratee` is bound to `thisArg` and invoked
-     * with three arguments; (value, key, object). Iterator functions may exit
+     * with three arguments: (value, key, object). Iteratee functions may exit
      * iteration early by explicitly returning `false`.
      *
      * @static
@@ -12449,12 +12982,7 @@ id.reset = function() {
      * });
      * // => logs 'a', 'b', and 'c' (iteration order is not guaranteed)
      */
-    function forIn(object, iteratee, thisArg) {
-      if (typeof iteratee != 'function' || typeof thisArg != 'undefined') {
-        iteratee = bindCallback(iteratee, thisArg, 3);
-      }
-      return baseFor(object, iteratee, keysIn);
-    }
+    var forIn = createForIn(baseFor);
 
     /**
      * This method is like `_.forIn` except that it iterates over properties of
@@ -12481,15 +13009,12 @@ id.reset = function() {
      * });
      * // => logs 'c', 'b', and 'a' assuming `_.forIn ` logs 'a', 'b', and 'c'
      */
-    function forInRight(object, iteratee, thisArg) {
-      iteratee = bindCallback(iteratee, thisArg, 3);
-      return baseForRight(object, iteratee, keysIn);
-    }
+    var forInRight = createForIn(baseForRight);
 
     /**
      * Iterates over own enumerable properties of an object invoking `iteratee`
      * for each property. The `iteratee` is bound to `thisArg` and invoked with
-     * three arguments; (value, key, object). Iterator functions may exit iteration
+     * three arguments: (value, key, object). Iteratee functions may exit iteration
      * early by explicitly returning `false`.
      *
      * @static
@@ -12513,12 +13038,7 @@ id.reset = function() {
      * });
      * // => logs 'a' and 'b' (iteration order is not guaranteed)
      */
-    function forOwn(object, iteratee, thisArg) {
-      if (typeof iteratee != 'function' || typeof thisArg != 'undefined') {
-        iteratee = bindCallback(iteratee, thisArg, 3);
-      }
-      return baseForOwn(object, iteratee);
-    }
+    var forOwn = createForOwn(baseForOwn);
 
     /**
      * This method is like `_.forOwn` except that it iterates over properties of
@@ -12545,10 +13065,7 @@ id.reset = function() {
      * });
      * // => logs 'b' and 'a' assuming `_.forOwn` logs 'a' and 'b'
      */
-    function forOwnRight(object, iteratee, thisArg) {
-      iteratee = bindCallback(iteratee, thisArg, 3);
-      return baseForRight(object, iteratee, keys);
-    }
+    var forOwnRight = createForOwn(baseForOwnRight);
 
     /**
      * Creates an array of function property names from all enumerable properties,
@@ -12570,24 +13087,72 @@ id.reset = function() {
     }
 
     /**
-     * Checks if `key` exists as a direct property of `object` instead of an
-     * inherited property.
+     * Gets the property value at `path` of `object`. If the resolved value is
+     * `undefined` the `defaultValue` is used in its place.
      *
      * @static
      * @memberOf _
      * @category Object
-     * @param {Object} object The object to inspect.
-     * @param {string} key The key to check.
-     * @returns {boolean} Returns `true` if `key` is a direct property, else `false`.
+     * @param {Object} object The object to query.
+     * @param {Array|string} path The path of the property to get.
+     * @param {*} [defaultValue] The value returned if the resolved value is `undefined`.
+     * @returns {*} Returns the resolved value.
      * @example
      *
-     * var object = { 'a': 1, 'b': 2, 'c': 3 };
+     * var object = { 'a': [{ 'b': { 'c': 3 } }] };
      *
-     * _.has(object, 'b');
+     * _.get(object, 'a[0].b.c');
+     * // => 3
+     *
+     * _.get(object, ['a', '0', 'b', 'c']);
+     * // => 3
+     *
+     * _.get(object, 'a.b.c', 'default');
+     * // => 'default'
+     */
+    function get(object, path, defaultValue) {
+      var result = object == null ? undefined : baseGet(object, toPath(path), path + '');
+      return result === undefined ? defaultValue : result;
+    }
+
+    /**
+     * Checks if `path` is a direct property.
+     *
+     * @static
+     * @memberOf _
+     * @category Object
+     * @param {Object} object The object to query.
+     * @param {Array|string} path The path to check.
+     * @returns {boolean} Returns `true` if `path` is a direct property, else `false`.
+     * @example
+     *
+     * var object = { 'a': { 'b': { 'c': 3 } } };
+     *
+     * _.has(object, 'a');
+     * // => true
+     *
+     * _.has(object, 'a.b.c');
+     * // => true
+     *
+     * _.has(object, ['a', 'b', 'c']);
      * // => true
      */
-    function has(object, key) {
-      return object ? hasOwnProperty.call(object, key) : false;
+    function has(object, path) {
+      if (object == null) {
+        return false;
+      }
+      var result = hasOwnProperty.call(object, path);
+      if (!result && !isKey(path)) {
+        path = toPath(path);
+        object = path.length == 1 ? object : baseGet(object, baseSlice(path, 0, -1));
+        if (object == null) {
+          return false;
+        }
+        path = last(path);
+        result = hasOwnProperty.call(object, path);
+      }
+      return result || (isLength(object.length) && isIndex(path, object.length) &&
+        (isArray(object) || isArguments(object)));
     }
 
     /**
@@ -12650,7 +13215,7 @@ id.reset = function() {
      * @static
      * @memberOf _
      * @category Object
-     * @param {Object} object The object to inspect.
+     * @param {Object} object The object to query.
      * @returns {Array} Returns the array of property names.
      * @example
      *
@@ -12668,12 +13233,9 @@ id.reset = function() {
      * // => ['0', '1']
      */
     var keys = !nativeKeys ? shimKeys : function(object) {
-      if (object) {
-        var Ctor = object.constructor,
-            length = object.length;
-      }
+      var Ctor = object == null ? null : object.constructor;
       if ((typeof Ctor == 'function' && Ctor.prototype === object) ||
-         (typeof object != 'function' && (length && isLength(length)))) {
+          (typeof object != 'function' && isArrayLike(object))) {
         return shimKeys(object);
       }
       return isObject(object) ? nativeKeys(object) : [];
@@ -12687,7 +13249,7 @@ id.reset = function() {
      * @static
      * @memberOf _
      * @category Object
-     * @param {Object} object The object to inspect.
+     * @param {Object} object The object to query.
      * @returns {Array} Returns the array of property names.
      * @example
      *
@@ -12710,7 +13272,7 @@ id.reset = function() {
       }
       var length = object.length;
       length = (length && isLength(length) &&
-        (isArray(object) || (support.nonEnumArgs && isArguments(object))) && length) || 0;
+        (isArray(object) || isArguments(object)) && length) || 0;
 
       var Ctor = object.constructor,
           index = -1,
@@ -12731,9 +13293,31 @@ id.reset = function() {
     }
 
     /**
+     * The opposite of `_.mapValues`; this method creates an object with the
+     * same values as `object` and keys generated by running each own enumerable
+     * property of `object` through `iteratee`.
+     *
+     * @static
+     * @memberOf _
+     * @category Object
+     * @param {Object} object The object to iterate over.
+     * @param {Function|Object|string} [iteratee=_.identity] The function invoked
+     *  per iteration.
+     * @param {*} [thisArg] The `this` binding of `iteratee`.
+     * @returns {Object} Returns the new mapped object.
+     * @example
+     *
+     * _.mapKeys({ 'a': 1, 'b': 2 }, function(value, key) {
+     *   return key + value;
+     * });
+     * // => { 'a1': 1, 'b2': 2 }
+     */
+    var mapKeys = createObjectMapper(true);
+
+    /**
      * Creates an object with the same keys as `object` and values generated by
      * running each own enumerable property of `object` through `iteratee`. The
-     * iteratee function is bound to `thisArg` and invoked with three arguments;
+     * iteratee function is bound to `thisArg` and invoked with three arguments:
      * (value, key, object).
      *
      * If a property name is provided for `iteratee` the created `_.property`
@@ -12771,15 +13355,7 @@ id.reset = function() {
      * _.mapValues(users, 'age');
      * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
      */
-    function mapValues(object, iteratee, thisArg) {
-      var result = {};
-      iteratee = getCallback(iteratee, thisArg, 3);
-
-      baseForOwn(object, function(value, key, object) {
-        result[key] = iteratee(value, key, object);
-      });
-      return result;
-    }
+    var mapValues = createObjectMapper();
 
     /**
      * Recursively merges own enumerable properties of the source object(s), that
@@ -12788,14 +13364,14 @@ id.reset = function() {
      * provided it is invoked to produce the merged values of the destination and
      * source properties. If `customizer` returns `undefined` merging is handled
      * by the method instead. The `customizer` is bound to `thisArg` and invoked
-     * with five arguments; (objectValue, sourceValue, key, object, source).
+     * with five arguments: (objectValue, sourceValue, key, object, source).
      *
      * @static
      * @memberOf _
      * @category Object
      * @param {Object} object The destination object.
      * @param {...Object} [sources] The source objects.
-     * @param {Function} [customizer] The function to customize merging properties.
+     * @param {Function} [customizer] The function to customize assigned values.
      * @param {*} [thisArg] The `this` binding of `customizer`.
      * @returns {Object} Returns `object`.
      * @example
@@ -12834,11 +13410,6 @@ id.reset = function() {
     /**
      * The opposite of `_.pick`; this method creates an object composed of the
      * own and inherited enumerable properties of `object` that are not omitted.
-     * Property names may be specified as individual arguments or as arrays of
-     * property names. If `predicate` is provided it is invoked for each property
-     * of `object` omitting the properties `predicate` returns truthy for. The
-     * predicate is bound to `thisArg` and invoked with three arguments;
-     * (value, key, object).
      *
      * @static
      * @memberOf _
@@ -12859,19 +13430,19 @@ id.reset = function() {
      * _.omit(object, _.isNumber);
      * // => { 'user': 'fred' }
      */
-    function omit(object, predicate, thisArg) {
+    var omit = restParam(function(object, props) {
       if (object == null) {
         return {};
       }
-      if (typeof predicate != 'function') {
-        var props = arrayMap(baseFlatten(arguments, false, false, 1), String);
+      if (typeof props[0] != 'function') {
+        var props = arrayMap(baseFlatten(props), String);
         return pickByArray(object, baseDifference(keysIn(object), props));
       }
-      predicate = bindCallback(predicate, thisArg, 3);
+      var predicate = bindCallback(props[0], props[1], 3);
       return pickByCallback(object, function(value, key, object) {
         return !predicate(value, key, object);
       });
-    }
+    });
 
     /**
      * Creates a two dimensional array of the key-value pairs for `object`,
@@ -12880,7 +13451,7 @@ id.reset = function() {
      * @static
      * @memberOf _
      * @category Object
-     * @param {Object} object The object to inspect.
+     * @param {Object} object The object to query.
      * @returns {Array} Returns the new array of key-value pairs.
      * @example
      *
@@ -12888,6 +13459,8 @@ id.reset = function() {
      * // => [['barney', 36], ['fred', 40]] (iteration order is not guaranteed)
      */
     function pairs(object) {
+      object = toObject(object);
+
       var index = -1,
           props = keys(object),
           length = props.length,
@@ -12905,7 +13478,7 @@ id.reset = function() {
      * names may be specified as individual arguments or as arrays of property
      * names. If `predicate` is provided it is invoked for each property of `object`
      * picking the properties `predicate` returns truthy for. The predicate is
-     * bound to `thisArg` and invoked with three arguments; (value, key, object).
+     * bound to `thisArg` and invoked with three arguments: (value, key, object).
      *
      * @static
      * @memberOf _
@@ -12926,51 +13499,103 @@ id.reset = function() {
      * _.pick(object, _.isString);
      * // => { 'user': 'fred' }
      */
-    function pick(object, predicate, thisArg) {
+    var pick = restParam(function(object, props) {
       if (object == null) {
         return {};
       }
-      return typeof predicate == 'function'
-        ? pickByCallback(object, bindCallback(predicate, thisArg, 3))
-        : pickByArray(object, baseFlatten(arguments, false, false, 1));
-    }
+      return typeof props[0] == 'function'
+        ? pickByCallback(object, bindCallback(props[0], props[1], 3))
+        : pickByArray(object, baseFlatten(props));
+    });
 
     /**
-     * Resolves the value of property `key` on `object`. If the value of `key` is
-     * a function it is invoked with the `this` binding of `object` and its result
-     * is returned, else the property value is returned. If the property value is
-     * `undefined` the `defaultValue` is used in its place.
+     * This method is like `_.get` except that if the resolved value is a function
+     * it is invoked with the `this` binding of its parent object and its result
+     * is returned.
      *
      * @static
      * @memberOf _
      * @category Object
      * @param {Object} object The object to query.
-     * @param {string} key The key of the property to resolve.
-     * @param {*} [defaultValue] The value returned if the property value
-     *  resolves to `undefined`.
+     * @param {Array|string} path The path of the property to resolve.
+     * @param {*} [defaultValue] The value returned if the resolved value is `undefined`.
      * @returns {*} Returns the resolved value.
      * @example
      *
-     * var object = { 'user': 'fred', 'age': _.constant(40) };
+     * var object = { 'a': [{ 'b': { 'c1': 3, 'c2': _.constant(4) } }] };
      *
-     * _.result(object, 'user');
-     * // => 'fred'
+     * _.result(object, 'a[0].b.c1');
+     * // => 3
      *
-     * _.result(object, 'age');
-     * // => 40
+     * _.result(object, 'a[0].b.c2');
+     * // => 4
      *
-     * _.result(object, 'status', 'busy');
-     * // => 'busy'
+     * _.result(object, 'a.b.c', 'default');
+     * // => 'default'
      *
-     * _.result(object, 'status', _.constant('busy'));
-     * // => 'busy'
+     * _.result(object, 'a.b.c', _.constant('default'));
+     * // => 'default'
      */
-    function result(object, key, defaultValue) {
-      var value = object == null ? undefined : object[key];
-      if (typeof value == 'undefined') {
-        value = defaultValue;
+    function result(object, path, defaultValue) {
+      var result = object == null ? undefined : object[path];
+      if (result === undefined) {
+        if (object != null && !isKey(path, object)) {
+          path = toPath(path);
+          object = path.length == 1 ? object : baseGet(object, baseSlice(path, 0, -1));
+          result = object == null ? undefined : object[last(path)];
+        }
+        result = result === undefined ? defaultValue : result;
       }
-      return isFunction(value) ? value.call(object) : value;
+      return isFunction(result) ? result.call(object) : result;
+    }
+
+    /**
+     * Sets the property value of `path` on `object`. If a portion of `path`
+     * does not exist it is created.
+     *
+     * @static
+     * @memberOf _
+     * @category Object
+     * @param {Object} object The object to augment.
+     * @param {Array|string} path The path of the property to set.
+     * @param {*} value The value to set.
+     * @returns {Object} Returns `object`.
+     * @example
+     *
+     * var object = { 'a': [{ 'b': { 'c': 3 } }] };
+     *
+     * _.set(object, 'a[0].b.c', 4);
+     * console.log(object.a[0].b.c);
+     * // => 4
+     *
+     * _.set(object, 'x[0].y.z', 5);
+     * console.log(object.x[0].y.z);
+     * // => 5
+     */
+    function set(object, path, value) {
+      if (object == null) {
+        return object;
+      }
+      var pathKey = (path + '');
+      path = (object[pathKey] != null || isKey(path, object)) ? [pathKey] : toPath(path);
+
+      var index = -1,
+          length = path.length,
+          lastIndex = length - 1,
+          nested = object;
+
+      while (nested != null && ++index < length) {
+        var key = path[index];
+        if (isObject(nested)) {
+          if (index == lastIndex) {
+            nested[key] = value;
+          } else if (nested[key] == null) {
+            nested[key] = isIndex(path[index + 1]) ? [] : {};
+          }
+        }
+        nested = nested[key];
+      }
+      return object;
     }
 
     /**
@@ -12978,7 +13603,7 @@ id.reset = function() {
      * `accumulator` object which is the result of running each of its own enumerable
      * properties through `iteratee`, with each invocation potentially mutating
      * the `accumulator` object. The `iteratee` is bound to `thisArg` and invoked
-     * with four arguments; (accumulator, value, key, object). Iterator functions
+     * with four arguments: (accumulator, value, key, object). Iteratee functions
      * may exit iteration early by explicitly returning `false`.
      *
      * @static
@@ -13012,7 +13637,7 @@ id.reset = function() {
           if (isArr) {
             accumulator = isArray(object) ? new Ctor : [];
           } else {
-            accumulator = baseCreate(isFunction(Ctor) && Ctor.prototype);
+            accumulator = baseCreate(isFunction(Ctor) ? Ctor.prototype : null);
           }
         } else {
           accumulator = {};
@@ -13084,7 +13709,7 @@ id.reset = function() {
 
     /**
      * Checks if `n` is between `start` and up to but not including, `end`. If
-     * `end` is not specified it defaults to `start` with `start` becoming `0`.
+     * `end` is not specified it is set to `start` with `start` then set to `0`.
      *
      * @static
      * @memberOf _
@@ -13121,7 +13746,7 @@ id.reset = function() {
       } else {
         end = +end || 0;
       }
-      return value >= start && value < end;
+      return value >= nativeMin(start, end) && value < nativeMax(start, end);
     }
 
     /**
@@ -13189,8 +13814,7 @@ id.reset = function() {
     /*------------------------------------------------------------------------*/
 
     /**
-     * Converts `string` to camel case.
-     * See [Wikipedia](https://en.wikipedia.org/wiki/CamelCase) for more details.
+     * Converts `string` to [camel case](https://en.wikipedia.org/wiki/CamelCase).
      *
      * @static
      * @memberOf _
@@ -13232,9 +13856,8 @@ id.reset = function() {
     }
 
     /**
-     * Deburrs `string` by converting latin-1 supplementary letters to basic latin letters.
-     * See [Wikipedia](https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)#Character_table)
-     * for more details.
+     * Deburrs `string` by converting [latin-1 supplementary letters](https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)#Character_table)
+     * to basic latin letters and removing [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks).
      *
      * @static
      * @memberOf _
@@ -13248,7 +13871,7 @@ id.reset = function() {
      */
     function deburr(string) {
       string = baseToString(string);
-      return string && string.replace(reLatin1, deburrLetter);
+      return string && string.replace(reLatin1, deburrLetter).replace(reComboMark, '');
     }
 
     /**
@@ -13277,31 +13900,35 @@ id.reset = function() {
       target = (target + '');
 
       var length = string.length;
-      position = (typeof position == 'undefined' ? length : nativeMin(position < 0 ? 0 : (+position || 0), length)) - target.length;
+      position = position === undefined
+        ? length
+        : nativeMin(position < 0 ? 0 : (+position || 0), length);
+
+      position -= target.length;
       return position >= 0 && string.indexOf(target, position) == position;
     }
 
     /**
-     * Converts the characters "&", "<", ">", '"', "'", and '`', in `string` to
+     * Converts the characters "&", "<", ">", '"', "'", and "\`", in `string` to
      * their corresponding HTML entities.
      *
      * **Note:** No other characters are escaped. To escape additional characters
      * use a third-party library like [_he_](https://mths.be/he).
      *
      * Though the ">" character is escaped for symmetry, characters like
-     * ">" and "/" don't require escaping in HTML and have no special meaning
+     * ">" and "/" don't need escaping in HTML and have no special meaning
      * unless they're part of a tag or unquoted attribute value.
      * See [Mathias Bynens's article](https://mathiasbynens.be/notes/ambiguous-ampersands)
      * (under "semi-related fun fact") for more details.
      *
      * Backticks are escaped because in Internet Explorer < 9, they can break out
-     * of attribute values or HTML comments. See [#102](https://html5sec.org/#102),
-     * [#108](https://html5sec.org/#108), and [#133](https://html5sec.org/#133) of
-     * the [HTML5 Security Cheatsheet](https://html5sec.org/) for more details.
-     *
-     * When working with HTML you should always quote attribute values to reduce
-     * XSS vectors. See [Ryan Grove's article](http://wonko.com/post/html-escaping)
+     * of attribute values or HTML comments. See [#59](https://html5sec.org/#59),
+     * [#102](https://html5sec.org/#102), [#108](https://html5sec.org/#108), and
+     * [#133](https://html5sec.org/#133) of the [HTML5 Security Cheatsheet](https://html5sec.org/)
      * for more details.
+     *
+     * When working with HTML you should always [quote attribute values](http://wonko.com/post/html-escaping)
+     * to reduce XSS vectors.
      *
      * @static
      * @memberOf _
@@ -13322,8 +13949,8 @@ id.reset = function() {
     }
 
     /**
-     * Escapes the `RegExp` special characters "\", "^", "$", ".", "|", "?", "*",
-     * "+", "(", ")", "[", "]", "{" and "}" in `string`.
+     * Escapes the `RegExp` special characters "\", "/", "^", "$", ".", "|", "?",
+     * "*", "+", "(", ")", "[", "]", "{" and "}" in `string`.
      *
      * @static
      * @memberOf _
@@ -13333,7 +13960,7 @@ id.reset = function() {
      * @example
      *
      * _.escapeRegExp('[lodash](https://lodash.com/)');
-     * // => '\[lodash\]\(https://lodash\.com/\)'
+     * // => '\[lodash\]\(https:\/\/lodash\.com\/\)'
      */
     function escapeRegExp(string) {
       string = baseToString(string);
@@ -13343,9 +13970,7 @@ id.reset = function() {
     }
 
     /**
-     * Converts `string` to kebab case.
-     * See [Wikipedia](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles) for
-     * more details.
+     * Converts `string` to [kebab case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
      *
      * @static
      * @memberOf _
@@ -13368,9 +13993,8 @@ id.reset = function() {
     });
 
     /**
-     * Pads `string` on the left and right sides if it is shorter then the given
-     * padding length. The `chars` string may be truncated if the number of padding
-     * characters can't be evenly divided by the padding length.
+     * Pads `string` on the left and right sides if it's shorter than `length`.
+     * Padding characters are truncated if they can't be evenly divided by `length`.
      *
      * @static
      * @memberOf _
@@ -13402,14 +14026,13 @@ id.reset = function() {
           leftLength = floor(mid),
           rightLength = ceil(mid);
 
-      chars = createPad('', rightLength, chars);
+      chars = createPadding('', rightLength, chars);
       return chars.slice(0, leftLength) + string + chars;
     }
 
     /**
-     * Pads `string` on the left side if it is shorter then the given padding
-     * length. The `chars` string may be truncated if the number of padding
-     * characters exceeds the padding length.
+     * Pads `string` on the left side if it's shorter than `length`. Padding
+     * characters are truncated if they exceed `length`.
      *
      * @static
      * @memberOf _
@@ -13429,15 +14052,11 @@ id.reset = function() {
      * _.padLeft('abc', 3);
      * // => 'abc'
      */
-    function padLeft(string, length, chars) {
-      string = baseToString(string);
-      return string && (createPad(string, length, chars) + string);
-    }
+    var padLeft = createPadDir();
 
     /**
-     * Pads `string` on the right side if it is shorter then the given padding
-     * length. The `chars` string may be truncated if the number of padding
-     * characters exceeds the padding length.
+     * Pads `string` on the right side if it's shorter than `length`. Padding
+     * characters are truncated if they exceed `length`.
      *
      * @static
      * @memberOf _
@@ -13457,18 +14076,15 @@ id.reset = function() {
      * _.padRight('abc', 3);
      * // => 'abc'
      */
-    function padRight(string, length, chars) {
-      string = baseToString(string);
-      return string && (string + createPad(string, length, chars));
-    }
+    var padRight = createPadDir(true);
 
     /**
      * Converts `string` to an integer of the specified radix. If `radix` is
      * `undefined` or `0`, a `radix` of `10` is used unless `value` is a hexadecimal,
      * in which case a `radix` of `16` is used.
      *
-     * **Note:** This method aligns with the ES5 implementation of `parseInt`.
-     * See the [ES5 spec](https://es5.github.io/#E) for more details.
+     * **Note:** This method aligns with the [ES5 implementation](https://es5.github.io/#E)
+     * of `parseInt`.
      *
      * @static
      * @memberOf _
@@ -13503,7 +14119,7 @@ id.reset = function() {
           radix = +radix;
         }
         string = trim(string);
-        return nativeParseInt(string, radix || (reHexPrefix.test(string) ? 16 : 10));
+        return nativeParseInt(string, radix || (reHasHexPrefix.test(string) ? 16 : 10));
       };
     }
 
@@ -13548,8 +14164,7 @@ id.reset = function() {
     }
 
     /**
-     * Converts `string` to snake case.
-     * See [Wikipedia](https://en.wikipedia.org/wiki/Snake_case) for more details.
+     * Converts `string` to [snake case](https://en.wikipedia.org/wiki/Snake_case).
      *
      * @static
      * @memberOf _
@@ -13572,9 +14187,7 @@ id.reset = function() {
     });
 
     /**
-     * Converts `string` to start case.
-     * See [Wikipedia](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage)
-     * for more details.
+     * Converts `string` to [start case](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage).
      *
      * @static
      * @memberOf _
@@ -13619,7 +14232,10 @@ id.reset = function() {
      */
     function startsWith(string, target, position) {
       string = baseToString(string);
-      position = position == null ? 0 : nativeMin(position < 0 ? 0 : (+position || 0), string.length);
+      position = position == null
+        ? 0
+        : nativeMin(position < 0 ? 0 : (+position || 0), string.length);
+
       return string.lastIndexOf(target, position) == position;
     }
 
@@ -13630,9 +14246,9 @@ id.reset = function() {
      * properties may be accessed as free variables in the template. If a setting
      * object is provided it takes precedence over `_.templateSettings` values.
      *
-     * **Note:** In the development build `_.template` utilizes sourceURLs for easier debugging.
-     * See the [HTML5 Rocks article on sourcemaps](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl)
-     * for more details.
+     * **Note:** In the development build `_.template` utilizes
+     * [sourceURLs](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl)
+     * for easier debugging.
      *
      * For more information on precompiling templates see
      * [lodash's custom builds documentation](https://lodash.com/custom-builds).
@@ -13706,10 +14322,10 @@ id.reset = function() {
      * var compiled = _.template('hi <%= data.user %>!', { 'variable': 'data' });
      * compiled.source;
      * // => function(data) {
-     *   var __t, __p = '';
-     *   __p += 'hi ' + ((__t = ( data.user )) == null ? '' : __t) + '!';
-     *   return __p;
-     * }
+     * //   var __t, __p = '';
+     * //   __p += 'hi ' + ((__t = ( data.user )) == null ? '' : __t) + '!';
+     * //   return __p;
+     * // }
      *
      * // using the `source` property to inline compiled templates for meaningful
      * // line numbers in error messages and a stack trace
@@ -13728,9 +14344,9 @@ id.reset = function() {
         options = otherOptions = null;
       }
       string = baseToString(string);
-      options = baseAssign(baseAssign({}, otherOptions || options), settings, assignOwnDefaults);
+      options = assignWith(baseAssign({}, otherOptions || options), settings, assignOwnDefaults);
 
-      var imports = baseAssign(baseAssign({}, options.imports), settings.imports, assignOwnDefaults),
+      var imports = assignWith(baseAssign({}, options.imports), settings.imports, assignOwnDefaults),
           importsKeys = keys(imports),
           importsValues = baseValues(imports, importsKeys);
 
@@ -13844,7 +14460,7 @@ id.reset = function() {
      * // => 'abc'
      *
      * _.map(['  foo  ', '  bar  '], _.trim);
-     * // => ['foo', 'bar]
+     * // => ['foo', 'bar']
      */
     function trim(string, chars, guard) {
       var value = string;
@@ -13920,7 +14536,7 @@ id.reset = function() {
     }
 
     /**
-     * Truncates `string` if it is longer than the given maximum string length.
+     * Truncates `string` if it's longer than the given maximum string length.
      * The last characters of the truncated string are replaced with the omission
      * string which defaults to "...".
      *
@@ -13952,7 +14568,7 @@ id.reset = function() {
      *   'length': 24,
      *   'separator': /,? +/
      * });
-     * //=> 'hi-diddly-ho there...'
+     * // => 'hi-diddly-ho there...'
      *
      * _.trunc('hi-diddly-ho there, neighborino', {
      *   'omission': ' [...]'
@@ -13969,7 +14585,7 @@ id.reset = function() {
       if (options != null) {
         if (isObject(options)) {
           var separator = 'separator' in options ? options.separator : separator;
-          length = 'length' in options ? +options.length || 0 : length;
+          length = 'length' in options ? (+options.length || 0) : length;
           omission = 'omission' in options ? baseToString(options.omission) : omission;
         } else {
           length = +options || 0;
@@ -14071,7 +14687,7 @@ id.reset = function() {
      * @static
      * @memberOf _
      * @category Utility
-     * @param {*} func The function to attempt.
+     * @param {Function} func The function to attempt.
      * @returns {*} Returns the `func` result or error object.
      * @example
      *
@@ -14084,20 +14700,13 @@ id.reset = function() {
      *   elements = [];
      * }
      */
-    function attempt() {
-      var length = arguments.length,
-          func = arguments[0];
-
+    var attempt = restParam(function(func, args) {
       try {
-        var args = Array(length ? length - 1 : 0);
-        while (--length > 0) {
-          args[length - 1] = arguments[length];
-        }
         return func.apply(undefined, args);
       } catch(e) {
         return isError(e) ? e : new Error(e);
       }
-    }
+    });
 
     /**
      * Creates a function that invokes `func` with the `this` binding of `thisArg`
@@ -14188,7 +14797,7 @@ id.reset = function() {
     }
 
     /**
-     * Creates a function which performs a deep comparison between a given object
+     * Creates a function that performs a deep comparison between a given object
      * and `source`, returning `true` if the given object has equivalent property
      * values, else `false`.
      *
@@ -14217,7 +14826,7 @@ id.reset = function() {
     }
 
     /**
-     * Creates a function which compares the property value of `key` on a given
+     * Creates a function that compares the property value of `path` on a given
      * object to `value`.
      *
      * **Note:** This method supports comparing arrays, booleans, `Date` objects,
@@ -14227,33 +14836,92 @@ id.reset = function() {
      * @static
      * @memberOf _
      * @category Utility
-     * @param {string} key The key of the property to get.
-     * @param {*} value The value to compare.
+     * @param {Array|string} path The path of the property to get.
+     * @param {*} srcValue The value to match.
      * @returns {Function} Returns the new function.
      * @example
      *
      * var users = [
      *   { 'user': 'barney' },
-     *   { 'user': 'fred' },
-     *   { 'user': 'pebbles' }
+     *   { 'user': 'fred' }
      * ];
      *
      * _.find(users, _.matchesProperty('user', 'fred'));
-     * // => { 'user': 'fred', 'age': 40 }
+     * // => { 'user': 'fred' }
      */
-    function matchesProperty(key, value) {
-      return baseMatchesProperty(key + '', baseClone(value, true));
+    function matchesProperty(path, srcValue) {
+      return baseMatchesProperty(path, baseClone(srcValue, true));
     }
+
+    /**
+     * Creates a function that invokes the method at `path` on a given object.
+     * Any additional arguments are provided to the invoked method.
+     *
+     * @static
+     * @memberOf _
+     * @category Utility
+     * @param {Array|string} path The path of the method to invoke.
+     * @param {...*} [args] The arguments to invoke the method with.
+     * @returns {Function} Returns the new function.
+     * @example
+     *
+     * var objects = [
+     *   { 'a': { 'b': { 'c': _.constant(2) } } },
+     *   { 'a': { 'b': { 'c': _.constant(1) } } }
+     * ];
+     *
+     * _.map(objects, _.method('a.b.c'));
+     * // => [2, 1]
+     *
+     * _.invoke(_.sortBy(objects, _.method(['a', 'b', 'c'])), 'a.b.c');
+     * // => [1, 2]
+     */
+    var method = restParam(function(path, args) {
+      return function(object) {
+        return invokePath(object, path, args);
+      };
+    });
+
+    /**
+     * The opposite of `_.method`; this method creates a function that invokes
+     * the method at a given path on `object`. Any additional arguments are
+     * provided to the invoked method.
+     *
+     * @static
+     * @memberOf _
+     * @category Utility
+     * @param {Object} object The object to query.
+     * @param {...*} [args] The arguments to invoke the method with.
+     * @returns {Function} Returns the new function.
+     * @example
+     *
+     * var array = _.times(3, _.constant),
+     *     object = { 'a': array, 'b': array, 'c': array };
+     *
+     * _.map(['a[2]', 'c[0]'], _.methodOf(object));
+     * // => [2, 0]
+     *
+     * _.map([['a', '2'], ['c', '0']], _.methodOf(object));
+     * // => [2, 0]
+     */
+    var methodOf = restParam(function(object, args) {
+      return function(path) {
+        return invokePath(object, path, args);
+      };
+    });
 
     /**
      * Adds all own enumerable function properties of a source object to the
      * destination object. If `object` is a function then methods are added to
      * its prototype as well.
      *
+     * **Note:** Use `_.runInContext` to create a pristine `lodash` function to
+     * avoid conflicts caused by modifying the original.
+     *
      * @static
      * @memberOf _
      * @category Utility
-     * @param {Function|Object} [object=this] object The destination object.
+     * @param {Function|Object} [object=lodash] The destination object.
      * @param {Object} source The object of functions to add.
      * @param {Object} [options] The options object.
      * @param {boolean} [options.chain=true] Specify whether the functions added
@@ -14266,9 +14934,6 @@ id.reset = function() {
      *     return /[aeiou]/i.test(v);
      *   });
      * }
-     *
-     * // use `_.runInContext` to avoid potential conflicts (esp. in Node.js)
-     * var _ = require('lodash').runInContext();
      *
      * _.mixin({ 'vowels': vowels });
      * _.vowels('fred');
@@ -14284,8 +14949,8 @@ id.reset = function() {
     function mixin(object, source, options) {
       if (options == null) {
         var isObj = isObject(source),
-            props = isObj && keys(source),
-            methodNames = props && props.length && baseFunctions(source, props);
+            props = isObj ? keys(source) : null,
+            methodNames = (props && props.length) ? baseFunctions(source, props) : null;
 
         if (!(methodNames ? methodNames.length : isObj)) {
           methodNames = false;
@@ -14317,8 +14982,10 @@ id.reset = function() {
             return function() {
               var chainAll = this.__chain__;
               if (chain || chainAll) {
-                var result = object(this.__wrapped__);
-                (result.__actions__ = arrayCopy(this.__actions__)).push({ 'func': func, 'args': arguments, 'thisArg': object });
+                var result = object(this.__wrapped__),
+                    actions = result.__actions__ = arrayCopy(this.__actions__);
+
+                actions.push({ 'func': func, 'args': arguments, 'thisArg': object });
                 result.__chain__ = chainAll;
                 return result;
               }
@@ -14350,7 +15017,7 @@ id.reset = function() {
     }
 
     /**
-     * A no-operation function which returns `undefined` regardless of the
+     * A no-operation function that returns `undefined` regardless of the
      * arguments it receives.
      *
      * @static
@@ -14368,62 +15035,62 @@ id.reset = function() {
     }
 
     /**
-     * Creates a function which returns the property value of `key` on a given object.
+     * Creates a function that returns the property value at `path` on a
+     * given object.
      *
      * @static
      * @memberOf _
      * @category Utility
-     * @param {string} key The key of the property to get.
+     * @param {Array|string} path The path of the property to get.
      * @returns {Function} Returns the new function.
      * @example
      *
-     * var users = [
-     *   { 'user': 'fred' },
-     *   { 'user': 'barney' }
+     * var objects = [
+     *   { 'a': { 'b': { 'c': 2 } } },
+     *   { 'a': { 'b': { 'c': 1 } } }
      * ];
      *
-     * var getName = _.property('user');
+     * _.map(objects, _.property('a.b.c'));
+     * // => [2, 1]
      *
-     * _.map(users, getName);
-     * // => ['fred', barney']
-     *
-     * _.pluck(_.sortBy(users, getName), 'user');
-     * // => ['barney', 'fred']
+     * _.pluck(_.sortBy(objects, _.property(['a', 'b', 'c'])), 'a.b.c');
+     * // => [1, 2]
      */
-    function property(key) {
-      return baseProperty(key + '');
+    function property(path) {
+      return isKey(path) ? baseProperty(path) : basePropertyDeep(path);
     }
 
     /**
-     * The inverse of `_.property`; this method creates a function which returns
-     * the property value of a given key on `object`.
+     * The opposite of `_.property`; this method creates a function that returns
+     * the property value at a given path on `object`.
      *
      * @static
      * @memberOf _
      * @category Utility
-     * @param {Object} object The object to inspect.
+     * @param {Object} object The object to query.
      * @returns {Function} Returns the new function.
      * @example
      *
-     * var object = { 'a': 3, 'b': 1, 'c': 2 };
+     * var array = [0, 1, 2],
+     *     object = { 'a': array, 'b': array, 'c': array };
      *
-     * _.map(['a', 'c'], _.propertyOf(object));
-     * // => [3, 2]
+     * _.map(['a[2]', 'c[0]'], _.propertyOf(object));
+     * // => [2, 0]
      *
-     * _.sortBy(['a', 'b', 'c'], _.propertyOf(object));
-     * // => ['b', 'c', 'a']
+     * _.map([['a', '2'], ['c', '0']], _.propertyOf(object));
+     * // => [2, 0]
      */
     function propertyOf(object) {
-      return function(key) {
-        return object == null ? undefined : object[key];
+      return function(path) {
+        return baseGet(object, toPath(path), path + '');
       };
     }
 
     /**
      * Creates an array of numbers (positive and/or negative) progressing from
-     * `start` up to, but not including, `end`. If `end` is not specified it
-     * defaults to `start` with `start` becoming `0`. If `start` is less than
-     * `end` a zero-length range is created unless a negative `step` is specified.
+     * `start` up to, but not including, `end`. If `end` is not specified it is
+     * set to `start` with `start` then set to `0`. If `end` is less than `start`
+     * a zero-length range is created unless a negative `step` is specified.
      *
      * @static
      * @memberOf _
@@ -14498,7 +15165,7 @@ id.reset = function() {
      * _.times(3, function(n) {
      *   mage.castSpell(n);
      * });
-     * // => invokes `mage.castSpell(n)` three times with `n` of `0`, `1`, and `2` respectively
+     * // => invokes `mage.castSpell(n)` three times with `n` of `0`, `1`, and `2`
      *
      * _.times(3, function(n) {
      *   this.cast(n);
@@ -14506,7 +15173,7 @@ id.reset = function() {
      * // => also invokes `mage.castSpell(n)` three times
      */
     function times(n, iteratee, thisArg) {
-      n = +n;
+      n = floor(n);
 
       // Exit early to avoid a JSC JIT bug in Safari 8
       // where `Array(0)` is treated as `Array(1)`.
@@ -14546,6 +15213,172 @@ id.reset = function() {
     function uniqueId(prefix) {
       var id = ++idCounter;
       return baseToString(prefix) + id;
+    }
+
+    /*------------------------------------------------------------------------*/
+
+    /**
+     * Adds two numbers.
+     *
+     * @static
+     * @memberOf _
+     * @category Math
+     * @param {number} augend The first number to add.
+     * @param {number} addend The second number to add.
+     * @returns {number} Returns the sum.
+     * @example
+     *
+     * _.add(6, 4);
+     * // => 10
+     */
+    function add(augend, addend) {
+      return (+augend || 0) + (+addend || 0);
+    }
+
+    /**
+     * Gets the maximum value of `collection`. If `collection` is empty or falsey
+     * `-Infinity` is returned. If an iteratee function is provided it is invoked
+     * for each value in `collection` to generate the criterion by which the value
+     * is ranked. The `iteratee` is bound to `thisArg` and invoked with three
+     * arguments: (value, index, collection).
+     *
+     * If a property name is provided for `iteratee` the created `_.property`
+     * style callback returns the property value of the given element.
+     *
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `iteratee` the created `_.matches` style
+     * callback returns `true` for elements that have the properties of the given
+     * object, else `false`.
+     *
+     * @static
+     * @memberOf _
+     * @category Math
+     * @param {Array|Object|string} collection The collection to iterate over.
+     * @param {Function|Object|string} [iteratee] The function invoked per iteration.
+     * @param {*} [thisArg] The `this` binding of `iteratee`.
+     * @returns {*} Returns the maximum value.
+     * @example
+     *
+     * _.max([4, 2, 8, 6]);
+     * // => 8
+     *
+     * _.max([]);
+     * // => -Infinity
+     *
+     * var users = [
+     *   { 'user': 'barney', 'age': 36 },
+     *   { 'user': 'fred',   'age': 40 }
+     * ];
+     *
+     * _.max(users, function(chr) {
+     *   return chr.age;
+     * });
+     * // => { 'user': 'fred', 'age': 40 }
+     *
+     * // using the `_.property` callback shorthand
+     * _.max(users, 'age');
+     * // => { 'user': 'fred', 'age': 40 }
+     */
+    var max = createExtremum(gt, NEGATIVE_INFINITY);
+
+    /**
+     * Gets the minimum value of `collection`. If `collection` is empty or falsey
+     * `Infinity` is returned. If an iteratee function is provided it is invoked
+     * for each value in `collection` to generate the criterion by which the value
+     * is ranked. The `iteratee` is bound to `thisArg` and invoked with three
+     * arguments: (value, index, collection).
+     *
+     * If a property name is provided for `iteratee` the created `_.property`
+     * style callback returns the property value of the given element.
+     *
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `iteratee` the created `_.matches` style
+     * callback returns `true` for elements that have the properties of the given
+     * object, else `false`.
+     *
+     * @static
+     * @memberOf _
+     * @category Math
+     * @param {Array|Object|string} collection The collection to iterate over.
+     * @param {Function|Object|string} [iteratee] The function invoked per iteration.
+     * @param {*} [thisArg] The `this` binding of `iteratee`.
+     * @returns {*} Returns the minimum value.
+     * @example
+     *
+     * _.min([4, 2, 8, 6]);
+     * // => 2
+     *
+     * _.min([]);
+     * // => Infinity
+     *
+     * var users = [
+     *   { 'user': 'barney', 'age': 36 },
+     *   { 'user': 'fred',   'age': 40 }
+     * ];
+     *
+     * _.min(users, function(chr) {
+     *   return chr.age;
+     * });
+     * // => { 'user': 'barney', 'age': 36 }
+     *
+     * // using the `_.property` callback shorthand
+     * _.min(users, 'age');
+     * // => { 'user': 'barney', 'age': 36 }
+     */
+    var min = createExtremum(lt, POSITIVE_INFINITY);
+
+    /**
+     * Gets the sum of the values in `collection`.
+     *
+     * @static
+     * @memberOf _
+     * @category Math
+     * @param {Array|Object|string} collection The collection to iterate over.
+     * @param {Function|Object|string} [iteratee] The function invoked per iteration.
+     * @param {*} [thisArg] The `this` binding of `iteratee`.
+     * @returns {number} Returns the sum.
+     * @example
+     *
+     * _.sum([4, 6]);
+     * // => 10
+     *
+     * _.sum({ 'a': 4, 'b': 6 });
+     * // => 10
+     *
+     * var objects = [
+     *   { 'n': 4 },
+     *   { 'n': 6 }
+     * ];
+     *
+     * _.sum(objects, function(object) {
+     *   return object.n;
+     * });
+     * // => 10
+     *
+     * // using the `_.property` callback shorthand
+     * _.sum(objects, 'n');
+     * // => 10
+     */
+    function sum(collection, iteratee, thisArg) {
+      if (thisArg && isIterateeCall(collection, iteratee, thisArg)) {
+        iteratee = null;
+      }
+      var callback = getCallback(),
+          noIteratee = iteratee == null;
+
+      if (!(noIteratee && callback === baseCallback)) {
+        noIteratee = false;
+        iteratee = callback(iteratee, thisArg, 3);
+      }
+      return noIteratee
+        ? arraySum(isArray(collection) ? collection : toIterable(collection))
+        : baseSum(collection, iteratee);
     }
 
     /*------------------------------------------------------------------------*/
@@ -14620,11 +15453,14 @@ id.reset = function() {
     lodash.keys = keys;
     lodash.keysIn = keysIn;
     lodash.map = map;
+    lodash.mapKeys = mapKeys;
     lodash.mapValues = mapValues;
     lodash.matches = matches;
     lodash.matchesProperty = matchesProperty;
     lodash.memoize = memoize;
     lodash.merge = merge;
+    lodash.method = method;
+    lodash.methodOf = methodOf;
     lodash.mixin = mixin;
     lodash.negate = negate;
     lodash.omit = omit;
@@ -14644,10 +15480,13 @@ id.reset = function() {
     lodash.reject = reject;
     lodash.remove = remove;
     lodash.rest = rest;
+    lodash.restParam = restParam;
+    lodash.set = set;
     lodash.shuffle = shuffle;
     lodash.slice = slice;
     lodash.sortBy = sortBy;
     lodash.sortByAll = sortByAll;
+    lodash.sortByOrder = sortByOrder;
     lodash.spread = spread;
     lodash.take = take;
     lodash.takeRight = takeRight;
@@ -14663,6 +15502,7 @@ id.reset = function() {
     lodash.union = union;
     lodash.uniq = uniq;
     lodash.unzip = unzip;
+    lodash.unzipWith = unzipWith;
     lodash.values = values;
     lodash.valuesIn = valuesIn;
     lodash.where = where;
@@ -14671,6 +15511,7 @@ id.reset = function() {
     lodash.xor = xor;
     lodash.zip = zip;
     lodash.zipObject = zipObject;
+    lodash.zipWith = zipWith;
 
     // Add aliases.
     lodash.backflow = flowRight;
@@ -14692,6 +15533,7 @@ id.reset = function() {
     /*------------------------------------------------------------------------*/
 
     // Add functions that return unwrapped values when chaining.
+    lodash.add = add;
     lodash.attempt = attempt;
     lodash.camelCase = camelCase;
     lodash.capitalize = capitalize;
@@ -14710,6 +15552,9 @@ id.reset = function() {
     lodash.findLastKey = findLastKey;
     lodash.findWhere = findWhere;
     lodash.first = first;
+    lodash.get = get;
+    lodash.gt = gt;
+    lodash.gte = gte;
     lodash.has = has;
     lodash.identity = identity;
     lodash.includes = includes;
@@ -14739,6 +15584,8 @@ id.reset = function() {
     lodash.kebabCase = kebabCase;
     lodash.last = last;
     lodash.lastIndexOf = lastIndexOf;
+    lodash.lt = lt;
+    lodash.lte = lte;
     lodash.max = max;
     lodash.min = min;
     lodash.noConflict = noConflict;
@@ -14761,6 +15608,7 @@ id.reset = function() {
     lodash.sortedLastIndex = sortedLastIndex;
     lodash.startCase = startCase;
     lodash.startsWith = startsWith;
+    lodash.sum = sum;
     lodash.template = template;
     lodash.trim = trim;
     lodash.trimLeft = trimLeft;
@@ -14774,6 +15622,7 @@ id.reset = function() {
     lodash.all = every;
     lodash.any = some;
     lodash.contains = includes;
+    lodash.eq = isEqual;
     lodash.detect = find;
     lodash.foldl = reduce;
     lodash.foldr = reduceRight;
@@ -14822,33 +15671,44 @@ id.reset = function() {
     });
 
     // Add `LazyWrapper` methods that accept an `iteratee` value.
-    arrayEach(['filter', 'map', 'takeWhile'], function(methodName, index) {
-      var isFilter = index == LAZY_FILTER_FLAG,
-          isWhile = index == LAZY_WHILE_FLAG;
+    arrayEach(['dropWhile', 'filter', 'map', 'takeWhile'], function(methodName, type) {
+      var isFilter = type != LAZY_MAP_FLAG,
+          isDropWhile = type == LAZY_DROP_WHILE_FLAG;
 
       LazyWrapper.prototype[methodName] = function(iteratee, thisArg) {
-        var result = this.clone(),
-            filtered = result.__filtered__,
+        var filtered = this.__filtered__,
+            result = (filtered && isDropWhile) ? new LazyWrapper(this) : this.clone(),
             iteratees = result.__iteratees__ || (result.__iteratees__ = []);
 
-        result.__filtered__ = filtered || isFilter || (isWhile && result.__dir__ < 0);
-        iteratees.push({ 'iteratee': getCallback(iteratee, thisArg, 3), 'type': index });
+        iteratees.push({
+          'done': false,
+          'count': 0,
+          'index': 0,
+          'iteratee': getCallback(iteratee, thisArg, 1),
+          'limit': -1,
+          'type': type
+        });
+
+        result.__filtered__ = filtered || isFilter;
         return result;
       };
     });
 
     // Add `LazyWrapper` methods for `_.drop` and `_.take` variants.
     arrayEach(['drop', 'take'], function(methodName, index) {
-      var countName = '__' + methodName + 'Count__',
-          whileName = methodName + 'While';
+      var whileName = methodName + 'While';
 
       LazyWrapper.prototype[methodName] = function(n) {
-        n = n == null ? 1 : nativeMax(floor(n) || 0, 0);
+        var filtered = this.__filtered__,
+            result = (filtered && !index) ? this.dropWhile() : this.clone();
 
-        var result = this.clone();
-        if (result.__filtered__) {
-          var value = result[countName];
-          result[countName] = index ? nativeMin(value, n) : (value + n);
+        n = n == null ? 1 : nativeMax(floor(n) || 0, 0);
+        if (filtered) {
+          if (index) {
+            result.__takeCount__ = nativeMin(result.__takeCount__, n);
+          } else {
+            last(result.__iteratees__).limit = n;
+          }
         } else {
           var views = result.__views__ || (result.__views__ = []);
           views.push({ 'size': n, 'type': methodName + (result.__dir__ < 0 ? 'Right' : '') });
@@ -14886,7 +15746,7 @@ id.reset = function() {
     // Add `LazyWrapper` methods for `_.pluck` and `_.where`.
     arrayEach(['pluck', 'where'], function(methodName, index) {
       var operationName = index ? 'filter' : 'map',
-          createCallback = index ? baseMatches : baseProperty;
+          createCallback = index ? baseMatches : property;
 
       LazyWrapper.prototype[methodName] = function(value) {
         return this[operationName](createCallback(value));
@@ -14897,26 +15757,23 @@ id.reset = function() {
       return this.filter(identity);
     };
 
-    LazyWrapper.prototype.dropWhile = function(predicate, thisArg) {
-      var done;
-      predicate = getCallback(predicate, thisArg, 3);
-      return this.filter(function(value, index, array) {
-        return done || (done = !predicate(value, index, array));
-      });
-    };
-
     LazyWrapper.prototype.reject = function(predicate, thisArg) {
-      predicate = getCallback(predicate, thisArg, 3);
-      return this.filter(function(value, index, array) {
-        return !predicate(value, index, array);
+      predicate = getCallback(predicate, thisArg, 1);
+      return this.filter(function(value) {
+        return !predicate(value);
       });
     };
 
     LazyWrapper.prototype.slice = function(start, end) {
       start = start == null ? 0 : (+start || 0);
-      var result = start < 0 ? this.takeRight(-start) : this.drop(start);
 
-      if (typeof end != 'undefined') {
+      var result = this;
+      if (start < 0) {
+        result = this.takeRight(-start);
+      } else if (start) {
+        result = this.drop(start);
+      }
+      if (end !== undefined) {
         end = (+end || 0);
         result = end < 0 ? result.dropRight(-end) : result.take(end - start);
       }
@@ -14929,17 +15786,27 @@ id.reset = function() {
 
     // Add `LazyWrapper` methods to `lodash.prototype`.
     baseForOwn(LazyWrapper.prototype, function(func, methodName) {
-      var lodashFunc = lodash[methodName],
+      var lodashFunc = lodash[methodName];
+      if (!lodashFunc) {
+        return;
+      }
+      var checkIteratee = /^(?:filter|map|reject)|While$/.test(methodName),
           retUnwrapped = /^(?:first|last)$/.test(methodName);
 
       lodash.prototype[methodName] = function() {
-        var value = this.__wrapped__,
-            args = arguments,
+        var args = arguments,
             chainAll = this.__chain__,
+            value = this.__wrapped__,
             isHybrid = !!this.__actions__.length,
             isLazy = value instanceof LazyWrapper,
-            onlyLazy = isLazy && !isHybrid;
+            iteratee = args[0],
+            useLazy = isLazy || isArray(value);
 
+        if (useLazy && checkIteratee && typeof iteratee == 'function' && iteratee.length != 1) {
+          // avoid lazy use if the iteratee has a "length" value other than `1`
+          isLazy = useLazy = false;
+        }
+        var onlyLazy = isLazy && !isHybrid;
         if (retUnwrapped && !chainAll) {
           return onlyLazy
             ? func.call(value)
@@ -14950,7 +15817,7 @@ id.reset = function() {
           push.apply(otherArgs, args);
           return lodashFunc.apply(lodash, otherArgs);
         };
-        if (isLazy || isArray(value)) {
+        if (useLazy) {
           var wrapper = onlyLazy ? value : new LazyWrapper(this),
               result = func.apply(wrapper, args);
 
@@ -14964,11 +15831,11 @@ id.reset = function() {
       };
     });
 
-    // Add `Array.prototype` functions to `lodash.prototype`.
-    arrayEach(['concat', 'join', 'pop', 'push', 'shift', 'sort', 'splice', 'unshift'], function(methodName) {
-      var func = arrayProto[methodName],
+    // Add `Array` and `String` methods to `lodash.prototype`.
+    arrayEach(['concat', 'join', 'pop', 'push', 'replace', 'shift', 'sort', 'splice', 'split', 'unshift'], function(methodName) {
+      var func = (/^(?:replace|split)$/.test(methodName) ? stringProto : arrayProto)[methodName],
           chainName = /^(?:push|sort|unshift)$/.test(methodName) ? 'tap' : 'thru',
-          retUnwrapped = /^(?:join|pop|shift)$/.test(methodName);
+          retUnwrapped = /^(?:join|pop|replace|shift)$/.test(methodName);
 
       lodash.prototype[methodName] = function() {
         var args = arguments;
@@ -14980,6 +15847,19 @@ id.reset = function() {
         });
       };
     });
+
+    // Map minified function names to their real names.
+    baseForOwn(LazyWrapper.prototype, function(func, methodName) {
+      var lodashFunc = lodash[methodName];
+      if (lodashFunc) {
+        var key = lodashFunc.name,
+            names = realNames[key] || (realNames[key] = []);
+
+        names.push({ 'name': methodName, 'func': lodashFunc });
+      }
+    });
+
+    realNames[createHybridWrapper(null, BIND_KEY_FLAG).name] = [{ 'name': 'wrapper', 'func': null }];
 
     // Add functions to the lazy wrapper.
     LazyWrapper.prototype.clone = lazyClone;
@@ -15028,7 +15908,7 @@ id.reset = function() {
     if (moduleExports) {
       (freeModule.exports = _)._ = _;
     }
-    // Export for Narwhal or Rhino -require.
+    // Export for Rhino with CommonJS support.
     else {
       freeExports._ = _;
     }
@@ -15041,7 +15921,7 @@ id.reset = function() {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react-tap-event-plugin/src/ResponderEventPlugin.js":[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -15352,7 +16232,7 @@ var ResponderEventPlugin = {
 
 module.exports = ResponderEventPlugin;
 
-},{"react/lib/EventConstants":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js","react/lib/EventPluginUtils":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginUtils.js","react/lib/EventPropagators":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPropagators.js","react/lib/SyntheticEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticEvent.js","react/lib/accumulateInto":"/Users/uzimith/dev/kokomade/node_modules/react/lib/accumulateInto.js","react/lib/keyOf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyOf.js"}],"/Users/uzimith/dev/kokomade/node_modules/react-tap-event-plugin/src/TapEventPlugin.js":[function(require,module,exports){
+},{"react/lib/EventConstants":50,"react/lib/EventPluginUtils":54,"react/lib/EventPropagators":55,"react/lib/SyntheticEvent":143,"react/lib/accumulateInto":153,"react/lib/keyOf":192}],32:[function(require,module,exports){
 /**
  * Copyright 2013-2014 Facebook, Inc.
  *
@@ -15454,6 +16334,15 @@ var eventTypes = {
   }
 };
 
+var now = function() {
+  if (Date.now) {
+    return Date.now();
+  } else {
+    // IE8 support: http://stackoverflow.com/questions/9430357/please-explain-why-and-how-new-date-works-as-workaround-for-date-now-in
+    return +new Date;
+  }
+}
+
 var TapEventPlugin = {
 
   tapMoveThreshold: tapMoveThreshold,
@@ -15477,9 +16366,9 @@ var TapEventPlugin = {
       nativeEvent) {
 
     if (isTouch(topLevelType)) {
-      lastTouchEvent = nativeEvent.timeStamp;
+      lastTouchEvent = now();
     } else {
-      if (lastTouchEvent && (nativeEvent.timeStamp - lastTouchEvent) < ignoreMouseThreshold) {
+      if (lastTouchEvent && (now() - lastTouchEvent) < ignoreMouseThreshold) {
         return null;
       }
     }
@@ -15510,7 +16399,8 @@ var TapEventPlugin = {
 };
 
 module.exports = TapEventPlugin;
-},{"./TouchEventUtils":"/Users/uzimith/dev/kokomade/node_modules/react-tap-event-plugin/src/TouchEventUtils.js","react/lib/EventConstants":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js","react/lib/EventPluginUtils":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginUtils.js","react/lib/EventPropagators":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPropagators.js","react/lib/SyntheticUIEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticUIEvent.js","react/lib/ViewportMetrics":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ViewportMetrics.js","react/lib/keyOf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyOf.js"}],"/Users/uzimith/dev/kokomade/node_modules/react-tap-event-plugin/src/TouchEventUtils.js":[function(require,module,exports){
+
+},{"./TouchEventUtils":33,"react/lib/EventConstants":50,"react/lib/EventPluginUtils":54,"react/lib/EventPropagators":55,"react/lib/SyntheticUIEvent":149,"react/lib/ViewportMetrics":152,"react/lib/keyOf":192}],33:[function(require,module,exports){
 /**
  * Copyright 2013-2014 Facebook, Inc.
  *
@@ -15554,7 +16444,7 @@ var TouchEventUtils = {
 
 module.exports = TouchEventUtils;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react-tap-event-plugin/src/injectTapEventPlugin.js":[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 module.exports = function injectTapEventPlugin () {
   var React = require("react");
   React.initializeTouchEvents(true);
@@ -15565,10 +16455,10 @@ module.exports = function injectTapEventPlugin () {
   });
 };
 
-},{"./ResponderEventPlugin.js":"/Users/uzimith/dev/kokomade/node_modules/react-tap-event-plugin/src/ResponderEventPlugin.js","./TapEventPlugin.js":"/Users/uzimith/dev/kokomade/node_modules/react-tap-event-plugin/src/TapEventPlugin.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js","react/lib/EventPluginHub":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginHub.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/addons.js":[function(require,module,exports){
+},{"./ResponderEventPlugin.js":31,"./TapEventPlugin.js":32,"react":207,"react/lib/EventPluginHub":52}],35:[function(require,module,exports){
 module.exports = require('./lib/ReactWithAddons');
 
-},{"./lib/ReactWithAddons":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactWithAddons.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/AutoFocusMixin.js":[function(require,module,exports){
+},{"./lib/ReactWithAddons":135}],36:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -15595,7 +16485,7 @@ var AutoFocusMixin = {
 
 module.exports = AutoFocusMixin;
 
-},{"./focusNode":"/Users/uzimith/dev/kokomade/node_modules/react/lib/focusNode.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/BeforeInputEventPlugin.js":[function(require,module,exports){
+},{"./focusNode":169}],37:[function(require,module,exports){
 /**
  * Copyright 2013-2015 Facebook, Inc.
  * All rights reserved.
@@ -16090,7 +16980,7 @@ var BeforeInputEventPlugin = {
 
 module.exports = BeforeInputEventPlugin;
 
-},{"./EventConstants":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js","./EventPropagators":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPropagators.js","./ExecutionEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ExecutionEnvironment.js","./FallbackCompositionState":"/Users/uzimith/dev/kokomade/node_modules/react/lib/FallbackCompositionState.js","./SyntheticCompositionEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticCompositionEvent.js","./SyntheticInputEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticInputEvent.js","./keyOf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyOf.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/CSSCore.js":[function(require,module,exports){
+},{"./EventConstants":50,"./EventPropagators":55,"./ExecutionEnvironment":56,"./FallbackCompositionState":57,"./SyntheticCompositionEvent":141,"./SyntheticInputEvent":145,"./keyOf":192}],38:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -16203,7 +17093,7 @@ module.exports = CSSCore;
 
 }).call(this,require('_process'))
 
-},{"./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/CSSProperty.js":[function(require,module,exports){
+},{"./invariant":185,"_process":17}],39:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -16226,7 +17116,9 @@ var isUnitlessNumber = {
   columnCount: true,
   flex: true,
   flexGrow: true,
+  flexPositive: true,
   flexShrink: true,
+  flexNegative: true,
   fontWeight: true,
   lineClamp: true,
   lineHeight: true,
@@ -16239,7 +17131,9 @@ var isUnitlessNumber = {
 
   // SVG-related properties
   fillOpacity: true,
-  strokeOpacity: true
+  strokeDashoffset: true,
+  strokeOpacity: true,
+  strokeWidth: true
 };
 
 /**
@@ -16324,7 +17218,7 @@ var CSSProperty = {
 
 module.exports = CSSProperty;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/CSSPropertyOperations.js":[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -16507,7 +17401,7 @@ module.exports = CSSPropertyOperations;
 
 }).call(this,require('_process'))
 
-},{"./CSSProperty":"/Users/uzimith/dev/kokomade/node_modules/react/lib/CSSProperty.js","./ExecutionEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ExecutionEnvironment.js","./camelizeStyleName":"/Users/uzimith/dev/kokomade/node_modules/react/lib/camelizeStyleName.js","./dangerousStyleValue":"/Users/uzimith/dev/kokomade/node_modules/react/lib/dangerousStyleValue.js","./hyphenateStyleName":"/Users/uzimith/dev/kokomade/node_modules/react/lib/hyphenateStyleName.js","./memoizeStringOnly":"/Users/uzimith/dev/kokomade/node_modules/react/lib/memoizeStringOnly.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/CallbackQueue.js":[function(require,module,exports){
+},{"./CSSProperty":39,"./ExecutionEnvironment":56,"./camelizeStyleName":156,"./dangerousStyleValue":163,"./hyphenateStyleName":183,"./memoizeStringOnly":194,"./warning":206,"_process":17}],41:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -16608,7 +17502,7 @@ module.exports = CallbackQueue;
 
 }).call(this,require('_process'))
 
-},{"./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./PooledClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/PooledClass.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ChangeEventPlugin.js":[function(require,module,exports){
+},{"./Object.assign":63,"./PooledClass":64,"./invariant":185,"_process":17}],42:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -16990,7 +17884,7 @@ var ChangeEventPlugin = {
 
 module.exports = ChangeEventPlugin;
 
-},{"./EventConstants":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js","./EventPluginHub":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginHub.js","./EventPropagators":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPropagators.js","./ExecutionEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ExecutionEnvironment.js","./ReactUpdates":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdates.js","./SyntheticEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticEvent.js","./isEventSupported":"/Users/uzimith/dev/kokomade/node_modules/react/lib/isEventSupported.js","./isTextInputElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/isTextInputElement.js","./keyOf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyOf.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ClientReactRootIndex.js":[function(require,module,exports){
+},{"./EventConstants":50,"./EventPluginHub":52,"./EventPropagators":55,"./ExecutionEnvironment":56,"./ReactUpdates":134,"./SyntheticEvent":143,"./isEventSupported":186,"./isTextInputElement":188,"./keyOf":192}],43:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -17015,7 +17909,7 @@ var ClientReactRootIndex = {
 
 module.exports = ClientReactRootIndex;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/DOMChildrenOperations.js":[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -17154,7 +18048,7 @@ module.exports = DOMChildrenOperations;
 
 }).call(this,require('_process'))
 
-},{"./Danger":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Danger.js","./ReactMultiChildUpdateTypes":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMultiChildUpdateTypes.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./setTextContent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/setTextContent.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/DOMProperty.js":[function(require,module,exports){
+},{"./Danger":47,"./ReactMultiChildUpdateTypes":113,"./invariant":185,"./setTextContent":200,"_process":17}],45:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -17454,7 +18348,7 @@ module.exports = DOMProperty;
 
 }).call(this,require('_process'))
 
-},{"./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/DOMPropertyOperations.js":[function(require,module,exports){
+},{"./invariant":185,"_process":17}],46:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -17647,7 +18541,7 @@ module.exports = DOMPropertyOperations;
 
 }).call(this,require('_process'))
 
-},{"./DOMProperty":"/Users/uzimith/dev/kokomade/node_modules/react/lib/DOMProperty.js","./quoteAttributeValueForBrowser":"/Users/uzimith/dev/kokomade/node_modules/react/lib/quoteAttributeValueForBrowser.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/Danger.js":[function(require,module,exports){
+},{"./DOMProperty":45,"./quoteAttributeValueForBrowser":198,"./warning":206,"_process":17}],47:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -17835,7 +18729,7 @@ module.exports = Danger;
 
 }).call(this,require('_process'))
 
-},{"./ExecutionEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ExecutionEnvironment.js","./createNodesFromMarkup":"/Users/uzimith/dev/kokomade/node_modules/react/lib/createNodesFromMarkup.js","./emptyFunction":"/Users/uzimith/dev/kokomade/node_modules/react/lib/emptyFunction.js","./getMarkupWrap":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getMarkupWrap.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/DefaultEventPluginOrder.js":[function(require,module,exports){
+},{"./ExecutionEnvironment":56,"./createNodesFromMarkup":161,"./emptyFunction":164,"./getMarkupWrap":177,"./invariant":185,"_process":17}],48:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -17874,7 +18768,7 @@ var DefaultEventPluginOrder = [
 
 module.exports = DefaultEventPluginOrder;
 
-},{"./keyOf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyOf.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/EnterLeaveEventPlugin.js":[function(require,module,exports){
+},{"./keyOf":192}],49:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -18014,7 +18908,7 @@ var EnterLeaveEventPlugin = {
 
 module.exports = EnterLeaveEventPlugin;
 
-},{"./EventConstants":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js","./EventPropagators":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPropagators.js","./ReactMount":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMount.js","./SyntheticMouseEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticMouseEvent.js","./keyOf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyOf.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js":[function(require,module,exports){
+},{"./EventConstants":50,"./EventPropagators":55,"./ReactMount":111,"./SyntheticMouseEvent":147,"./keyOf":192}],50:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -18086,7 +18980,7 @@ var EventConstants = {
 
 module.exports = EventConstants;
 
-},{"./keyMirror":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyMirror.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventListener.js":[function(require,module,exports){
+},{"./keyMirror":191}],51:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -18177,7 +19071,7 @@ module.exports = EventListener;
 
 }).call(this,require('_process'))
 
-},{"./emptyFunction":"/Users/uzimith/dev/kokomade/node_modules/react/lib/emptyFunction.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginHub.js":[function(require,module,exports){
+},{"./emptyFunction":164,"_process":17}],52:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -18456,7 +19350,7 @@ module.exports = EventPluginHub;
 
 }).call(this,require('_process'))
 
-},{"./EventPluginRegistry":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginRegistry.js","./EventPluginUtils":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginUtils.js","./accumulateInto":"/Users/uzimith/dev/kokomade/node_modules/react/lib/accumulateInto.js","./forEachAccumulated":"/Users/uzimith/dev/kokomade/node_modules/react/lib/forEachAccumulated.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginRegistry.js":[function(require,module,exports){
+},{"./EventPluginRegistry":53,"./EventPluginUtils":54,"./accumulateInto":153,"./forEachAccumulated":170,"./invariant":185,"_process":17}],53:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -18737,7 +19631,7 @@ module.exports = EventPluginRegistry;
 
 }).call(this,require('_process'))
 
-},{"./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginUtils.js":[function(require,module,exports){
+},{"./invariant":185,"_process":17}],54:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -18959,7 +19853,7 @@ module.exports = EventPluginUtils;
 
 }).call(this,require('_process'))
 
-},{"./EventConstants":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPropagators.js":[function(require,module,exports){
+},{"./EventConstants":50,"./invariant":185,"_process":17}],55:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -19102,7 +19996,7 @@ module.exports = EventPropagators;
 
 }).call(this,require('_process'))
 
-},{"./EventConstants":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js","./EventPluginHub":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginHub.js","./accumulateInto":"/Users/uzimith/dev/kokomade/node_modules/react/lib/accumulateInto.js","./forEachAccumulated":"/Users/uzimith/dev/kokomade/node_modules/react/lib/forEachAccumulated.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ExecutionEnvironment.js":[function(require,module,exports){
+},{"./EventConstants":50,"./EventPluginHub":52,"./accumulateInto":153,"./forEachAccumulated":170,"_process":17}],56:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -19146,7 +20040,7 @@ var ExecutionEnvironment = {
 
 module.exports = ExecutionEnvironment;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/FallbackCompositionState.js":[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -19237,7 +20131,7 @@ PooledClass.addPoolingTo(FallbackCompositionState);
 
 module.exports = FallbackCompositionState;
 
-},{"./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./PooledClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/PooledClass.js","./getTextContentAccessor":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getTextContentAccessor.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/HTMLDOMPropertyConfig.js":[function(require,module,exports){
+},{"./Object.assign":63,"./PooledClass":64,"./getTextContentAccessor":180}],58:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -19337,6 +20231,7 @@ var HTMLDOMPropertyConfig = {
     headers: null,
     height: MUST_USE_ATTRIBUTE,
     hidden: MUST_USE_ATTRIBUTE | HAS_BOOLEAN_VALUE,
+    high: null,
     href: null,
     hrefLang: null,
     htmlFor: null,
@@ -19347,6 +20242,7 @@ var HTMLDOMPropertyConfig = {
     lang: null,
     list: MUST_USE_ATTRIBUTE,
     loop: MUST_USE_PROPERTY | HAS_BOOLEAN_VALUE,
+    low: null,
     manifest: MUST_USE_ATTRIBUTE,
     marginHeight: null,
     marginWidth: null,
@@ -19361,6 +20257,7 @@ var HTMLDOMPropertyConfig = {
     name: null,
     noValidate: HAS_BOOLEAN_VALUE,
     open: HAS_BOOLEAN_VALUE,
+    optimum: null,
     pattern: null,
     placeholder: null,
     poster: null,
@@ -19374,6 +20271,7 @@ var HTMLDOMPropertyConfig = {
     rowSpan: null,
     sandbox: null,
     scope: null,
+    scoped: HAS_BOOLEAN_VALUE,
     scrolling: null,
     seamless: MUST_USE_ATTRIBUTE | HAS_BOOLEAN_VALUE,
     selected: MUST_USE_PROPERTY | HAS_BOOLEAN_VALUE,
@@ -19415,7 +20313,9 @@ var HTMLDOMPropertyConfig = {
     itemID: MUST_USE_ATTRIBUTE,
     itemRef: MUST_USE_ATTRIBUTE,
     // property is supported for OpenGraph in meta tags.
-    property: null
+    property: null,
+    // IE-only attribute that controls focus behavior
+    unselectable: MUST_USE_ATTRIBUTE
   },
   DOMAttributeNames: {
     acceptCharset: 'accept-charset',
@@ -19442,7 +20342,7 @@ var HTMLDOMPropertyConfig = {
 
 module.exports = HTMLDOMPropertyConfig;
 
-},{"./DOMProperty":"/Users/uzimith/dev/kokomade/node_modules/react/lib/DOMProperty.js","./ExecutionEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ExecutionEnvironment.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/LinkedStateMixin.js":[function(require,module,exports){
+},{"./DOMProperty":45,"./ExecutionEnvironment":56}],59:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -19483,7 +20383,7 @@ var LinkedStateMixin = {
 
 module.exports = LinkedStateMixin;
 
-},{"./ReactLink":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactLink.js","./ReactStateSetters":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactStateSetters.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/LinkedValueUtils.js":[function(require,module,exports){
+},{"./ReactLink":109,"./ReactStateSetters":128}],60:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -19640,7 +20540,7 @@ module.exports = LinkedValueUtils;
 
 }).call(this,require('_process'))
 
-},{"./ReactPropTypes":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPropTypes.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/LocalEventTrapMixin.js":[function(require,module,exports){
+},{"./ReactPropTypes":120,"./invariant":185,"_process":17}],61:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -19698,7 +20598,7 @@ module.exports = LocalEventTrapMixin;
 
 }).call(this,require('_process'))
 
-},{"./ReactBrowserEventEmitter":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserEventEmitter.js","./accumulateInto":"/Users/uzimith/dev/kokomade/node_modules/react/lib/accumulateInto.js","./forEachAccumulated":"/Users/uzimith/dev/kokomade/node_modules/react/lib/forEachAccumulated.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/MobileSafariClickEventPlugin.js":[function(require,module,exports){
+},{"./ReactBrowserEventEmitter":67,"./accumulateInto":153,"./forEachAccumulated":170,"./invariant":185,"_process":17}],62:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -19756,7 +20656,7 @@ var MobileSafariClickEventPlugin = {
 
 module.exports = MobileSafariClickEventPlugin;
 
-},{"./EventConstants":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js","./emptyFunction":"/Users/uzimith/dev/kokomade/node_modules/react/lib/emptyFunction.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js":[function(require,module,exports){
+},{"./EventConstants":50,"./emptyFunction":164}],63:[function(require,module,exports){
 /**
  * Copyright 2014-2015, Facebook, Inc.
  * All rights reserved.
@@ -19805,7 +20705,7 @@ function assign(target, sources) {
 
 module.exports = assign;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/PooledClass.js":[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -19922,7 +20822,7 @@ module.exports = PooledClass;
 
 }).call(this,require('_process'))
 
-},{"./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/React.js":[function(require,module,exports){
+},{"./invariant":185,"_process":17}],65:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -19965,10 +20865,12 @@ ReactDefaultInjection.inject();
 
 var createElement = ReactElement.createElement;
 var createFactory = ReactElement.createFactory;
+var cloneElement = ReactElement.cloneElement;
 
 if ("production" !== process.env.NODE_ENV) {
   createElement = ReactElementValidator.createElement;
   createFactory = ReactElementValidator.createFactory;
+  cloneElement = ReactElementValidator.cloneElement;
 }
 
 var render = ReactPerf.measure('React', 'render', ReactMount.render);
@@ -19988,6 +20890,7 @@ var React = {
   },
   createClass: ReactClass.createClass,
   createElement: createElement,
+  cloneElement: cloneElement,
   createFactory: createFactory,
   createMixin: function(mixin) {
     // Currently a noop. Will be used to validate and trace mixins.
@@ -20031,7 +20934,7 @@ if ("production" !== process.env.NODE_ENV) {
       if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === 'undefined') {
         console.debug(
           'Download the React DevTools for a better development experience: ' +
-          'http://fb.me/react-devtools'
+          'https://fb.me/react-devtools'
         );
       }
     }
@@ -20058,7 +20961,7 @@ if ("production" !== process.env.NODE_ENV) {
       if (!expectedFeatures[i]) {
         console.error(
           'One or more ES5 shim/shams expected by React are not available: ' +
-          'http://fb.me/react-warning-polyfills'
+          'https://fb.me/react-warning-polyfills'
         );
         break;
       }
@@ -20066,13 +20969,13 @@ if ("production" !== process.env.NODE_ENV) {
   }
 }
 
-React.version = '0.13.0-rc1';
+React.version = '0.13.3';
 
 module.exports = React;
 
 }).call(this,require('_process'))
 
-},{"./EventPluginUtils":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginUtils.js","./ExecutionEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ExecutionEnvironment.js","./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./ReactChildren":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactChildren.js","./ReactClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactClass.js","./ReactComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactComponent.js","./ReactContext":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactContext.js","./ReactCurrentOwner":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCurrentOwner.js","./ReactDOM":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOM.js","./ReactDOMTextComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMTextComponent.js","./ReactDefaultInjection":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDefaultInjection.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactElementValidator":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElementValidator.js","./ReactInstanceHandles":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceHandles.js","./ReactMount":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMount.js","./ReactPerf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPerf.js","./ReactPropTypes":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPropTypes.js","./ReactReconciler":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactReconciler.js","./ReactServerRendering":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactServerRendering.js","./findDOMNode":"/Users/uzimith/dev/kokomade/node_modules/react/lib/findDOMNode.js","./onlyChild":"/Users/uzimith/dev/kokomade/node_modules/react/lib/onlyChild.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserComponentMixin.js":[function(require,module,exports){
+},{"./EventPluginUtils":54,"./ExecutionEnvironment":56,"./Object.assign":63,"./ReactChildren":71,"./ReactClass":72,"./ReactComponent":73,"./ReactContext":78,"./ReactCurrentOwner":79,"./ReactDOM":80,"./ReactDOMTextComponent":91,"./ReactDefaultInjection":94,"./ReactElement":97,"./ReactElementValidator":98,"./ReactInstanceHandles":106,"./ReactMount":111,"./ReactPerf":116,"./ReactPropTypes":120,"./ReactReconciler":123,"./ReactServerRendering":126,"./findDOMNode":167,"./onlyChild":195,"_process":17}],66:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -20103,7 +21006,7 @@ var ReactBrowserComponentMixin = {
 
 module.exports = ReactBrowserComponentMixin;
 
-},{"./findDOMNode":"/Users/uzimith/dev/kokomade/node_modules/react/lib/findDOMNode.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserEventEmitter.js":[function(require,module,exports){
+},{"./findDOMNode":167}],67:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -20456,7 +21359,7 @@ var ReactBrowserEventEmitter = assign({}, ReactEventEmitterMixin, {
 
 module.exports = ReactBrowserEventEmitter;
 
-},{"./EventConstants":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js","./EventPluginHub":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginHub.js","./EventPluginRegistry":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginRegistry.js","./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./ReactEventEmitterMixin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactEventEmitterMixin.js","./ViewportMetrics":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ViewportMetrics.js","./isEventSupported":"/Users/uzimith/dev/kokomade/node_modules/react/lib/isEventSupported.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCSSTransitionGroup.js":[function(require,module,exports){
+},{"./EventConstants":50,"./EventPluginHub":52,"./EventPluginRegistry":53,"./Object.assign":63,"./ReactEventEmitterMixin":101,"./ViewportMetrics":152,"./isEventSupported":186}],68:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -20526,7 +21429,7 @@ var ReactCSSTransitionGroup = React.createClass({
 
 module.exports = ReactCSSTransitionGroup;
 
-},{"./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./React":"/Users/uzimith/dev/kokomade/node_modules/react/lib/React.js","./ReactCSSTransitionGroupChild":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCSSTransitionGroupChild.js","./ReactTransitionGroup":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactTransitionGroup.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCSSTransitionGroupChild.js":[function(require,module,exports){
+},{"./Object.assign":63,"./React":65,"./ReactCSSTransitionGroupChild":69,"./ReactTransitionGroup":132}],69:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -20675,7 +21578,7 @@ module.exports = ReactCSSTransitionGroupChild;
 
 }).call(this,require('_process'))
 
-},{"./CSSCore":"/Users/uzimith/dev/kokomade/node_modules/react/lib/CSSCore.js","./React":"/Users/uzimith/dev/kokomade/node_modules/react/lib/React.js","./ReactTransitionEvents":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactTransitionEvents.js","./onlyChild":"/Users/uzimith/dev/kokomade/node_modules/react/lib/onlyChild.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactChildReconciler.js":[function(require,module,exports){
+},{"./CSSCore":38,"./React":65,"./ReactTransitionEvents":131,"./onlyChild":195,"./warning":206,"_process":17}],70:[function(require,module,exports){
 /**
  * Copyright 2014-2015, Facebook, Inc.
  * All rights reserved.
@@ -20802,7 +21705,7 @@ var ReactChildReconciler = {
 
 module.exports = ReactChildReconciler;
 
-},{"./ReactReconciler":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactReconciler.js","./flattenChildren":"/Users/uzimith/dev/kokomade/node_modules/react/lib/flattenChildren.js","./instantiateReactComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/instantiateReactComponent.js","./shouldUpdateReactComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/shouldUpdateReactComponent.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactChildren.js":[function(require,module,exports){
+},{"./ReactReconciler":123,"./flattenChildren":168,"./instantiateReactComponent":184,"./shouldUpdateReactComponent":202}],71:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -20956,7 +21859,7 @@ module.exports = ReactChildren;
 
 }).call(this,require('_process'))
 
-},{"./PooledClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/PooledClass.js","./ReactFragment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactFragment.js","./traverseAllChildren":"/Users/uzimith/dev/kokomade/node_modules/react/lib/traverseAllChildren.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactClass.js":[function(require,module,exports){
+},{"./PooledClass":64,"./ReactFragment":103,"./traverseAllChildren":204,"./warning":206,"_process":17}],72:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -21794,7 +22697,7 @@ var ReactClass = {
         ("production" !== process.env.NODE_ENV ? warning(
           this instanceof Constructor,
           'Something is calling a React component directly. Use a factory or ' +
-          'JSX instead. See: http://fb.me/react-legacyfactory'
+          'JSX instead. See: https://fb.me/react-legacyfactory'
         ) : null);
       }
 
@@ -21903,7 +22806,7 @@ module.exports = ReactClass;
 
 }).call(this,require('_process'))
 
-},{"./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./ReactComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactComponent.js","./ReactCurrentOwner":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCurrentOwner.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactErrorUtils":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactErrorUtils.js","./ReactInstanceMap":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceMap.js","./ReactLifeCycle":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactLifeCycle.js","./ReactPropTypeLocationNames":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPropTypeLocationNames.js","./ReactPropTypeLocations":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPropTypeLocations.js","./ReactUpdateQueue":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdateQueue.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./keyMirror":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyMirror.js","./keyOf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyOf.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactComponent.js":[function(require,module,exports){
+},{"./Object.assign":63,"./ReactComponent":73,"./ReactCurrentOwner":79,"./ReactElement":97,"./ReactErrorUtils":100,"./ReactInstanceMap":107,"./ReactLifeCycle":108,"./ReactPropTypeLocationNames":118,"./ReactPropTypeLocations":119,"./ReactUpdateQueue":133,"./invariant":185,"./keyMirror":191,"./keyOf":192,"./warning":206,"_process":17}],73:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -21986,7 +22889,7 @@ ReactComponent.prototype.setState = function(partialState, callback) {
  * You may want to call this when you know that some deeper aspect of the
  * component's state has changed but `setState` was not called.
  *
- * This will not invoke `shouldUpdateComponent`, but it will invoke
+ * This will not invoke `shouldComponentUpdate`, but it will invoke
  * `componentWillUpdate` and `componentDidUpdate`.
  *
  * @param {?function} callback Called after update is complete.
@@ -22007,19 +22910,38 @@ ReactComponent.prototype.forceUpdate = function(callback) {
  */
 if ("production" !== process.env.NODE_ENV) {
   var deprecatedAPIs = {
-    getDOMNode: 'getDOMNode',
-    isMounted: 'isMounted',
-    replaceState: 'replaceState',
-    setProps: 'setProps'
+    getDOMNode: [
+      'getDOMNode',
+      'Use React.findDOMNode(component) instead.'
+    ],
+    isMounted: [
+      'isMounted',
+      'Instead, make sure to clean up subscriptions and pending requests in ' +
+      'componentWillUnmount to prevent memory leaks.'
+    ],
+    replaceProps: [
+      'replaceProps',
+      'Instead, call React.render again at the top level.'
+    ],
+    replaceState: [
+      'replaceState',
+      'Refactor your code to use setState instead (see ' +
+      'https://github.com/facebook/react/issues/3236).'
+    ],
+    setProps: [
+      'setProps',
+      'Instead, call React.render again at the top level.'
+    ]
   };
-  var defineDeprecationWarning = function(methodName, displayName) {
+  var defineDeprecationWarning = function(methodName, info) {
     try {
       Object.defineProperty(ReactComponent.prototype, methodName, {
         get: function() {
           ("production" !== process.env.NODE_ENV ? warning(
             false,
-            '%s(...) is deprecated in plain JavaScript React classes.',
-            displayName
+            '%s(...) is deprecated in plain JavaScript React classes. %s',
+            info[0],
+            info[1]
           ) : null);
           return undefined;
         }
@@ -22039,7 +22961,7 @@ module.exports = ReactComponent;
 
 }).call(this,require('_process'))
 
-},{"./ReactUpdateQueue":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdateQueue.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactComponentBrowserEnvironment.js":[function(require,module,exports){
+},{"./ReactUpdateQueue":133,"./invariant":185,"./warning":206,"_process":17}],74:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -22086,7 +23008,7 @@ var ReactComponentBrowserEnvironment = {
 
 module.exports = ReactComponentBrowserEnvironment;
 
-},{"./ReactDOMIDOperations":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMIDOperations.js","./ReactMount":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMount.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactComponentEnvironment.js":[function(require,module,exports){
+},{"./ReactDOMIDOperations":84,"./ReactMount":111}],75:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -22148,7 +23070,7 @@ module.exports = ReactComponentEnvironment;
 
 }).call(this,require('_process'))
 
-},{"./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactComponentWithPureRenderMixin.js":[function(require,module,exports){
+},{"./invariant":185,"_process":17}],76:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -22197,7 +23119,7 @@ var ReactComponentWithPureRenderMixin = {
 
 module.exports = ReactComponentWithPureRenderMixin;
 
-},{"./shallowEqual":"/Users/uzimith/dev/kokomade/node_modules/react/lib/shallowEqual.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCompositeComponent.js":[function(require,module,exports){
+},{"./shallowEqual":201}],77:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -22334,6 +23256,20 @@ var ReactCompositeComponentMixin = {
 
     // Initialize the public class
     var inst = new Component(publicProps, publicContext);
+
+    if ("production" !== process.env.NODE_ENV) {
+      // This will throw later in _renderValidatedComponent, but add an early
+      // warning now to help debugging
+      ("production" !== process.env.NODE_ENV ? warning(
+        inst.render != null,
+        '%s(...): No `render` method found on the returned component ' +
+        'instance: you may have forgotten to define `render` in your ' +
+        'component or you may have accidentally tried to render an element ' +
+        'whose type is a function that isn\'t a React component.',
+        Component.displayName || Component.name || 'Component'
+      ) : null);
+    }
+
     // These should be set up in the constructor, but as a convenience for
     // simpler class abstractions, we set them up after the fact.
     inst.props = publicProps;
@@ -22359,6 +23295,14 @@ var ReactCompositeComponentMixin = {
         'getInitialState was defined on %s, a plain JavaScript class. ' +
         'This is only supported for classes created using React.createClass. ' +
         'Did you mean to define a state property instead?',
+        this.getName() || 'a component'
+      ) : null);
+      ("production" !== process.env.NODE_ENV ? warning(
+        !inst.getDefaultProps ||
+        inst.getDefaultProps.isReactClassApproved,
+        'getDefaultProps was defined on %s, a plain JavaScript class. ' +
+        'This is only supported for classes created using React.createClass. ' +
+        'Use a static property to define defaultProps instead.',
         this.getName() || 'a component'
       ) : null);
       ("production" !== process.env.NODE_ENV ? warning(
@@ -22397,6 +23341,7 @@ var ReactCompositeComponentMixin = {
     this._pendingReplaceState = false;
     this._pendingForceUpdate = false;
 
+    var childContext;
     var renderedElement;
 
     var previouslyMounting = ReactLifeCycle.currentlyMountingInstance;
@@ -22411,7 +23356,8 @@ var ReactCompositeComponentMixin = {
         }
       }
 
-      renderedElement = this._renderValidatedComponent();
+      childContext = this._getValidatedChildContext(context);
+      renderedElement = this._renderValidatedComponent(childContext);
     } finally {
       ReactLifeCycle.currentlyMountingInstance = previouslyMounting;
     }
@@ -22425,7 +23371,7 @@ var ReactCompositeComponentMixin = {
       this._renderedComponent,
       rootID,
       transaction,
-      this._processChildContext(context)
+      this._mergeChildContext(context, childContext)
     );
     if (inst.componentDidMount) {
       transaction.getReactMountReady().enqueue(inst.componentDidMount, inst);
@@ -22555,7 +23501,7 @@ var ReactCompositeComponentMixin = {
    * @return {object}
    * @private
    */
-  _processChildContext: function(currentContext) {
+  _getValidatedChildContext: function(currentContext) {
     var inst = this._instance;
     var childContext = inst.getChildContext && inst.getChildContext();
     if (childContext) {
@@ -22580,6 +23526,13 @@ var ReactCompositeComponentMixin = {
           name
         ) : invariant(name in inst.constructor.childContextTypes));
       }
+      return childContext;
+    }
+    return null;
+  },
+
+  _mergeChildContext: function(currentContext, childContext) {
+    if (childContext) {
       return assign({}, currentContext, childContext);
     }
     return currentContext;
@@ -22650,14 +23603,16 @@ var ReactCompositeComponentMixin = {
             // Preface gives us something to blacklist in warning module
             ("production" !== process.env.NODE_ENV ? warning(
               false,
-              'Failed Composite propType: %s',
-              error.message + addendum
+              'Failed Composite propType: %s%s',
+              error.message,
+              addendum
             ) : null);
           } else {
             ("production" !== process.env.NODE_ENV ? warning(
               false,
-              'Failed Context Types: %s',
-              error.message + addendum
+              'Failed Context Types: %s%s',
+              error.message,
+              addendum
             ) : null);
           }
         }
@@ -22837,6 +23792,10 @@ var ReactCompositeComponentMixin = {
       return inst.state;
     }
 
+    if (replace && queue.length === 1) {
+      return queue[0];
+    }
+
     var nextState = assign({}, replace ? queue[0] : inst.state);
     for (var i = replace ? 1 : 0; i < queue.length; i++) {
       var partial = queue[i];
@@ -22906,13 +23865,14 @@ var ReactCompositeComponentMixin = {
   _updateRenderedComponent: function(transaction, context) {
     var prevComponentInstance = this._renderedComponent;
     var prevRenderedElement = prevComponentInstance._currentElement;
-    var nextRenderedElement = this._renderValidatedComponent();
+    var childContext = this._getValidatedChildContext();
+    var nextRenderedElement = this._renderValidatedComponent(childContext);
     if (shouldUpdateReactComponent(prevRenderedElement, nextRenderedElement)) {
       ReactReconciler.receiveComponent(
         prevComponentInstance,
         nextRenderedElement,
         transaction,
-        this._processChildContext(context)
+        this._mergeChildContext(context, childContext)
       );
     } else {
       // These two IDs are actually the same! But nothing should rely on that.
@@ -22928,7 +23888,7 @@ var ReactCompositeComponentMixin = {
         this._renderedComponent,
         thisID,
         transaction,
-        context
+        this._mergeChildContext(context, childContext)
       );
       this._replaceNodeWithMarkupByID(prevComponentID, nextMarkup);
     }
@@ -22966,11 +23926,12 @@ var ReactCompositeComponentMixin = {
   /**
    * @private
    */
-  _renderValidatedComponent: function() {
+  _renderValidatedComponent: function(childContext) {
     var renderedComponent;
     var previousContext = ReactContext.current;
-    ReactContext.current = this._processChildContext(
-      this._currentElement._context
+    ReactContext.current = this._mergeChildContext(
+      this._currentElement._context,
+      childContext
     );
     ReactCurrentOwner.current = this;
     try {
@@ -23072,7 +24033,7 @@ module.exports = ReactCompositeComponent;
 
 }).call(this,require('_process'))
 
-},{"./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./ReactComponentEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactComponentEnvironment.js","./ReactContext":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactContext.js","./ReactCurrentOwner":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCurrentOwner.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactElementValidator":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElementValidator.js","./ReactInstanceMap":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceMap.js","./ReactLifeCycle":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactLifeCycle.js","./ReactNativeComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactNativeComponent.js","./ReactPerf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPerf.js","./ReactPropTypeLocationNames":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPropTypeLocationNames.js","./ReactPropTypeLocations":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPropTypeLocations.js","./ReactReconciler":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactReconciler.js","./ReactUpdates":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdates.js","./emptyObject":"/Users/uzimith/dev/kokomade/node_modules/react/lib/emptyObject.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./shouldUpdateReactComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/shouldUpdateReactComponent.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactContext.js":[function(require,module,exports){
+},{"./Object.assign":63,"./ReactComponentEnvironment":75,"./ReactContext":78,"./ReactCurrentOwner":79,"./ReactElement":97,"./ReactElementValidator":98,"./ReactInstanceMap":107,"./ReactLifeCycle":108,"./ReactNativeComponent":114,"./ReactPerf":116,"./ReactPropTypeLocationNames":118,"./ReactPropTypeLocations":119,"./ReactReconciler":123,"./ReactUpdates":134,"./emptyObject":165,"./invariant":185,"./shouldUpdateReactComponent":202,"./warning":206,"_process":17}],78:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -23151,7 +24112,7 @@ module.exports = ReactContext;
 
 }).call(this,require('_process'))
 
-},{"./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./emptyObject":"/Users/uzimith/dev/kokomade/node_modules/react/lib/emptyObject.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCurrentOwner.js":[function(require,module,exports){
+},{"./Object.assign":63,"./emptyObject":165,"./warning":206,"_process":17}],79:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -23185,7 +24146,7 @@ var ReactCurrentOwner = {
 
 module.exports = ReactCurrentOwner;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOM.js":[function(require,module,exports){
+},{}],80:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -23341,6 +24302,7 @@ var ReactDOM = mapObject({
 
   // SVG
   circle: 'circle',
+  clipPath: 'clipPath',
   defs: 'defs',
   ellipse: 'ellipse',
   g: 'g',
@@ -23364,7 +24326,7 @@ module.exports = ReactDOM;
 
 }).call(this,require('_process'))
 
-},{"./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactElementValidator":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElementValidator.js","./mapObject":"/Users/uzimith/dev/kokomade/node_modules/react/lib/mapObject.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMButton.js":[function(require,module,exports){
+},{"./ReactElement":97,"./ReactElementValidator":98,"./mapObject":193,"_process":17}],81:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -23428,7 +24390,7 @@ var ReactDOMButton = ReactClass.createClass({
 
 module.exports = ReactDOMButton;
 
-},{"./AutoFocusMixin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/AutoFocusMixin.js","./ReactBrowserComponentMixin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactClass.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./keyMirror":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyMirror.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMComponent.js":[function(require,module,exports){
+},{"./AutoFocusMixin":36,"./ReactBrowserComponentMixin":66,"./ReactClass":72,"./ReactElement":97,"./keyMirror":191}],82:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -23493,11 +24455,13 @@ function assertValidProps(props) {
       'Can only set one of `children` or `props.dangerouslySetInnerHTML`.'
     ) : invariant(props.children == null));
     ("production" !== process.env.NODE_ENV ? invariant(
-      props.dangerouslySetInnerHTML.__html != null,
+      typeof props.dangerouslySetInnerHTML === 'object' &&
+      '__html' in props.dangerouslySetInnerHTML,
       '`props.dangerouslySetInnerHTML` must be in the form `{__html: ...}`. ' +
-      'Please visit http://fb.me/react-invariant-dangerously-set-inner-html ' +
+      'Please visit https://fb.me/react-invariant-dangerously-set-inner-html ' +
       'for more information.'
-    ) : invariant(props.dangerouslySetInnerHTML.__html != null));
+    ) : invariant(typeof props.dangerouslySetInnerHTML === 'object' &&
+    '__html' in props.dangerouslySetInnerHTML));
   }
   if ("production" !== process.env.NODE_ENV) {
     ("production" !== process.env.NODE_ENV ? warning(
@@ -23782,6 +24746,7 @@ ReactDOMComponent.Mixin = {
             styleUpdates[styleName] = '';
           }
         }
+        this._previousStyleCopy = null;
       } else if (registrationNameModules.hasOwnProperty(propKey)) {
         deleteListener(this._rootNodeID, propKey);
       } else if (
@@ -23804,6 +24769,8 @@ ReactDOMComponent.Mixin = {
       if (propKey === STYLE) {
         if (nextProp) {
           nextProp = this._previousStyleCopy = assign({}, nextProp);
+        } else {
+          this._previousStyleCopy = null;
         }
         if (lastProp) {
           // Unset styles on `lastProp` but not on `nextProp`.
@@ -23934,7 +24901,7 @@ module.exports = ReactDOMComponent;
 
 }).call(this,require('_process'))
 
-},{"./CSSPropertyOperations":"/Users/uzimith/dev/kokomade/node_modules/react/lib/CSSPropertyOperations.js","./DOMProperty":"/Users/uzimith/dev/kokomade/node_modules/react/lib/DOMProperty.js","./DOMPropertyOperations":"/Users/uzimith/dev/kokomade/node_modules/react/lib/DOMPropertyOperations.js","./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./ReactBrowserEventEmitter":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserEventEmitter.js","./ReactComponentBrowserEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactComponentBrowserEnvironment.js","./ReactMount":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMount.js","./ReactMultiChild":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMultiChild.js","./ReactPerf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPerf.js","./escapeTextContentForBrowser":"/Users/uzimith/dev/kokomade/node_modules/react/lib/escapeTextContentForBrowser.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./isEventSupported":"/Users/uzimith/dev/kokomade/node_modules/react/lib/isEventSupported.js","./keyOf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyOf.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMForm.js":[function(require,module,exports){
+},{"./CSSPropertyOperations":40,"./DOMProperty":45,"./DOMPropertyOperations":46,"./Object.assign":63,"./ReactBrowserEventEmitter":67,"./ReactComponentBrowserEnvironment":74,"./ReactMount":111,"./ReactMultiChild":112,"./ReactPerf":116,"./escapeTextContentForBrowser":166,"./invariant":185,"./isEventSupported":186,"./keyOf":192,"./warning":206,"_process":17}],83:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -23983,7 +24950,7 @@ var ReactDOMForm = ReactClass.createClass({
 
 module.exports = ReactDOMForm;
 
-},{"./EventConstants":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js","./LocalEventTrapMixin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/LocalEventTrapMixin.js","./ReactBrowserComponentMixin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactClass.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMIDOperations.js":[function(require,module,exports){
+},{"./EventConstants":50,"./LocalEventTrapMixin":61,"./ReactBrowserComponentMixin":66,"./ReactClass":72,"./ReactElement":97}],84:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -24152,7 +25119,7 @@ module.exports = ReactDOMIDOperations;
 
 }).call(this,require('_process'))
 
-},{"./CSSPropertyOperations":"/Users/uzimith/dev/kokomade/node_modules/react/lib/CSSPropertyOperations.js","./DOMChildrenOperations":"/Users/uzimith/dev/kokomade/node_modules/react/lib/DOMChildrenOperations.js","./DOMPropertyOperations":"/Users/uzimith/dev/kokomade/node_modules/react/lib/DOMPropertyOperations.js","./ReactMount":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMount.js","./ReactPerf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPerf.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./setInnerHTML":"/Users/uzimith/dev/kokomade/node_modules/react/lib/setInnerHTML.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMIframe.js":[function(require,module,exports){
+},{"./CSSPropertyOperations":40,"./DOMChildrenOperations":44,"./DOMPropertyOperations":46,"./ReactMount":111,"./ReactPerf":116,"./invariant":185,"./setInnerHTML":199,"_process":17}],85:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -24197,7 +25164,7 @@ var ReactDOMIframe = ReactClass.createClass({
 
 module.exports = ReactDOMIframe;
 
-},{"./EventConstants":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js","./LocalEventTrapMixin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/LocalEventTrapMixin.js","./ReactBrowserComponentMixin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactClass.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMImg.js":[function(require,module,exports){
+},{"./EventConstants":50,"./LocalEventTrapMixin":61,"./ReactBrowserComponentMixin":66,"./ReactClass":72,"./ReactElement":97}],86:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -24243,7 +25210,7 @@ var ReactDOMImg = ReactClass.createClass({
 
 module.exports = ReactDOMImg;
 
-},{"./EventConstants":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js","./LocalEventTrapMixin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/LocalEventTrapMixin.js","./ReactBrowserComponentMixin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactClass.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMInput.js":[function(require,module,exports){
+},{"./EventConstants":50,"./LocalEventTrapMixin":61,"./ReactBrowserComponentMixin":66,"./ReactClass":72,"./ReactElement":97}],87:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -24421,7 +25388,7 @@ module.exports = ReactDOMInput;
 
 }).call(this,require('_process'))
 
-},{"./AutoFocusMixin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/AutoFocusMixin.js","./DOMPropertyOperations":"/Users/uzimith/dev/kokomade/node_modules/react/lib/DOMPropertyOperations.js","./LinkedValueUtils":"/Users/uzimith/dev/kokomade/node_modules/react/lib/LinkedValueUtils.js","./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./ReactBrowserComponentMixin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactClass.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactMount":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMount.js","./ReactUpdates":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdates.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMOption.js":[function(require,module,exports){
+},{"./AutoFocusMixin":36,"./DOMPropertyOperations":46,"./LinkedValueUtils":60,"./Object.assign":63,"./ReactBrowserComponentMixin":66,"./ReactClass":72,"./ReactElement":97,"./ReactMount":111,"./ReactUpdates":134,"./invariant":185,"_process":17}],88:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -24474,7 +25441,7 @@ module.exports = ReactDOMOption;
 
 }).call(this,require('_process'))
 
-},{"./ReactBrowserComponentMixin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactClass.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMSelect.js":[function(require,module,exports){
+},{"./ReactBrowserComponentMixin":66,"./ReactClass":72,"./ReactElement":97,"./warning":206,"_process":17}],89:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -24565,7 +25532,9 @@ function updateOptions(component, propValue) {
         return;
       }
     }
-    options[0].selected = true;
+    if (options.length) {
+      options[0].selected = true;
+    }
   }
 }
 
@@ -24650,7 +25619,7 @@ var ReactDOMSelect = ReactClass.createClass({
 
 module.exports = ReactDOMSelect;
 
-},{"./AutoFocusMixin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/AutoFocusMixin.js","./LinkedValueUtils":"/Users/uzimith/dev/kokomade/node_modules/react/lib/LinkedValueUtils.js","./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./ReactBrowserComponentMixin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactClass.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactUpdates":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdates.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMSelection.js":[function(require,module,exports){
+},{"./AutoFocusMixin":36,"./LinkedValueUtils":60,"./Object.assign":63,"./ReactBrowserComponentMixin":66,"./ReactClass":72,"./ReactElement":97,"./ReactUpdates":134}],90:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -24863,7 +25832,7 @@ var ReactDOMSelection = {
 
 module.exports = ReactDOMSelection;
 
-},{"./ExecutionEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ExecutionEnvironment.js","./getNodeForCharacterOffset":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getNodeForCharacterOffset.js","./getTextContentAccessor":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getTextContentAccessor.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMTextComponent.js":[function(require,module,exports){
+},{"./ExecutionEnvironment":56,"./getNodeForCharacterOffset":178,"./getTextContentAccessor":180}],91:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -24980,7 +25949,7 @@ assign(ReactDOMTextComponent.prototype, {
 
 module.exports = ReactDOMTextComponent;
 
-},{"./DOMPropertyOperations":"/Users/uzimith/dev/kokomade/node_modules/react/lib/DOMPropertyOperations.js","./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./ReactComponentBrowserEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactComponentBrowserEnvironment.js","./ReactDOMComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMComponent.js","./escapeTextContentForBrowser":"/Users/uzimith/dev/kokomade/node_modules/react/lib/escapeTextContentForBrowser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMTextarea.js":[function(require,module,exports){
+},{"./DOMPropertyOperations":46,"./Object.assign":63,"./ReactComponentBrowserEnvironment":74,"./ReactDOMComponent":82,"./escapeTextContentForBrowser":166}],92:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -25121,7 +26090,7 @@ module.exports = ReactDOMTextarea;
 
 }).call(this,require('_process'))
 
-},{"./AutoFocusMixin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/AutoFocusMixin.js","./DOMPropertyOperations":"/Users/uzimith/dev/kokomade/node_modules/react/lib/DOMPropertyOperations.js","./LinkedValueUtils":"/Users/uzimith/dev/kokomade/node_modules/react/lib/LinkedValueUtils.js","./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./ReactBrowserComponentMixin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactClass.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactUpdates":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdates.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDefaultBatchingStrategy.js":[function(require,module,exports){
+},{"./AutoFocusMixin":36,"./DOMPropertyOperations":46,"./LinkedValueUtils":60,"./Object.assign":63,"./ReactBrowserComponentMixin":66,"./ReactClass":72,"./ReactElement":97,"./ReactUpdates":134,"./invariant":185,"./warning":206,"_process":17}],93:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -25194,7 +26163,7 @@ var ReactDefaultBatchingStrategy = {
 
 module.exports = ReactDefaultBatchingStrategy;
 
-},{"./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./ReactUpdates":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdates.js","./Transaction":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Transaction.js","./emptyFunction":"/Users/uzimith/dev/kokomade/node_modules/react/lib/emptyFunction.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDefaultInjection.js":[function(require,module,exports){
+},{"./Object.assign":63,"./ReactUpdates":134,"./Transaction":151,"./emptyFunction":164}],94:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -25354,7 +26323,7 @@ module.exports = {
 
 }).call(this,require('_process'))
 
-},{"./BeforeInputEventPlugin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/BeforeInputEventPlugin.js","./ChangeEventPlugin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ChangeEventPlugin.js","./ClientReactRootIndex":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ClientReactRootIndex.js","./DefaultEventPluginOrder":"/Users/uzimith/dev/kokomade/node_modules/react/lib/DefaultEventPluginOrder.js","./EnterLeaveEventPlugin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EnterLeaveEventPlugin.js","./ExecutionEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ExecutionEnvironment.js","./HTMLDOMPropertyConfig":"/Users/uzimith/dev/kokomade/node_modules/react/lib/HTMLDOMPropertyConfig.js","./MobileSafariClickEventPlugin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/MobileSafariClickEventPlugin.js","./ReactBrowserComponentMixin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserComponentMixin.js","./ReactClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactClass.js","./ReactComponentBrowserEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactComponentBrowserEnvironment.js","./ReactDOMButton":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMButton.js","./ReactDOMComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMComponent.js","./ReactDOMForm":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMForm.js","./ReactDOMIDOperations":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMIDOperations.js","./ReactDOMIframe":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMIframe.js","./ReactDOMImg":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMImg.js","./ReactDOMInput":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMInput.js","./ReactDOMOption":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMOption.js","./ReactDOMSelect":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMSelect.js","./ReactDOMTextComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMTextComponent.js","./ReactDOMTextarea":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMTextarea.js","./ReactDefaultBatchingStrategy":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDefaultBatchingStrategy.js","./ReactDefaultPerf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDefaultPerf.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactEventListener":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactEventListener.js","./ReactInjection":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInjection.js","./ReactInstanceHandles":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceHandles.js","./ReactMount":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMount.js","./ReactReconcileTransaction":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactReconcileTransaction.js","./SVGDOMPropertyConfig":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SVGDOMPropertyConfig.js","./SelectEventPlugin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SelectEventPlugin.js","./ServerReactRootIndex":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ServerReactRootIndex.js","./SimpleEventPlugin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SimpleEventPlugin.js","./createFullPageComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/createFullPageComponent.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDefaultPerf.js":[function(require,module,exports){
+},{"./BeforeInputEventPlugin":37,"./ChangeEventPlugin":42,"./ClientReactRootIndex":43,"./DefaultEventPluginOrder":48,"./EnterLeaveEventPlugin":49,"./ExecutionEnvironment":56,"./HTMLDOMPropertyConfig":58,"./MobileSafariClickEventPlugin":62,"./ReactBrowserComponentMixin":66,"./ReactClass":72,"./ReactComponentBrowserEnvironment":74,"./ReactDOMButton":81,"./ReactDOMComponent":82,"./ReactDOMForm":83,"./ReactDOMIDOperations":84,"./ReactDOMIframe":85,"./ReactDOMImg":86,"./ReactDOMInput":87,"./ReactDOMOption":88,"./ReactDOMSelect":89,"./ReactDOMTextComponent":91,"./ReactDOMTextarea":92,"./ReactDefaultBatchingStrategy":93,"./ReactDefaultPerf":95,"./ReactElement":97,"./ReactEventListener":102,"./ReactInjection":104,"./ReactInstanceHandles":106,"./ReactMount":111,"./ReactReconcileTransaction":122,"./SVGDOMPropertyConfig":136,"./SelectEventPlugin":137,"./ServerReactRootIndex":138,"./SimpleEventPlugin":139,"./createFullPageComponent":160,"_process":17}],95:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -25520,8 +26489,8 @@ var ReactDefaultPerf = {
           ReactDefaultPerf._allMeasurements.length - 1
         ].totalTime = performanceNow() - start;
         return rv;
-      } else if (moduleName === 'ReactDOMIDOperations' ||
-        moduleName === 'ReactComponentBrowserEnvironment') {
+      } else if (fnName === '_mountImageIntoNode' ||
+          moduleName === 'ReactDOMIDOperations') {
         start = performanceNow();
         rv = func.apply(this, args);
         totalTime = performanceNow() - start;
@@ -25567,6 +26536,10 @@ var ReactDefaultPerf = {
         (fnName === 'mountComponent' ||
         fnName === 'updateComponent' || fnName === '_renderValidatedComponent')))) {
 
+        if (typeof this._currentElement.type === 'string') {
+          return func.apply(this, args);
+        }
+
         var rootNodeID = fnName === 'mountComponent' ?
           args[0] :
           this._rootNodeID;
@@ -25599,17 +26572,10 @@ var ReactDefaultPerf = {
           addValue(entry.inclusive, rootNodeID, totalTime);
         }
 
-        var displayName = null;
-        if (this._instance.constructor.displayName) {
-          displayName = this._instance.constructor.displayName;
-        } else if (this._currentElement.type) {
-          displayName = this._currentElement.type;
-        }
-
         entry.displayNames[rootNodeID] = {
-          current: displayName,
+          current: this.getName(),
           owner: this._currentElement._owner ?
-            this._currentElement._owner._instance.constructor.displayName :
+            this._currentElement._owner.getName() :
             '<root>'
         };
 
@@ -25623,7 +26589,7 @@ var ReactDefaultPerf = {
 
 module.exports = ReactDefaultPerf;
 
-},{"./DOMProperty":"/Users/uzimith/dev/kokomade/node_modules/react/lib/DOMProperty.js","./ReactDefaultPerfAnalysis":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDefaultPerfAnalysis.js","./ReactMount":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMount.js","./ReactPerf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPerf.js","./performanceNow":"/Users/uzimith/dev/kokomade/node_modules/react/lib/performanceNow.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDefaultPerfAnalysis.js":[function(require,module,exports){
+},{"./DOMProperty":45,"./ReactDefaultPerfAnalysis":96,"./ReactMount":111,"./ReactPerf":116,"./performanceNow":197}],96:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -25829,7 +26795,7 @@ var ReactDefaultPerfAnalysis = {
 
 module.exports = ReactDefaultPerfAnalysis;
 
-},{"./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js":[function(require,module,exports){
+},{"./Object.assign":63}],97:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -26061,6 +27027,60 @@ ReactElement.cloneAndReplaceProps = function(oldElement, newProps) {
   return newElement;
 };
 
+ReactElement.cloneElement = function(element, config, children) {
+  var propName;
+
+  // Original props are copied
+  var props = assign({}, element.props);
+
+  // Reserved names are extracted
+  var key = element.key;
+  var ref = element.ref;
+
+  // Owner will be preserved, unless ref is overridden
+  var owner = element._owner;
+
+  if (config != null) {
+    if (config.ref !== undefined) {
+      // Silently steal the ref from the parent.
+      ref = config.ref;
+      owner = ReactCurrentOwner.current;
+    }
+    if (config.key !== undefined) {
+      key = '' + config.key;
+    }
+    // Remaining properties override existing props
+    for (propName in config) {
+      if (config.hasOwnProperty(propName) &&
+          !RESERVED_PROPS.hasOwnProperty(propName)) {
+        props[propName] = config[propName];
+      }
+    }
+  }
+
+  // Children can be more than one argument, and those are transferred onto
+  // the newly allocated props object.
+  var childrenLength = arguments.length - 2;
+  if (childrenLength === 1) {
+    props.children = children;
+  } else if (childrenLength > 1) {
+    var childArray = Array(childrenLength);
+    for (var i = 0; i < childrenLength; i++) {
+      childArray[i] = arguments[i + 2];
+    }
+    props.children = childArray;
+  }
+
+  return new ReactElement(
+    element.type,
+    key,
+    ref,
+    owner,
+    element._context,
+    props
+  );
+};
+
 /**
  * @param {?object} object
  * @return {boolean} True if `object` is a valid component.
@@ -26084,7 +27104,7 @@ module.exports = ReactElement;
 
 }).call(this,require('_process'))
 
-},{"./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./ReactContext":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactContext.js","./ReactCurrentOwner":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCurrentOwner.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElementValidator.js":[function(require,module,exports){
+},{"./Object.assign":63,"./ReactContext":78,"./ReactCurrentOwner":79,"./warning":206,"_process":17}],98:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -26222,7 +27242,8 @@ function validatePropertyKey(name, element, parentType) {
  */
 function warnAndMonitorForKeyUse(message, element, parentType) {
   var ownerName = getCurrentOwnerDisplayName();
-  var parentName = parentType.displayName || parentType.name;
+  var parentName = typeof parentType === 'string' ?
+    parentType : parentType.displayName || parentType.name;
 
   var useName = ownerName || parentName;
   var memoizer = ownerHasKeyUseWarning[message] || (
@@ -26233,24 +27254,30 @@ function warnAndMonitorForKeyUse(message, element, parentType) {
   }
   memoizer[useName] = true;
 
-  message += ownerName ?
-    (" Check the render method of " + ownerName + ".") :
-    (" Check the React.render call using <" + parentName + ">.");
+  var parentOrOwnerAddendum =
+    ownerName ? (" Check the render method of " + ownerName + ".") :
+    parentName ? (" Check the React.render call using <" + parentName + ">.") :
+    '';
 
   // Usually the current owner is the offender, but if it accepts children as a
   // property, it may be the creator of the child that's responsible for
   // assigning it a key.
+  var childOwnerAddendum = '';
   if (element &&
       element._owner &&
       element._owner !== ReactCurrentOwner.current) {
     // Name of the component that originally created this child.
     var childOwnerName = getName(element._owner);
 
-    message += (" It was passed a child from " + childOwnerName + ".");
+    childOwnerAddendum = (" It was passed a child from " + childOwnerName + ".");
   }
 
-  message += ' See http://fb.me/react-warning-keys for more information.';
-  ("production" !== process.env.NODE_ENV ? warning(false, message) : null);
+  ("production" !== process.env.NODE_ENV ? warning(
+    false,
+    message + '%s%s See https://fb.me/react-warning-keys for more information.',
+    parentOrOwnerAddendum,
+    childOwnerAddendum
+  ) : null);
 }
 
 /**
@@ -26334,7 +27361,7 @@ function checkPropTypes(componentName, propTypes, props, location) {
         loggedTypeFailures[error.message] = true;
 
         var addendum = getDeclarationErrorAddendum(this);
-        ("production" !== process.env.NODE_ENV ? warning(false, 'Failed propType: ' + error.message + addendum) : null);
+        ("production" !== process.env.NODE_ENV ? warning(false, 'Failed propType: %s%s', error.message, addendum) : null);
       }
     }
   }
@@ -26371,9 +27398,9 @@ function warnForPropsMutation(propName, element) {
 
   ("production" !== process.env.NODE_ENV ? warning(
     false,
-    'Don\'t set .props.%s of the React component%s. ' +
-    'Instead, specify the correct value when ' +
-    'initially creating the element.%s',
+    'Don\'t set .props.%s of the React component%s. Instead, specify the ' +
+    'correct value when initially creating the element or use ' +
+    'React.cloneElement to make a new element with updated props.%s',
     propName,
     elementInfo,
     ownerInfo
@@ -26424,6 +27451,42 @@ function checkAndWarnForMutatedProps(element) {
   }
 }
 
+/**
+ * Given an element, validate that its props follow the propTypes definition,
+ * provided by the type.
+ *
+ * @param {ReactElement} element
+ */
+function validatePropTypes(element) {
+  if (element.type == null) {
+    // This has already warned. Don't throw.
+    return;
+  }
+  // Extract the component class from the element. Converts string types
+  // to a composite class which may have propTypes.
+  // TODO: Validating a string's propTypes is not decoupled from the
+  // rendering target which is problematic.
+  var componentClass = ReactNativeComponent.getComponentClassForElement(
+    element
+  );
+  var name = componentClass.displayName || componentClass.name;
+  if (componentClass.propTypes) {
+    checkPropTypes(
+      name,
+      componentClass.propTypes,
+      element.props,
+      ReactPropTypeLocations.prop
+    );
+  }
+  if (typeof componentClass.getDefaultProps === 'function') {
+    ("production" !== process.env.NODE_ENV ? warning(
+      componentClass.getDefaultProps.isReactClassApproved,
+      'getDefaultProps is only used on classic React.createClass ' +
+      'definitions. Use a static property named `defaultProps` instead.'
+    ) : null);
+  }
+}
+
 var ReactElementValidator = {
 
   checkAndWarnForMutatedProps: checkAndWarnForMutatedProps,
@@ -26450,33 +27513,7 @@ var ReactElementValidator = {
       validateChildKeys(arguments[i], type);
     }
 
-    if (type) {
-      // Extract the component class from the element. Converts string types
-      // to a composite class which may have propTypes.
-      // TODO: Validating a string's propTypes is not decoupled from the
-      // rendering target which is problematic.
-      var componentClass = ReactNativeComponent.getComponentClassForElement(
-        element
-      );
-      var name = componentClass.displayName || componentClass.name;
-      if ("production" !== process.env.NODE_ENV) {
-        if (componentClass.propTypes) {
-          checkPropTypes(
-            name,
-            componentClass.propTypes,
-            element.props,
-            ReactPropTypeLocations.prop
-          );
-        }
-      }
-      if (typeof componentClass.getDefaultProps === 'function') {
-        ("production" !== process.env.NODE_ENV ? warning(
-          componentClass.getDefaultProps.isReactClassApproved,
-          'getDefaultProps is only used on classic React.createClass ' +
-          'definitions. Use a static property named `defaultProps` instead.'
-        ) : null);
-      }
-    }
+    validatePropTypes(element);
 
     return element;
   },
@@ -26516,6 +27553,15 @@ var ReactElementValidator = {
 
 
     return validatedFactory;
+  },
+
+  cloneElement: function(element, props, children) {
+    var newElement = ReactElement.cloneElement.apply(this, arguments);
+    for (var i = 2; i < arguments.length; i++) {
+      validateChildKeys(arguments[i], newElement.type);
+    }
+    validatePropTypes(newElement);
+    return newElement;
   }
 
 };
@@ -26524,7 +27570,7 @@ module.exports = ReactElementValidator;
 
 }).call(this,require('_process'))
 
-},{"./ReactCurrentOwner":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCurrentOwner.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactFragment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactFragment.js","./ReactNativeComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactNativeComponent.js","./ReactPropTypeLocationNames":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPropTypeLocationNames.js","./ReactPropTypeLocations":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPropTypeLocations.js","./getIteratorFn":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getIteratorFn.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactEmptyComponent.js":[function(require,module,exports){
+},{"./ReactCurrentOwner":79,"./ReactElement":97,"./ReactFragment":103,"./ReactNativeComponent":114,"./ReactPropTypeLocationNames":118,"./ReactPropTypeLocations":119,"./getIteratorFn":176,"./invariant":185,"./warning":206,"_process":17}],99:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -26620,7 +27666,7 @@ module.exports = ReactEmptyComponent;
 
 }).call(this,require('_process'))
 
-},{"./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactInstanceMap":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceMap.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactErrorUtils.js":[function(require,module,exports){
+},{"./ReactElement":97,"./ReactInstanceMap":107,"./invariant":185,"_process":17}],100:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -26652,7 +27698,7 @@ var ReactErrorUtils = {
 
 module.exports = ReactErrorUtils;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactEventEmitterMixin.js":[function(require,module,exports){
+},{}],101:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -26702,7 +27748,7 @@ var ReactEventEmitterMixin = {
 
 module.exports = ReactEventEmitterMixin;
 
-},{"./EventPluginHub":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginHub.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactEventListener.js":[function(require,module,exports){
+},{"./EventPluginHub":52}],102:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -26885,7 +27931,7 @@ var ReactEventListener = {
 
 module.exports = ReactEventListener;
 
-},{"./EventListener":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventListener.js","./ExecutionEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ExecutionEnvironment.js","./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./PooledClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/PooledClass.js","./ReactInstanceHandles":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceHandles.js","./ReactMount":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMount.js","./ReactUpdates":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdates.js","./getEventTarget":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getEventTarget.js","./getUnboundedScrollPosition":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getUnboundedScrollPosition.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactFragment.js":[function(require,module,exports){
+},{"./EventListener":51,"./ExecutionEnvironment":56,"./Object.assign":63,"./PooledClass":64,"./ReactInstanceHandles":106,"./ReactMount":111,"./ReactUpdates":134,"./getEventTarget":175,"./getUnboundedScrollPosition":181}],103:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2015, Facebook, Inc.
@@ -27030,7 +28076,8 @@ var ReactFragment = {
           ("production" !== process.env.NODE_ENV ? warning(
             didWarnForFragment(fragment),
             'Any use of a keyed object should be wrapped in ' +
-            'React.addons.createFragment(object) before passed as a child.'
+            'React.addons.createFragment(object) before being passed as a ' +
+            'child.'
           ) : null);
           return fragment;
         }
@@ -27070,7 +28117,7 @@ module.exports = ReactFragment;
 
 }).call(this,require('_process'))
 
-},{"./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInjection.js":[function(require,module,exports){
+},{"./ReactElement":97,"./warning":206,"_process":17}],104:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -27112,7 +28159,7 @@ var ReactInjection = {
 
 module.exports = ReactInjection;
 
-},{"./DOMProperty":"/Users/uzimith/dev/kokomade/node_modules/react/lib/DOMProperty.js","./EventPluginHub":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginHub.js","./ReactBrowserEventEmitter":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserEventEmitter.js","./ReactClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactClass.js","./ReactComponentEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactComponentEnvironment.js","./ReactDOMComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMComponent.js","./ReactEmptyComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactEmptyComponent.js","./ReactNativeComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactNativeComponent.js","./ReactPerf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPerf.js","./ReactRootIndex":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactRootIndex.js","./ReactUpdates":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdates.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInputSelection.js":[function(require,module,exports){
+},{"./DOMProperty":45,"./EventPluginHub":52,"./ReactBrowserEventEmitter":67,"./ReactClass":72,"./ReactComponentEnvironment":75,"./ReactDOMComponent":82,"./ReactEmptyComponent":99,"./ReactNativeComponent":114,"./ReactPerf":116,"./ReactRootIndex":125,"./ReactUpdates":134}],105:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -27247,7 +28294,7 @@ var ReactInputSelection = {
 
 module.exports = ReactInputSelection;
 
-},{"./ReactDOMSelection":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDOMSelection.js","./containsNode":"/Users/uzimith/dev/kokomade/node_modules/react/lib/containsNode.js","./focusNode":"/Users/uzimith/dev/kokomade/node_modules/react/lib/focusNode.js","./getActiveElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getActiveElement.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceHandles.js":[function(require,module,exports){
+},{"./ReactDOMSelection":90,"./containsNode":158,"./focusNode":169,"./getActiveElement":171}],106:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -27584,7 +28631,7 @@ module.exports = ReactInstanceHandles;
 
 }).call(this,require('_process'))
 
-},{"./ReactRootIndex":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactRootIndex.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceMap.js":[function(require,module,exports){
+},{"./ReactRootIndex":125,"./invariant":185,"_process":17}],107:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -27633,7 +28680,7 @@ var ReactInstanceMap = {
 
 module.exports = ReactInstanceMap;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactLifeCycle.js":[function(require,module,exports){
+},{}],108:[function(require,module,exports){
 /**
  * Copyright 2015, Facebook, Inc.
  * All rights reserved.
@@ -27670,7 +28717,7 @@ var ReactLifeCycle = {
 
 module.exports = ReactLifeCycle;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactLink.js":[function(require,module,exports){
+},{}],109:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -27743,7 +28790,7 @@ ReactLink.PropTypes = {
 
 module.exports = ReactLink;
 
-},{"./React":"/Users/uzimith/dev/kokomade/node_modules/react/lib/React.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMarkupChecksum.js":[function(require,module,exports){
+},{"./React":65}],110:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -27791,7 +28838,7 @@ var ReactMarkupChecksum = {
 
 module.exports = ReactMarkupChecksum;
 
-},{"./adler32":"/Users/uzimith/dev/kokomade/node_modules/react/lib/adler32.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMount.js":[function(require,module,exports){
+},{"./adler32":154}],111:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -28683,7 +29730,7 @@ module.exports = ReactMount;
 
 }).call(this,require('_process'))
 
-},{"./DOMProperty":"/Users/uzimith/dev/kokomade/node_modules/react/lib/DOMProperty.js","./ReactBrowserEventEmitter":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserEventEmitter.js","./ReactCurrentOwner":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCurrentOwner.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactElementValidator":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElementValidator.js","./ReactEmptyComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactEmptyComponent.js","./ReactInstanceHandles":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceHandles.js","./ReactInstanceMap":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceMap.js","./ReactMarkupChecksum":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMarkupChecksum.js","./ReactPerf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPerf.js","./ReactReconciler":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactReconciler.js","./ReactUpdateQueue":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdateQueue.js","./ReactUpdates":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdates.js","./containsNode":"/Users/uzimith/dev/kokomade/node_modules/react/lib/containsNode.js","./emptyObject":"/Users/uzimith/dev/kokomade/node_modules/react/lib/emptyObject.js","./getReactRootElementInContainer":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getReactRootElementInContainer.js","./instantiateReactComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/instantiateReactComponent.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./setInnerHTML":"/Users/uzimith/dev/kokomade/node_modules/react/lib/setInnerHTML.js","./shouldUpdateReactComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/shouldUpdateReactComponent.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMultiChild.js":[function(require,module,exports){
+},{"./DOMProperty":45,"./ReactBrowserEventEmitter":67,"./ReactCurrentOwner":79,"./ReactElement":97,"./ReactElementValidator":98,"./ReactEmptyComponent":99,"./ReactInstanceHandles":106,"./ReactInstanceMap":107,"./ReactMarkupChecksum":110,"./ReactPerf":116,"./ReactReconciler":123,"./ReactUpdateQueue":133,"./ReactUpdates":134,"./containsNode":158,"./emptyObject":165,"./getReactRootElementInContainer":179,"./instantiateReactComponent":184,"./invariant":185,"./setInnerHTML":199,"./shouldUpdateReactComponent":202,"./warning":206,"_process":17}],112:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -29113,7 +30160,7 @@ var ReactMultiChild = {
 
 module.exports = ReactMultiChild;
 
-},{"./ReactChildReconciler":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactChildReconciler.js","./ReactComponentEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactComponentEnvironment.js","./ReactMultiChildUpdateTypes":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMultiChildUpdateTypes.js","./ReactReconciler":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactReconciler.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMultiChildUpdateTypes.js":[function(require,module,exports){
+},{"./ReactChildReconciler":70,"./ReactComponentEnvironment":75,"./ReactMultiChildUpdateTypes":113,"./ReactReconciler":123}],113:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -29146,7 +30193,7 @@ var ReactMultiChildUpdateTypes = keyMirror({
 
 module.exports = ReactMultiChildUpdateTypes;
 
-},{"./keyMirror":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyMirror.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactNativeComponent.js":[function(require,module,exports){
+},{"./keyMirror":191}],114:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -29254,7 +30301,7 @@ module.exports = ReactNativeComponent;
 
 }).call(this,require('_process'))
 
-},{"./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactOwner.js":[function(require,module,exports){
+},{"./Object.assign":63,"./invariant":185,"_process":17}],115:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -29367,7 +30414,7 @@ module.exports = ReactOwner;
 
 }).call(this,require('_process'))
 
-},{"./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPerf.js":[function(require,module,exports){
+},{"./invariant":185,"_process":17}],116:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -29472,7 +30519,7 @@ module.exports = ReactPerf;
 
 }).call(this,require('_process'))
 
-},{"_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPropTransferer.js":[function(require,module,exports){
+},{"_process":17}],117:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -29582,7 +30629,7 @@ var ReactPropTransferer = {
 
 module.exports = ReactPropTransferer;
 
-},{"./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./emptyFunction":"/Users/uzimith/dev/kokomade/node_modules/react/lib/emptyFunction.js","./joinClasses":"/Users/uzimith/dev/kokomade/node_modules/react/lib/joinClasses.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPropTypeLocationNames.js":[function(require,module,exports){
+},{"./Object.assign":63,"./emptyFunction":164,"./joinClasses":190}],118:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -29611,7 +30658,7 @@ module.exports = ReactPropTypeLocationNames;
 
 }).call(this,require('_process'))
 
-},{"_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPropTypeLocations.js":[function(require,module,exports){
+},{"_process":17}],119:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -29635,7 +30682,7 @@ var ReactPropTypeLocations = keyMirror({
 
 module.exports = ReactPropTypeLocations;
 
-},{"./keyMirror":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyMirror.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPropTypes.js":[function(require,module,exports){
+},{"./keyMirror":191}],120:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -29650,6 +30697,7 @@ module.exports = ReactPropTypeLocations;
 'use strict';
 
 var ReactElement = require("./ReactElement");
+var ReactFragment = require("./ReactFragment");
 var ReactPropTypeLocationNames = require("./ReactPropTypeLocationNames");
 
 var emptyFunction = require("./emptyFunction");
@@ -29929,6 +30977,7 @@ function isNode(propValue) {
   switch (typeof propValue) {
     case 'number':
     case 'string':
+    case 'undefined':
       return true;
     case 'boolean':
       return !propValue;
@@ -29936,9 +30985,10 @@ function isNode(propValue) {
       if (Array.isArray(propValue)) {
         return propValue.every(isNode);
       }
-      if (ReactElement.isValidElement(propValue)) {
+      if (propValue === null || ReactElement.isValidElement(propValue)) {
         return true;
       }
+      propValue = ReactFragment.extractIfFragment(propValue);
       for (var k in propValue) {
         if (!isNode(propValue[k])) {
           return false;
@@ -29981,7 +31031,7 @@ function getPreciseType(propValue) {
 
 module.exports = ReactPropTypes;
 
-},{"./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactPropTypeLocationNames":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPropTypeLocationNames.js","./emptyFunction":"/Users/uzimith/dev/kokomade/node_modules/react/lib/emptyFunction.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPutListenerQueue.js":[function(require,module,exports){
+},{"./ReactElement":97,"./ReactFragment":103,"./ReactPropTypeLocationNames":118,"./emptyFunction":164}],121:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -30037,7 +31087,7 @@ PooledClass.addPoolingTo(ReactPutListenerQueue);
 
 module.exports = ReactPutListenerQueue;
 
-},{"./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./PooledClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/PooledClass.js","./ReactBrowserEventEmitter":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserEventEmitter.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactReconcileTransaction.js":[function(require,module,exports){
+},{"./Object.assign":63,"./PooledClass":64,"./ReactBrowserEventEmitter":67}],122:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -30213,7 +31263,7 @@ PooledClass.addPoolingTo(ReactReconcileTransaction);
 
 module.exports = ReactReconcileTransaction;
 
-},{"./CallbackQueue":"/Users/uzimith/dev/kokomade/node_modules/react/lib/CallbackQueue.js","./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./PooledClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/PooledClass.js","./ReactBrowserEventEmitter":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserEventEmitter.js","./ReactInputSelection":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInputSelection.js","./ReactPutListenerQueue":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPutListenerQueue.js","./Transaction":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Transaction.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactReconciler.js":[function(require,module,exports){
+},{"./CallbackQueue":41,"./Object.assign":63,"./PooledClass":64,"./ReactBrowserEventEmitter":67,"./ReactInputSelection":105,"./ReactPutListenerQueue":121,"./Transaction":151}],123:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -30303,7 +31353,6 @@ var ReactReconciler = {
     }
 
     var refsChanged = ReactRef.shouldUpdateRefs(
-      this,
       prevElement,
       nextElement
     );
@@ -30339,7 +31388,7 @@ module.exports = ReactReconciler;
 
 }).call(this,require('_process'))
 
-},{"./ReactElementValidator":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElementValidator.js","./ReactRef":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactRef.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactRef.js":[function(require,module,exports){
+},{"./ReactElementValidator":98,"./ReactRef":124,"_process":17}],124:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -30382,7 +31431,7 @@ ReactRef.attachRefs = function(instance, element) {
   }
 };
 
-ReactRef.shouldUpdateRefs = function(instance, prevElement, nextElement) {
+ReactRef.shouldUpdateRefs = function(prevElement, nextElement) {
   // If either the owner or a `ref` has changed, make sure the newest owner
   // has stored a reference to `this`, and the previous owner (if different)
   // has forgotten the reference to `this`. We use the element instead
@@ -30410,7 +31459,7 @@ ReactRef.detachRefs = function(instance, element) {
 
 module.exports = ReactRef;
 
-},{"./ReactOwner":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactOwner.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactRootIndex.js":[function(require,module,exports){
+},{"./ReactOwner":115}],125:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -30441,7 +31490,7 @@ var ReactRootIndex = {
 
 module.exports = ReactRootIndex;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactServerRendering.js":[function(require,module,exports){
+},{}],126:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -30524,7 +31573,7 @@ module.exports = {
 
 }).call(this,require('_process'))
 
-},{"./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactInstanceHandles":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceHandles.js","./ReactMarkupChecksum":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMarkupChecksum.js","./ReactServerRenderingTransaction":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactServerRenderingTransaction.js","./emptyObject":"/Users/uzimith/dev/kokomade/node_modules/react/lib/emptyObject.js","./instantiateReactComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/instantiateReactComponent.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactServerRenderingTransaction.js":[function(require,module,exports){
+},{"./ReactElement":97,"./ReactInstanceHandles":106,"./ReactMarkupChecksum":110,"./ReactServerRenderingTransaction":127,"./emptyObject":165,"./instantiateReactComponent":184,"./invariant":185,"_process":17}],127:[function(require,module,exports){
 /**
  * Copyright 2014-2015, Facebook, Inc.
  * All rights reserved.
@@ -30637,7 +31686,7 @@ PooledClass.addPoolingTo(ReactServerRenderingTransaction);
 
 module.exports = ReactServerRenderingTransaction;
 
-},{"./CallbackQueue":"/Users/uzimith/dev/kokomade/node_modules/react/lib/CallbackQueue.js","./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./PooledClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/PooledClass.js","./ReactPutListenerQueue":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPutListenerQueue.js","./Transaction":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Transaction.js","./emptyFunction":"/Users/uzimith/dev/kokomade/node_modules/react/lib/emptyFunction.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactStateSetters.js":[function(require,module,exports){
+},{"./CallbackQueue":41,"./Object.assign":63,"./PooledClass":64,"./ReactPutListenerQueue":121,"./Transaction":151,"./emptyFunction":164}],128:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -30743,7 +31792,7 @@ ReactStateSetters.Mixin = {
 
 module.exports = ReactStateSetters;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactTestUtils.js":[function(require,module,exports){
+},{}],129:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -30772,6 +31821,7 @@ var ReactUpdates = require("./ReactUpdates");
 var SyntheticEvent = require("./SyntheticEvent");
 
 var assign = require("./Object.assign");
+var emptyObject = require("./emptyObject");
 
 var topLevelTypes = EventConstants.topLevelTypes;
 
@@ -30811,7 +31861,7 @@ var ReactTestUtils = {
   isDOMComponent: function(inst) {
     // TODO: Fix this heuristic. It's just here because composites can currently
     // pretend to be DOM components.
-    return !!(inst && inst.getDOMNode && inst.tagName);
+    return !!(inst && inst.tagName && inst.getDOMNode);
   },
 
   isDOMComponentElement: function(inst) {
@@ -31113,6 +32163,9 @@ assign(
 );
 
 ReactShallowRenderer.prototype.render = function(element, context) {
+  if (!context) {
+    context = emptyObject;
+  }
   var transaction = ReactUpdates.ReactReconcileTransaction.getPooled();
   this._render(element, transaction, context);
   ReactUpdates.ReactReconcileTransaction.release(transaction);
@@ -31253,7 +32306,7 @@ for (eventType in topLevelTypes) {
 
 module.exports = ReactTestUtils;
 
-},{"./EventConstants":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js","./EventPluginHub":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginHub.js","./EventPropagators":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPropagators.js","./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./React":"/Users/uzimith/dev/kokomade/node_modules/react/lib/React.js","./ReactBrowserEventEmitter":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactBrowserEventEmitter.js","./ReactCompositeComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCompositeComponent.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactEmptyComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactEmptyComponent.js","./ReactInstanceHandles":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceHandles.js","./ReactInstanceMap":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceMap.js","./ReactMount":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMount.js","./ReactUpdates":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdates.js","./SyntheticEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticEvent.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactTransitionChildMapping.js":[function(require,module,exports){
+},{"./EventConstants":50,"./EventPluginHub":52,"./EventPropagators":55,"./Object.assign":63,"./React":65,"./ReactBrowserEventEmitter":67,"./ReactCompositeComponent":77,"./ReactElement":97,"./ReactEmptyComponent":99,"./ReactInstanceHandles":106,"./ReactInstanceMap":107,"./ReactMount":111,"./ReactUpdates":134,"./SyntheticEvent":143,"./emptyObject":165}],130:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -31358,7 +32411,7 @@ var ReactTransitionChildMapping = {
 
 module.exports = ReactTransitionChildMapping;
 
-},{"./ReactChildren":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactChildren.js","./ReactFragment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactFragment.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactTransitionEvents.js":[function(require,module,exports){
+},{"./ReactChildren":71,"./ReactFragment":103}],131:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -31469,7 +32522,7 @@ var ReactTransitionEvents = {
 
 module.exports = ReactTransitionEvents;
 
-},{"./ExecutionEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ExecutionEnvironment.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactTransitionGroup.js":[function(require,module,exports){
+},{"./ExecutionEnvironment":56}],132:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -31699,7 +32752,7 @@ var ReactTransitionGroup = React.createClass({
 
 module.exports = ReactTransitionGroup;
 
-},{"./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./React":"/Users/uzimith/dev/kokomade/node_modules/react/lib/React.js","./ReactTransitionChildMapping":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactTransitionChildMapping.js","./cloneWithProps":"/Users/uzimith/dev/kokomade/node_modules/react/lib/cloneWithProps.js","./emptyFunction":"/Users/uzimith/dev/kokomade/node_modules/react/lib/emptyFunction.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdateQueue.js":[function(require,module,exports){
+},{"./Object.assign":63,"./React":65,"./ReactTransitionChildMapping":130,"./cloneWithProps":157,"./emptyFunction":164}],133:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2015, Facebook, Inc.
@@ -31999,7 +33052,7 @@ module.exports = ReactUpdateQueue;
 
 }).call(this,require('_process'))
 
-},{"./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./ReactCurrentOwner":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCurrentOwner.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactInstanceMap":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceMap.js","./ReactLifeCycle":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactLifeCycle.js","./ReactUpdates":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdates.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdates.js":[function(require,module,exports){
+},{"./Object.assign":63,"./ReactCurrentOwner":79,"./ReactElement":97,"./ReactInstanceMap":107,"./ReactLifeCycle":108,"./ReactUpdates":134,"./invariant":185,"./warning":206,"_process":17}],134:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -32282,7 +33335,7 @@ module.exports = ReactUpdates;
 
 }).call(this,require('_process'))
 
-},{"./CallbackQueue":"/Users/uzimith/dev/kokomade/node_modules/react/lib/CallbackQueue.js","./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./PooledClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/PooledClass.js","./ReactCurrentOwner":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCurrentOwner.js","./ReactPerf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPerf.js","./ReactReconciler":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactReconciler.js","./Transaction":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Transaction.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactWithAddons.js":[function(require,module,exports){
+},{"./CallbackQueue":41,"./Object.assign":63,"./PooledClass":64,"./ReactCurrentOwner":79,"./ReactPerf":116,"./ReactReconciler":123,"./Transaction":151,"./invariant":185,"./warning":206,"_process":17}],135:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -32339,7 +33392,7 @@ module.exports = React;
 
 }).call(this,require('_process'))
 
-},{"./LinkedStateMixin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/LinkedStateMixin.js","./React":"/Users/uzimith/dev/kokomade/node_modules/react/lib/React.js","./ReactCSSTransitionGroup":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCSSTransitionGroup.js","./ReactComponentWithPureRenderMixin":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactComponentWithPureRenderMixin.js","./ReactDefaultPerf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactDefaultPerf.js","./ReactFragment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactFragment.js","./ReactTestUtils":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactTestUtils.js","./ReactTransitionGroup":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactTransitionGroup.js","./ReactUpdates":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactUpdates.js","./cloneWithProps":"/Users/uzimith/dev/kokomade/node_modules/react/lib/cloneWithProps.js","./cx":"/Users/uzimith/dev/kokomade/node_modules/react/lib/cx.js","./update":"/Users/uzimith/dev/kokomade/node_modules/react/lib/update.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/SVGDOMPropertyConfig.js":[function(require,module,exports){
+},{"./LinkedStateMixin":59,"./React":65,"./ReactCSSTransitionGroup":68,"./ReactComponentWithPureRenderMixin":76,"./ReactDefaultPerf":95,"./ReactFragment":103,"./ReactTestUtils":129,"./ReactTransitionGroup":132,"./ReactUpdates":134,"./cloneWithProps":157,"./cx":162,"./update":205,"_process":17}],136:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -32361,6 +33414,7 @@ var MUST_USE_ATTRIBUTE = DOMProperty.injection.MUST_USE_ATTRIBUTE;
 
 var SVGDOMPropertyConfig = {
   Properties: {
+    clipPath: MUST_USE_ATTRIBUTE,
     cx: MUST_USE_ATTRIBUTE,
     cy: MUST_USE_ATTRIBUTE,
     d: MUST_USE_ATTRIBUTE,
@@ -32406,6 +33460,7 @@ var SVGDOMPropertyConfig = {
     y: MUST_USE_ATTRIBUTE
   },
   DOMAttributeNames: {
+    clipPath: 'clip-path',
     fillOpacity: 'fill-opacity',
     fontFamily: 'font-family',
     fontSize: 'font-size',
@@ -32431,7 +33486,7 @@ var SVGDOMPropertyConfig = {
 
 module.exports = SVGDOMPropertyConfig;
 
-},{"./DOMProperty":"/Users/uzimith/dev/kokomade/node_modules/react/lib/DOMProperty.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/SelectEventPlugin.js":[function(require,module,exports){
+},{"./DOMProperty":45}],137:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -32626,7 +33681,7 @@ var SelectEventPlugin = {
 
 module.exports = SelectEventPlugin;
 
-},{"./EventConstants":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js","./EventPropagators":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPropagators.js","./ReactInputSelection":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInputSelection.js","./SyntheticEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticEvent.js","./getActiveElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getActiveElement.js","./isTextInputElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/isTextInputElement.js","./keyOf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyOf.js","./shallowEqual":"/Users/uzimith/dev/kokomade/node_modules/react/lib/shallowEqual.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ServerReactRootIndex.js":[function(require,module,exports){
+},{"./EventConstants":50,"./EventPropagators":55,"./ReactInputSelection":105,"./SyntheticEvent":143,"./getActiveElement":171,"./isTextInputElement":188,"./keyOf":192,"./shallowEqual":201}],138:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -32657,7 +33712,7 @@ var ServerReactRootIndex = {
 
 module.exports = ServerReactRootIndex;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/SimpleEventPlugin.js":[function(require,module,exports){
+},{}],139:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -33086,7 +34141,7 @@ module.exports = SimpleEventPlugin;
 
 }).call(this,require('_process'))
 
-},{"./EventConstants":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventConstants.js","./EventPluginUtils":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPluginUtils.js","./EventPropagators":"/Users/uzimith/dev/kokomade/node_modules/react/lib/EventPropagators.js","./SyntheticClipboardEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticClipboardEvent.js","./SyntheticDragEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticDragEvent.js","./SyntheticEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticEvent.js","./SyntheticFocusEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticFocusEvent.js","./SyntheticKeyboardEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticKeyboardEvent.js","./SyntheticMouseEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticMouseEvent.js","./SyntheticTouchEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticTouchEvent.js","./SyntheticUIEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticUIEvent.js","./SyntheticWheelEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticWheelEvent.js","./getEventCharCode":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getEventCharCode.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./keyOf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyOf.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticClipboardEvent.js":[function(require,module,exports){
+},{"./EventConstants":50,"./EventPluginUtils":54,"./EventPropagators":55,"./SyntheticClipboardEvent":140,"./SyntheticDragEvent":142,"./SyntheticEvent":143,"./SyntheticFocusEvent":144,"./SyntheticKeyboardEvent":146,"./SyntheticMouseEvent":147,"./SyntheticTouchEvent":148,"./SyntheticUIEvent":149,"./SyntheticWheelEvent":150,"./getEventCharCode":172,"./invariant":185,"./keyOf":192,"./warning":206,"_process":17}],140:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33131,7 +34186,7 @@ SyntheticEvent.augmentClass(SyntheticClipboardEvent, ClipboardEventInterface);
 
 module.exports = SyntheticClipboardEvent;
 
-},{"./SyntheticEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticEvent.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticCompositionEvent.js":[function(require,module,exports){
+},{"./SyntheticEvent":143}],141:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33176,7 +34231,7 @@ SyntheticEvent.augmentClass(
 
 module.exports = SyntheticCompositionEvent;
 
-},{"./SyntheticEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticEvent.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticDragEvent.js":[function(require,module,exports){
+},{"./SyntheticEvent":143}],142:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33215,7 +34270,7 @@ SyntheticMouseEvent.augmentClass(SyntheticDragEvent, DragEventInterface);
 
 module.exports = SyntheticDragEvent;
 
-},{"./SyntheticMouseEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticMouseEvent.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticEvent.js":[function(require,module,exports){
+},{"./SyntheticMouseEvent":147}],143:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33381,7 +34436,7 @@ PooledClass.addPoolingTo(SyntheticEvent, PooledClass.threeArgumentPooler);
 
 module.exports = SyntheticEvent;
 
-},{"./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./PooledClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/PooledClass.js","./emptyFunction":"/Users/uzimith/dev/kokomade/node_modules/react/lib/emptyFunction.js","./getEventTarget":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getEventTarget.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticFocusEvent.js":[function(require,module,exports){
+},{"./Object.assign":63,"./PooledClass":64,"./emptyFunction":164,"./getEventTarget":175}],144:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33420,7 +34475,7 @@ SyntheticUIEvent.augmentClass(SyntheticFocusEvent, FocusEventInterface);
 
 module.exports = SyntheticFocusEvent;
 
-},{"./SyntheticUIEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticUIEvent.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticInputEvent.js":[function(require,module,exports){
+},{"./SyntheticUIEvent":149}],145:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33466,7 +34521,7 @@ SyntheticEvent.augmentClass(
 
 module.exports = SyntheticInputEvent;
 
-},{"./SyntheticEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticEvent.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticKeyboardEvent.js":[function(require,module,exports){
+},{"./SyntheticEvent":143}],146:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33553,7 +34608,7 @@ SyntheticUIEvent.augmentClass(SyntheticKeyboardEvent, KeyboardEventInterface);
 
 module.exports = SyntheticKeyboardEvent;
 
-},{"./SyntheticUIEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticUIEvent.js","./getEventCharCode":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getEventCharCode.js","./getEventKey":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getEventKey.js","./getEventModifierState":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getEventModifierState.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticMouseEvent.js":[function(require,module,exports){
+},{"./SyntheticUIEvent":149,"./getEventCharCode":172,"./getEventKey":173,"./getEventModifierState":174}],147:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33634,7 +34689,7 @@ SyntheticUIEvent.augmentClass(SyntheticMouseEvent, MouseEventInterface);
 
 module.exports = SyntheticMouseEvent;
 
-},{"./SyntheticUIEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticUIEvent.js","./ViewportMetrics":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ViewportMetrics.js","./getEventModifierState":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getEventModifierState.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticTouchEvent.js":[function(require,module,exports){
+},{"./SyntheticUIEvent":149,"./ViewportMetrics":152,"./getEventModifierState":174}],148:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33682,7 +34737,7 @@ SyntheticUIEvent.augmentClass(SyntheticTouchEvent, TouchEventInterface);
 
 module.exports = SyntheticTouchEvent;
 
-},{"./SyntheticUIEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticUIEvent.js","./getEventModifierState":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getEventModifierState.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticUIEvent.js":[function(require,module,exports){
+},{"./SyntheticUIEvent":149,"./getEventModifierState":174}],149:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33744,7 +34799,7 @@ SyntheticEvent.augmentClass(SyntheticUIEvent, UIEventInterface);
 
 module.exports = SyntheticUIEvent;
 
-},{"./SyntheticEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticEvent.js","./getEventTarget":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getEventTarget.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticWheelEvent.js":[function(require,module,exports){
+},{"./SyntheticEvent":143,"./getEventTarget":175}],150:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33805,7 +34860,7 @@ SyntheticMouseEvent.augmentClass(SyntheticWheelEvent, WheelEventInterface);
 
 module.exports = SyntheticWheelEvent;
 
-},{"./SyntheticMouseEvent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/SyntheticMouseEvent.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/Transaction.js":[function(require,module,exports){
+},{"./SyntheticMouseEvent":147}],151:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -34047,7 +35102,7 @@ module.exports = Transaction;
 
 }).call(this,require('_process'))
 
-},{"./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/ViewportMetrics.js":[function(require,module,exports){
+},{"./invariant":185,"_process":17}],152:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34076,7 +35131,7 @@ var ViewportMetrics = {
 
 module.exports = ViewportMetrics;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/accumulateInto.js":[function(require,module,exports){
+},{}],153:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -34143,7 +35198,7 @@ module.exports = accumulateInto;
 
 }).call(this,require('_process'))
 
-},{"./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/adler32.js":[function(require,module,exports){
+},{"./invariant":185,"_process":17}],154:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34177,7 +35232,7 @@ function adler32(data) {
 
 module.exports = adler32;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/camelize.js":[function(require,module,exports){
+},{}],155:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34209,7 +35264,7 @@ function camelize(string) {
 
 module.exports = camelize;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/camelizeStyleName.js":[function(require,module,exports){
+},{}],156:[function(require,module,exports){
 /**
  * Copyright 2014-2015, Facebook, Inc.
  * All rights reserved.
@@ -34251,7 +35306,7 @@ function camelizeStyleName(string) {
 
 module.exports = camelizeStyleName;
 
-},{"./camelize":"/Users/uzimith/dev/kokomade/node_modules/react/lib/camelize.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/cloneWithProps.js":[function(require,module,exports){
+},{"./camelize":155}],157:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -34261,7 +35316,7 @@ module.exports = camelizeStyleName;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @typechecks
+ * @typechecks static-only
  * @providesModule cloneWithProps
  */
 
@@ -34311,7 +35366,7 @@ module.exports = cloneWithProps;
 
 }).call(this,require('_process'))
 
-},{"./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactPropTransferer":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactPropTransferer.js","./keyOf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyOf.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/containsNode.js":[function(require,module,exports){
+},{"./ReactElement":97,"./ReactPropTransferer":117,"./keyOf":192,"./warning":206,"_process":17}],158:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34355,7 +35410,7 @@ function containsNode(outerNode, innerNode) {
 
 module.exports = containsNode;
 
-},{"./isTextNode":"/Users/uzimith/dev/kokomade/node_modules/react/lib/isTextNode.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/createArrayFromMixed.js":[function(require,module,exports){
+},{"./isTextNode":189}],159:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34441,7 +35496,7 @@ function createArrayFromMixed(obj) {
 
 module.exports = createArrayFromMixed;
 
-},{"./toArray":"/Users/uzimith/dev/kokomade/node_modules/react/lib/toArray.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/createFullPageComponent.js":[function(require,module,exports){
+},{"./toArray":203}],160:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -34478,6 +35533,7 @@ function createFullPageComponent(tag) {
   var elementFactory = ReactElement.createFactory(tag);
 
   var FullPageComponent = ReactClass.createClass({
+    tagName: tag.toUpperCase(),
     displayName: 'ReactFullPageComponent' + tag,
 
     componentWillUnmount: function() {
@@ -34503,7 +35559,7 @@ module.exports = createFullPageComponent;
 
 }).call(this,require('_process'))
 
-},{"./ReactClass":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactClass.js","./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/createNodesFromMarkup.js":[function(require,module,exports){
+},{"./ReactClass":72,"./ReactElement":97,"./invariant":185,"_process":17}],161:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -34594,7 +35650,7 @@ module.exports = createNodesFromMarkup;
 
 }).call(this,require('_process'))
 
-},{"./ExecutionEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ExecutionEnvironment.js","./createArrayFromMixed":"/Users/uzimith/dev/kokomade/node_modules/react/lib/createArrayFromMixed.js","./getMarkupWrap":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getMarkupWrap.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/cx.js":[function(require,module,exports){
+},{"./ExecutionEnvironment":56,"./createArrayFromMixed":159,"./getMarkupWrap":177,"./invariant":185,"_process":17}],162:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -34651,7 +35707,7 @@ module.exports = cx;
 
 }).call(this,require('_process'))
 
-},{"./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/dangerousStyleValue.js":[function(require,module,exports){
+},{"./warning":206,"_process":17}],163:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34709,7 +35765,7 @@ function dangerousStyleValue(name, value) {
 
 module.exports = dangerousStyleValue;
 
-},{"./CSSProperty":"/Users/uzimith/dev/kokomade/node_modules/react/lib/CSSProperty.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/emptyFunction.js":[function(require,module,exports){
+},{"./CSSProperty":39}],164:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34743,7 +35799,7 @@ emptyFunction.thatReturnsArgument = function(arg) { return arg; };
 
 module.exports = emptyFunction;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/emptyObject.js":[function(require,module,exports){
+},{}],165:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -34768,7 +35824,7 @@ module.exports = emptyObject;
 
 }).call(this,require('_process'))
 
-},{"_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/escapeTextContentForBrowser.js":[function(require,module,exports){
+},{"_process":17}],166:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34808,7 +35864,7 @@ function escapeTextContentForBrowser(text) {
 
 module.exports = escapeTextContentForBrowser;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/findDOMNode.js":[function(require,module,exports){
+},{}],167:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -34882,7 +35938,7 @@ module.exports = findDOMNode;
 
 }).call(this,require('_process'))
 
-},{"./ReactCurrentOwner":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCurrentOwner.js","./ReactInstanceMap":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceMap.js","./ReactMount":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactMount.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./isNode":"/Users/uzimith/dev/kokomade/node_modules/react/lib/isNode.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/flattenChildren.js":[function(require,module,exports){
+},{"./ReactCurrentOwner":79,"./ReactInstanceMap":107,"./ReactMount":111,"./invariant":185,"./isNode":187,"./warning":206,"_process":17}],168:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -34941,7 +35997,7 @@ module.exports = flattenChildren;
 
 }).call(this,require('_process'))
 
-},{"./traverseAllChildren":"/Users/uzimith/dev/kokomade/node_modules/react/lib/traverseAllChildren.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/focusNode.js":[function(require,module,exports){
+},{"./traverseAllChildren":204,"./warning":206,"_process":17}],169:[function(require,module,exports){
 /**
  * Copyright 2014-2015, Facebook, Inc.
  * All rights reserved.
@@ -34970,7 +36026,7 @@ function focusNode(node) {
 
 module.exports = focusNode;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/forEachAccumulated.js":[function(require,module,exports){
+},{}],170:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35001,7 +36057,7 @@ var forEachAccumulated = function(arr, cb, scope) {
 
 module.exports = forEachAccumulated;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/getActiveElement.js":[function(require,module,exports){
+},{}],171:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35030,7 +36086,7 @@ function getActiveElement() /*?DOMElement*/ {
 
 module.exports = getActiveElement;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/getEventCharCode.js":[function(require,module,exports){
+},{}],172:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35082,7 +36138,7 @@ function getEventCharCode(nativeEvent) {
 
 module.exports = getEventCharCode;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/getEventKey.js":[function(require,module,exports){
+},{}],173:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35187,7 +36243,7 @@ function getEventKey(nativeEvent) {
 
 module.exports = getEventKey;
 
-},{"./getEventCharCode":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getEventCharCode.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/getEventModifierState.js":[function(require,module,exports){
+},{"./getEventCharCode":172}],174:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35234,7 +36290,7 @@ function getEventModifierState(nativeEvent) {
 
 module.exports = getEventModifierState;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/getEventTarget.js":[function(require,module,exports){
+},{}],175:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35265,7 +36321,7 @@ function getEventTarget(nativeEvent) {
 
 module.exports = getEventTarget;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/getIteratorFn.js":[function(require,module,exports){
+},{}],176:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35309,7 +36365,7 @@ function getIteratorFn(maybeIterable) {
 
 module.exports = getIteratorFn;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/getMarkupWrap.js":[function(require,module,exports){
+},{}],177:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -35342,6 +36398,7 @@ var shouldWrap = {
   // Force wrapping for SVG elements because if they get created inside a <div>,
   // they will be initialized in the wrong namespace (and will not display).
   'circle': true,
+  'clipPath': true,
   'defs': true,
   'ellipse': true,
   'g': true,
@@ -35384,6 +36441,7 @@ var markupWrap = {
   'th': trWrap,
 
   'circle': svgWrap,
+  'clipPath': svgWrap,
   'defs': svgWrap,
   'ellipse': svgWrap,
   'g': svgWrap,
@@ -35427,7 +36485,7 @@ module.exports = getMarkupWrap;
 
 }).call(this,require('_process'))
 
-},{"./ExecutionEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ExecutionEnvironment.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/getNodeForCharacterOffset.js":[function(require,module,exports){
+},{"./ExecutionEnvironment":56,"./invariant":185,"_process":17}],178:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35502,7 +36560,7 @@ function getNodeForCharacterOffset(root, offset) {
 
 module.exports = getNodeForCharacterOffset;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/getReactRootElementInContainer.js":[function(require,module,exports){
+},{}],179:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35537,7 +36595,7 @@ function getReactRootElementInContainer(container) {
 
 module.exports = getReactRootElementInContainer;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/getTextContentAccessor.js":[function(require,module,exports){
+},{}],180:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35574,7 +36632,7 @@ function getTextContentAccessor() {
 
 module.exports = getTextContentAccessor;
 
-},{"./ExecutionEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ExecutionEnvironment.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/getUnboundedScrollPosition.js":[function(require,module,exports){
+},{"./ExecutionEnvironment":56}],181:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35614,7 +36672,7 @@ function getUnboundedScrollPosition(scrollable) {
 
 module.exports = getUnboundedScrollPosition;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/hyphenate.js":[function(require,module,exports){
+},{}],182:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35647,7 +36705,7 @@ function hyphenate(string) {
 
 module.exports = hyphenate;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/hyphenateStyleName.js":[function(require,module,exports){
+},{}],183:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35688,7 +36746,7 @@ function hyphenateStyleName(string) {
 
 module.exports = hyphenateStyleName;
 
-},{"./hyphenate":"/Users/uzimith/dev/kokomade/node_modules/react/lib/hyphenate.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/instantiateReactComponent.js":[function(require,module,exports){
+},{"./hyphenate":182}],184:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -35732,6 +36790,7 @@ assign(
 function isInternalComponentType(type) {
   return (
     typeof type === 'function' &&
+    typeof type.prototype !== 'undefined' &&
     typeof type.prototype.mountComponent === 'function' &&
     typeof type.prototype.receiveComponent === 'function'
   );
@@ -35826,7 +36885,7 @@ module.exports = instantiateReactComponent;
 
 }).call(this,require('_process'))
 
-},{"./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./ReactCompositeComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactCompositeComponent.js","./ReactEmptyComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactEmptyComponent.js","./ReactNativeComponent":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactNativeComponent.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js":[function(require,module,exports){
+},{"./Object.assign":63,"./ReactCompositeComponent":77,"./ReactEmptyComponent":99,"./ReactNativeComponent":114,"./invariant":185,"./warning":206,"_process":17}],185:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -35884,7 +36943,7 @@ module.exports = invariant;
 
 }).call(this,require('_process'))
 
-},{"_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/isEventSupported.js":[function(require,module,exports){
+},{"_process":17}],186:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35949,7 +37008,7 @@ function isEventSupported(eventNameSuffix, capture) {
 
 module.exports = isEventSupported;
 
-},{"./ExecutionEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ExecutionEnvironment.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/isNode.js":[function(require,module,exports){
+},{"./ExecutionEnvironment":56}],187:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35976,7 +37035,7 @@ function isNode(object) {
 
 module.exports = isNode;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/isTextInputElement.js":[function(require,module,exports){
+},{}],188:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -36019,7 +37078,7 @@ function isTextInputElement(elem) {
 
 module.exports = isTextInputElement;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/isTextNode.js":[function(require,module,exports){
+},{}],189:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -36044,7 +37103,7 @@ function isTextNode(object) {
 
 module.exports = isTextNode;
 
-},{"./isNode":"/Users/uzimith/dev/kokomade/node_modules/react/lib/isNode.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/joinClasses.js":[function(require,module,exports){
+},{"./isNode":187}],190:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -36085,7 +37144,7 @@ function joinClasses(className/*, ... */) {
 
 module.exports = joinClasses;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyMirror.js":[function(require,module,exports){
+},{}],191:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -36141,7 +37200,7 @@ module.exports = keyMirror;
 
 }).call(this,require('_process'))
 
-},{"./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyOf.js":[function(require,module,exports){
+},{"./invariant":185,"_process":17}],192:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -36177,7 +37236,7 @@ var keyOf = function(oneKeyObj) {
 
 module.exports = keyOf;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/mapObject.js":[function(require,module,exports){
+},{}],193:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -36230,7 +37289,7 @@ function mapObject(object, callback, context) {
 
 module.exports = mapObject;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/memoizeStringOnly.js":[function(require,module,exports){
+},{}],194:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -36263,7 +37322,7 @@ function memoizeStringOnly(callback) {
 
 module.exports = memoizeStringOnly;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/onlyChild.js":[function(require,module,exports){
+},{}],195:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -36304,7 +37363,7 @@ module.exports = onlyChild;
 
 }).call(this,require('_process'))
 
-},{"./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/performance.js":[function(require,module,exports){
+},{"./ReactElement":97,"./invariant":185,"_process":17}],196:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -36332,7 +37391,7 @@ if (ExecutionEnvironment.canUseDOM) {
 
 module.exports = performance || {};
 
-},{"./ExecutionEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ExecutionEnvironment.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/performanceNow.js":[function(require,module,exports){
+},{"./ExecutionEnvironment":56}],197:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -36360,7 +37419,7 @@ var performanceNow = performance.now.bind(performance);
 
 module.exports = performanceNow;
 
-},{"./performance":"/Users/uzimith/dev/kokomade/node_modules/react/lib/performance.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/quoteAttributeValueForBrowser.js":[function(require,module,exports){
+},{"./performance":196}],198:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -36388,7 +37447,7 @@ function quoteAttributeValueForBrowser(value) {
 
 module.exports = quoteAttributeValueForBrowser;
 
-},{"./escapeTextContentForBrowser":"/Users/uzimith/dev/kokomade/node_modules/react/lib/escapeTextContentForBrowser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/setInnerHTML.js":[function(require,module,exports){
+},{"./escapeTextContentForBrowser":166}],199:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -36477,7 +37536,7 @@ if (ExecutionEnvironment.canUseDOM) {
 
 module.exports = setInnerHTML;
 
-},{"./ExecutionEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ExecutionEnvironment.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/setTextContent.js":[function(require,module,exports){
+},{"./ExecutionEnvironment":56}],200:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -36519,7 +37578,7 @@ if (ExecutionEnvironment.canUseDOM) {
 
 module.exports = setTextContent;
 
-},{"./ExecutionEnvironment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ExecutionEnvironment.js","./escapeTextContentForBrowser":"/Users/uzimith/dev/kokomade/node_modules/react/lib/escapeTextContentForBrowser.js","./setInnerHTML":"/Users/uzimith/dev/kokomade/node_modules/react/lib/setInnerHTML.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/shallowEqual.js":[function(require,module,exports){
+},{"./ExecutionEnvironment":56,"./escapeTextContentForBrowser":166,"./setInnerHTML":199}],201:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -36563,7 +37622,7 @@ function shallowEqual(objA, objB) {
 
 module.exports = shallowEqual;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/shouldUpdateReactComponent.js":[function(require,module,exports){
+},{}],202:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -36668,7 +37727,7 @@ module.exports = shouldUpdateReactComponent;
 
 }).call(this,require('_process'))
 
-},{"./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/toArray.js":[function(require,module,exports){
+},{"./warning":206,"_process":17}],203:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -36741,7 +37800,7 @@ module.exports = toArray;
 
 }).call(this,require('_process'))
 
-},{"./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/traverseAllChildren.js":[function(require,module,exports){
+},{"./invariant":185,"_process":17}],204:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -36995,7 +38054,7 @@ module.exports = traverseAllChildren;
 
 }).call(this,require('_process'))
 
-},{"./ReactElement":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactElement.js","./ReactFragment":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactFragment.js","./ReactInstanceHandles":"/Users/uzimith/dev/kokomade/node_modules/react/lib/ReactInstanceHandles.js","./getIteratorFn":"/Users/uzimith/dev/kokomade/node_modules/react/lib/getIteratorFn.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./warning":"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/update.js":[function(require,module,exports){
+},{"./ReactElement":97,"./ReactFragment":103,"./ReactInstanceHandles":106,"./getIteratorFn":176,"./invariant":185,"./warning":206,"_process":17}],205:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -37008,11 +38067,14 @@ module.exports = traverseAllChildren;
  * @providesModule update
  */
 
+ /* global hasOwnProperty:true */
+
 'use strict';
 
 var assign = require("./Object.assign");
 var keyOf = require("./keyOf");
 var invariant = require("./invariant");
+var hasOwnProperty = {}.hasOwnProperty;
 
 function shallowCopy(x) {
   if (Array.isArray(x)) {
@@ -37072,7 +38134,7 @@ function update(value, spec) {
     COMMAND_SET
   ) : invariant(typeof spec === 'object'));
 
-  if (spec.hasOwnProperty(COMMAND_SET)) {
+  if (hasOwnProperty.call(spec, COMMAND_SET)) {
     ("production" !== process.env.NODE_ENV ? invariant(
       Object.keys(spec).length === 1,
       'Cannot have more than one key in an object with %s',
@@ -37084,7 +38146,7 @@ function update(value, spec) {
 
   var nextValue = shallowCopy(value);
 
-  if (spec.hasOwnProperty(COMMAND_MERGE)) {
+  if (hasOwnProperty.call(spec, COMMAND_MERGE)) {
     var mergeObj = spec[COMMAND_MERGE];
     ("production" !== process.env.NODE_ENV ? invariant(
       mergeObj && typeof mergeObj === 'object',
@@ -37101,21 +38163,21 @@ function update(value, spec) {
     assign(nextValue, spec[COMMAND_MERGE]);
   }
 
-  if (spec.hasOwnProperty(COMMAND_PUSH)) {
+  if (hasOwnProperty.call(spec, COMMAND_PUSH)) {
     invariantArrayCase(value, spec, COMMAND_PUSH);
     spec[COMMAND_PUSH].forEach(function(item) {
       nextValue.push(item);
     });
   }
 
-  if (spec.hasOwnProperty(COMMAND_UNSHIFT)) {
+  if (hasOwnProperty.call(spec, COMMAND_UNSHIFT)) {
     invariantArrayCase(value, spec, COMMAND_UNSHIFT);
     spec[COMMAND_UNSHIFT].forEach(function(item) {
       nextValue.unshift(item);
     });
   }
 
-  if (spec.hasOwnProperty(COMMAND_SPLICE)) {
+  if (hasOwnProperty.call(spec, COMMAND_SPLICE)) {
     ("production" !== process.env.NODE_ENV ? invariant(
       Array.isArray(value),
       'Expected %s target to be an array; got %s',
@@ -37141,7 +38203,7 @@ function update(value, spec) {
     });
   }
 
-  if (spec.hasOwnProperty(COMMAND_APPLY)) {
+  if (hasOwnProperty.call(spec, COMMAND_APPLY)) {
     ("production" !== process.env.NODE_ENV ? invariant(
       typeof spec[COMMAND_APPLY] === 'function',
       'update(): expected spec of %s to be a function; got %s.',
@@ -37164,7 +38226,7 @@ module.exports = update;
 
 }).call(this,require('_process'))
 
-},{"./Object.assign":"/Users/uzimith/dev/kokomade/node_modules/react/lib/Object.assign.js","./invariant":"/Users/uzimith/dev/kokomade/node_modules/react/lib/invariant.js","./keyOf":"/Users/uzimith/dev/kokomade/node_modules/react/lib/keyOf.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/lib/warning.js":[function(require,module,exports){
+},{"./Object.assign":63,"./invariant":185,"./keyOf":192,"_process":17}],206:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -37228,14 +38290,14 @@ module.exports = warning;
 
 }).call(this,require('_process'))
 
-},{"./emptyFunction":"/Users/uzimith/dev/kokomade/node_modules/react/lib/emptyFunction.js","_process":"/Users/uzimith/dev/kokomade/node_modules/browserify/node_modules/process/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/react/react.js":[function(require,module,exports){
+},{"./emptyFunction":164,"_process":17}],207:[function(require,module,exports){
 module.exports = require('./lib/React');
 
-},{"./lib/React":"/Users/uzimith/dev/kokomade/node_modules/react/lib/React.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/index.js":[function(require,module,exports){
+},{"./lib/React":65}],208:[function(require,module,exports){
 
 module.exports = require('./lib/');
 
-},{"./lib/":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/lib/index.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/lib/index.js":[function(require,module,exports){
+},{"./lib/":209}],209:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -37324,7 +38386,7 @@ exports.connect = lookup;
 exports.Manager = require('./manager');
 exports.Socket = require('./socket');
 
-},{"./manager":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/lib/manager.js","./socket":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/lib/socket.js","./url":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/lib/url.js","debug":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/debug/debug.js","socket.io-parser":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/socket.io-parser/index.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/lib/manager.js":[function(require,module,exports){
+},{"./manager":210,"./socket":212,"./url":213,"debug":217,"socket.io-parser":253}],210:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -37829,7 +38891,7 @@ Manager.prototype.onreconnect = function(){
   this.emitAll('reconnect', attempt);
 };
 
-},{"./on":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/lib/on.js","./socket":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/lib/socket.js","./url":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/lib/url.js","backo2":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/backo2/index.js","component-bind":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/component-bind/index.js","component-emitter":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/component-emitter/index.js","debug":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/debug/debug.js","engine.io-client":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/index.js","indexof":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/indexof/index.js","object-component":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/object-component/index.js","socket.io-parser":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/socket.io-parser/index.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/lib/on.js":[function(require,module,exports){
+},{"./on":211,"./socket":212,"./url":213,"backo2":214,"component-bind":215,"component-emitter":216,"debug":217,"engine.io-client":218,"indexof":249,"object-component":250,"socket.io-parser":253}],211:[function(require,module,exports){
 
 /**
  * Module exports.
@@ -37855,7 +38917,7 @@ function on(obj, ev, fn) {
   };
 }
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/lib/socket.js":[function(require,module,exports){
+},{}],212:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -38242,7 +39304,7 @@ Socket.prototype.disconnect = function(){
   return this;
 };
 
-},{"./on":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/lib/on.js","component-bind":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/component-bind/index.js","component-emitter":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/component-emitter/index.js","debug":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/debug/debug.js","has-binary":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/has-binary/index.js","socket.io-parser":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/socket.io-parser/index.js","to-array":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/to-array/index.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/lib/url.js":[function(require,module,exports){
+},{"./on":211,"component-bind":215,"component-emitter":216,"debug":217,"has-binary":247,"socket.io-parser":253,"to-array":257}],213:[function(require,module,exports){
 (function (global){
 
 /**
@@ -38320,7 +39382,7 @@ function url(uri, loc){
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"debug":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/debug/debug.js","parseuri":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/parseuri/index.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/backo2/index.js":[function(require,module,exports){
+},{"debug":217,"parseuri":251}],214:[function(require,module,exports){
 
 /**
  * Expose `Backoff`.
@@ -38407,7 +39469,7 @@ Backoff.prototype.setJitter = function(jitter){
 };
 
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/component-bind/index.js":[function(require,module,exports){
+},{}],215:[function(require,module,exports){
 /**
  * Slice reference.
  */
@@ -38432,7 +39494,7 @@ module.exports = function(obj, fn){
   }
 };
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/component-emitter/index.js":[function(require,module,exports){
+},{}],216:[function(require,module,exports){
 
 /**
  * Expose `Emitter`.
@@ -38598,7 +39660,7 @@ Emitter.prototype.hasListeners = function(event){
   return !! this.listeners(event).length;
 };
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/debug/debug.js":[function(require,module,exports){
+},{}],217:[function(require,module,exports){
 
 /**
  * Expose `debug()` as the module.
@@ -38737,11 +39799,11 @@ try {
   if (window.localStorage) debug.enable(localStorage.debug);
 } catch(e){}
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/index.js":[function(require,module,exports){
+},{}],218:[function(require,module,exports){
 
 module.exports =  require('./lib/');
 
-},{"./lib/":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/index.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/index.js":[function(require,module,exports){
+},{"./lib/":219}],219:[function(require,module,exports){
 
 module.exports = require('./socket');
 
@@ -38753,7 +39815,7 @@ module.exports = require('./socket');
  */
 module.exports.parser = require('engine.io-parser');
 
-},{"./socket":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/socket.js","engine.io-parser":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/lib/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/socket.js":[function(require,module,exports){
+},{"./socket":220,"engine.io-parser":232}],220:[function(require,module,exports){
 (function (global){
 /**
  * Module dependencies.
@@ -39463,7 +40525,7 @@ Socket.prototype.filterUpgrades = function (upgrades) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./transport":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/transport.js","./transports":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/transports/index.js","component-emitter":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/component-emitter/index.js","debug":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/debug/browser.js","engine.io-parser":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/lib/browser.js","indexof":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/indexof/index.js","parsejson":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/parsejson/index.js","parseqs":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/parseqs/index.js","parseuri":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/parseuri/index.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/transport.js":[function(require,module,exports){
+},{"./transport":221,"./transports":222,"component-emitter":216,"debug":229,"engine.io-parser":232,"indexof":249,"parsejson":243,"parseqs":244,"parseuri":245}],221:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -39624,7 +40686,7 @@ Transport.prototype.onClose = function () {
   this.emit('close');
 };
 
-},{"component-emitter":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/component-emitter/index.js","engine.io-parser":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/lib/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/transports/index.js":[function(require,module,exports){
+},{"component-emitter":216,"engine.io-parser":232}],222:[function(require,module,exports){
 (function (global){
 /**
  * Module dependencies
@@ -39682,7 +40744,7 @@ function polling(opts){
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./polling-jsonp":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/transports/polling-jsonp.js","./polling-xhr":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/transports/polling-xhr.js","./websocket":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/transports/websocket.js","xmlhttprequest":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/xmlhttprequest.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/transports/polling-jsonp.js":[function(require,module,exports){
+},{"./polling-jsonp":223,"./polling-xhr":224,"./websocket":226,"xmlhttprequest":227}],223:[function(require,module,exports){
 (function (global){
 
 /**
@@ -39920,7 +40982,7 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./polling":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/transports/polling.js","component-inherit":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/component-inherit/index.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/transports/polling-xhr.js":[function(require,module,exports){
+},{"./polling":225,"component-inherit":228}],224:[function(require,module,exports){
 (function (global){
 /**
  * Module requirements.
@@ -40309,7 +41371,7 @@ function unloadHandler() {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./polling":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/transports/polling.js","component-emitter":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/component-emitter/index.js","component-inherit":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/component-inherit/index.js","debug":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/debug/browser.js","xmlhttprequest":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/xmlhttprequest.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/transports/polling.js":[function(require,module,exports){
+},{"./polling":225,"component-emitter":216,"component-inherit":228,"debug":229,"xmlhttprequest":227}],225:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -40556,7 +41618,7 @@ Polling.prototype.uri = function(){
   return schema + '://' + this.hostname + port + this.path + query;
 };
 
-},{"../transport":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/transport.js","component-inherit":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/component-inherit/index.js","debug":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/debug/browser.js","engine.io-parser":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/lib/browser.js","parseqs":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/parseqs/index.js","xmlhttprequest":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/xmlhttprequest.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/transports/websocket.js":[function(require,module,exports){
+},{"../transport":221,"component-inherit":228,"debug":229,"engine.io-parser":232,"parseqs":244,"xmlhttprequest":227}],226:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -40796,7 +41858,7 @@ WS.prototype.check = function(){
   return !!WebSocket && !('__initialize' in WebSocket && this.name === WS.prototype.name);
 };
 
-},{"../transport":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/transport.js","component-inherit":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/component-inherit/index.js","debug":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/debug/browser.js","engine.io-parser":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/lib/browser.js","parseqs":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/parseqs/index.js","ws":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/ws/lib/browser.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/lib/xmlhttprequest.js":[function(require,module,exports){
+},{"../transport":221,"component-inherit":228,"debug":229,"engine.io-parser":232,"parseqs":244,"ws":246}],227:[function(require,module,exports){
 // browser shim for xmlhttprequest module
 var hasCORS = require('has-cors');
 
@@ -40834,7 +41896,7 @@ module.exports = function(opts) {
   }
 }
 
-},{"has-cors":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/has-cors/index.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/component-inherit/index.js":[function(require,module,exports){
+},{"has-cors":241}],228:[function(require,module,exports){
 
 module.exports = function(a, b){
   var fn = function(){};
@@ -40842,7 +41904,7 @@ module.exports = function(a, b){
   a.prototype = new fn;
   a.prototype.constructor = a;
 };
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/debug/browser.js":[function(require,module,exports){
+},{}],229:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -40991,7 +42053,7 @@ function load() {
 
 exports.enable(load());
 
-},{"./debug":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/debug/debug.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/debug/debug.js":[function(require,module,exports){
+},{"./debug":230}],230:[function(require,module,exports){
 
 /**
  * This is the common logic for both the Node.js and web browser
@@ -41190,7 +42252,7 @@ function coerce(val) {
   return val;
 }
 
-},{"ms":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/debug/node_modules/ms/index.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/debug/node_modules/ms/index.js":[function(require,module,exports){
+},{"ms":231}],231:[function(require,module,exports){
 /**
  * Helpers.
  */
@@ -41303,7 +42365,7 @@ function plural(ms, n, name) {
   return Math.ceil(ms / n) + ' ' + name + 's';
 }
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/lib/browser.js":[function(require,module,exports){
+},{}],232:[function(require,module,exports){
 (function (global){
 /**
  * Module dependencies.
@@ -41902,7 +42964,7 @@ exports.decodePayloadAsBinary = function (data, binaryType, callback) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./keys":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/lib/keys.js","after":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/node_modules/after/index.js","arraybuffer.slice":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/node_modules/arraybuffer.slice/index.js","base64-arraybuffer":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/node_modules/base64-arraybuffer/lib/base64-arraybuffer.js","blob":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/node_modules/blob/index.js","has-binary":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/node_modules/has-binary/index.js","utf8":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/node_modules/utf8/utf8.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/lib/keys.js":[function(require,module,exports){
+},{"./keys":233,"after":234,"arraybuffer.slice":235,"base64-arraybuffer":236,"blob":237,"has-binary":238,"utf8":240}],233:[function(require,module,exports){
 
 /**
  * Gets the keys for an object.
@@ -41923,7 +42985,7 @@ module.exports = Object.keys || function keys (obj){
   return arr;
 };
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/node_modules/after/index.js":[function(require,module,exports){
+},{}],234:[function(require,module,exports){
 module.exports = after
 
 function after(count, callback, err_cb) {
@@ -41953,7 +43015,7 @@ function after(count, callback, err_cb) {
 
 function noop() {}
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/node_modules/arraybuffer.slice/index.js":[function(require,module,exports){
+},{}],235:[function(require,module,exports){
 /**
  * An abstraction for slicing an arraybuffer even when
  * ArrayBuffer.prototype.slice is not supported
@@ -41984,7 +43046,7 @@ module.exports = function(arraybuffer, start, end) {
   return result.buffer;
 };
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/node_modules/base64-arraybuffer/lib/base64-arraybuffer.js":[function(require,module,exports){
+},{}],236:[function(require,module,exports){
 /*
  * base64-arraybuffer
  * https://github.com/niklasvh/base64-arraybuffer
@@ -42045,7 +43107,7 @@ module.exports = function(arraybuffer, start, end) {
   };
 })("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/");
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/node_modules/blob/index.js":[function(require,module,exports){
+},{}],237:[function(require,module,exports){
 (function (global){
 /**
  * Create a blob builder even when vendor prefixes exist
@@ -42099,7 +43161,7 @@ module.exports = (function() {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/node_modules/has-binary/index.js":[function(require,module,exports){
+},{}],238:[function(require,module,exports){
 (function (global){
 
 /*
@@ -42162,12 +43224,12 @@ function hasBinary(data) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"isarray":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/node_modules/has-binary/node_modules/isarray/index.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/node_modules/has-binary/node_modules/isarray/index.js":[function(require,module,exports){
+},{"isarray":239}],239:[function(require,module,exports){
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/node_modules/utf8/utf8.js":[function(require,module,exports){
+},{}],240:[function(require,module,exports){
 (function (global){
 /*! http://mths.be/utf8js v2.0.0 by @mathias */
 ;(function(root) {
@@ -42411,7 +43473,7 @@ module.exports = Array.isArray || function (arr) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/has-cors/index.js":[function(require,module,exports){
+},{}],241:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -42436,7 +43498,7 @@ try {
   module.exports = false;
 }
 
-},{"global":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/has-cors/node_modules/global/index.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/has-cors/node_modules/global/index.js":[function(require,module,exports){
+},{"global":242}],242:[function(require,module,exports){
 
 /**
  * Returns `this`. Execute this without a "context" (i.e. without it being
@@ -42446,7 +43508,7 @@ try {
 
 module.exports = (function () { return this; })();
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/parsejson/index.js":[function(require,module,exports){
+},{}],243:[function(require,module,exports){
 (function (global){
 /**
  * JSON parse.
@@ -42482,7 +43544,7 @@ module.exports = function parsejson(data) {
 };
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/parseqs/index.js":[function(require,module,exports){
+},{}],244:[function(require,module,exports){
 /**
  * Compiles a querystring
  * Returns string representation of the object
@@ -42521,7 +43583,7 @@ exports.decode = function(qs){
   return qry;
 };
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/parseuri/index.js":[function(require,module,exports){
+},{}],245:[function(require,module,exports){
 /**
  * Parses an URI
  *
@@ -42562,7 +43624,7 @@ module.exports = function parseuri(str) {
     return uri;
 };
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/ws/lib/browser.js":[function(require,module,exports){
+},{}],246:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -42607,7 +43669,7 @@ function ws(uri, protocols, opts) {
 
 if (WebSocket) ws.prototype = WebSocket.prototype;
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/has-binary/index.js":[function(require,module,exports){
+},{}],247:[function(require,module,exports){
 (function (global){
 
 /*
@@ -42670,9 +43732,9 @@ function hasBinary(data) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"isarray":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/has-binary/node_modules/isarray/index.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/has-binary/node_modules/isarray/index.js":[function(require,module,exports){
-arguments[4]["/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/engine.io-parser/node_modules/has-binary/node_modules/isarray/index.js"][0].apply(exports,arguments)
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/indexof/index.js":[function(require,module,exports){
+},{"isarray":248}],248:[function(require,module,exports){
+arguments[4][239][0].apply(exports,arguments)
+},{"dup":239}],249:[function(require,module,exports){
 
 var indexOf = [].indexOf;
 
@@ -42683,7 +43745,7 @@ module.exports = function(arr, obj){
   }
   return -1;
 };
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/object-component/index.js":[function(require,module,exports){
+},{}],250:[function(require,module,exports){
 
 /**
  * HOP ref.
@@ -42768,7 +43830,7 @@ exports.length = function(obj){
 exports.isEmpty = function(obj){
   return 0 == exports.length(obj);
 };
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/parseuri/index.js":[function(require,module,exports){
+},{}],251:[function(require,module,exports){
 /**
  * Parses an URI
  *
@@ -42795,7 +43857,7 @@ module.exports = function parseuri(str) {
   return uri;
 };
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/socket.io-parser/binary.js":[function(require,module,exports){
+},{}],252:[function(require,module,exports){
 (function (global){
 /*global Blob,File*/
 
@@ -42941,7 +44003,7 @@ exports.removeBlobs = function(data, callback) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./is-buffer":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/socket.io-parser/is-buffer.js","isarray":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/socket.io-parser/node_modules/isarray/index.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/socket.io-parser/index.js":[function(require,module,exports){
+},{"./is-buffer":254,"isarray":255}],253:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -43228,7 +44290,7 @@ function decodeString(str) {
     var buf = '';
     while (str.charAt(++i) != '-') {
       buf += str.charAt(i);
-      if (i + 1 == str.length) break;
+      if (i == str.length) break;
     }
     if (buf != Number(buf) || str.charAt(i) != '-') {
       throw new Error('Illegal attachments');
@@ -43243,7 +44305,7 @@ function decodeString(str) {
       var c = str.charAt(i);
       if (',' == c) break;
       p.nsp += c;
-      if (i + 1 == str.length) break;
+      if (i == str.length) break;
     }
   } else {
     p.nsp = '/';
@@ -43260,7 +44322,7 @@ function decodeString(str) {
         break;
       }
       p.id += str.charAt(i);
-      if (i + 1 == str.length) break;
+      if (i == str.length) break;
     }
     p.id = Number(p.id);
   }
@@ -43343,7 +44405,7 @@ function error(data){
   };
 }
 
-},{"./binary":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/socket.io-parser/binary.js","./is-buffer":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/socket.io-parser/is-buffer.js","component-emitter":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/component-emitter/index.js","debug":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/debug/debug.js","isarray":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/socket.io-parser/node_modules/isarray/index.js","json3":"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/socket.io-parser/node_modules/json3/lib/json3.js"}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/socket.io-parser/is-buffer.js":[function(require,module,exports){
+},{"./binary":252,"./is-buffer":254,"component-emitter":216,"debug":217,"isarray":255,"json3":256}],254:[function(require,module,exports){
 (function (global){
 
 module.exports = isBuf;
@@ -43361,9 +44423,9 @@ function isBuf(obj) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/socket.io-parser/node_modules/isarray/index.js":[function(require,module,exports){
-arguments[4]["/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/has-binary/node_modules/isarray/index.js"][0].apply(exports,arguments)
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/socket.io-parser/node_modules/json3/lib/json3.js":[function(require,module,exports){
+},{}],255:[function(require,module,exports){
+arguments[4][239][0].apply(exports,arguments)
+},{"dup":239}],256:[function(require,module,exports){
 /*! JSON v3.2.6 | http://bestiejs.github.io/json3 | Copyright 2012-2013, Kit Cambridge | http://kit.mit-license.org */
 ;(function (window) {
   // Convenience aliases.
@@ -44226,7 +45288,7 @@ arguments[4]["/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_mod
   }
 }(this));
 
-},{}],"/Users/uzimith/dev/kokomade/node_modules/socket.io-client/node_modules/to-array/index.js":[function(require,module,exports){
+},{}],257:[function(require,module,exports){
 module.exports = toArray
 
 function toArray(list, index) {
@@ -44241,7 +45303,7 @@ function toArray(list, index) {
     return array
 }
 
-},{}],"/Users/uzimith/dev/kokomade/socket.coffee":[function(require,module,exports){
+},{}],258:[function(require,module,exports){
 module.exports = function(flux) {
   socket.on('connect', function() {
     return console.log("connect");
@@ -44255,8 +45317,7 @@ module.exports = function(flux) {
 };
 
 
-
-},{}],"/Users/uzimith/dev/kokomade/stores/BoardStore.coffee":[function(require,module,exports){
+},{}],259:[function(require,module,exports){
 var BoardStore, React, Store, _,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -44837,8 +45898,7 @@ module.exports = BoardStore = (function(superClass) {
 })(Store);
 
 
-
-},{"flummox":"/Users/uzimith/dev/kokomade/node_modules/flummox/lib/Flux.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}],"/Users/uzimith/dev/kokomade/stores/PanelStore.coffee":[function(require,module,exports){
+},{"flummox":20,"lodash":30,"react":207}],260:[function(require,module,exports){
 var PanelActions, React, Store, _,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -44865,8 +45925,8 @@ module.exports = PanelActions = (function(superClass) {
     this.register(panelActions.showHistory, this.showHistory);
     this.register(panelActions.hideHistory, this.hideHistory);
     this.state = {
-      showBoard: true,
-      showRoom: false,
+      showBoard: false,
+      showRoom: true,
       showResult: false,
       showHistory: false
     };
@@ -44935,8 +45995,7 @@ module.exports = PanelActions = (function(superClass) {
 })(Store);
 
 
-
-},{"flummox":"/Users/uzimith/dev/kokomade/node_modules/flummox/lib/Flux.js","lodash":"/Users/uzimith/dev/kokomade/node_modules/lodash/index.js","react":"/Users/uzimith/dev/kokomade/node_modules/react/react.js"}]},{},["./app.coffee"])
+},{"flummox":20,"lodash":30,"react":207}]},{},[3])
 
 
 //# sourceMappingURL=bundle.js.map

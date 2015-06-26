@@ -16,8 +16,8 @@ class PanelActions extends Store
     @register(panelActions.showHistory, @showHistory)
     @register(panelActions.hideHistory, @hideHistory)
     @state =
-      showBoard: true
-      showRoom: false
+      showBoard: false
+      showRoom: true
       showResult: false
       showHistory: false
 
